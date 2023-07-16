@@ -1,10 +1,19 @@
 import {Button, Text, TextInput, View,NativeSyntheticEvent,TextInputChangeEventData} from 'react-native';
-import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+import HomeScreen from './HomeScreen';
+import SettingsScreen from './SettingsScreen';
+
+//const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  let valor = ''
+
+ /*  let valor = ''
   const [value,setValue] = useState<string>('')
 
   const handleOnChangeInput = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
@@ -12,7 +21,9 @@ const App = () => {
     valor = event.nativeEvent.text
     console.log(valor)
   }
-  const onPress = () =>{
+
+  
+  const onPressAdd = () =>{
     const usersCollection = firestore()
     .collection('Users')
     .doc(value)
@@ -20,16 +31,22 @@ const App = () => {
     });
     console.log('entrou na função');
     console.log(value);
-  }
+  } */
   
   
   return (
-    <View>
-      <Text>Olá!320</Text>
-      <TextInput onChange={handleOnChangeInput}></TextInput>
-      <Button onPress={onPress} title='ADD'/>
-    </View>
     
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    
+        
+    //<Text>Olá!32</Text>
+    //<TextInput onChange={handleOnChangeInput}></TextInput>
+    //<Button onPress={onPressAdd} title='ADD'/>
   );
 };
 
