@@ -2,6 +2,8 @@ import { Text, View, Button, TextInput, NativeSyntheticEvent,TextInputChangeEven
 import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
 
+import AddAluno from './AddAluno';
+
 function HomeScreen({navigation}: {navigation: any}) {
     
     let valor = ''
@@ -27,10 +29,10 @@ function HomeScreen({navigation}: {navigation: any}) {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Home Screen</Text>
         <Button
-          title="Go to Settings"
-          onPress={() => navigation.navigate('Settings')}
+          title="Add Alunos"
+          onPress={() => navigation.navigate('AddAluno')}
         />
-        <Text>Olá!32</Text>
+        <Text>Olá!320</Text>
         <TextInput onChange={handleOnChangeInput}></TextInput>
         <Button onPress={onPressAdd} title='ADD'/>
       </View>

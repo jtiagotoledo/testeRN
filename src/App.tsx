@@ -1,52 +1,53 @@
-import {Button, Text, TextInput, View,NativeSyntheticEvent,TextInputChangeEventData} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Icon} from './Icon'
 
 import HomeScreen from './HomeScreen';
 import SettingsScreen from './SettingsScreen';
+import AddAluno from './AddAluno';
+import Frequencia from './Frequencia';
 
-//const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const App = () => {
 
- /*  let valor = ''
-  const [value,setValue] = useState<string>('')
-
-  const handleOnChangeInput = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-    setValue(event.nativeEvent.text)
-    valor = event.nativeEvent.text
-    console.log(valor)
-  }
-
-  
-  const onPressAdd = () =>{
-    const usersCollection = firestore()
-    .collection('Users')
-    .doc(value)
-    .set({
-    });
-    console.log('entrou na função');
-    console.log(value);
-  } */
-  
-  
   return (
     
     <NavigationContainer>
-      <Stack.Navigator>
+      {/* <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-      </Stack.Navigator>
+        <Stack.Screen name="AddAluno" component={AddAluno} />
+      </Stack.Navigator> */}
+      <Tab.Navigator 
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Classes') {
+            iconName = 'book'
+          } else if (route.name === 'Alunos') {
+            iconName = 'user-plus'
+          }else if (route.name === 'Frequencia') {
+            iconName = 'list2'
+          }
+
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+        <Tab.Screen name="Classes" component={HomeScreen} />
+        <Tab.Screen name="Alunos" component={AddAluno} />
+        <Tab.Screen name="Frequencia" component={Frequencia} />
+      </Tab.Navigator>
     </NavigationContainer>
     
-        
-    //<Text>Olá!32</Text>
-    //<TextInput onChange={handleOnChangeInput}></TextInput>
-    //<Button onPress={onPressAdd} title='ADD'/>
   );
 };
 
