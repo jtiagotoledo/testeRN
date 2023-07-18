@@ -3,7 +3,6 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
 import { Chip, withTheme, lightColors } from '@rneui/themed';
 
-
 function Classes({navigation}: {navigation: any}) {
     
   const [value,setValue] = useState<string>('')
@@ -46,24 +45,43 @@ function Classes({navigation}: {navigation: any}) {
           //console.log('User ID: ', documentSnapshot.id);
           listaClasses.push(documentSnapshot.id);
           chips = listaClasses.map((classe) =>
-                <Chip title={classe}/>  );
-                console.log('chips: ',chips);
-                return chips;
+                <Chip key={classe} title={classe}/>  );
                 
               });
+              console.log('chips: ',chips);
+              return (<View>{chips}</View>);
             });
       //console.log('lista de classes',listaClasses);
   }
+
+  function listarClasses (){
+
+    firestore().collection('Users').get().then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+          //console.log('User ID: ', documentSnapshot.id);
+          listaClasses.push(documentSnapshot.id);
+          chips = listaClasses.map((classe) =>
+                <Chip key={classe} title={classe}/>  );
+                
+              });
+              console.log('chips: ',chips);
+              return <View>{chips}</View>;
+            });
+      //console.log('lista de classes',listaClasses);
+  }
+
+  
+
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Classes</Text>
       <Chip title='7A'/>
-      <View>{chips}</View>
       <TextInput onChange={handleOnChangeInput}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
       <Button onPress={onPressAdd} title='Add Classe'/>
       <Button onPress={onPressListarClasses} title='Listar Classes'/>
+      
     </View>
   );
 }
