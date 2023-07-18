@@ -1,13 +1,14 @@
 import { Text, View, Button, TextInput, NativeSyntheticEvent,TextInputChangeEventData } from "react-native"
 import firestore from '@react-native-firebase/firestore';
-import React, { useState } from 'react';
-import { Chip, withTheme, lightColors } from '@rneui/themed';
+import React, { useEffect, useState } from 'react';
+import { Chip } from '@rneui/themed';
+
+import CustomChips from "./CustomChips";
 
 function Classes({navigation}: {navigation: any}) {
     
   const [value,setValue] = useState<string>('')
-  const  listaClasses:string[] = []
-  let chips:any;
+  const  listaClasses:any=[];
 
   const handleOnChangeInput = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValue(event.nativeEvent.text)
@@ -38,49 +39,43 @@ function Classes({navigation}: {navigation: any}) {
     }
   };
 
-  const onPressListarClasses = () =>{
+ 
+
+  useEffect(()=>{
 
     firestore().collection('Users').get().then(querySnapshot => {
       querySnapshot.forEach(documentSnapshot => {
-          //console.log('User ID: ', documentSnapshot.id);
           listaClasses.push(documentSnapshot.id);
-          chips = listaClasses.map((classe) =>
-                <Chip key={classe} title={classe}/>  );
+          /* chips = listaClasses.map((classe) =>
+            (classe)); */
                 
               });
-              console.log('chips: ',chips);
-              return (<View>{chips}</View>);
+              console.log('listaClasse:',listaClasses);
+              CustomChips(listaClasses)
+              
             });
-      //console.log('lista de classes',listaClasses);
-  }
+            
+            //return <View>{chips}</View>;
+  },[listaClasses])
 
-  function listarClasses (){
-
-    firestore().collection('Users').get().then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
-          //console.log('User ID: ', documentSnapshot.id);
-          listaClasses.push(documentSnapshot.id);
-          chips = listaClasses.map((classe) =>
-                <Chip key={classe} title={classe}/>  );
-                
-              });
-              console.log('chips: ',chips);
-              return <View>{chips}</View>;
-            });
-      //console.log('lista de classes',listaClasses);
-  }
-
-  
-
+ /*  function createChip(classe:any) {
+    let chip = (
+      <Chip title={classe}></Chip>
+      );
+      console.log('chip',chip);
+    CustomChips(chip);
+    
+} */
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Classes</Text>
       <Chip title='7A'/>
+      <CustomChips></CustomChips>
       <TextInput onChange={handleOnChangeInput}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
       <Button onPress={onPressAdd} title='Add Classe'/>
-      <Button onPress={onPressListarClasses} title='Listar Classes'/>
+      {/* <Button onPress={ListarClasses} title='Listar Classes'/> */}
       
     </View>
   );
