@@ -1,17 +1,18 @@
 import { View,Text } from 'react-native';
 import { Chip } from '@rneui/themed';
+import {useState} from 'react'
 
 
 const CustomChips = (props:any)=>{
     //const numbers = [1, 2, 3, 4, 5];
     let chipsClasses;
-    if(!props===undefined){
-        console.log('CustomChips',props);
-        chipsClasses = props.map((classe:any) =>
-        <Text key={classe}>{classe}</Text>
-        );
-        console.log('chipsClasses',chipsClasses);
-    }
+    
+    console.log('CustomChips',props.title);
+    chipsClasses = props.title.map((classe:any) =>
+    <Chip key={classe} title={classe}></Chip>
+    );
+    console.log('chipsClasses',chipsClasses);
+    
 
     
     return(

@@ -8,7 +8,7 @@ import CustomChips from "./CustomChips";
 function Classes({navigation}: {navigation: any}) {
     
   const [value,setValue] = useState<string>('')
-  const  listaClasses:any=[];
+  const  listaClasses:any=['7D','7E','7F'];
 
   const handleOnChangeInput = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValue(event.nativeEvent.text)
@@ -50,32 +50,31 @@ function Classes({navigation}: {navigation: any}) {
             (classe)); */
                 
               });
-              console.log('listaClasse:',listaClasses);
-              CustomChips(listaClasses)
+              console.log('listaClasses:',listaClasses);
+              //CustomChips(listaClasses)
+              //return listaClasses;
+
               
             });
             
             //return <View>{chips}</View>;
   },[listaClasses])
 
- /*  function createChip(classe:any) {
-    let chip = (
-      <Chip title={classe}></Chip>
-      );
-      console.log('chip',chip);
-    CustomChips(chip);
-    
-} */
+  const listar = () =>{
+    console.log('testeLista',listaClasses)
+  }
+
+
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Classes</Text>
       <Chip title='7A'/>
-      <CustomChips></CustomChips>
+      <CustomChips title={listaClasses}></CustomChips>
       <TextInput onChange={handleOnChangeInput}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
       <Button onPress={onPressAdd} title='Add Classe'/>
-      {/* <Button onPress={ListarClasses} title='Listar Classes'/> */}
+      <Button onPress={listar} title='teste'/>
       
     </View>
   );
