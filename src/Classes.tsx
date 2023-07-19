@@ -4,11 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { Chip } from '@rneui/themed';
 
 import CustomChips from "./CustomChips";
+import MyComponent from "./MyComponent";
+import { renderNode } from "@rneui/themed/dist/config";
 
 function Classes({navigation}: {navigation: any}) {
     
   const [value,setValue] = useState<string>('')
   const  listaClasses:any=['7D','7E','7F'];
+  let teste= 'oi'
 
   const handleOnChangeInput = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValue(event.nativeEvent.text)
@@ -60,9 +63,16 @@ function Classes({navigation}: {navigation: any}) {
             //return <View>{chips}</View>;
   },[listaClasses])
 
-  const listar = () =>{
-    console.log('testeLista',listaClasses)
+ 
+
+  const alterarValor2 = ()=>{
+    teste='oi2'
+    
   }
+
+
+
+  
 
 
 
@@ -74,7 +84,8 @@ function Classes({navigation}: {navigation: any}) {
       <TextInput onChange={handleOnChangeInput}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
       <Button onPress={onPressAdd} title='Add Classe'/>
-      <Button onPress={listar} title='teste'/>
+      <Button onPress={alterarValor2} title='alterarString'/>
+      <MyComponent text={teste} ></MyComponent>
       
     </View>
   );
