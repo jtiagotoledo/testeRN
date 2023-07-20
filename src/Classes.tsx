@@ -39,39 +39,10 @@ function Classes({navigation}: {navigation: any}) {
     }
   };
 
- 
-
-  /* useEffect(()=>{
-
-    firestore().collection('Users').get().then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
-          listaClasses.push(documentSnapshot.id);
-          
-                
-              });
-              console.log('listaClasses:',listaClasses);
-              
-
-              
-            });
-            
-            
-  },[listaClasses]) */
-
- 
-
-  
-
-
-
-  
-
-
-
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Classes</Text>
-      <Chip title='7A'/>
+      <Chip key={'7A'} title='7A'/>
       <CustomChips></CustomChips>
       <TextInput onChange={handleOnChangeInput}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
