@@ -4,7 +4,6 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 
 const CustomChips = ()=>{
-    //const numbers = [1, 2, 3, 4, 5];
     let chipsClasses:any='';
     const  listaClasses: any[]=[];
 
@@ -12,7 +11,7 @@ const CustomChips = ()=>{
 
     useEffect(()=>{
         const data = async ()=>{
-        await firestore().collection('Users').get().then(querySnapshot => {
+        await firestore().collection('Classes').get().then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
         listaClasses.push(documentSnapshot.id);
         chipsClasses = listaClasses.map((classe:any) =>
@@ -26,8 +25,6 @@ const CustomChips = ()=>{
     }
     data()        
     })
-  
-    
     
     const alterarLista = () =>{
         setValue(chipsClasses)
@@ -36,8 +33,8 @@ const CustomChips = ()=>{
     
     return(
         <View style={styles.contentView}>
-            <View style={{alignItems:'center', marginTop:25}}  >{value}</View>
-            <Button onPress={alterarLista} title='alterarLista'/>
+            <View style={{alignItems:'center'}}  >{value}</View>
+            {/* <Button onPress={alterarLista} title='alterarLista'/> */}
         </View>
         
     );
@@ -46,6 +43,7 @@ const CustomChips = ()=>{
 const styles = StyleSheet.create({
     contentView: {
       marginTop: 20,
+      flexDirection:'row'
     },
     });
 
