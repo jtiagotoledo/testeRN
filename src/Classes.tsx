@@ -8,7 +8,7 @@ import MyComponent from "./MyComponent";
 
 function Classes({navigation}: {navigation: any}) {
     
-  const [value,setValue] = useState<string>('')
+  let [value,setValue] = useState<string>('')
   //const  listaClasses:any=['7D','7E','7F'];
   //let teste= 'oi'
 
@@ -26,6 +26,7 @@ function Classes({navigation}: {navigation: any}) {
         idade: '36'
       });
       console.log('função adicionar',value);
+      
   }
 
     
