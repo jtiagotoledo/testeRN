@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import {Icon} from './Icon'
 
+import {Icon} from './Icon'
 import Classes from './Classes';
 import Frequencia from './Frequencia';
 import Notas from './Notas';

@@ -1,4 +1,4 @@
-import { View, Button, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -15,12 +15,12 @@ const CustomChips = ()=>{
         querySnapshot.forEach(documentSnapshot => {
         listaClasses.push(documentSnapshot.id);
         chipsClasses = listaClasses.map((classe:any) =>
-        <Chip key={classe} title={classe} ></Chip>);
+        <Chip key={classe} title={classe} containerStyle={{marginHorizontal:10, marginTop:20, marginBottom:100}}></Chip>);
         });
         
         setValue(chipsClasses)
-        console.log('chipsClasses',chipsClasses);    
-        console.log('listaClasses',listaClasses);    
+        //console.log('chipsClasses',chipsClasses);    
+        //console.log('listaClasses',listaClasses);    
         });
     }
     data()        
@@ -33,8 +33,9 @@ const CustomChips = ()=>{
     
     return(
         <View style={styles.contentView}>
-            <View style={{alignItems:'center'}}  >{value}</View>
-            {/* <Button onPress={alterarLista} title='alterarLista'/> */}
+            <ScrollView horizontal={true}>
+            <View style={{alignItems:'center', flexDirection: 'row'}}  >{value}</View>
+            </ScrollView>
         </View>
         
     );

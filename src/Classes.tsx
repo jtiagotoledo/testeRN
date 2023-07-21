@@ -1,4 +1,4 @@
-import { Text, View, Button, TextInput, NativeSyntheticEvent,TextInputChangeEventData, FlatList } from "react-native"
+import { Text, View, Button, ScrollView, TextInput, NativeSyntheticEvent,TextInputChangeEventData, FlatList } from "react-native"
 import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
 
@@ -37,10 +37,11 @@ function Classes() {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{  alignItems: 'center', justifyContent: 'center' }}>
       <Text>Classes</Text>
       <CustomChips></CustomChips>
-      <TextInput onChange={handleOnChangeInput}></TextInput>
+     
+      <TextInput onChange={handleOnChangeInput} style={{backgroundColor:'gray'}}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
       <Button onPress={onPressAdd} title='Add Classe'/>
      
