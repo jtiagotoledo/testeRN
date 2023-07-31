@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
 
 import CustomChips from "./CustomChips";
+import DropDown from "./DropDown";
 
 function Classes() {
     
@@ -37,8 +38,9 @@ function Classes() {
   };
 
   return (
-    <View style={{  alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{   justifyContent: 'center' }}>
       <Text>Classes</Text>
+      <DropDown></DropDown>
       <CustomChips></CustomChips>
      
       <TextInput onChange={handleOnChangeInput} style={{backgroundColor:'gray'}}></TextInput>
