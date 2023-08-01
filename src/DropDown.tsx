@@ -4,14 +4,14 @@ import { Dropdown } from 'react-native-element-dropdown';
 import {Icon} from './Icon'
 
 const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
+    { label: '2018', value: '1' },
+    { label: '2019', value: '2' },
+    { label: '2020', value: '3' },
+    { label: '2021', value: '4' },
+    { label: '2022', value: '5' },
+    { label: '2023', value: '6' },
+    { label: '2024', value: '7' },
+    { label: '2025', value: '8' },
   ];
 
 const DropDown = () =>{
@@ -22,7 +22,7 @@ const DropDown = () =>{
       if (value || isFocus) {
         return (
           <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-            Dropdown label
+            Selecione o período:
           </Text>
         );
       }
@@ -51,6 +51,7 @@ const DropDown = () =>{
           onChange={item => {
             setValue(item.value);
             setIsFocus(false);
+            console.log(item.label)
           }}
           renderLeftIcon={() => (
             <Icon
