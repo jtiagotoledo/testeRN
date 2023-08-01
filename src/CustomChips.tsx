@@ -11,7 +11,7 @@ const CustomChips = ()=>{
 
     useEffect(()=>{
         const data = async ()=>{
-        await firestore().collection('Classes').get().then(querySnapshot => {
+        await firestore().collection('Usuario').get().then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
         listaClasses.push(documentSnapshot.id);
         chipsClasses = listaClasses.map((classe:any) =>
@@ -26,10 +26,6 @@ const CustomChips = ()=>{
     data()        
     })
     
-    const alterarLista = () =>{
-        setValue(chipsClasses)
-    }
-
     
     return(
         <View style={styles.contentView}>

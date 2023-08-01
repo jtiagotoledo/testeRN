@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
+import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
 
 const data = [
-    { label: '2018', value: '1' },
+    { label: '2018', value: '2018' },
     { label: '2019', value: '2' },
     { label: '2020', value: '3' },
     { label: '2021', value: '4' },
@@ -17,9 +18,30 @@ const data = [
 const DropDown = () =>{
     const [value, setValue] = useState('');
     const [isFocus, setIsFocus] = useState(false);
+    const [valuePeriodo,setValuePeriodo] = useState(null)
+
+    let chipsClasses:any='';
+    let  listaPeriodos: any[]=[];
+
+    
+    useEffect(()=>{
+        const data = async ()=>{
+        await firestore().collection('Usuario').get().then(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+        listaPeriodos.push({label:documentSnapshot.id, value:documentSnapshot.id});
+        console.log(listaPeriodos)
+        /* chipsClasses = listaPeriodos.map((classe:any) =>
+        <Chip key={classe} title={classe} containerStyle={{marginHorizontal:10, marginTop:20, marginBottom:100}}></Chip>); */
+        });
+        
+        // setValuePeriodo(listaPeriodos)  
+        });
+    }
+    data()     
+    })
 
     const renderLabel = () => {
-      if (value || isFocus) {
+      if (valuePeriodo || isFocus) {
         return (
           <Text style={[styles.label, isFocus && { color: 'blue' }]}>
             Selecione o período:
@@ -38,14 +60,14 @@ const DropDown = () =>{
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
-          data={data}
+          data={listaPeriodos}
           search
           maxHeight={300}
           labelField="label"
           valueField="value"
           placeholder={!isFocus ? 'Select item' : '...'}
           searchPlaceholder="Search..."
-          value={value}
+          value={valuePeriodo}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
