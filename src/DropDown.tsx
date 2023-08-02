@@ -15,13 +15,15 @@ const data = [
     { label: '2025', value: '8' },
   ];
 
+  
+
 const DropDown = () =>{
     const [value, setValue] = useState('');
     const [isFocus, setIsFocus] = useState(false);
-    const [valuePeriodo,setValuePeriodo] = useState(null)
+    const [valuePeriodo,setValuePeriodo] = useState('')
 
-    let chipsClasses:any='';
-    let  listaPeriodos: any[]=[];
+    
+    const  listaPeriodos:any[]=[''];
 
     
     useEffect(()=>{
@@ -30,18 +32,17 @@ const DropDown = () =>{
         querySnapshot.forEach(documentSnapshot => {
         listaPeriodos.push({label:documentSnapshot.id, value:documentSnapshot.id});
         console.log(listaPeriodos)
-        /* chipsClasses = listaPeriodos.map((classe:any) =>
-        <Chip key={classe} title={classe} containerStyle={{marginHorizontal:10, marginTop:20, marginBottom:100}}></Chip>); */
-        });
+      });
+      // setValuePeriodo(listaPeriodos)  
         
-        // setValuePeriodo(listaPeriodos)  
-        });
+      });
+        
     }
     data()     
     })
 
     const renderLabel = () => {
-      if (valuePeriodo || isFocus) {
+      if (value || isFocus) {
         return (
           <Text style={[styles.label, isFocus && { color: 'blue' }]}>
             Selecione o período:
