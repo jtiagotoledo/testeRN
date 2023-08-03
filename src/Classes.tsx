@@ -35,7 +35,11 @@ function Classes() {
   }
 
   const onPressAddClasse = () =>{
+      
+
       firestore()
+      .collection('Usuario')
+      .doc('2015')
       .collection('Classes')
       .doc(valueClasse)
       .set({

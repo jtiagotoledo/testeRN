@@ -11,7 +11,7 @@ const CustomChips = ()=>{
 
     useEffect(()=>{
         const data = async ()=>{
-        await firestore().collection('Usuario').get().then(querySnapshot => {
+        await firestore().collection('Usuario').doc('2015').collection('Classes').get().then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
         listaClasses.push(documentSnapshot.id);
         chipsClasses = listaClasses.map((classe:any) =>
