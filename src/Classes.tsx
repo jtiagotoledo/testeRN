@@ -24,8 +24,6 @@ function Classes() {
     firestore()
     .collection('Usuario')
     .doc(valuePeriodo)
-    .collection('Classes')
-    .doc('7A')
     .set({
       nome: 'Tiago',
       idade: '36'
