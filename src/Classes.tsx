@@ -24,9 +24,9 @@ function Classes() {
     firestore()
     .collection('Usuario')
     .doc(valuePeriodo)
+    
     .set({
-      nome: 'Tiago',
-      idade: '36'
+      
     })
     
     setModalVisible(!modalVisible);

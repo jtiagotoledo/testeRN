@@ -6,6 +6,7 @@ import {Icon} from './Icon'
 
 
 const DropDown = () =>{
+    const [value, setValue] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
 
@@ -19,14 +20,14 @@ const DropDown = () =>{
         listaPeriodos.push({label:id,value:id});
       });
       setValuePeriodo(listaPeriodos) 
-      console.log(listaPeriodos) 
+      //console.log(listaPeriodos) 
       });
     }
     data()   
     })
 
     const renderLabel = () => {
-      if (valuePeriodo || isFocus) {
+      if (value || isFocus) {
         return (
           <Text style={[styles.label, isFocus && { color: 'blue' }]}>
             Selecione o período:
@@ -47,6 +48,7 @@ const DropDown = () =>{
           iconStyle={styles.iconStyle}
           data={valuePeriodo}
           search
+          value={value}
           maxHeight={300}
           labelField="label"
           valueField="value"
@@ -55,7 +57,7 @@ const DropDown = () =>{
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValuePeriodo([{label:item.label,value:item.value}]);
+            setValue(item.label);
             setIsFocus(false);
             console.log(item.label)
           }}
