@@ -2,6 +2,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import Globais from './Globais'
 
 const CustomChips = ()=>{
     let chipsClasses:any='';
@@ -11,7 +12,7 @@ const CustomChips = ()=>{
 
     useEffect(()=>{
         const data = async ()=>{
-        await firestore().collection('Usuario').doc('2015').collection('Classes').get().then(querySnapshot => {
+        await firestore().collection('Usuario').doc(Globais.periodSelec).collection('Classes').get().then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
         listaClasses.push(documentSnapshot.id);
         chipsClasses = listaClasses.map((classe:any) =>

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
+import Globais from './Globais'
 
 
 const DropDown = () =>{
@@ -20,7 +21,6 @@ const DropDown = () =>{
         listaPeriodos.push({label:id,value:id});
       });
       setValuePeriodo(listaPeriodos) 
-      //console.log(listaPeriodos) 
       });
     }
     data()   
@@ -58,8 +58,9 @@ const DropDown = () =>{
           onBlur={() => setIsFocus(false)}
           onChange={item => {
             setValue(item.label);
+            Globais.periodSelec = item.label;
             setIsFocus(false);
-            console.log(item.label)
+            console.log(item.label);
           }}
           renderLeftIcon={() => (
             <Icon

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import CustomChips from "./CustomChips";
 import DropDown from "./DropDown";
+import Globais from './Globais'
 
 function Classes() {
     
@@ -39,7 +40,7 @@ function Classes() {
 
       firestore()
       .collection('Usuario')
-      .doc('2015')
+      .doc(Globais.periodSelec)
       .collection('Classes')
       .doc(valueClasse)
       .set({
