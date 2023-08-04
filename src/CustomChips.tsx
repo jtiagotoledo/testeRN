@@ -25,7 +25,7 @@ const CustomChips = ()=>{
         });
     }
     data()        
-    })
+    });
     
     
     return(

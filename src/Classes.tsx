@@ -64,8 +64,15 @@ function Classes() {
 
   return (
     <View style={{   justifyContent: 'center' }}>
-      <Text>Períodos</Text>
-      <DropDown></DropDown>
+      <View style={{ flexDirection:'row', backgroundColor:'white'}}>
+        <DropDown ></DropDown>
+        <Pressable
+        style={[styles.button, styles.buttonOpen, styles.container]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>+</Text>
+        </Pressable>
+      </View>
+      
       <CustomChips></CustomChips>
      
       <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
@@ -90,17 +97,25 @@ function Classes() {
           </View>
         </View>
       </Modal>
-      <Pressable
+      {/* <Pressable
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Add Período</Text>
-      </Pressable>
+        <Text style={styles.textStyle}>+</Text>
+      </Pressable> */}
       
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:16,
+    marginBottom:16,
+    marginRight:16
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',

@@ -4,6 +4,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
 import Globais from './Globais'
+import CustomChips from './CustomChips'
 
 
 const DropDown = () =>{
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
       padding: 16,
+      flex:10
     },
     dropdown: {
       height: 50,
