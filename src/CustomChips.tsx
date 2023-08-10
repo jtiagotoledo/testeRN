@@ -28,7 +28,7 @@ const CustomChips = ()=>{
         });
     }
     data()        
-    },[valueGlobal,value]);
+    },[Globais.periodSelec,value]);
 
     const mudar = ()=>{
         setValueGlobal(Globais.periodSelec)
@@ -37,8 +37,8 @@ const CustomChips = ()=>{
     
     return(
         <View style={styles.contentView}>
-            <Button title="mudar" onPress={mudar}></Button>
-            <Text>{valueGlobal}</Text>
+            
+            <Text>{Globais.periodSelec}</Text>
             <ScrollView horizontal={true}>
             <View style={{alignItems:'center', flexDirection: 'row'}}  >{value}</View>
             </ScrollView>

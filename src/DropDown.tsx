@@ -8,7 +8,7 @@ import CustomChips from './CustomChips'
 
 
 const DropDown = () =>{
-    const [value, setValue] = useState('');
+    const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
 
@@ -30,7 +30,7 @@ const DropDown = () =>{
     
 
     const renderLabel = () => {
-      if (value || isFocus) {
+      if (valuePSelec || isFocus) {
         return (
           <Text style={[styles.label, isFocus && { color: 'blue' }]}>
             Selecione o período:
@@ -40,8 +40,11 @@ const DropDown = () =>{
       return null;
     };
 
+  
+
     return (
       <View style={styles.container}>
+        <View></View>
         
         {renderLabel()}
         <Dropdown
@@ -52,7 +55,7 @@ const DropDown = () =>{
           iconStyle={styles.iconStyle}
           data={valuePeriodo}
           search
-          value={value}
+          value={valuePSelec}
           maxHeight={300}
           labelField="label"
           valueField="value"
@@ -61,10 +64,10 @@ const DropDown = () =>{
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValue(item.label);
-            Globais.periodSelec = item.label;
+            setValuePSelec(item.label);
+            Globais.periodSelec = item.label
             setIsFocus(false);
-            console.log(item.label);
+            console.log(valuePSelec)
           }}
           renderLeftIcon={() => (
             <Icon
@@ -75,7 +78,7 @@ const DropDown = () =>{
             />
           )}
         />
-      <CustomChips></CustomChips>
+        <CustomChips></CustomChips>
          
       </View>
     )
