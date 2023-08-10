@@ -73,7 +73,7 @@ function Classes() {
         </Pressable>
       </View>
       
-      <CustomChips></CustomChips>
+      {/* <CustomChips></CustomChips> */}
      
       <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>

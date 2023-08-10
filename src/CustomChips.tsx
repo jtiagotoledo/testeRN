@@ -1,4 +1,4 @@
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Button, Text } from 'react-native';
 import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -8,7 +8,10 @@ const CustomChips = ()=>{
     let chipsClasses:any='';
     const  listaClasses: any[]=[];
 
+    
+
     const [value,setValue] = useState('')
+    const [valueGlobal,setValueGlobal] = useState(Globais.periodSelec)
 
     useEffect(()=>{
         const data = async ()=>{
@@ -25,11 +28,17 @@ const CustomChips = ()=>{
         });
     }
     data()        
-    });
-    
+    },[valueGlobal,value]);
+
+    const mudar = ()=>{
+        setValueGlobal(Globais.periodSelec)
+    }
+
     
     return(
         <View style={styles.contentView}>
+            <Button title="mudar" onPress={mudar}></Button>
+            <Text>{valueGlobal}</Text>
             <ScrollView horizontal={true}>
             <View style={{alignItems:'center', flexDirection: 'row'}}  >{value}</View>
             </ScrollView>

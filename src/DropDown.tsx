@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { StyleSheet, Text, View } from "react-native"
+import { Button, StyleSheet, Text, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
@@ -27,6 +27,8 @@ const DropDown = () =>{
     data()   
     })
 
+    
+
     const renderLabel = () => {
       if (value || isFocus) {
         return (
@@ -40,6 +42,7 @@ const DropDown = () =>{
 
     return (
       <View style={styles.container}>
+        
         {renderLabel()}
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
@@ -72,6 +75,7 @@ const DropDown = () =>{
             />
           )}
         />
+      <CustomChips></CustomChips>
          
       </View>
     )
