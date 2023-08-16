@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import CustomChips from "./CustomChips";
 import DropDown from "./DropDown";
+import BtnAddPeriodo from "./BtnAddPeriodo";
 import Globais from './Globais'
 
 function Classes() {
@@ -66,13 +67,14 @@ function Classes() {
     <View style={{   justifyContent: 'center' }}>
       <View style={{ flexDirection:'row', backgroundColor:'white'}}>
         <DropDown ></DropDown>
-        <Pressable
+        
+        {/* <Pressable
         style={[styles.button, styles.buttonOpen, styles.container]}
         onPress={() => setModalVisible(true)}>
         <Text style={styles.textStyle}>+</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
-      
+      <BtnAddPeriodo></BtnAddPeriodo>
       {/* <CustomChips></CustomChips> */}
      
       <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
@@ -97,11 +99,7 @@ function Classes() {
           </View>
         </View>
       </Modal>
-      {/* <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>+</Text>
-      </Pressable> */}
+      
       
     </View>
   );
