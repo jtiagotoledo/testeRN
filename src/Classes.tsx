@@ -13,6 +13,7 @@ function Classes() {
   let [valuePeriodo,setValuePeriodo] = useState<string>('')
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [teste, setTeste] = useState('');
 
   const handleOnChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValueClasse(event.nativeEvent.text);
@@ -63,19 +64,21 @@ function Classes() {
     }
   };
 
+  const ativarModal = () =>{
+    setModalVisible(true)
+  }
+
+  
+
   return (
     <View style={{   justifyContent: 'center' }}>
       <View style={{ flexDirection:'row', backgroundColor:'white'}}>
         <DropDown ></DropDown>
         
-        {/* <Pressable
-        style={[styles.button, styles.buttonOpen, styles.container]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>+</Text>
-        </Pressable> */}
+        
       </View>
-      <BtnAddPeriodo></BtnAddPeriodo>
-      {/* <CustomChips></CustomChips> */}
+      <BtnAddPeriodo ativarModal={ativarModal}/>
+      <Text>{teste}</Text>
      
       <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
