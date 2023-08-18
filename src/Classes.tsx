@@ -1,10 +1,9 @@
 import { Text, View, StyleSheet, Pressable, Button, TextInput, NativeSyntheticEvent,TextInputChangeEventData, Modal } from "react-native"
 import firestore from '@react-native-firebase/firestore';
 import React, { useState } from 'react';
-
-import CustomChips from "./CustomChips";
 import DropDown from "./DropDown";
 import BtnAddPeriodo from "./BtnAddPeriodo";
+import ModalAddPeriodo from "./ModalAddPeriodo";
 import Globais from './Globais'
 
 function Classes() {
@@ -19,23 +18,21 @@ function Classes() {
       setValueClasse(event.nativeEvent.text);
   }
 
-  const handleOnChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+  /* const handleOnChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
     setValuePeriodo(event.nativeEvent.text);
-  }
+  } */
 
-  const onPressAddPeriodo = () =>{
+  /* const onPressAddPeriodo = () =>{
     firestore()
     .collection('Usuario')
     .doc(valuePeriodo)
-    
     .set({
-      
     })
     
     setModalVisible(!modalVisible);
     console.log('função adicionar período',valuePeriodo);
     
-  }
+  } */
 
   const onPressAddClasse = () =>{
       
@@ -68,8 +65,6 @@ function Classes() {
     setModalVisible(true)
   }
 
-  
-
   return (
     <View style={{   justifyContent: 'center' }}>
       <View style={{ flexDirection:'row', backgroundColor:'white'}}>
@@ -83,7 +78,8 @@ function Classes() {
       <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
       <Button onPress={onPressConsultar} title='Consultar alunos'/>
       <Button onPress={onPressAddClasse} title='Add Classe'/>
-      <Modal
+      <ModalAddPeriodo mostrarModal={modalVisible}></ModalAddPeriodo>
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -101,7 +97,7 @@ function Classes() {
             </Pressable>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
       
       
     </View>
