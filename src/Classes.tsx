@@ -1,10 +1,11 @@
 import { Text, View, StyleSheet, Pressable, Button, TextInput, NativeSyntheticEvent,TextInputChangeEventData, Modal } from "react-native"
 import firestore from '@react-native-firebase/firestore';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import DropDown from "./DropDown";
 import BtnAddPeriodo from "./BtnAddPeriodo";
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import Globais from './Globais'
+import DataContext,{data} from "./data/DataContext";
 
 function Classes() {
     
@@ -17,23 +18,6 @@ function Classes() {
   const handleOnChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValueClasse(event.nativeEvent.text);
   }
-
-  /* const handleOnChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-    setValuePeriodo(event.nativeEvent.text);
-  } */
-
-  /* const onPressAddPeriodo = () =>{
-    firestore()
-    .collection('Usuario')
-    .doc(valuePeriodo)
-    .set({
-    })
-    
-    setModalVisible(!modalVisible);
-    console.log('função adicionar período',valuePeriodo);
-    
-  } */
-
   const onPressAddClasse = () =>{
       
 
@@ -66,41 +50,21 @@ function Classes() {
   }
 
   return (
-    <View style={{   justifyContent: 'center' }}>
-      <View style={{ flexDirection:'row', backgroundColor:'white'}}>
-        <DropDown ></DropDown>
-        
-        
-      </View>
-      <BtnAddPeriodo ativarModal={ativarModal}/>
-      <Text>{teste}</Text>
-     
-      <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
-      <Button onPress={onPressConsultar} title='Consultar alunos'/>
-      <Button onPress={onPressAddClasse} title='Add Classe'/>
-      <ModalAddPeriodo mostrarModal={modalVisible}></ModalAddPeriodo>
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Crie um novo período:</Text>
-            <TextInput onChange={handleOnChangeInputPeriodo} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={onPressAddPeriodo}>
-              <Text style={styles.textStyle}>Criar</Text>
-            </Pressable>
-          </View>
+    <DataContext.Provider value={data}>
+      <View style={{   justifyContent: 'center' }}>
+        <View style={{ flexDirection:'row', backgroundColor:'white'}}>
+          <DropDown ></DropDown>
+          
         </View>
-      </Modal> */}
+        <BtnAddPeriodo ativarModal={ativarModal}/>
+        <Text>{teste}</Text>
       
-      
-    </View>
+        <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
+        <Button onPress={onPressConsultar} title='Consultar alunos'/>
+        <Button onPress={onPressAddClasse} title='Add Classe'/>
+        <ModalAddPeriodo mostrarModal={modalVisible}></ModalAddPeriodo>
+      </View>
+    </DataContext.Provider>
   );
 }
 

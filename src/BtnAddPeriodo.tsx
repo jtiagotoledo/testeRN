@@ -1,15 +1,18 @@
 import { Pressable, View, Text, StyleSheet } from "react-native"
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import DataContext from "./data/DataContext";
 
 const BtnAddPeriodo = ({ativarModal}:any) =>{
 
-    const [texto,setTexto]=useState('')
+    const context = useContext(DataContext)
+    const [texto,setTexto]=useState(context.text)
 
     return(
         <View>
+            <Text>{texto}</Text>
         {<Pressable
             style={style.button}
-            onPress={ativarModal}>
+            onPress={()=>{setTexto('novo')}}>
             <Text>Add</Text>
         </Pressable>}
         </View>
