@@ -3,23 +3,24 @@ import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 
-const ModalAddPeriodo = () =>{
+const ModalAddClasse = () =>{
 
-    const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalPeriodo,setModalPeriodo} = useContext(Context)
+    const [valueClasse,setValueClasse] = useState<string>('')
+    const {modalClasse,setModalClasse,periodoSelec} = useContext(Context)
 
-    const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-        setValuePeriodo(event.nativeEvent.text);
+    const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+        setValueClasse(event.nativeEvent.text);
       }
     
     const onPressAddPeriodo = () =>{
-    firestore()
-    .collection('Usuario')
-    .doc(valuePeriodo)
-    .set({
-    })
-    setModalPeriodo(!modalPeriodo);
-    console.log('função adicionar período',valuePeriodo);
+      firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(valueClasse).set({
+        nome: 'Tiago',
+        idade: '36'
+      });
+      setModalClasse(!modalClasse);
+      console.log('função adicionar',valueClasse);
     }
 
     return(
@@ -27,14 +28,14 @@ const ModalAddPeriodo = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalPeriodo}
+                visible={modalClasse}
                 onRequestClose={() => {
-                setModalPeriodo(!modalPeriodo);
+                setModalClasse(!modalClasse);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Crie um novo período:</Text>
-                        <TextInput onChange={onChangeInputPeriodo} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
+                        <Text style={styles.modalText}>Crie uma nova classe:</Text>
+                        <TextInput onChange={onChangeInputClasse} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={onPressAddPeriodo}>
@@ -99,4 +100,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default ModalAddPeriodo
+export default ModalAddClasse

@@ -1,17 +1,17 @@
 import { Pressable, View, Text, StyleSheet } from "react-native"
-import React, {useState, useContext} from "react";
+import React, { useContext} from "react";
 import {Context} from "./data/Provider";
 
-const BtnAddPeriodo = () =>{
+const BtnAddClasse = () =>{
 
-    const {modalPeriodo,setModalPeriodo} = useContext(Context)
+    const {modalClasse,setModalClasse} = useContext(Context);
     
     return(
         <View>
-            <Text>{modalPeriodo}</Text>
+            <Text>{modalClasse}</Text>
             <Pressable
                 style={style.button}
-                onPress={()=>setModalPeriodo(true)}>
+                onPress={()=>setModalClasse(true)}>
                 <Text>+</Text>
             </Pressable>
         </View>
@@ -24,12 +24,14 @@ button: {
     padding: 10,
     elevation: 2,
     backgroundColor: '#F194FF',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     marginEnd:8,
     minWidth:40,
+    marginLeft:16,
     marginRight:16
+    
 },
 })
-export default BtnAddPeriodo
+export default BtnAddClasse
 

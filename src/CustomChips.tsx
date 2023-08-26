@@ -20,7 +20,7 @@ const CustomChips = ()=>{
         listaClasses.push(documentSnapshot.id);
         listaChipsClasses = listaClasses.map((classe:any) =>
         <Chip key={classe} title={classe} 
-        containerStyle={{marginHorizontal:10, marginTop:20, marginBottom:100}}></Chip>);
+        containerStyle={{marginHorizontal:10, marginBottom:20}}></Chip>);
         });
         setChipsClasses(listaChipsClasses)
         });
@@ -30,9 +30,8 @@ const CustomChips = ()=>{
 
     return(
         <View style={styles.contentView}>
-            <Text>{periodoSelec}</Text>
             <ScrollView horizontal={true}>
-            <View style={{alignItems:'center', flexDirection: 'row'}}>{chipsClasses}</View>
+            <View style={{flexDirection: 'row', marginTop:20}}>{chipsClasses}</View>
             </ScrollView>
         </View>
     );
@@ -40,8 +39,9 @@ const CustomChips = ()=>{
 
 const styles = StyleSheet.create({
     contentView: {
-      marginTop: 20,
-      flexDirection:'row'
+      flexDirection:'row',
+      backgroundColor:'white',
+      flex:1
     },
 });
 
