@@ -6,7 +6,7 @@ import {Context} from "./data/Provider";
 const ModalAddPeriodo = () =>{
 
     let [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {ativarModal,setAtivarModal} = useContext(Context)
+    const {modalPeriodo,setmodalPeriodo} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -18,7 +18,7 @@ const ModalAddPeriodo = () =>{
     .doc(valuePeriodo)
     .set({
     })
-    setAtivarModal(!ativarModal);
+    setmodalPeriodo(!modalPeriodo);
     console.log('função adicionar período',valuePeriodo);
     }
 
@@ -27,9 +27,9 @@ const ModalAddPeriodo = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={ativarModal}
+                visible={modalPeriodo}
                 onRequestClose={() => {
-                setAtivarModal(!ativarModal);
+                setmodalPeriodo(!modalPeriodo);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>

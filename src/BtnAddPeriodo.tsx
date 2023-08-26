@@ -4,14 +4,14 @@ import {Context} from "./data/Provider";
 
 const BtnAddPeriodo = () =>{
 
-    const {ativarModal,setAtivarModal} = useContext(Context)
+    const {modalPeriodo,setmodalPeriodo} = useContext(Context)
     
     return(
         <View>
-            <Text>{ativarModal}</Text>
+            <Text>{modalPeriodo}</Text>
             <Pressable
                 style={style.button}
-                onPress={()=>setAtivarModal(true)}>
+                onPress={()=>setmodalPeriodo(true)}>
                 <Text>+</Text>
             </Pressable>
         </View>

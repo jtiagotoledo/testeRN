@@ -4,11 +4,11 @@ export const Context = createContext();
 
 export default function Provider ({children}){
 
-    const[ativarModal,setAtivarModal]=useState(false);
+    const[modalPeriodo,setmodalPeriodo]=useState(false);
     const[periodoSelec,setPeriodoSelec]=useState('');
 
     return(
-        <Context.Provider value={{ativarModal,setAtivarModal,
+        <Context.Provider value={{modalPeriodo,setmodalPeriodo,
             periodoSelec,setPeriodoSelec}}>
             {children}
         </Context.Provider>
