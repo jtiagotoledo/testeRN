@@ -1,5 +1,5 @@
 import { Pressable, View, Text, StyleSheet } from "react-native"
-import React, {useState, useContext} from "react";
+import React, { useContext } from "react";
 import {Context} from "./data/Provider";
 
 const BtnAddPeriodo = () =>{
@@ -8,7 +8,6 @@ const BtnAddPeriodo = () =>{
     
     return(
         <View>
-            <Text>{modalPeriodo}</Text>
             <Pressable
                 style={style.button}
                 onPress={()=>setModalPeriodo(true)}>

@@ -1,17 +1,20 @@
-import { Pressable, View, Text, StyleSheet } from "react-native"
+import { Pressable, View, Text, StyleSheet, ToastAndroid } from "react-native"
 import React, { useContext} from "react";
 import {Context} from "./data/Provider";
 
 const BtnAddClasse = () =>{
 
-    const {modalClasse,setModalClasse} = useContext(Context);
+    const {setModalClasse, periodoSelec} = useContext(Context);
     
+    const showToast = () =>{
+        ToastAndroid.show('Selecione primeiro o período',2000)
+      }
+
     return(
         <View>
-            <Text>{modalClasse}</Text>
             <Pressable
                 style={style.button}
-                onPress={()=>setModalClasse(true)}>
+                onPress={()=>periodoSelec!=''?setModalClasse(true):showToast()}>
                 <Text>+</Text>
             </Pressable>
         </View>
