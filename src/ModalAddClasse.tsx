@@ -12,15 +12,17 @@ const ModalAddClasse = () =>{
         setValueClasse(event.nativeEvent.text);
       }
     
-    const onPressAddPeriodo = () =>{
-      firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(valueClasse).set({
-        nome: 'Tiago',
-        idade: '36'
-      });
-      setModalClasse(!modalClasse);
-      console.log('função adicionar',valueClasse);
+    const onPressAddClasse = () =>{
+      if(valueClasse!=''){
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(valueClasse).set({
+          nome: 'Tiago',
+          idade: '36'
+        });
+        setModalClasse(!modalClasse);
+        console.log('função adicionar',valueClasse);
+      }
     }
 
     return(
@@ -38,7 +40,7 @@ const ModalAddClasse = () =>{
                         <TextInput onChange={onChangeInputClasse} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={onPressAddPeriodo}>
+                            onPress={onPressAddClasse}>
                             <Text style={styles.textStyle}>Criar</Text>
                         </Pressable>
                     </View>

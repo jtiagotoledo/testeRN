@@ -13,13 +13,15 @@ const ModalAddPeriodo = () =>{
       }
     
     const onPressAddPeriodo = () =>{
-    firestore()
-    .collection('Usuario')
-    .doc(valuePeriodo)
-    .set({
-    })
-    setModalPeriodo(!modalPeriodo);
-    console.log('função adicionar período',valuePeriodo);
+      if(valuePeriodo!=''){
+        firestore()
+        .collection('Usuario')
+        .doc(valuePeriodo)
+        .set({
+        })
+        setModalPeriodo(!modalPeriodo);
+        console.log('função adicionar período',valuePeriodo);
+      }
     }
 
     return(
