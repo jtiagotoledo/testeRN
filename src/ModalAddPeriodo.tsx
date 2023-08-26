@@ -1,13 +1,12 @@
 import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import {Context} from "./data/Provider";
 
+const ModalAddPeriodo = () =>{
 
-
-const ModalAddPeriodo = ({mostrarModal}:any) =>{
-
-    const [modalVisible, setModalVisible] = useState(false);
     let [valuePeriodo,setValuePeriodo] = useState<string>('')
+    const {ativarModal,setAtivarModal} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -19,10 +18,8 @@ const ModalAddPeriodo = ({mostrarModal}:any) =>{
     .doc(valuePeriodo)
     .set({
     })
-    mostrarModal=false
-    // setModalVisible(!mostrarModal);
+    setAtivarModal(!ativarModal);
     console.log('função adicionar período',valuePeriodo);
-    
     }
 
     return(
@@ -30,9 +27,9 @@ const ModalAddPeriodo = ({mostrarModal}:any) =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={mostrarModal}
+                visible={ativarModal}
                 onRequestClose={() => {
-                setModalVisible(!mostrarModal);
+                setAtivarModal(!ativarModal);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>

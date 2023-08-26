@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Button, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
@@ -27,8 +27,6 @@ const DropDown = () =>{
     data()   
     })
 
-    
-
     const renderLabel = () => {
       if (valuePSelec || isFocus) {
         return (
@@ -39,8 +37,6 @@ const DropDown = () =>{
       }
       return null;
     };
-
-  
 
     return (
       <View style={styles.container}>

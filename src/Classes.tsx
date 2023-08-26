@@ -1,26 +1,20 @@
-import { Text, View, StyleSheet, Pressable, Button, TextInput, NativeSyntheticEvent,TextInputChangeEventData, Modal } from "react-native"
+import { View, StyleSheet, Button, TextInput, NativeSyntheticEvent,TextInputChangeEventData} from "react-native"
 import firestore from '@react-native-firebase/firestore';
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import DropDown from "./DropDown";
 import BtnAddPeriodo from "./BtnAddPeriodo";
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import Globais from './Globais'
-import DataContext,{data} from "./data/DataContext";
+import Provider from "./data/Provider";
 
 function Classes() {
     
-  let [valueClasse,setValueClasse] = useState<string>('')
-  let [valuePeriodo,setValuePeriodo] = useState<string>('')
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [teste, setTeste] = useState('');
+  const [valueClasse,setValueClasse] = useState<string>('')
 
   const handleOnChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValueClasse(event.nativeEvent.text);
   }
   const onPressAddClasse = () =>{
-      
-
       firestore()
       .collection('Usuario')
       .doc(Globais.periodSelec)
@@ -31,9 +25,7 @@ function Classes() {
         idade: '36'
       });
       console.log('função adicionar',valueClasse);
-      
   }
-
     
   const onPressConsultar = async () => {
     try {
@@ -45,26 +37,19 @@ function Classes() {
     }
   };
 
-  const ativarModal = () =>{
-    setModalVisible(true)
-  }
-
   return (
-    <DataContext.Provider value={data}>
+    <Provider>
       <View style={{   justifyContent: 'center' }}>
         <View style={{ flexDirection:'row', backgroundColor:'white'}}>
           <DropDown ></DropDown>
-          
         </View>
-        <BtnAddPeriodo ativarModal={ativarModal}/>
-        <Text>{teste}</Text>
-      
+        <BtnAddPeriodo/>
         <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
         <Button onPress={onPressConsultar} title='Consultar alunos'/>
         <Button onPress={onPressAddClasse} title='Add Classe'/>
-        <ModalAddPeriodo mostrarModal={modalVisible}></ModalAddPeriodo>
+        <ModalAddPeriodo></ModalAddPeriodo>
       </View>
-    </DataContext.Provider>
+    </Provider>
   );
 }
 
