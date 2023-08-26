@@ -1,16 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { StyleSheet, Text, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
-import Globais from './Globais'
-import CustomChips from './CustomChips'
-
+import {Context} from "./data/Provider";
 
 const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
+    const {setPeriodoSelec} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -40,8 +39,6 @@ const DropDown = () =>{
 
     return (
       <View style={styles.container}>
-        <View></View>
-        
         {renderLabel()}
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
@@ -61,7 +58,7 @@ const DropDown = () =>{
           onBlur={() => setIsFocus(false)}
           onChange={item => {
             setValuePSelec(item.label);
-            Globais.periodSelec = item.label
+            setPeriodoSelec(item.label)
             setIsFocus(false);
             console.log(valuePSelec)
           }}
@@ -74,8 +71,6 @@ const DropDown = () =>{
             />
           )}
         />
-        <CustomChips></CustomChips>
-         
       </View>
     )
 }

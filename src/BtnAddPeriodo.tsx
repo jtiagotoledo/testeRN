@@ -12,7 +12,7 @@ const BtnAddPeriodo = () =>{
             <Pressable
                 style={style.button}
                 onPress={()=>setAtivarModal(true)}>
-                <Text>Add</Text>
+                <Text>+</Text>
             </Pressable>
         </View>
     )
@@ -26,6 +26,8 @@ button: {
     backgroundColor: '#F194FF',
     justifyContent: 'center',
     alignItems: 'center',
+    marginEnd:8,
+    minWidth:40
 },
 })
 export default BtnAddPeriodo

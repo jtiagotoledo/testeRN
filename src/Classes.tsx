@@ -6,6 +6,7 @@ import BtnAddPeriodo from "./BtnAddPeriodo";
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import Globais from './Globais'
 import Provider from "./data/Provider";
+import CustomChips from "./CustomChips";
 
 function Classes() {
     
@@ -29,7 +30,7 @@ function Classes() {
     
   const onPressConsultar = async () => {
     try {
-      const snapshot = await firestore().collection('Classes').get();
+      const snapshot = await firestore().collection('Usuario').get();
       const data = snapshot.docs.map((doc) => doc.data());
       console.log('Dados lidos:', data);
     } catch (error) {
@@ -40,14 +41,15 @@ function Classes() {
   return (
     <Provider>
       <View style={{   justifyContent: 'center' }}>
-        <View style={{ flexDirection:'row', backgroundColor:'white'}}>
+        <View style={styles.contDropBtnAddPer}>
           <DropDown ></DropDown>
+          <BtnAddPeriodo/>
         </View>
-        <BtnAddPeriodo/>
         <TextInput onChange={handleOnChangeInputClasse} style={{backgroundColor:'#d3d3d3'}}></TextInput>
-        <Button onPress={onPressConsultar} title='Consultar alunos'/>
         <Button onPress={onPressAddClasse} title='Add Classe'/>
+        {/* <Button onPress={onPressConsultar} title='Consultar alunos'/> */}
         <ModalAddPeriodo></ModalAddPeriodo>
+        <CustomChips></CustomChips>
       </View>
     </Provider>
   );
@@ -61,6 +63,10 @@ const styles = StyleSheet.create({
     marginTop:16,
     marginBottom:16,
     marginRight:16
+  },
+  contDropBtnAddPer:{
+    flexDirection:'row',
+    backgroundColor:'white',
   },
   centeredView: {
     flex: 1,
