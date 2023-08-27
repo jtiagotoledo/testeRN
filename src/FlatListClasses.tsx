@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import {View, FlatList, Text, StyleSheet, StatusBar} from 'react-native'
+import firestore from '@react-native-firebase/firestore';
+import {Context} from "./data/Provider";
 
 const DATA = [
     {
@@ -22,17 +24,34 @@ const Item = ({title}: ItemProps) => (
     <View style={styles.item}>
       <Text style={styles.title}>{title}</Text>
     </View>
-  );
-
+);
 
 const FlatListClasses = () => {
+
+  const  listaAlunos: any[]=[];
+  const {periodoSelec,classeSelec} = useContext(Context)
+
+
+  useEffect(()=>{
+    const data = async ()=>{
+    await firestore().collection('Usuario')
+    .doc(periodoSelec).collection('Classes')
+    // .doc(classeSelec)
+    .get().then(querySnapshot => {
+    querySnapshot.forEach(documentSnapshot => {
+    listaAlunos.push(documentSnapshot.id);
+    });
+    });
+}
+data()        
+},[periodoSelec,listaAlunos]);
+
     return(
         <View>
             <FlatList
             data={DATA}
-            renderItem={({item}) => <Item title={item.title} />}
-            >
-
+            renderItem={({item}) => 
+            <Item title={item.title} />}>
             </FlatList>
         </View>
     )
