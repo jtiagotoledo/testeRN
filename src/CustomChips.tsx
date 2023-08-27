@@ -1,4 +1,4 @@
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState, useContext } from 'react';
@@ -9,7 +9,7 @@ const CustomChips = ()=>{
     let listaChipsClasses:any='';
     const  listaClasses: any[]=[];
     const [chipsClasses,setChipsClasses] = useState('')
-    const {periodoSelec} = useContext(Context)
+    const {periodoSelec,setClasseSelec} = useContext(Context)
 
     useEffect(()=>{
         const data = async ()=>{
@@ -20,6 +20,7 @@ const CustomChips = ()=>{
         listaClasses.push(documentSnapshot.id);
         listaChipsClasses = listaClasses.map((classe:any) =>
         <Chip key={classe} title={classe} 
+        onPress={()=>{setClasseSelec(classe)}}
         containerStyle={{marginHorizontal:10, marginBottom:20}}></Chip>);
         });
         setChipsClasses(listaChipsClasses)
