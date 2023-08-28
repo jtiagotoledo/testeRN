@@ -8,6 +8,8 @@ import { Context } from "./data/Provider";
 import CustomChips from "./CustomChips";
 import BtnAddClasse from "./BtnAddClasse";
 import FlatListClasses from "./FlatListClasses";
+import BtnAddAluno from "./BtnAddAluno";
+import ModalAddAluno from "./ModalAddAluno";
 
 function Classes() {
     
@@ -26,9 +28,11 @@ function Classes() {
           <BtnAddClasse></BtnAddClasse>
         </View>
       </View>
+      <BtnAddAluno></BtnAddAluno>
       <FlatListClasses></FlatListClasses>
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
+      <ModalAddAluno></ModalAddAluno>
     </View>
   );
 }
