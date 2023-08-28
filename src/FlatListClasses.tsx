@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {View, FlatList, Text, StyleSheet, StatusBar} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
@@ -18,6 +18,7 @@ const DATA = [
     },
 ];
 
+
 type ItemProps = {title: string};
 
 const Item = ({title}: ItemProps) => (
@@ -27,8 +28,8 @@ const Item = ({title}: ItemProps) => (
 );
 
 const FlatListClasses = () => {
-
-  const  listaAlunos: any[]=[];
+  const alunos:any[] = []
+  const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
   const {periodoSelec,classeSelec} = useContext(Context)
 
 
@@ -36,12 +37,13 @@ const FlatListClasses = () => {
     const data = async ()=>{
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
-    // .doc(classeSelec)
+    .doc(classeSelec).collection('ListaAlunos')
     .get().then(querySnapshot => {
     querySnapshot.forEach(documentSnapshot => {
-    listaAlunos.push(documentSnapshot.id);
+    alunos.push(documentSnapshot.data());
     });
     });
+    setListaALunos(alunos)
 }
 data()        
 },[periodoSelec,listaAlunos]);
@@ -49,9 +51,9 @@ data()
     return(
         <View>
             <FlatList
-            data={DATA}
+            data={listaAlunos}
             renderItem={({item}) => 
-            <Item title={item.title} />}>
+            <Item title={item.nome} />}>
             </FlatList>
         </View>
     )

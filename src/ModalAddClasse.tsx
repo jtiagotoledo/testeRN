@@ -17,8 +17,7 @@ const ModalAddClasse = () =>{
         firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
         .doc(valueClasse).set({
-          nome: 'Tiago',
-          idade: '36'
+          
         });
         setModalClasse(!modalClasse);
         console.log('função adicionar',valueClasse);
