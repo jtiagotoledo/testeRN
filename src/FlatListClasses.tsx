@@ -19,11 +19,11 @@ const DATA = [
 ];
 
 
-type ItemProps = {title: string};
+type ItemProps = {nome: string, numero:string};
 
-const Item = ({title}: ItemProps) => (
+const Item = ({nome,numero}: ItemProps) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{numero} {nome}</Text>
     </View>
 );
 
@@ -49,11 +49,11 @@ data()
 },[periodoSelec,listaAlunos]);
 
     return(
-        <View>
+        <View style={styles.container}>
             <FlatList
             data={listaAlunos}
             renderItem={({item}) => 
-            <Item title={item.nome} />}>
+            <Item nome={item.nome} numero={item.numero} />}>
             </FlatList>
         </View>
     )
@@ -61,7 +61,9 @@ data()
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flexGrow: 1,
+      maxHeight:400,
+      backgroundColor:'#ccc2ff',
       marginTop: StatusBar.currentHeight || 0,
     },
     item: {

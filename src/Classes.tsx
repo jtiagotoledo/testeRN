@@ -13,7 +13,7 @@ import ModalAddAluno from "./ModalAddAluno";
 
 function Classes() {
     
-  const {periodoSelec} = useContext(Context)
+  const {classeSelec} = useContext(Context)
 
   return (
     <View style={styles.container}>
@@ -29,6 +29,7 @@ function Classes() {
         </View>
       </View>
       <BtnAddAluno></BtnAddAluno>
+      <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
       <FlatListClasses></FlatListClasses>
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
   },
   text:{
-    fontSize:18,
+    fontSize:24,
     alignContent:'center',
     justifyContent:'center',
     
