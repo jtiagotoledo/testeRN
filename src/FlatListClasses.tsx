@@ -1,36 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {View, FlatList, Text, StyleSheet, StatusBar} from 'react-native'
+import {View, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-];
+// const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
 
 
-type ItemProps = {nome: string, numero:string};
-
-const Item = ({nome,numero}: ItemProps) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{numero} {nome}</Text>
-    </View>
-);
 
 const FlatListClasses = () => {
   const alunos:any[] = []
   const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
-  const {periodoSelec,classeSelec} = useContext(Context)
+  const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
 
 
   useEffect(()=>{
@@ -48,12 +28,26 @@ const FlatListClasses = () => {
 data()        
 },[periodoSelec,listaAlunos]);
 
+type ItemProps = {nome: string, numero:string};
+
+const Item = ({nome,numero}: ItemProps) => (
+    <View style={styles.item}>
+      <TouchableOpacity>
+        <Text 
+        onLongPress={()=>setNumAlunoSelec(numero)}
+        style={styles.title}>
+          {numero} {nome}
+        </Text>
+      </TouchableOpacity>
+    </View>
+);
+
     return(
         <View style={styles.container}>
             <FlatList
             data={listaAlunos}
             renderItem={({item}) => 
-            <Item nome={item.nome} numero={item.numero} />}>
+            <Item nome={item.nome} numero={item.numero}/>}>
             </FlatList>
         </View>
     )

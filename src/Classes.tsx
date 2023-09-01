@@ -9,11 +9,12 @@ import CustomChips from "./CustomChips";
 import BtnAddClasse from "./BtnAddClasse";
 import FlatListClasses from "./FlatListClasses";
 import BtnAddAluno from "./BtnAddAluno";
+import BtnDelAluno from "./BtnDelAluno";
 import ModalAddAluno from "./ModalAddAluno";
 
 function Classes() {
     
-  const {classeSelec} = useContext(Context)
+  const {classeSelec, numAlunoSelec} = useContext(Context)
 
   return (
     <View style={styles.container}>
@@ -29,7 +30,9 @@ function Classes() {
         </View>
       </View>
       <BtnAddAluno></BtnAddAluno>
+      <BtnDelAluno></BtnDelAluno>
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
+      <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
       <FlatListClasses></FlatListClasses>
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>

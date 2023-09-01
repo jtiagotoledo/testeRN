@@ -9,6 +9,7 @@ export default function Provider ({children}){
     const[modalAluno,setModalAluno]=useState(false);
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
+    const[numAlunoSelec,setNumAlunoSelec]=useState('');
 
     return(
         <Context.Provider value={{
@@ -16,7 +17,8 @@ export default function Provider ({children}){
             modalClasse,setModalClasse,
             modalAluno,setModalAluno,
             periodoSelec,setPeriodoSelec,
-            classeSelec,setClasseSelec}}>
+            classeSelec,setClasseSelec,
+            numAlunoSelec,setNumAlunoSelec}}>
             {children}
         </Context.Provider>
     )

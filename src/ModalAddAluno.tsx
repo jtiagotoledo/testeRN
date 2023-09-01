@@ -38,7 +38,7 @@ const ModalAddAluno = () =>{
                 visible={modalAluno}
                 onRequestClose={() => {
                 setModalAluno(!modalAluno);
-            }}>
+                }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Adicione um novo aluno:</Text>
