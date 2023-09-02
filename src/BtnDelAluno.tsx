@@ -6,7 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 
 const BtnDelAluno = () =>{
 
-    const {setModalAluno, periodoSelec,
+    const {setModalDelAluno, periodoSelec,
         classeSelec,numAlunoSelec} = useContext(Context);
     
     const deletar = ()=> {

@@ -2,6 +2,8 @@ import { Pressable, View, Text, StyleSheet } from "react-native"
 import React, { useContext } from "react";
 import {Context} from "./data/Provider";
 
+// Componente inutilizado
+
 const BtnAddPeriodo = () =>{
 
     const {modalPeriodo,setModalPeriodo} = useContext(Context)

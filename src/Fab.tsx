@@ -7,19 +7,19 @@ import {Context} from "./data/Provider";
 const actions = [
     {
       text: "Adicionar período",
-      icon: <Icon name={'calendar'}></Icon>,
+      icon: <Icon name={'calendar'} color={'white'}></Icon>,
       name: "periodo",
       position: 1
     },
     {
       text: "Adicionar classe",
-      icon: <Icon name={'book'}></Icon>,
+      icon: <Icon name={'book'} color={'white'}></Icon>,
       name: "classe",
       position: 2,
     },
     {
       text: "Adicionar aluno",
-      icon: <Icon name={'user'}></Icon>,
+      icon: <Icon name={'user'} color={'white'}></Icon>,
       name: "aluno",
       position: 3
     },

@@ -7,6 +7,7 @@ export default function Provider ({children}){
     const[modalPeriodo,setModalPeriodo]=useState(false);
     const[modalClasse,setModalClasse]=useState(false);
     const[modalAluno,setModalAluno]=useState(false);
+    const[modalDelAluno,setModalDelAluno]=useState(false);
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
@@ -18,7 +19,8 @@ export default function Provider ({children}){
             modalAluno,setModalAluno,
             periodoSelec,setPeriodoSelec,
             classeSelec,setClasseSelec,
-            numAlunoSelec,setNumAlunoSelec}}>
+            numAlunoSelec,setNumAlunoSelec,
+            modalDelAluno,setModalDelAluno}}>
             {children}
         </Context.Provider>
     )

@@ -2,6 +2,8 @@ import { Pressable, View, Text, StyleSheet, ToastAndroid } from "react-native"
 import React, { useContext} from "react";
 import {Context} from "./data/Provider";
 
+// Componente inutilizado
+
 const BtnAddClasse = () =>{
 
     const {setModalClasse, periodoSelec} = useContext(Context);

@@ -56,7 +56,7 @@ const Item = ({nome,numero}: ItemProps) => (
 const styles = StyleSheet.create({
     container: {
       flexGrow: 1,
-      maxHeight:400,
+      maxHeight:390,
       backgroundColor:'#ccc2ff',
       marginTop: StatusBar.currentHeight || 0,
     },

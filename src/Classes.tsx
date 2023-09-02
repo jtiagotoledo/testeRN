@@ -10,10 +10,8 @@ import CustomChips from "./CustomChips";
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import ModalAddClasse from "./ModalAddClasse";
 import ModalAddAluno from "./ModalAddAluno";
+import ModalDelAluno from "./ModalDelAluno";
 
-import BtnAddClasse from "./BtnAddClasse";
-import BtnAddPeriodo from "./BtnAddPeriodo";
-import BtnAddAluno from "./BtnAddAluno";
 import BtnDelAluno from "./BtnDelAluno";
 
 function Classes() {
@@ -24,16 +22,13 @@ function Classes() {
     <View style={styles.container}>
       <View style={styles.contDropBtnAddPer}>
         <DropDown ></DropDown>
-        <BtnAddPeriodo/>
       </View>
       <View>
         <Text style={styles.text}>Selecione uma classe:</Text>
         <View style={styles.contChipsBtnAddClasse}>
           <CustomChips></CustomChips>
-          <BtnAddClasse></BtnAddClasse>
         </View>
       </View>
-      <BtnAddAluno></BtnAddAluno>
       <BtnDelAluno></BtnDelAluno>
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
       <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
@@ -41,6 +36,7 @@ function Classes() {
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
       <ModalAddAluno></ModalAddAluno>
+      <ModalDelAluno></ModalDelAluno>
       <Fab></Fab>
     </View>
   );
