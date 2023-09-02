@@ -6,13 +6,13 @@ import Fab from "./Fab";
 import DropDown from "./DropDown";
 import FlatListClasses from "./FlatListClasses";
 import CustomChips from "./CustomChips";
+import HeaderClasses from "./HeaderClasses";
 
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import ModalAddClasse from "./ModalAddClasse";
 import ModalAddAluno from "./ModalAddAluno";
 import ModalDelAluno from "./ModalDelAluno";
 
-import BtnDelAluno from "./BtnDelAluno";
 
 function Classes() {
     
@@ -20,6 +20,7 @@ function Classes() {
 
   return (
     <View style={styles.container}>
+      <HeaderClasses title="Classes"></HeaderClasses>
       <View style={styles.contDropBtnAddPer}>
         <DropDown ></DropDown>
       </View>
@@ -29,7 +30,6 @@ function Classes() {
           <CustomChips></CustomChips>
         </View>
       </View>
-      <BtnDelAluno></BtnDelAluno>
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
       <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
       <FlatListClasses></FlatListClasses>
@@ -45,7 +45,7 @@ function Classes() {
 const styles = StyleSheet.create({
   container:{
     backgroundColor:'white',
-    flex:1
+    flex:1,
   },
   contDropBtnAddPer:{
     flexDirection:'row',

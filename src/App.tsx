@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,20 +9,16 @@ import Classes from './Classes';
 import Frequencia from './Frequencia';
 import Notas from './Notas';
 import Provider from "./data/Provider";
-import {Context} from "./data/Provider";
-
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  
-  //const {setModalDelAluno} = useContext(Context);
-
   return (
     <Provider>
       <NavigationContainer>
         <Tab.Navigator 
           screenOptions={({ route }) => ({
+            headerShown:false,
             headerRight: () => {
               return <Icon style={styles.iconDelete} name={'bin'} size={25} color={'blue'}
               onPress={()=>''}></Icon>;

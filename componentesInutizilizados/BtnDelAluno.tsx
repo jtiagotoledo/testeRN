@@ -3,6 +3,7 @@ import React, { useContext} from "react";
 import {Context} from "./data/Provider";
 import firestore from '@react-native-firebase/firestore';
 
+//Componente inutilizado
 
 const BtnDelAluno = () =>{
 
@@ -20,7 +21,7 @@ const BtnDelAluno = () =>{
         <View>
             <Button
             title='Deletar Aluno'
-            onPress={deletar}></Button>
+            onPress={()=>setModalDelAluno(true)}></Button>
         </View>
     )
 }
