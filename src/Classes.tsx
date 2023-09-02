@@ -1,16 +1,20 @@
 import { View, StyleSheet, Text} from "react-native"
 import React, { useContext} from 'react';
+import { Context } from "./data/Provider";
+
+import Fab from "./Fab";
 import DropDown from "./DropDown";
-import BtnAddPeriodo from "./BtnAddPeriodo";
+import FlatListClasses from "./FlatListClasses";
+import CustomChips from "./CustomChips";
+
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import ModalAddClasse from "./ModalAddClasse";
-import { Context } from "./data/Provider";
-import CustomChips from "./CustomChips";
+import ModalAddAluno from "./ModalAddAluno";
+
 import BtnAddClasse from "./BtnAddClasse";
-import FlatListClasses from "./FlatListClasses";
+import BtnAddPeriodo from "./BtnAddPeriodo";
 import BtnAddAluno from "./BtnAddAluno";
 import BtnDelAluno from "./BtnDelAluno";
-import ModalAddAluno from "./ModalAddAluno";
 
 function Classes() {
     
@@ -37,6 +41,7 @@ function Classes() {
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
       <ModalAddAluno></ModalAddAluno>
+      <Fab></Fab>
     </View>
   );
 }
@@ -44,6 +49,7 @@ function Classes() {
 const styles = StyleSheet.create({
   container:{
     backgroundColor:'white',
+    flex:1
   },
   contDropBtnAddPer:{
     flexDirection:'row',
