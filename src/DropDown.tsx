@@ -80,8 +80,8 @@ export default DropDown;
 const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
-      padding: 16,
-      flex:10
+      padding: 8,
+      width:'100%'
     },
     dropdown: {
       height: 50,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       backgroundColor: 'white',
       left: 22,
-      top: 8,
+      top: 4,
       zIndex: 999,
       paddingHorizontal: 8,
       fontSize: 14,

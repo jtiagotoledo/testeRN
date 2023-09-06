@@ -55,10 +55,11 @@ const Item = ({nome,numero}: ItemProps) => (
 
 const styles = StyleSheet.create({
     container: {
-      flexGrow: 1,
+      display:'flex',
+      flexGrow:1,
       maxHeight:390,
       backgroundColor:'#ccc2ff',
-      marginTop: StatusBar.currentHeight || 0,
+      
     },
     item: {
       backgroundColor: '#f9c2ff',

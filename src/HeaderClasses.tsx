@@ -22,8 +22,9 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
     const {setModalDelAluno} = useContext(Context);
     
     return (
-    <SafeAreaProvider>
+    
         <HeaderRNE
+        style={styles.headerContainer}
         leftComponent={
             <View style={styles.headerRight}>
                 <TouchableOpacity>
@@ -40,18 +41,18 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         }
         centerComponent={{ text: 'Classes', style: styles.heading }}
         />
-    </SafeAreaProvider>
+    
     );
 };
 
 const styles = StyleSheet.create({
 headerContainer: {
-  justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: '#397af8',
   marginBottom: 20,
   width: '100%',
   paddingVertical: 15,
+  
 },
 heading: {
   color: 'white',
