@@ -30,7 +30,7 @@ const DropDown = () =>{
     const renderLabel = () => {
       if (valuePSelec || isFocus) {
         return (
-          <Text style={[styles.label, isFocus && { color: Globais.corPrimaria }]}>
+          <Text style={[styles.label, isFocus && { color: Globais.corTexto }]}>
             Selecione o período:
           </Text>
         );
@@ -80,13 +80,13 @@ export default DropDown;
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: 'white',
+      backgroundColor: Globais.corSecundaria,
       padding: 8,
       width:'100%'
     },
     dropdown: {
       height: 50,
-      borderColor: 'gray',
+      borderColor: Globais.corPrimaria,
       borderWidth: 0.5,
       borderRadius: 8,
       paddingHorizontal: 8,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
     label: {
       position: 'absolute',
-      backgroundColor: 'white',
+      backgroundColor: Globais.corSecundaria,
       left: 22,
       top: 4,
       zIndex: 999,

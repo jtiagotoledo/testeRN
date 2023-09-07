@@ -2,6 +2,7 @@ import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEve
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
+import Globais from "./Globais";
 
 const ModalAddAluno = () =>{
 
@@ -42,8 +43,8 @@ const ModalAddAluno = () =>{
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Adicione um novo aluno:</Text>
-                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
-                        <TextInput placeholder='Nome' onChange={onChangeInputNome} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
+                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput}></TextInput>
+                        <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={onPressAddAluno}>
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
       margin: 20,
-      backgroundColor: 'white',
+      backgroundColor: Globais.corTerciaria,
       borderRadius: 20,
       padding: 35,
       alignItems: 'center',
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#F194FF',
     },
     buttonClose: {
-      backgroundColor: '#2196F3',
+      backgroundColor: Globais.corPrimaria,
     },
     textStyle: {
       color: 'white',
@@ -105,7 +106,13 @@ const styles = StyleSheet.create({
     modalText: {
       marginBottom: 15,
       textAlign: 'center',
+      color: 'white'
     },
+    textInput:{
+      backgroundColor: 'white', 
+      minWidth:100, 
+      marginBottom:20
+    }
   });
 
 export default ModalAddAluno

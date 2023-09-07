@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text} from "react-native"
 import React, { useContext} from 'react';
 import { Context } from "./data/Provider";
+import { Divider } from "react-native-paper";
 
 import Fab from "./Fab";
 import DropDown from "./DropDown";
@@ -24,8 +25,10 @@ function Classes() {
       <DropDown ></DropDown>
       <Text style={styles.text}>Selecione uma classe:</Text>
       <CustomChips></CustomChips>
+      <Divider style={styles.divider}></Divider>
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
       <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
+      <Divider style={styles.divider}></Divider>
       <FlatListClasses></FlatListClasses>
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
@@ -42,7 +45,12 @@ const styles = StyleSheet.create({
     flex:1,
   },
   text:{
-    fontSize:24,
+    fontSize:20,
+    padding:5,
+    color: Globais.corTexto,
+  },
+  divider:{
+    backgroundColor: Globais.corPrimaria,
   }
 });
 

@@ -54,16 +54,15 @@ const styles = StyleSheet.create({
     container: {
       flexGrow:1,
       flex:1,
-      backgroundColor: Globais.corSecundaria,
     },
     item: {
       backgroundColor: Globais.corTerciaria,
-      padding: 20,
-      marginVertical: 8,
+      padding: 10,
+      marginVertical: 4,
       marginHorizontal: 16,
     },
     title: {
-      fontSize: 32,
+      fontSize: 24,
       color: Globais.corTexto,
       flex:1,
     },

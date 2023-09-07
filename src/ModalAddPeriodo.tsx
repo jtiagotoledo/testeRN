@@ -2,6 +2,7 @@ import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEve
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
+import Globais from "./Globais";
 
 const ModalAddPeriodo = () =>{
 
@@ -36,7 +37,7 @@ const ModalAddPeriodo = () =>{
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Crie um novo período:</Text>
-                        <TextInput onChange={onChangeInputPeriodo} style={{backgroundColor:'#d3d3d3', minWidth:100, marginBottom:20}}></TextInput>
+                        <TextInput onChange={onChangeInputPeriodo} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={onPressAddPeriodo}>
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
       margin: 20,
-      backgroundColor: 'white',
+      backgroundColor: Globais.corTerciaria,
       borderRadius: 20,
       padding: 35,
       alignItems: 'center',
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#F194FF',
     },
     buttonClose: {
-      backgroundColor: '#2196F3',
+      backgroundColor: Globais.corPrimaria,
     },
     textStyle: {
       color: 'white',
@@ -98,7 +99,13 @@ const styles = StyleSheet.create({
     modalText: {
       marginBottom: 15,
       textAlign: 'center',
+      color: 'white'
     },
+    textInput:{
+      backgroundColor: 'white', 
+      minWidth:100, 
+      marginBottom:20
+    }
   });
 
 export default ModalAddPeriodo

@@ -20,10 +20,6 @@ const App = () => {
         <Tab.Navigator 
           screenOptions={({ route }) => ({
             headerShown:false,
-            headerRight: () => {
-              return <Icon style={styles.iconDelete} name={'bin'} size={25} color={'blue'}
-              onPress={()=>''}></Icon>;
-            },
             tabBarIcon: ({ focused, color, size }) => {
               let iconName='';
 
@@ -42,7 +38,7 @@ const App = () => {
           })}>
           <Tab.Screen name="Classes" component={Classes}></Tab.Screen>
           <Tab.Screen name="Frequencia" component={Frequencia} />
-          <Tab.Screen name="Notas" component={Notas} />
+          <Tab.Screen name="Notas" component={Notas}/>
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
