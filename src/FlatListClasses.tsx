@@ -57,14 +57,15 @@ const styles = StyleSheet.create({
       backgroundColor: Globais.corSecundaria,
     },
     item: {
-      backgroundColor: '#f9c2ff',
+      backgroundColor: Globais.corTerciaria,
       padding: 20,
       marginVertical: 8,
       marginHorizontal: 16,
     },
     title: {
       fontSize: 32,
-      color: Globais.corTexto
+      color: Globais.corTexto,
+      flex:1,
     },
   });
 

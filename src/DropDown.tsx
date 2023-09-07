@@ -4,6 +4,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
 import {Context} from "./data/Provider";
+import Globais from "./Globais";
 
 const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
@@ -29,7 +30,7 @@ const DropDown = () =>{
     const renderLabel = () => {
       if (valuePSelec || isFocus) {
         return (
-          <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+          <Text style={[styles.label, isFocus && { color: Globais.corPrimaria }]}>
             Selecione o período:
           </Text>
         );
@@ -41,7 +42,7 @@ const DropDown = () =>{
       <View style={styles.container}>
         {renderLabel()}
         <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          style={[styles.dropdown, isFocus && { borderColor: Globais.corPrimaria }]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
@@ -65,7 +66,7 @@ const DropDown = () =>{
           renderLeftIcon={() => (
             <Icon
               style={styles.icon}
-              color={isFocus ? 'blue' : 'black'}
+              color={isFocus ? Globais.corPrimaria : 'black'}
               name="checkmark2"
               size={20}
             />

@@ -3,6 +3,7 @@ import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState, useContext } from 'react';
 import {Context} from "./data/Provider";
+import Globais from './Globais';
 
 
 const CustomChips = ()=>{
@@ -19,9 +20,12 @@ const CustomChips = ()=>{
         querySnapshot.forEach(documentSnapshot => {
         listaClasses.push(documentSnapshot.id);
         listaChipsClasses = listaClasses.map((classe:any) =>
-        <Chip key={classe} title={classe} 
+        <Chip 
+        color={Globais.corPrimaria}
+        key={classe} title={classe} 
         onPress={()=>{setClasseSelec(classe)}}
-        containerStyle={{marginHorizontal:10, marginBottom:20}}></Chip>);
+        containerStyle={{marginHorizontal:10, marginBottom:20}}>
+        </Chip>);
         });
         setChipsClasses(listaChipsClasses)
         });
@@ -30,17 +34,22 @@ const CustomChips = ()=>{
     },[periodoSelec,chipsClasses]);
 
     return(
-        <View style={styles.contentView}>
+        <View >
             <ScrollView horizontal={true}>
-            <View style={{flexDirection: 'row', marginTop:20}}>{chipsClasses}</View>
+                <View 
+                    style={styles.contentView}>
+                    {chipsClasses}
+                </View>
             </ScrollView>
-        </View>
+        </View> 
     );
 }
 
 const styles = StyleSheet.create({
     contentView: {
       flexDirection:'row',
+      marginTop:20,
+      minHeight:60,
     },
 });
 

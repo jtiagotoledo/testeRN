@@ -7,12 +7,12 @@ import DropDown from "./DropDown";
 import FlatListClasses from "./FlatListClasses";
 import CustomChips from "./CustomChips";
 import HeaderClasses from "./HeaderClasses";
+import Globais from "./Globais";
 
 import ModalAddPeriodo from "./ModalAddPeriodo";
 import ModalAddClasse from "./ModalAddClasse";
 import ModalAddAluno from "./ModalAddAluno";
 import ModalDelAluno from "./ModalDelAluno";
-
 
 function Classes() {
     
@@ -23,9 +23,7 @@ function Classes() {
       <HeaderClasses title="Classes"></HeaderClasses>
       <DropDown ></DropDown>
       <Text style={styles.text}>Selecione uma classe:</Text>
-      
       <CustomChips></CustomChips>
-      
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
       <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
       <FlatListClasses></FlatListClasses>
@@ -40,22 +38,12 @@ function Classes() {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor:'white',
+    backgroundColor: Globais.corSecundaria,
     flex:1,
-  },
-  contDropBtnAddPer:{
-    flexDirection:'row',
-  },
-  contChipsBtnAddClasse:{
-    flexDirection:'row',
   },
   text:{
     fontSize:24,
-    alignContent:'center',
-    justifyContent:'center',
-    
   }
-  
 });
 
 export default Classes;
