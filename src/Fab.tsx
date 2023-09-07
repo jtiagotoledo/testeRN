@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { View } from "react-native";
 import {Icon} from './Icon'
 import {Context} from "./data/Provider";
+import Globais from "./Globais";
 
 const actions = [
     {
@@ -28,12 +29,12 @@ const actions = [
 
 const Fab = ()=>{
 
-    const {setModalPeriodo, setModalClasse,
-        setModalAluno} = useContext(Context);
+    const {setModalPeriodo, setModalClasse,setModalAluno} = useContext(Context);
 
     return(
         <View>
             <FloatingAction
+            color={Globais.corPrimaria}
             actions={actions}
             onPressItem={name => {
                 name=='periodo'?setModalPeriodo(true):null

@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {View, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
-
-// const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
-
-
+import Globais from './Globais';
 
 const FlatListClasses = () => {
   const alunos:any[] = []
@@ -32,9 +29,9 @@ type ItemProps = {nome: string, numero:string};
 
 const Item = ({nome,numero}: ItemProps) => (
     <View style={styles.item}>
-      <TouchableOpacity>
+      <TouchableOpacity
+      onLongPress={()=>setNumAlunoSelec(numero)}>
         <Text 
-        onLongPress={()=>setNumAlunoSelec(numero)}
         style={styles.title}>
           {numero} {nome}
         </Text>
@@ -55,11 +52,9 @@ const Item = ({nome,numero}: ItemProps) => (
 
 const styles = StyleSheet.create({
     container: {
-      display:'flex',
       flexGrow:1,
-      maxHeight:390,
-      backgroundColor:'#ccc2ff',
-      
+      flex:1,
+      backgroundColor: Globais.corSecundaria,
     },
     item: {
       backgroundColor: '#f9c2ff',
@@ -69,6 +64,7 @@ const styles = StyleSheet.create({
     },
     title: {
       fontSize: 32,
+      color: Globais.corTexto
     },
   });
 

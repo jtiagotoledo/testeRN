@@ -1,4 +1,6 @@
 export default class Globais{
-    static periodSelec = '';
-    static flagPeriodo = '';
+    static corPrimaria = 'steelblue';
+    static corSecundaria = 'skyblue';
+    static corTerciaria = 'powderblue';
+    static corTexto = 'white';
 }

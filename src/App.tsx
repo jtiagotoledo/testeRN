@@ -9,6 +9,7 @@ import Classes from './Classes';
 import Frequencia from './Frequencia';
 import Notas from './Notas';
 import Provider from "./data/Provider";
+import Globais from './Globais';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ const App = () => {
 
               return <Icon name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: 'tomato',
+            tabBarActiveTintColor: Globais.corPrimaria,
             tabBarInactiveTintColor: 'gray',
           })}>
           <Tab.Screen name="Classes" component={Classes}></Tab.Screen>

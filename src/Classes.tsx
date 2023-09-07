@@ -21,15 +21,11 @@ function Classes() {
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
-      <View style={styles.contDropBtnAddPer}>
-        <DropDown ></DropDown>
-      </View>
-      <View>
-        <Text style={styles.text}>Selecione uma classe:</Text>
-        <View style={styles.contChipsBtnAddClasse}>
-          <CustomChips></CustomChips>
-        </View>
-      </View>
+      <DropDown ></DropDown>
+      <Text style={styles.text}>Selecione uma classe:</Text>
+      
+      <CustomChips></CustomChips>
+      
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
       <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
       <FlatListClasses></FlatListClasses>

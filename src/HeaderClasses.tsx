@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import {StyleSheet,View,Linking} from 'react-native';
 import { Header as HeaderRNE} from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {Icon} from './Icon'
 import {Context} from "./data/Provider";
+import Globais from './Globais';
 
 type HeaderComponentProps = {
 title: string;
@@ -22,8 +22,8 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
     const {setModalDelAluno} = useContext(Context);
     
     return (
-    
         <HeaderRNE
+        backgroundColor = {Globais.corPrimaria}
         style={styles.headerContainer}
         leftComponent={
             <View style={styles.headerRight}>

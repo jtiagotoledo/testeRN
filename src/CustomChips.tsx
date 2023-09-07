@@ -41,8 +41,6 @@ const CustomChips = ()=>{
 const styles = StyleSheet.create({
     contentView: {
       flexDirection:'row',
-      backgroundColor:'white',
-      flex:1
     },
 });
 
