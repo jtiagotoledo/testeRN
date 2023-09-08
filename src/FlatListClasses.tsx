@@ -15,6 +15,7 @@ const FlatListClasses = () => {
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
+    .orderBy('numero')
     .get().then(querySnapshot => {
     querySnapshot.forEach(documentSnapshot => {
     alunos.push(documentSnapshot.data());
