@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   text:{
     fontSize:20,
     padding:5,
-    color: Globais.corTexto,
+    color: Globais.corTextoEscuro,
   },
   divider:{
     backgroundColor: Globais.corPrimaria,

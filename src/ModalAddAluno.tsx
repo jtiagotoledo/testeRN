@@ -23,7 +23,7 @@ const ModalAddAluno = () =>{
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('ListaAlunos')
         .doc(valueNumero).set({
-          numero: parseInt(valueNumero),
+          numero: valueNumero,
           nome: valueNome
         });
         setModalAluno(!modalAluno);

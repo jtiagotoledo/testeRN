@@ -1,14 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {View, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import {SafeAreaView, View, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
 
-const FlatListClasses = () => {
-  const alunos:any[] = []
-  const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
-  const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
+type ItemData = {
+  nome: string;
+  numero: string;
+};
 
+type ItemProps = {
+  item: ItemData;
+  onPress: () => void;
+  backgroundColor: string;
+  textColor: string;
+};
+
+const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+    <Text style={[styles.title, {color: textColor}]}>{item.numero} {item.nome}</Text>
+  </TouchableOpacity>
+);
+
+const FlatListClasses = () => {
+    const alunos:any[] = []
+    const [selectedId, setSelectedId] = useState<string>();
+    const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
+    const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -26,47 +44,45 @@ const FlatListClasses = () => {
 data()        
 },[periodoSelec,listaAlunos]);
 
-type ItemProps = {nome: string, numero:string};
+  const renderItem = ({item}: {item: ItemData}) => {
+    const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
-const Item = ({nome,numero}: ItemProps) => (
-    <View style={styles.item}>
-      <TouchableOpacity
-      onLongPress={()=>setNumAlunoSelec(numero)}>
-        <Text 
-        style={styles.title}>
-          {numero} {nome}
-        </Text>
-      </TouchableOpacity>
-    </View>
-);
+    return (
+      <Item
+        item={item}
+        onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero)]}
+        backgroundColor={backgroundColor}
+        textColor={color}
+      />
+    );
+  };
 
-    return(
-        <View style={styles.container}>
-            <FlatList
-            data={listaAlunos}
-            renderItem={({item}) => 
-            <Item nome={item.nome} numero={item.numero}/>}>
-            </FlatList>
-        </View>
-    )
-}
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={listaAlunos}
+        renderItem={renderItem}
+        keyExtractor={item => item.numero}
+        extraData={selectedId}
+      />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flexGrow:1,
-      flex:1,
-    },
-    item: {
-      backgroundColor: Globais.corTerciaria,
-      padding: 10,
-      marginVertical: 4,
-      marginHorizontal: 16,
-    },
-    title: {
-      fontSize: 24,
-      color: Globais.corTexto,
-      flex:1,
-    },
-  });
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 24,
+  },
+});
 
-export default FlatListClasses;  
+export default FlatListClasses;
