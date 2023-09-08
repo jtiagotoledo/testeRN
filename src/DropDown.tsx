@@ -30,7 +30,7 @@ const DropDown = () =>{
     const renderLabel = () => {
       if (valuePSelec || isFocus) {
         return (
-          <Text style={[styles.label, isFocus && { color: Globais.corTexto }]}>
+          <Text style={[styles.label, isFocus && { color: Globais.corTextoEscuro }]}>
             Selecione o período:
           </Text>
         );

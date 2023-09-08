@@ -8,18 +8,24 @@ import Globais from "./Globais";
 const actions = [
     {
       text: "Adicionar período",
+      textBackground: Globais.corPrimaria,
+      color: Globais.corPrimaria,
       icon: <Icon name={'calendar'} color={'white'}></Icon>,
       name: "periodo",
       position: 1
     },
     {
       text: "Adicionar classe",
+      textBackground: Globais.corPrimaria,
+      color: Globais.corPrimaria,
       icon: <Icon name={'book'} color={'white'}></Icon>,
       name: "classe",
       position: 2,
     },
     {
       text: "Adicionar aluno",
+      textBackground: Globais.corPrimaria,
+      color: Globais.corPrimaria,
       icon: <Icon name={'user'} color={'white'}></Icon>,
       name: "aluno",
       position: 3
