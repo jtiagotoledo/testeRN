@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
+import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
@@ -23,6 +23,10 @@ const ModalAddClasse = () =>{
         });
         setModalClasse(!modalClasse);
         console.log('função adicionar',valueClasse);
+      }else{
+        ToastAndroid.show(
+          'Digite o nome da classe!!',
+          ToastAndroid.SHORT)
       }
     }
 

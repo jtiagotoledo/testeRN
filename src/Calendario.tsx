@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { StyleSheet } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 
 LocaleConfig.locales.br = {
@@ -14,7 +15,7 @@ const Calendario = () => {
   const [selected, setSelected] = useState('');
 
   return (
-    <Calendar
+    <Calendar style={styles.container}
       onDayPress={day => {
         setSelected(day.dateString);
         console.log(day.dateString)
@@ -25,5 +26,12 @@ const Calendario = () => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  container:{
+    height:350,
+    width:350
+  }
+});
 
 export default Calendario;

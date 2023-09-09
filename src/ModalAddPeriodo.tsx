@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
+import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
@@ -22,6 +22,11 @@ const ModalAddPeriodo = () =>{
         })
         setModalPeriodo(!modalPeriodo);
         console.log('função adicionar período',valuePeriodo);
+      }
+      else{
+        ToastAndroid.show(
+          'Digite o nome do período!',
+          ToastAndroid.SHORT)
       }
     }
 
