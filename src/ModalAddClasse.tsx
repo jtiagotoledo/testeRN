@@ -25,9 +25,11 @@ const ModalAddClasse = () =>{
         console.log('função adicionar',valueClasse);
       }else{
         ToastAndroid.show(
-          'Digite o nome da classe!!',
+          'Digite o nome da classe!',
           ToastAndroid.SHORT)
       }
+      
+      
     }
 
     return(

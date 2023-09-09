@@ -1,6 +1,6 @@
 import { FloatingAction } from "react-native-floating-action";
 import React, { useContext } from 'react';
-import { View } from "react-native";
+import { View, ToastAndroid } from "react-native";
 import {Icon} from './Icon'
 import {Context} from "./data/Provider";
 import Globais from "./Globais";
@@ -35,7 +35,8 @@ const actions = [
 
 const Fab = ()=>{
 
-    const {setModalPeriodo, setModalClasse,setModalAluno} = useContext(Context);
+    const {setModalPeriodo, setModalClasse,
+      setModalAluno, periodoSelec, classeSelec} = useContext(Context);
 
     return(
         <View>
@@ -44,8 +45,22 @@ const Fab = ()=>{
             actions={actions}
             onPressItem={name => {
                 name=='periodo'?setModalPeriodo(true):null
-                name=='classe'?setModalClasse(true):null
-                name=='aluno'?setModalAluno(true):null
+                if(periodoSelec!=''){
+                  name=='classe'?setModalClasse(true):null
+
+                }else{
+                  ToastAndroid.show(
+                    'Selecione uma classe primeiro!',
+                    ToastAndroid.SHORT)
+                }
+                if(periodoSelec!='' && classeSelec!=''){
+                  name=='aluno'?setModalAluno(true):null
+                }else{
+                    ToastAndroid.show(
+                      'Selecione um aluno primeiro!',
+                      ToastAndroid.SHORT)
+                }
+                
             }}/>
         </View>
     )
