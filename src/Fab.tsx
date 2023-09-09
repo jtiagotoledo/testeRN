@@ -47,20 +47,18 @@ const Fab = ()=>{
                 name=='periodo'?setModalPeriodo(true):null
                 if(periodoSelec!=''){
                   name=='classe'?setModalClasse(true):null
-
-                }else{
+                }else if(periodoSelec!=''||name=='classe'){
                   ToastAndroid.show(
-                    'Selecione uma classe primeiro!',
+                    'Selecione um período primeiro!',
                     ToastAndroid.SHORT)
                 }
-                if(periodoSelec!='' && classeSelec!=''){
+                if(classeSelec!=''){
                   name=='aluno'?setModalAluno(true):null
-                }else{
+                }else if(classeSelec!=''||name=='aluno'){
                     ToastAndroid.show(
-                      'Selecione um aluno primeiro!',
+                      'Selecione uma classe primeiro!',
                       ToastAndroid.SHORT)
                 }
-                
             }}/>
         </View>
     )
