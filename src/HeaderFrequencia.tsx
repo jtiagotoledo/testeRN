@@ -11,7 +11,7 @@ title: string;
 view?: string;
 };
 
-const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
+const HeaderFrequencia: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
     const {setModalDelAluno} = useContext(Context);
     
@@ -33,7 +33,7 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
                 </TouchableOpacity>
             </View>
         }
-        centerComponent={{ text: 'Classes', style: styles.heading }}
+        centerComponent={{ text: 'Frequência', style: styles.heading }}
         />
     
     );
@@ -65,4 +65,4 @@ subheaderText: {
 },
 });
 
-export default HeaderClasses;
+export default HeaderFrequencia;
