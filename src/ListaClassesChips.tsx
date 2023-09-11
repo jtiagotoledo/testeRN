@@ -6,7 +6,7 @@ import {Context} from "./data/Provider";
 import Globais from './Globais';
 
 
-const CustomChips = ()=>{
+const ListaClassesChips = ()=>{
     let listaChipsClasses:any='';
     const  listaClasses: any[]=[];
     const [chipsClasses,setChipsClasses] = useState('')
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CustomChips;
+export default ListaClassesChips;
