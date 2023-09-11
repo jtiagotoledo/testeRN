@@ -28,6 +28,8 @@ const ModalAddAluno = () =>{
         });
         setModalAluno(!modalAluno);
         console.log('função adicionar',valueNome);
+
+        
       }else{
         ToastAndroid.show(
           'Digite o número e o nome do aluno!',
