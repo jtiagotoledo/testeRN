@@ -5,16 +5,18 @@ import {Context} from "./data/Provider";
 import ModalCalendario from "./ModalCalendario";
 import Globais from "./Globais";
 import HeaderFrequencia from "./HeaderFrequencia";
+import FlatListFrequencia from "./FlatListFrequencia";
 
 
 const Frequencia = () =>{
-    const {setModalCalendario} = useContext(Context);
+    const {setModalCalendario, dataSelec} = useContext(Context);
 
     return(
         <View style={styles.container}>
             <HeaderFrequencia title="Frequência"></HeaderFrequencia>
-            <Text>Frequencia</Text>
             <Button title="Add data" onPress={()=>setModalCalendario(true)}></Button>
+            <Text style={styles.text}>{dataSelec}</Text>
+            <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendario></ModalCalendario>
         </View>
         
@@ -26,6 +28,11 @@ const styles = StyleSheet.create({
       backgroundColor: Globais.corSecundaria,
       flex:1,
     },
+    text:{
+        fontSize:20,
+        padding:5,
+        color: Globais.corTextoEscuro,
+      },
 });
 
 export default Frequencia;

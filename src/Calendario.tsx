@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { StyleSheet } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
+import {Context} from "./data/Provider";
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -13,11 +14,13 @@ LocaleConfig.defaultLocale = "br";
 
 const Calendario = () => {
   const [selected, setSelected] = useState('');
+  const {setDataSelec} = useContext(Context);
 
   return (
     <Calendar style={styles.container}
       onDayPress={day => {
         setSelected(day.dateString);
+        setDataSelec(day.dateString)
         console.log(day.dateString)
       }}
       markedDates={{

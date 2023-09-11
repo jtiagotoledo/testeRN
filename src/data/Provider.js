@@ -12,6 +12,7 @@ export default function Provider ({children}){
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
+    const[dataSelec,setDataSelec]=useState('');
 
     return(
         <Context.Provider value={{
@@ -22,7 +23,8 @@ export default function Provider ({children}){
             modalCalendario,setModalCalendario,
             periodoSelec,setPeriodoSelec,
             classeSelec,setClasseSelec,
-            numAlunoSelec,setNumAlunoSelec}}>
+            numAlunoSelec,setNumAlunoSelec,
+            dataSelec,setDataSelec}}>
             {children}
         </Context.Provider>
     )

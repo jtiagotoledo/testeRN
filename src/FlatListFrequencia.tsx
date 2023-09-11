@@ -22,7 +22,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
   </TouchableOpacity>
 );
 
-const FlatListClasses = () => {
+const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlatListClasses;
+export default FlatListFrequencia;
