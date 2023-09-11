@@ -7,6 +7,7 @@ import Globais from './Globais';
 type ItemData = {
   nome: string;
   numero: string;
+  frequencia: string;
 };
 
 type ItemProps = {
@@ -14,7 +15,6 @@ type ItemProps = {
   onPress: () => void;
   backgroundColor: string;
   textColor: string;
-  // textFreq: string
 };
 
 const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
@@ -24,7 +24,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
     </View>
     <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
     ]}>
-      <Text style={[styles.titleFrequencia]}></Text>
+      <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
     </TouchableOpacity>
   </View>
   
@@ -33,7 +33,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
-    const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
+    const [listaAlunos,setListaALunos]=useState([{numero:'',nome:'',frequencia:''}]);
     const {periodoSelec,classeSelec,setNumAlunoSelec,dataSelec} = useContext(Context)
 
   useEffect(()=>{
@@ -49,6 +49,7 @@ const FlatListFrequencia = () => {
       });
       });
       setListaALunos(alunos)
+      console.log(listaAlunos)
     }
     data()        
   },[classeSelec,listaAlunos]);
@@ -71,7 +72,6 @@ const FlatListFrequencia = () => {
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
-    // const textFreq = item.numero === selectedId ? 'A': 'P';
 
     return (
       <Item
@@ -79,7 +79,6 @@ const FlatListFrequencia = () => {
         onPress={() => onPressItemFreq(item)}
         backgroundColor={backgroundColor}
         textColor={color}
-        // textFreq={textFreq}
       />
     );
   };
