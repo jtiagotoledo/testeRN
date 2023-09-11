@@ -8,6 +8,7 @@ const ModalDelAluno = () =>{
     const {periodoSelec, classeSelec, numAlunoSelec, modalDelAluno, setModalDelAluno} = useContext(Context);
 
     const deletarAluno = ()=> {
+      console.log(typeof(numAlunoSelec))
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('ListaAlunos')

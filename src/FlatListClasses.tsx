@@ -33,6 +33,7 @@ const FlatListClasses = () => {
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
+    .orderBy('numero')
     .get().then(querySnapshot => {
     querySnapshot.forEach(documentSnapshot => {
     alunos.push(documentSnapshot.data());
@@ -50,7 +51,7 @@ data()
     return (
       <Item
         item={item}
-        onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero)]}
+        onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero.toString())]}
         backgroundColor={backgroundColor}
         textColor={color}
       />

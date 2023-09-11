@@ -23,7 +23,7 @@ const ModalAddAluno = () =>{
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('ListaAlunos')
         .doc(valueNumero).set({
-          numero: valueNumero,
+          numero: parseInt(valueNumero),
           nome: valueNome
         });
         setModalAluno(!modalAluno);
@@ -47,7 +47,7 @@ const ModalAddAluno = () =>{
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Adicione um novo aluno:</Text>
-                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput}></TextInput>
+                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
                         <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
