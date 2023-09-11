@@ -34,8 +34,8 @@ const Calendario = () => {
       firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
-        .doc(numero+'').collection('Datas')
-        .doc(dataSelec).set({
+        .doc(dataSelec).collection('Alunos')
+        .doc(numero+'').set({
           numero: numero,
           nome: nome,
           frequencia:'P'

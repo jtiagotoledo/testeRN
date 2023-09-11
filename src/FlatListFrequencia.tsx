@@ -14,17 +14,17 @@ type ItemProps = {
   onPress: () => void;
   backgroundColor: string;
   textColor: string;
-  textFreq: string
+  // textFreq: string
 };
 
-const Item = ({item, onPress, backgroundColor, textColor, textFreq}: ItemProps) => (
+const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
   <View style={styles.containerItem}>
     <View style={[styles.item, styles.nome]}>
       <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
     </View>
     <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
     ]}>
-      <Text style={[styles.titleFrequencia]}>{textFreq}</Text>
+      <Text style={[styles.titleFrequencia]}></Text>
     </TouchableOpacity>
   </View>
   
@@ -34,36 +34,52 @@ const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
-    const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
+    const {periodoSelec,classeSelec,setNumAlunoSelec,dataSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
-    await firestore().collection('Usuario')
-    .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('ListaAlunos')
-    .orderBy('numero')
-    .get().then(querySnapshot => {
-    querySnapshot.forEach(documentSnapshot => {
-    alunos.push(documentSnapshot.data());
-    });
-    });
-    setListaALunos(alunos)
-}
-data()        
-},[periodoSelec,listaAlunos]);
+      await firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('Frequencia')
+      .doc(dataSelec).collection('Alunos')
+      .orderBy('numero')
+      .get().then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+      alunos.push(documentSnapshot.data());
+      });
+      });
+      setListaALunos(alunos)
+    }
+    data()        
+  },[classeSelec,listaAlunos]);
+
+  const onPressItemFreq = (item:any) =>{
+    const numAluno = item.numero;
+    setSelectedId(item.numero);
+    setNumAlunoSelec(item.numero.toString());
+    firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(classeSelec).collection('Frequencia')
+        .doc(dataSelec).collection('Alunos')
+        .doc(numAluno+'').set({
+          numero:item.numero,
+          nome:item.nome,
+          frequencia:'A'
+        });
+  }
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
-    const textFreq = item.numero === selectedId ? 'A': 'P';
+    // const textFreq = item.numero === selectedId ? 'A': 'P';
 
     return (
       <Item
         item={item}
-        onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero.toString())]}
+        onPress={() => onPressItemFreq(item)}
         backgroundColor={backgroundColor}
         textColor={color}
-        textFreq={textFreq}
+        // textFreq={textFreq}
       />
     );
   };
