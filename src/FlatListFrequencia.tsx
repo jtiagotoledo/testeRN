@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
@@ -14,12 +14,20 @@ type ItemProps = {
   onPress: () => void;
   backgroundColor: string;
   textColor: string;
+  textFreq: string
 };
 
-const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
-    <Text style={[styles.title, {color: textColor}]}>{item.numero} {item.nome}</Text>
-  </TouchableOpacity>
+const Item = ({item, onPress, backgroundColor, textColor, textFreq}: ItemProps) => (
+  <View style={styles.containerItem}>
+    <View style={[styles.item, styles.nome]}>
+      <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
+    </View>
+    <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
+    ]}>
+      <Text style={[styles.titleFrequencia]}>{textFreq}</Text>
+    </TouchableOpacity>
+  </View>
+  
 );
 
 const FlatListFrequencia = () => {
@@ -47,6 +55,7 @@ data()
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const textFreq = item.numero === selectedId ? 'A': 'P';
 
     return (
       <Item
@@ -54,6 +63,7 @@ data()
         onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero.toString())]}
         backgroundColor={backgroundColor}
         textColor={color}
+        textFreq={textFreq}
       />
     );
   };
@@ -75,14 +85,28 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
+  containerItem:{
+    flexDirection:'row',
+  },
   item: {
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
+    backgroundColor: Globais.corTerciaria,
   },
   title: {
     fontSize: 24,
   },
+  titleFrequencia:{
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  nome:{
+    flex:3
+  },
+  frequencia:{
+    flex:1
+  }
 });
 
 export default FlatListFrequencia;
