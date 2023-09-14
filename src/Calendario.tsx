@@ -5,6 +5,7 @@ import {Context} from "./data/Provider";
 import Globais from './Globais';
 import firestore from '@react-native-firebase/firestore';
 
+const listaDatas: string[]=[];
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -20,9 +21,9 @@ const Calendario = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
 
-  const onPressAddData = async () =>{
-    const alunos:any[] = []
     
+  const onPressAddData = async () =>{
+
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
@@ -41,20 +42,23 @@ const Calendario = () => {
           frequencia:'P'
         });
         setModalCalendario(!modalCalendario)
+        
     });
     });
+    listaDatas.push(dataSelec)
+    console.log(listaDatas)
   }
 
   return (
     <View style={styles.container}>
-      <Calendar 
+      <Calendar
         onDayPress={day => {
           setSelected(day.dateString);
           setDataSelec(day.dateString);
           console.log(day.dateString);
         }}
         markedDates={{
-          [selected]: {selected: true, disableTouchEvent: true}
+          '2023-09-11':{selected:true}
         }}
       />
       <Pressable

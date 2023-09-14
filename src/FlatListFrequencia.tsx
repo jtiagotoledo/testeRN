@@ -49,7 +49,6 @@ const FlatListFrequencia = () => {
       });
       });
       setListaALunos(alunos)
-      console.log(listaAlunos)
     }
     data()        
   },[classeSelec,listaAlunos]);
