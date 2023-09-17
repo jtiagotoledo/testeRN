@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {Context} from "./data/Provider";
@@ -6,6 +6,8 @@ import Globais from './Globais';
 import firestore from '@react-native-firebase/firestore';
 
 let datasMarcadas:any = {}
+const  listaDatas: any[]=[];
+
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -20,11 +22,24 @@ const Calendario = () => {
   const [selected, setSelected] = useState('');
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-
+  
+  useEffect(()=>{
+    const data = async ()=>{
+      await firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('Frequencia')
+      .orderBy('asc')
+      .get().then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+      listaDatas.push(documentSnapshot.id);
+      console.log(listaDatas)     
+      });
+      });
+    }
+    data()   
+  },[classeSelec,listaDatas]);
     
   const onPressAddData = async () =>{
-    
-
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
@@ -44,8 +59,8 @@ const Calendario = () => {
         });
       });
     });
-    datasMarcadas[dataSelec]={selected:true}
-    console.log(datasMarcadas)
+    // datasMarcadas[dataSelec]={selected:true}
+    // console.log(listaDatas)
     setModalCalendario(!modalCalendario)
   }
   
@@ -54,7 +69,7 @@ const Calendario = () => {
       <Calendar
         onDayPress={day => {
           setSelected(day.dateString);
-          setDataSelec(day.dateString);
+          setDataSelec(day.dateString.toString());
           console.log(day.dateString);
         }}
         markedDates={datasMarcadas}
