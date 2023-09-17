@@ -5,7 +5,7 @@ import {Context} from "./data/Provider";
 import Globais from './Globais';
 import firestore from '@react-native-firebase/firestore';
 
-const listaDatas: string[]=[];
+let datasMarcadas:any = {}
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -23,16 +23,17 @@ const Calendario = () => {
 
     
   const onPressAddData = async () =>{
+    
 
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
     .get().then(querySnapshot => {
-    querySnapshot.forEach(documentSnapshot => {
-      const numero = documentSnapshot.data().numero
-      const nome = documentSnapshot.data().nome
-      firestore().collection('Usuario')
+      querySnapshot.forEach(documentSnapshot => {
+        const numero = documentSnapshot.data().numero
+        const nome = documentSnapshot.data().nome
+        firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
@@ -41,14 +42,13 @@ const Calendario = () => {
           nome: nome,
           frequencia:'P'
         });
-        setModalCalendario(!modalCalendario)
-        
+      });
     });
-    });
-    listaDatas.push(dataSelec)
-    console.log(listaDatas)
+    datasMarcadas[dataSelec]={selected:true}
+    console.log(datasMarcadas)
+    setModalCalendario(!modalCalendario)
   }
-
+  
   return (
     <View style={styles.container}>
       <Calendar
@@ -57,9 +57,7 @@ const Calendario = () => {
           setDataSelec(day.dateString);
           console.log(day.dateString);
         }}
-        markedDates={{
-          '2023-09-11':{selected:true}
-        }}
+        markedDates={datasMarcadas}
       />
       <Pressable
         style={[styles.button, styles.buttonClose]}
