@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
-import firestore from '@react-native-firebase/firestore';
+import firestore, { firebase } from '@react-native-firebase/firestore';
 
 let datasMarcadas:any = {}
 const  listaDatas: any[]=[];
@@ -20,54 +20,61 @@ LocaleConfig.locales.br = {
 LocaleConfig.defaultLocale = "br";
 
 const Calendario = () => {
-  const [selected, setSelected] = useState('');
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-  
-    useEffect(()=>{
-      const data = async ()=>{
-        await firestore().collection('Usuario')
-        .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
-        .get().then(querySnapshot => {
-          querySnapshot.forEach(documentSnapshot => {
-            if(!listaDatas.includes(documentSnapshot.id)){
-              listaDatas.push(documentSnapshot.id)
-            }
-            
-          });
-        });
-        console.log('listaDatas',listaDatas) 
-      }
-      data()        
-    },[periodoSelec,listaDatas]);
-    
-  const onPressAddData = async () =>{
-    await 
-      firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Frequencia')
-      .doc(dataSelec).set({
-
+   
+  useEffect(()=>{
+    const data = async ()=>{
+    await firestore().collection('Usuario')
+    .doc(periodoSelec).collection('Classes')
+    .doc(classeSelec).collection('Frequencia')
+    .get().then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+        datasMarcadas[documentSnapshot.id]={selected:true}
       });
-      
+    });
+  }
+  data()        
+  },[periodoSelec,listaDatas]); 
+
+  const onPressAddData = async () =>{
+    firestore().collection('Usuario')
+    .doc(periodoSelec).collection('Classes')
+    .doc(classeSelec).collection('Frequencia')
+    .doc(dataSelec).set({});
     
-    
-    /* firestore().collection('Usuario')
+    firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
     .get().then(querySnapshot => {
       querySnapshot.forEach(documentSnapshot => {
-        listaAlunos.push(documentSnapshot.data())
+        const numero = documentSnapshot.data().numero;
+        const nome = documentSnapshot.data().nome;
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(classeSelec).collection('Frequencia')
+        .doc(dataSelec).collection('Alunos')
+        .doc(numero+'').set({
+          numero: numero,
+          nome: nome,
+          frequencia: 'P'
+        })
       });
-    }); */
-    
+    });
 
-     
-      
-      // datasMarcadas[dataSelec]={selected:true}
-      // console.log(listaDatas)
+    firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('Frequencia')
+      .get().then(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+          if(!listaDatas.includes(documentSnapshot.id)){
+            listaDatas.push(documentSnapshot.id)
+            datasMarcadas[dataSelec]={selected:true}
+          }
+        });
+      });
+    console.log('listaDatas',listaDatas) 
     setModalCalendario(!modalCalendario)
   }
   
@@ -75,9 +82,12 @@ const Calendario = () => {
     <View style={styles.container}>
       <Calendar
         onDayPress={day => {
-          setSelected(day.dateString);
           setDataSelec(day.dateString.toString());
-          console.log(day.dateString);
+          console.log(listaDatas);
+          // TODO: corrigir esse if
+          if(listaDatas.includes(day.dateString)){
+            setModalCalendario(!modalCalendario)
+          }
         }}
         markedDates={datasMarcadas}
       />
