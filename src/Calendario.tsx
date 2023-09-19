@@ -7,6 +7,7 @@ import firestore from '@react-native-firebase/firestore';
 
 let datasMarcadas:any = {}
 const  listaDatas: any[]=[];
+const  listaAlunos: any[]=[];
 
 
 LocaleConfig.locales.br = {
@@ -23,44 +24,50 @@ const Calendario = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
   
-  useEffect(()=>{
-    const data = async ()=>{
-      await firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Frequencia')
-      .orderBy('asc')
-      .get().then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
-      listaDatas.push(documentSnapshot.id);
-      console.log(listaDatas)     
-      });
-      });
-    }
-    data()   
-  },[classeSelec,listaDatas]);
+    useEffect(()=>{
+      const data = async ()=>{
+        await firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(classeSelec).collection('Frequencia')
+        .get().then(querySnapshot => {
+          querySnapshot.forEach(documentSnapshot => {
+            if(!listaDatas.includes(documentSnapshot.id)){
+              listaDatas.push(documentSnapshot.id)
+            }
+            
+          });
+        });
+        console.log('listaDatas',listaDatas) 
+      }
+      data()        
+    },[periodoSelec,listaDatas]);
     
   const onPressAddData = async () =>{
-    await firestore().collection('Usuario')
+    await 
+      firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('Frequencia')
+      .doc(dataSelec).set({
+
+      });
+      
+    
+    
+    /* firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
     .get().then(querySnapshot => {
       querySnapshot.forEach(documentSnapshot => {
-        const numero = documentSnapshot.data().numero
-        const nome = documentSnapshot.data().nome
-        firestore().collection('Usuario')
-        .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
-        .doc(dataSelec).collection('Alunos')
-        .doc(numero+'').set({
-          numero: numero,
-          nome: nome,
-          frequencia:'P'
-        });
+        listaAlunos.push(documentSnapshot.data())
       });
-    });
-    // datasMarcadas[dataSelec]={selected:true}
-    // console.log(listaDatas)
+    }); */
+    
+
+     
+      
+      // datasMarcadas[dataSelec]={selected:true}
+      // console.log(listaDatas)
     setModalCalendario(!modalCalendario)
   }
   
