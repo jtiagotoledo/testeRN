@@ -1,8 +1,9 @@
-import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid } from "react-native"
+import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from "./Globais";
+import {Icon} from './Icon'
 
 const ModalAddAluno = () =>{
 
@@ -48,6 +49,12 @@ const ModalAddAluno = () =>{
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
+                        <TouchableOpacity style={styles.containerIcon} onPress={()=>setModalAluno(!modalAluno)}>
+                            <Icon name="cancel-circle" color="white" size={20}></Icon>
+                        </TouchableOpacity>
+                        <View >
+                          
+                        </View>
                         <Text style={styles.modalText}>Adicione um novo aluno:</Text>
                         <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
                         <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
@@ -71,6 +78,13 @@ const styles = StyleSheet.create({
       marginTop:16,
       marginBottom:16,
       marginRight:16
+    },
+    containerIcon:{
+      
+      
+      alignContent:'flex-end',
+      alignItems:'flex-end'
+      
     },
     centeredView: {
       flex: 1,
