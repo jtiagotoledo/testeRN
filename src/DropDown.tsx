@@ -11,6 +11,7 @@ const DropDown = () =>{
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
     const {setPeriodoSelec} = useContext(Context)
+    const {setflagLoadClasses} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -54,15 +55,16 @@ const DropDown = () =>{
           labelField="label"
           valueField="value"
           placeholder={!isFocus ? 'Selecione o período' : '...'}
-          searchPlaceholder="Search..."
+          searchPlaceholder="Procurar..."
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
             setValuePSelec(item.label);
-            setPeriodoSelec(item.label)
+            setPeriodoSelec(item.label);
             setIsFocus(false);
-            console.log(valuePSelec)
-          }}
+            setflagLoadClasses(false);
+            console.log(valuePSelec);
+          }}          
           renderLeftIcon={() => (
             <Icon
               style={styles.icon}

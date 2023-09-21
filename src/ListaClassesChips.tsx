@@ -1,4 +1,4 @@
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState, useContext } from 'react';
@@ -10,7 +10,9 @@ const ListaClassesChips = ()=>{
     let listaChipsClasses:any='';
     const  listaClasses: any[]=[];
     const [chipsClasses,setChipsClasses] = useState('')
+    const {flagLoadClasses,setflagLoadClasses} = useContext(Context)
     const {periodoSelec,setClasseSelec} = useContext(Context)
+    
 
     useEffect(()=>{
         const data = async ()=>{
@@ -27,19 +29,37 @@ const ListaClassesChips = ()=>{
         containerStyle={{marginHorizontal:10, marginBottom:20}}>
         </Chip>);
         });
-        setChipsClasses(listaChipsClasses)
+        setChipsClasses(listaChipsClasses);
+        listaChipsClasses==''? setflagLoadClasses(false): setflagLoadClasses(true)
         });
     }
     data()        
     },[periodoSelec,chipsClasses]);
 
+    const renderCarregamento = () =>{
+        if(periodoSelec!=''){
+            if(flagLoadClasses){
+                return(
+                    <View 
+                        style={styles.contentView}>
+                        {chipsClasses}
+                    </View> 
+                )
+            }else{
+                return(
+                    <View>
+                        <Text style={styles.textLoad}>Carregando...</Text>
+                    </View>
+                )
+            }
+        }
+        
+    }
+
     return(
         <View >
             <ScrollView horizontal={true}>
-                <View 
-                    style={styles.contentView}>
-                    {chipsClasses}
-                </View>
+                {renderCarregamento()}
             </ScrollView>
         </View> 
     );
@@ -51,6 +71,10 @@ const styles = StyleSheet.create({
       marginTop:20,
       minHeight:60,
     },
+    textLoad:{
+        fontSize:24,
+        color:Globais.corTextoClaro,
+    }
 });
 
 export default ListaClassesChips;
