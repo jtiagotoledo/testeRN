@@ -1,8 +1,9 @@
-import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid } from "react-native"
+import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from "./Globais";
+import { Icon } from "./Icon";
 
 const ModalAddPeriodo = () =>{
 
@@ -41,8 +42,13 @@ const ModalAddPeriodo = () =>{
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
+                        <View style={styles.containerIcon}>
+                            <TouchableOpacity  onPress={()=>setModalPeriodo(!modalPeriodo)}>
+                                <Icon name="cancel-circle" color="white" size={20}></Icon>
+                            </TouchableOpacity>
+                        </View>
                         <Text style={styles.modalText}>Crie um novo período:</Text>
-                        <TextInput onChange={onChangeInputPeriodo} style={styles.textInput}></TextInput>
+                        <TextInput placeholder='Nome do período' onChange={onChangeInputPeriodo} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={onPressAddPeriodo}>
@@ -64,10 +70,13 @@ const styles = StyleSheet.create({
       marginBottom:16,
       marginRight:16
     },
+    containerIcon:{
+      alignItems:'flex-end'
+    },
     centeredView: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      // alignItems: 'center',
       marginTop: 22,
     },
     modalView: {
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
       backgroundColor: Globais.corTerciaria,
       borderRadius: 20,
       padding: 35,
-      alignItems: 'center',
+      // alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -104,7 +113,8 @@ const styles = StyleSheet.create({
     modalText: {
       marginBottom: 15,
       textAlign: 'center',
-      color: 'white'
+      color: 'white',
+      fontSize:18,
     },
     textInput:{
       backgroundColor: 'white', 

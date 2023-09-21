@@ -49,11 +49,10 @@ const ModalAddAluno = () =>{
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <TouchableOpacity style={styles.containerIcon} onPress={()=>setModalAluno(!modalAluno)}>
-                            <Icon name="cancel-circle" color="white" size={20}></Icon>
-                        </TouchableOpacity>
-                        <View >
-                          
+                        <View style={styles.containerIcon}>
+                            <TouchableOpacity  onPress={()=>setModalAluno(!modalAluno)}>
+                                <Icon name="cancel-circle" color="white" size={20}></Icon>
+                            </TouchableOpacity>
                         </View>
                         <Text style={styles.modalText}>Adicione um novo aluno:</Text>
                         <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
@@ -80,16 +79,12 @@ const styles = StyleSheet.create({
       marginRight:16
     },
     containerIcon:{
-      
-      
-      alignContent:'flex-end',
       alignItems:'flex-end'
-      
     },
     centeredView: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      // alignItems: 'center',
       marginTop: 22,
     },
     modalView: {
@@ -97,7 +92,7 @@ const styles = StyleSheet.create({
       backgroundColor: Globais.corTerciaria,
       borderRadius: 20,
       padding: 35,
-      alignItems: 'center',
+      // alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -126,7 +121,8 @@ const styles = StyleSheet.create({
     modalText: {
       marginBottom: 15,
       textAlign: 'center',
-      color: 'white'
+      color: 'white',
+      fontSize:18
     },
     textInput:{
       backgroundColor: 'white', 
