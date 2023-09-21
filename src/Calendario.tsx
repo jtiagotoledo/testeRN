@@ -104,7 +104,8 @@ const Calendario = () => {
 const styles = StyleSheet.create({
   container:{
     height:350,
-    width:350
+    width:350,
+    marginBottom:24
   },
   button: {
     borderRadius: 20,
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: Globais.corPrimaria,
+    marginTop:24,
   },
   textStyle: {
     color: 'white',
