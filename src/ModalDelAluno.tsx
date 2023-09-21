@@ -1,7 +1,9 @@
-import { Text, View, StyleSheet, Pressable, Modal} from "react-native"
+import { Text, View, StyleSheet, Pressable, Modal, TouchableOpacity} from "react-native"
 import React, { useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
+import { Icon } from "./Icon";
+import Globais from "./Globais";
 
 const ModalDelAluno = () =>{
 
@@ -27,7 +29,12 @@ const ModalDelAluno = () =>{
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Deseja realmente excluir o aluno?:</Text>
+                        <View style={styles.containerIcon}>
+                            <TouchableOpacity  onPress={()=>setModalDelAluno(!modalDelAluno)}>
+                                <Icon name="cancel-circle" color="black" size={20}></Icon>
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={styles.modalText}>Deseja realmente excluir o aluno?</Text>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={deletarAluno}>
@@ -49,10 +56,14 @@ const styles = StyleSheet.create({
       marginBottom:16,
       marginRight:16
     },
+    containerIcon:{
+      alignItems:'flex-end',
+      marginBottom:24,
+    },
     centeredView: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      // alignItems: 'center',
       marginTop: 22,
     },
     modalView: {
@@ -60,7 +71,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'white',
       borderRadius: 20,
       padding: 35,
-      alignItems: 'center',
+      // alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -79,7 +90,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#F194FF',
     },
     buttonClose: {
-      backgroundColor: '#2196F3',
+      backgroundColor: Globais.corPrimaria,
     },
     textStyle: {
       color: 'white',
@@ -87,8 +98,9 @@ const styles = StyleSheet.create({
       textAlign: 'center',
     },
     modalText: {
-      marginBottom: 15,
+      marginBottom: 24,
       textAlign: 'center',
+      fontSize:18,
     },
   });
 

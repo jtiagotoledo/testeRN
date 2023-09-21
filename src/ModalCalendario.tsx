@@ -1,8 +1,9 @@
-import { View, StyleSheet, Modal } from "react-native"
+import { View, StyleSheet, Modal, TouchableOpacity } from "react-native"
 import React, { useContext } from 'react';
 import {Context} from "./data/Provider";
 import Globais from "./Globais";
 import Calendario from "./Calendario";
+import { Icon } from "./Icon";
 
 const ModalCalendario = () =>{
 
@@ -19,6 +20,11 @@ const ModalCalendario = () =>{
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
+                        <View style={styles.containerIcon}>
+                            <TouchableOpacity  onPress={()=>setModalCalendario(!modalCalendario)}>
+                                <Icon name="cancel-circle" color="white" size={20}></Icon>
+                            </TouchableOpacity>
+                        </View>
                         <Calendario></Calendario>
                     </View>
                 </View>
@@ -34,12 +40,16 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginTop: 22,
     },
+    containerIcon:{
+      alignItems:'flex-end',
+      marginBottom:32,
+    },
     modalView: {
       margin: 20,
       backgroundColor: Globais.corTerciaria,
       borderRadius: 20,
       padding: 35,
-      alignItems: 'center',
+      // alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
