@@ -24,10 +24,11 @@ function Classes() {
       <HeaderClasses title="Classes"></HeaderClasses>
       <DropDown ></DropDown>
       <Text style={styles.text}>Selecione uma classe:</Text>
-      <ListaClassesChips></ListaClassesChips>
+      <View style={styles.containerListaClasses}>
+        <ListaClassesChips></ListaClassesChips>
+      </View>
       <Divider style={styles.divider}></Divider>
       <Text style={styles.text}>Classe selecionada: {classeSelec}</Text>
-      <Text style={styles.text}>Aluno selecionado: {numAlunoSelec}</Text>
       <Divider style={styles.divider}></Divider>
       <FlatListClasses></FlatListClasses>
       <ModalAddPeriodo></ModalAddPeriodo>
@@ -43,6 +44,9 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor: Globais.corSecundaria,
     flex:1,
+  },
+  containerListaClasses:{
+    minHeight:80
   },
   text:{
     fontSize:20,

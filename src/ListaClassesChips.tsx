@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     contentView: {
       flexDirection:'row',
       marginTop:20,
-      minHeight:60,
     },
     textLoad:{
         fontSize:24,
