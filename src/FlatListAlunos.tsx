@@ -5,7 +5,8 @@ import {Context} from "./data/Provider";
 import Globais from './Globais';
 
 type ItemData = {
-  classe: string;
+  nome: string;
+  numero: string;
 };
 
 type ItemProps = {
@@ -17,38 +18,40 @@ type ItemProps = {
 
 const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
-    <Text style={[styles.title, {color: textColor}]}>{item.classe}</Text>
+    <Text style={[styles.title, {color: textColor}]}>{item.numero} {item.nome}</Text>
   </TouchableOpacity>
 );
 
-const FlatListClasses = () => {
-    let classes:any []= []
+const FlatListAlunos = () => {
+    const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
-    const [listaClasses,setListaClasses]=useState([{classe:''}]);
-    const {periodoSelec,classeSelec,setClasseSelec} = useContext(Context)
+    const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
+    const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
+    .doc(classeSelec).collection('ListaAlunos')
+    .orderBy('numero')
     .get().then(querySnapshot => {
     querySnapshot.forEach(documentSnapshot => {
-    classes.push(documentSnapshot.data());
+    alunos.push(documentSnapshot.data());
     });
     });
-    setListaClasses(classes)
+    setListaALunos(alunos)
 }
 data()        
-},[periodoSelec,listaClasses]);
+},[periodoSelec,listaAlunos]);
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.classe === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
       <Item
         item={item}
-        onPress={() => [setSelectedId(item.classe),setClasseSelec(item.classe), console.log(classeSelec)]}
+        onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero.toString())]}
         backgroundColor={backgroundColor}
         textColor={color}
       />
@@ -58,9 +61,9 @@ data()
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={listaClasses}
+        data={listaAlunos}
         renderItem={renderItem}
-        keyExtractor={item => item.classe}
+        keyExtractor={item => item.numero}
         extraData={selectedId}
       />
     </SafeAreaView>
@@ -82,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlatListClasses;
+export default FlatListAlunos;
