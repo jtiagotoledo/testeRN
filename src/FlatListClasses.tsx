@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
@@ -26,6 +26,7 @@ const FlatListClasses = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const [listaClasses,setListaClasses]=useState([{classe:''}]);
     const {periodoSelec,classeSelec,setClasseSelec} = useContext(Context)
+    const {flagLoadClasses,setflagLoadClasses} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -37,6 +38,8 @@ const FlatListClasses = () => {
     });
     });
     setListaClasses(classes)
+    listaClasses==null? setflagLoadClasses(false): setflagLoadClasses(true)
+
 }
 data()        
 },[periodoSelec,listaClasses]);
@@ -55,16 +58,35 @@ data()
     );
   };
 
+  const renderCarregamento = () =>{
+    if(periodoSelec!=''){
+        if(flagLoadClasses){
+            return(
+              <SafeAreaView >
+                <FlatList
+                  horizontal = {true}
+                  data={listaClasses}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.classe}
+                  extraData={selectedId}
+                />
+              </SafeAreaView>
+            )
+        }else{
+            return(
+                <View>
+                    <Text style={styles.textLoad}>Carregando...</Text>
+                </View>
+            )
+        }
+    }
+    
+  }
+
   return (
-    <SafeAreaView >
-      <FlatList
-        horizontal = {true}
-        data={listaClasses}
-        renderItem={renderItem}
-        keyExtractor={item => item.classe}
-        extraData={selectedId}
-      />
-    </SafeAreaView>
+    <View>
+      {renderCarregamento()}
+    </View>
   );
 };
 
@@ -80,6 +102,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
 
   },
+  textLoad:{
+    fontSize:24,
+    color:Globais.corTextoClaro,
+  }
 });
 
 export default FlatListClasses;

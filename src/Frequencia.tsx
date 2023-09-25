@@ -6,7 +6,7 @@ import ModalCalendario from "./ModalCalendario";
 import Globais from "./Globais";
 import HeaderFrequencia from "./HeaderFrequencia";
 import FlatListFrequencia from "./FlatListFrequencia";
-import ListaClassesChips from "./ListaClassesChips";
+import FlatListClasses from "./FlatListClasses";
 
 
 const Frequencia = () =>{
@@ -15,7 +15,7 @@ const Frequencia = () =>{
     return(
         <View style={styles.container}>
             <HeaderFrequencia title="Frequência"></HeaderFrequencia>
-            <ListaClassesChips></ListaClassesChips>
+            <FlatListClasses></FlatListClasses>
             <Button title="Add data" onPress={()=>setModalCalendario(true)}></Button>
             <Text style={styles.text}>{dataSelec}</Text>
             <FlatListFrequencia></FlatListFrequencia>
