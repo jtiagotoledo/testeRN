@@ -56,7 +56,7 @@ data()
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView >
       <FlatList
         horizontal = {true}
         data={listaClasses}
@@ -69,14 +69,12 @@ data()
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingBottom:16
-  },
+  
   item: {
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 8,
-    borderRadius:20
+    borderRadius:40
   },
   title: {
     fontSize: 20,
