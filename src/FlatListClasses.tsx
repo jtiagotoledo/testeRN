@@ -58,6 +58,7 @@ data()
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        horizontal = {true}
         data={listaClasses}
         renderItem={renderItem}
         keyExtractor={item => item.classe}
@@ -69,16 +70,17 @@ data()
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    paddingBottom:16
   },
   item: {
     padding: 10,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 8,
+    borderRadius:20
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
+
   },
 });
 
