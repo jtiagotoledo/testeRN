@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
@@ -26,7 +26,7 @@ const FlatListAlunos = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
-    const {periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
+    const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -35,14 +35,17 @@ const FlatListAlunos = () => {
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
     .get().then(querySnapshot => {
-    querySnapshot.forEach(documentSnapshot => {
+    querySnapshot.forEach((documentSnapshot,index) => {
     alunos.push(documentSnapshot.data());
+    if(querySnapshot.size-index==1){
+      setflagLoadAlunos(true);
+    }
     });
     });
     setListaALunos(alunos)
-}
-data()        
-},[periodoSelec,listaAlunos]);
+  }
+  data()        
+  },[periodoSelec,listaAlunos]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
@@ -58,14 +61,30 @@ data()
     );
   };
 
+  const renderCarregamento = () =>{
+    if(classeSelec!=''){
+        if(flagLoadAlunos){
+            return(
+                <FlatList
+                  data={listaAlunos}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.numero}
+                  extraData={selectedId}
+                />
+            )
+        }else{
+            return(
+                <View>
+                    <Text style={styles.textLoad}>Carregando...</Text>
+                </View>
+            )
+        }
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={listaAlunos}
-        renderItem={renderItem}
-        keyExtractor={item => item.numero}
-        extraData={selectedId}
-      />
+        {renderCarregamento()}
     </SafeAreaView>
   );
 };
@@ -84,6 +103,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
   },
+  textLoad:{
+    fontSize:24,
+    color:Globais.corTextoClaro,
+  }
 });
 
 export default FlatListAlunos;

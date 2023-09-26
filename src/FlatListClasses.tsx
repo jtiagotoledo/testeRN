@@ -25,7 +25,7 @@ const FlatListClasses = () => {
     let classes:any []= []
     const [selectedId, setSelectedId] = useState<string>();
     const {periodoSelec,classeSelec,setClasseSelec} = useContext(Context)
-    const {flagLoadClasses,setflagLoadClasses,listaClasses,setListaClasses} = useContext(Context)
+    const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,listaClasses,setListaClasses} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -53,7 +53,10 @@ data()
     return (
       <Item
         item={item}
-        onPress={() => [setSelectedId(item.classe),setClasseSelec(item.classe), console.log(classeSelec)]}
+        onPress={() => [setSelectedId(item.classe),
+          setClasseSelec(item.classe), 
+          setflagLoadAlunos(false),
+          console.log(classeSelec)]}
         backgroundColor={backgroundColor}
         textColor={color}
       />
