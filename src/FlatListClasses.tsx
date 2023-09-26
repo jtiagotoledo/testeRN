@@ -24,25 +24,27 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListClasses = () => {
     let classes:any []= []
     const [selectedId, setSelectedId] = useState<string>();
-    const [listaClasses,setListaClasses]=useState([{classe:''}]);
     const {periodoSelec,classeSelec,setClasseSelec} = useContext(Context)
-    const {flagLoadClasses,setflagLoadClasses} = useContext(Context)
+    const {flagLoadClasses,setflagLoadClasses,listaClasses,setListaClasses} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .get().then(querySnapshot => {
-    querySnapshot.forEach(documentSnapshot => {
+    querySnapshot.forEach((documentSnapshot,index) => {
     classes.push(documentSnapshot.data());
+    if(querySnapshot.size-index==1){
+      setflagLoadClasses(true)
+      console.log('entrou no if da flag')
+    } 
     });
     });
     setListaClasses(classes)
-    listaClasses==null? setflagLoadClasses(false): setflagLoadClasses(true)
 
 }
 data()        
-},[periodoSelec,listaClasses]);
+},[listaClasses]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

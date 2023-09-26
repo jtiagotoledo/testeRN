@@ -10,8 +10,7 @@ const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec} = useContext(Context)
-    const {setflagLoadClasses} = useContext(Context)
+    const {periodoSelec,setPeriodoSelec,setflagLoadClasses} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -29,7 +28,7 @@ const DropDown = () =>{
     })
 
     const renderLabel = () => {
-      if (valuePSelec || isFocus) {
+      if (periodoSelec || isFocus) {
         return (
           <Text style={[styles.label, isFocus && { color: Globais.corTextoEscuro }]}>
             Selecione o período:
@@ -59,11 +58,10 @@ const DropDown = () =>{
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValuePSelec(item.label);
             setPeriodoSelec(item.label);
             setIsFocus(false);
             setflagLoadClasses(false);
-            console.log(valuePSelec);
+            console.log(periodoSelec);
           }}          
           renderLeftIcon={() => (
             <Icon

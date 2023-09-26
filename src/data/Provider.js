@@ -14,6 +14,8 @@ export default function Provider ({children}){
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
     const[dataSelec,setDataSelec]=useState('');
+    const[listaClasses,setListaClasses]=useState([{classe:''}]);
+
 
     return(
         <Context.Provider value={{
@@ -26,7 +28,8 @@ export default function Provider ({children}){
             periodoSelec,setPeriodoSelec,
             classeSelec,setClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
-            dataSelec,setDataSelec}}>
+            dataSelec,setDataSelec,
+            listaClasses,setListaClasses}}>
             {children}
         </Context.Provider>
     )
