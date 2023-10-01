@@ -62,7 +62,7 @@ const DropDown = () =>{
             setPeriodoSelec(item.label);
             setIsFocus(false);
             setflagLoadClasses(false);
-            console.log(valuePSelec);
+            console.log(item.label);
           }}          
           renderLeftIcon={() => (
             <Icon

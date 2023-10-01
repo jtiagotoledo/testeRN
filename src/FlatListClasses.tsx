@@ -36,7 +36,7 @@ const FlatListClasses = () => {
     classes.push(documentSnapshot.data());
     if(querySnapshot.size-index==1){
       setflagLoadClasses(true)
-      console.log('entrou no if da flag')
+      console.log('entrou no if da flag classes')
     } 
     });
     });
@@ -44,7 +44,7 @@ const FlatListClasses = () => {
 
 }
 data()        
-},[listaClasses]);
+},[periodoSelec]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

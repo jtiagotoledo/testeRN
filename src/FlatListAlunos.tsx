@@ -39,13 +39,14 @@ const FlatListAlunos = () => {
     alunos.push(documentSnapshot.data());
     if(querySnapshot.size-index==1){
       setflagLoadAlunos(true);
+      console.log('entrou no if da flag alunos')
     }
     });
     });
     setListaALunos(alunos)
   }
   data()        
-  },[periodoSelec,listaAlunos]);
+  },[classeSelec]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

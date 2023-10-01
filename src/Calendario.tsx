@@ -84,7 +84,6 @@ const Calendario = () => {
         onDayPress={day => {
           setDataSelec(day.dateString.toString());
           console.log(listaDatas);
-          // TODO: corrigir esse if
           if(listaDatas.includes(day.dateString)){
             setModalCalendario(!modalCalendario)
           }
