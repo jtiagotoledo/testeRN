@@ -65,27 +65,26 @@ data()
 
   const renderCarregamento = () =>{
     if(periodoSelec!=''){
-        if(flagLoadClasses){
-            return(
-              <SafeAreaView >
-                <FlatList
-                  horizontal = {true}
-                  data={listaClasses}
-                  renderItem={renderItem}
-                  keyExtractor={item => item.classe}
-                  extraData={selectedId}
-                />
-              </SafeAreaView>
-            )
-        }else{
-            return(
-                <View>
-                    <Text style={styles.textLoad}>Carregando...</Text>
-                </View>
-            )
-        }
+      if(flagLoadClasses){
+        return(
+          <SafeAreaView >
+            <FlatList
+              horizontal = {true}
+              data={listaClasses}
+              renderItem={renderItem}
+              keyExtractor={item => item.classe}
+              extraData={selectedId}
+            />
+          </SafeAreaView>
+        )
+      }else{
+          return(
+              <View>
+                  <Text style={styles.textLoad}>Carregando...</Text>
+              </View>
+          )
+      }
     }
-    
   }
 
   return (

@@ -35,7 +35,7 @@ const Calendario = () => {
     });
   }
   data()        
-  },[periodoSelec,listaDatas]); 
+  },[classeSelec]); 
 
   const onPressAddData = async () =>{
     firestore().collection('Usuario')
