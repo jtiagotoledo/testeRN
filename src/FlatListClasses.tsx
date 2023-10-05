@@ -29,17 +29,22 @@ const FlatListClasses = () => {
 
   useEffect(()=>{
     const data = async ()=>{
-    await firestore().collection('Usuario')
-    .doc(periodoSelec).collection('Classes')
-    .get().then(querySnapshot => {
-    querySnapshot.forEach((documentSnapshot,index) => {
-    classes.push(documentSnapshot.data());
-    if(querySnapshot.size-index==1){
-      setflagLoadClasses(true)
-      console.log('entrou no if da flag classes')
-    } 
+      await firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .get().then(querySnapshot => {
+      if(querySnapshot.empty){
+        setflagLoadClasses('vazio')
+      }else{
+        querySnapshot.forEach((documentSnapshot,index) => {
+        classes.push(documentSnapshot.data());
+          if(querySnapshot.size-index==1){
+            setflagLoadClasses('carregado')
+            console.log('entrou no if da flag classes')
+          } 
+        });
+      }
     });
-    });
+    
     setListaClasses(classes)
 
 }
@@ -65,24 +70,32 @@ data()
 
   const renderCarregamento = () =>{
     if(periodoSelec!=''){
-      if(flagLoadClasses){
-        return(
-          <SafeAreaView >
-            <FlatList
-              horizontal = {true}
-              data={listaClasses}
-              renderItem={renderItem}
-              keyExtractor={item => item.classe}
-              extraData={selectedId}
-            />
-          </SafeAreaView>
-        )
-      }else{
+      if(flagLoadClasses!='vazio'){
+        if(flagLoadClasses=='carregado'){
           return(
-              <View>
-                  <Text style={styles.textLoad}>Carregando...</Text>
-              </View>
+            <SafeAreaView >
+              <FlatList
+                horizontal = {true}
+                data={listaClasses}
+                renderItem={renderItem}
+                keyExtractor={item => item.classe}
+                extraData={selectedId}
+              />
+            </SafeAreaView>
           )
+        }else{
+          return(
+            <View>
+                <Text style={styles.textLoad}>Carregando...</Text>
+            </View>
+          )
+        }
+      }else{
+        return(
+          <View>
+              <Text style={styles.textLoad}>Adicione uma classe...</Text>
+          </View>
+        )
       }
     }
   }

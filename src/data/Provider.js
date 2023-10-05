@@ -9,7 +9,7 @@ export default function Provider ({children}){
     const[modalAluno,setModalAluno]=useState(false);
     const[modalDelAluno,setModalDelAluno]=useState(false);
     const[modalCalendario,setModalCalendario]=useState(false);
-    const[flagLoadClasses,setflagLoadClasses]=useState(false);
+    const[flagLoadClasses,setflagLoadClasses]=useState('');
     const[flagLoadAlunos,setflagLoadAlunos]=useState(false);
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
