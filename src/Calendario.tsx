@@ -26,6 +26,9 @@ const Calendario = () => {
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
+    if(listaDatas.length==0){
+      setflagLoadCalendario('carregando')
+    }
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
@@ -72,28 +75,47 @@ const Calendario = () => {
         })
       });
     });
+    setflagLoadCalendario('carregando');
     setModalCalendario(!modalCalendario);
+  }
+
+  const renderCarregamento = () =>{
+    if(classeSelec!=''){
+      switch(flagLoadCalendario){
+        case 'carregando':
+          return(
+            <View>
+              <Text style={styles.textLoad}>Carregando...</Text>
+            </View>
+          )
+        case 'carregado':
+          return(
+            <View style={styles.container}>
+              <Calendar
+                onDayPress={day => {
+                  setDataSelec(day.dateString.toString());
+                  console.log(listaDatas);
+                  if(listaDatas.includes(day.dateString)){
+                    setModalCalendario(!modalCalendario)
+                  }
+                }}
+                markedDates={datasMarcadas}
+              />
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={onPressAddData}>
+                <Text style={styles.textStyle}>Criar data</Text>
+              </Pressable>
+            </View>
+          )
+      }
+    }
   }
   
   return (
-    <View style={styles.container}>
-      <Calendar
-        onDayPress={day => {
-          setDataSelec(day.dateString.toString());
-          console.log(listaDatas);
-          if(listaDatas.includes(day.dateString)){
-            setModalCalendario(!modalCalendario)
-          }
-        }}
-        markedDates={datasMarcadas}
-      />
-      <Pressable
-        style={[styles.button, styles.buttonClose]}
-        onPress={onPressAddData}>
-        <Text style={styles.textStyle}>Criar data</Text>
-      </Pressable>
+    <View>
+      {renderCarregamento()}
     </View>
-    
   );
 };
 
@@ -120,6 +142,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  textLoad:{
+    fontSize:24,
+    color:Globais.corTextoClaro,
+  }
 });
 
 export default Calendario;
