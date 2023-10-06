@@ -30,10 +30,14 @@ const Calendario = () => {
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .get().then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
+      querySnapshot.forEach((documentSnapshot, index) => {
         if(!listaDatas.includes(documentSnapshot.id)){
           listaDatas.push(documentSnapshot.id)
           datasMarcadas[documentSnapshot.id]={selected:true}
+        }
+        if(querySnapshot.size-index==1){
+          setflagLoadCalendario('carregado')
+          console.log('entrou no if da flag calendário')
         }
       });
     });
