@@ -29,6 +29,7 @@ const FlatListClasses = () => {
 
   useEffect(()=>{
     const data = async ()=>{
+      setflagLoadClasses('carregando')
       await firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .get().then(querySnapshot => {
@@ -44,9 +45,7 @@ const FlatListClasses = () => {
         });
       }
     });
-    
     setListaClasses(classes)
-
 }
 data()        
 },[periodoSelec]);
@@ -70,8 +69,14 @@ data()
 
   const renderCarregamento = () =>{
     if(periodoSelec!=''){
-      if(flagLoadClasses!='vazio'){
-        if(flagLoadClasses=='carregado'){
+      switch(flagLoadClasses){
+        case 'vazio':
+          return(
+            <View>
+                <Text style={styles.textLoad}>Adicione uma classe...</Text>
+            </View>
+          )
+        case 'carregado':
           return(
             <SafeAreaView >
               <FlatList
@@ -83,19 +88,12 @@ data()
               />
             </SafeAreaView>
           )
-        }else{
+        case 'carregando':
           return(
             <View>
                 <Text style={styles.textLoad}>Carregando...</Text>
             </View>
           )
-        }
-      }else{
-        return(
-          <View>
-              <Text style={styles.textLoad}>Adicione uma classe...</Text>
-          </View>
-        )
       }
     }
   }
