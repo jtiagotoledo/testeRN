@@ -3,12 +3,10 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
-import firestore, { firebase } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 let datasMarcadas:any = {}
 const  listaDatas: any[]=[];
-const  listaAlunos: any[]=[];
-
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -22,22 +20,30 @@ LocaleConfig.defaultLocale = "br";
 const Calendario = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-   
+  const {flagLoadCalendario,setflagLoadCalendario} = useContext(Context)
+
   useEffect(()=>{
     const data = async ()=>{
-    await firestore().collection('Usuario')
+    /* essa consulta no BD retorna as datas ainda não 
+    incluídas na lista de datas. */
+    firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .get().then(querySnapshot => {
       querySnapshot.forEach(documentSnapshot => {
-        datasMarcadas[documentSnapshot.id]={selected:true}
+        if(!listaDatas.includes(documentSnapshot.id)){
+          listaDatas.push(documentSnapshot.id)
+          datasMarcadas[documentSnapshot.id]={selected:true}
+        }
       });
     });
+    console.log('listaDatas',listaDatas) 
   }
   data()        
-  },[classeSelec]); 
+  },[classeSelec,flagLoadCalendario]); 
 
   const onPressAddData = async () =>{
+    setflagLoadCalendario('inicio')
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
@@ -62,20 +68,7 @@ const Calendario = () => {
         })
       });
     });
-
-    firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Frequencia')
-      .get().then(querySnapshot => {
-        querySnapshot.forEach(documentSnapshot => {
-          if(!listaDatas.includes(documentSnapshot.id)){
-            listaDatas.push(documentSnapshot.id)
-            datasMarcadas[dataSelec]={selected:true}
-          }
-        });
-      });
-    console.log('listaDatas',listaDatas) 
-    setModalCalendario(!modalCalendario)
+    setModalCalendario(!modalCalendario);
   }
   
   return (
