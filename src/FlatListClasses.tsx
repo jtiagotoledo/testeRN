@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity, View} from 'react-native'
+import {SafeAreaView, FlatList, Text, StyleSheet, TouchableOpacity, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
@@ -11,12 +11,13 @@ type ItemData = {
 type ItemProps = {
   item: ItemData;
   onPress: () => void;
+  // onLongPress: () => void;
   backgroundColor: string;
   textColor: string;
 };
 
-const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+const Item = ({item, onPress, /* onlongPress */ backgroundColor, textColor}: ItemProps) => (
+  <TouchableOpacity onPress={onPress} /* onlongPress={onlongPress} */ style={[styles.item, {backgroundColor}]}>
     <Text style={[styles.title, {color: textColor}]}>{item.classe}</Text>
   </TouchableOpacity>
 );
@@ -24,7 +25,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListClasses = () => {
     let classes:any []= []
     const [selectedId, setSelectedId] = useState<string>();
-    const {periodoSelec,classeSelec,setClasseSelec} = useContext(Context)
+    const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,listaClasses,setListaClasses} = useContext(Context)
 
   useEffect(()=>{
@@ -55,12 +56,13 @@ data()
     const color = item.classe === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
-      <Item
+        <Item
         item={item}
         onPress={() => [setSelectedId(item.classe),
           setClasseSelec(item.classe), 
           setflagLoadAlunos(false),
           console.log(classeSelec)]}
+        // onLongPress={setModalDelClasse(true)}
         backgroundColor={backgroundColor}
         textColor={color}
       />

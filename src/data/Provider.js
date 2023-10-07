@@ -8,6 +8,7 @@ export default function Provider ({children}){
     const[modalClasse,setModalClasse]=useState(false);
     const[modalAluno,setModalAluno]=useState(false);
     const[modalDelAluno,setModalDelAluno]=useState(false);
+    const[modalDelClasse,setModalDelClasse]=useState(false);
     const[modalCalendario,setModalCalendario]=useState(false);
     const[flagLoadClasses,setflagLoadClasses]=useState('');
     const[flagLoadAlunos,setflagLoadAlunos]=useState(false);
@@ -25,6 +26,7 @@ export default function Provider ({children}){
             modalClasse,setModalClasse,
             modalAluno,setModalAluno,
             modalDelAluno,setModalDelAluno,
+            modalDelClasse,setModalDelClasse,
             modalCalendario,setModalCalendario,
             flagLoadClasses,setflagLoadClasses,
             flagLoadAlunos,setflagLoadAlunos,

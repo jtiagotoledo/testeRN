@@ -5,16 +5,15 @@ import {Context} from "./data/Provider";
 import { Icon } from "./Icon";
 import Globais from "./Globais";
 
-const ModalDelAluno = () =>{
+const ModalDelClasse = () =>{
 
-    const {periodoSelec, classeSelec, numAlunoSelec, modalDelAluno, setModalDelAluno} = useContext(Context);
+    const {periodoSelec, classeSelec, modalDelClasse, setModalDelClasse} = useContext(Context);
 
-    const deletarAluno = ()=> {
+    const deletarClasse = ()=> {
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('ListaAlunos')
-      .doc(numAlunoSelec).delete()
-      setModalDelAluno(!modalDelAluno)
+      .doc(classeSelec).delete()
+      setModalDelClasse(!modalDelClasse)
     }
     
     return(
@@ -22,21 +21,21 @@ const ModalDelAluno = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalDelAluno}
+                visible={modalDelClasse}
                 onRequestClose={() => {
-                setModalDelAluno(!modalDelAluno);
+                setModalDelClasse(!modalDelClasse);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalDelAluno(!modalDelAluno)}>
+                            <TouchableOpacity  onPress={()=>setModalDelClasse(!modalDelClasse)}>
                                 <Icon name="cancel-circle" color="black" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Deseja realmente excluir o aluno?</Text>
+                        <Text style={styles.modalText}>Deseja realmente excluir a classe?</Text>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={deletarAluno}>
+                            onPress={deletarClasse}>
                             <Text style={styles.textStyle}>Ok</Text>
                         </Pressable>
                     </View>
@@ -103,4 +102,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default ModalDelAluno
+export default ModalDelClasse;

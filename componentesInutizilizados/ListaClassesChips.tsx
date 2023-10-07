@@ -2,8 +2,8 @@ import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState, useContext } from 'react';
-import {Context} from "./data/Provider";
-import Globais from './Globais';
+import { Context } from '../src/data/Provider';
+import Globais from '../src/Globais';
 
 
 const ListaClassesChips = ()=>{
