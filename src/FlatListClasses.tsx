@@ -11,13 +11,13 @@ type ItemData = {
 type ItemProps = {
   item: ItemData;
   onPress: () => void;
-  // onLongPress: () => void;
+  onLongPress: () => void;
   backgroundColor: string;
   textColor: string;
 };
 
-const Item = ({item, onPress, /* onlongPress */ backgroundColor, textColor}: ItemProps) => (
-  <TouchableOpacity onPress={onPress} /* onlongPress={onlongPress} */ style={[styles.item, {backgroundColor}]}>
+const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProps) => (
+  <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, {backgroundColor}]}>
     <Text style={[styles.title, {color: textColor}]}>{item.classe}</Text>
   </TouchableOpacity>
 );
@@ -62,7 +62,7 @@ data()
           setClasseSelec(item.classe), 
           setflagLoadAlunos('carregando'),
           console.log(classeSelec)]}
-        // onLongPress={setModalDelClasse(true)}
+        onLongPress={()=>setModalDelClasse(true)}
         backgroundColor={backgroundColor}
         textColor={color}
       />

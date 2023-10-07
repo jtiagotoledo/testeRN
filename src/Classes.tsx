@@ -6,7 +6,6 @@ import { Divider } from "react-native-paper";
 import Fab from "./Fab";
 import DropDown from "./DropDown";
 import FlatListAlunos from "./FlatListAlunos";
-import ListaClassesChips from "./ListaClassesChips";
 import FlatListClasses from "./FlatListClasses";
 import HeaderClasses from "./HeaderClasses";
 import Globais from "./Globais";
@@ -15,6 +14,7 @@ import ModalAddPeriodo from "./ModalAddPeriodo";
 import ModalAddClasse from "./ModalAddClasse";
 import ModalAddAluno from "./ModalAddAluno";
 import ModalDelAluno from "./ModalDelAluno";
+import ModalDelClasse from "./ModalDelClasse";
 
 function Classes() {
     
@@ -32,6 +32,7 @@ function Classes() {
       <ModalAddClasse></ModalAddClasse>
       <ModalAddAluno></ModalAddAluno>
       <ModalDelAluno></ModalDelAluno>
+      <ModalDelClasse></ModalDelClasse>
       <Fab></Fab>
     </View>
   );
