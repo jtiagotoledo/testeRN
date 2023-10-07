@@ -9,7 +9,8 @@ const ModalAddAluno = () =>{
 
     const [valueNumero,setValueNumero] = useState<string>('')
     const [valueNome,setValueNome] = useState<string>('')
-    const {periodoSelec,classeSelec,modalAluno,setModalAluno} = useContext(Context)
+    const {periodoSelec,classeSelec,modalAluno,
+      setModalAluno,setRecarregarAlunos} = useContext(Context)
 
     const onChangeInputNumero = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueNumero(event.nativeEvent.text);
@@ -59,7 +60,7 @@ const ModalAddAluno = () =>{
                         <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={onPressAddAluno}>
+                            onPress={()=>[onPressAddAluno(),setRecarregarAlunos('recarregarAluno')]}>
                             <Text style={styles.textStyle}>Criar</Text>
                         </Pressable>
                     </View>

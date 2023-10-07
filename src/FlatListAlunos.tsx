@@ -26,7 +26,8 @@ const FlatListAlunos = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
-    const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,setNumAlunoSelec} = useContext(Context)
+    const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
+      setNumAlunoSelec,recarregarAlunos} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -51,7 +52,7 @@ const FlatListAlunos = () => {
     setListaALunos(alunos)
   }
   data()        
-  },[classeSelec]);
+  },[classeSelec,recarregarAlunos]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

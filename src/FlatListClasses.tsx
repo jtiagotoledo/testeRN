@@ -25,7 +25,7 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 const FlatListClasses = () => {
     let classes:any []= []
     const [selectedId, setSelectedId] = useState<string>();
-    const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse} = useContext(Context)
+    const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,listaClasses,setListaClasses} = useContext(Context)
 
   useEffect(()=>{
@@ -49,7 +49,7 @@ const FlatListClasses = () => {
     setListaClasses(classes)
 }
 data()        
-},[periodoSelec]);
+},[periodoSelec,recarregarClasses]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

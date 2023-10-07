@@ -9,7 +9,7 @@ import { Icon } from "./Icon";
 const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalClasse,setModalClasse,periodoSelec} = useContext(Context)
+    const {modalClasse,setModalClasse,periodoSelec,setRecarregarClasses} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -53,7 +53,7 @@ const ModalAddClasse = () =>{
                         <TextInput placeholder='Nome da classe' onChange={onChangeInputClasse} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={onPressAddClasse}>
+                            onPress={()=>[onPressAddClasse(),setRecarregarClasses('recarregarClasses')]}>
                             <Text style={styles.textStyle}>Criar</Text>
                         </Pressable>
                     </View>
