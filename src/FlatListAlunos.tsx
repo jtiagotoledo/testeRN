@@ -30,18 +30,23 @@ const FlatListAlunos = () => {
 
   useEffect(()=>{
     const data = async ()=>{
+    // setflagLoadAlunos('carregando')
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
     .get().then(querySnapshot => {
-    querySnapshot.forEach((documentSnapshot,index) => {
-    alunos.push(documentSnapshot.data());
-    if(querySnapshot.size-index==1){
-      setflagLoadAlunos(true);
-      console.log('entrou no if da flag alunos')
+    if(querySnapshot.empty){
+      setflagLoadAlunos('vazio')
+    }else{
+      querySnapshot.forEach((documentSnapshot,index) => {
+      alunos.push(documentSnapshot.data());
+      if(querySnapshot.size-index==1){
+        setflagLoadAlunos('carregado');
+        console.log('entrou no if da flag alunos')
+      }
+      });
     }
-    });
     });
     setListaALunos(alunos)
   }
@@ -64,20 +69,27 @@ const FlatListAlunos = () => {
 
   const renderCarregamento = () =>{
     if(classeSelec!=''){
-        if(flagLoadAlunos){
+        switch(flagLoadAlunos){
+          case 'vazio':
             return(
-                <FlatList
-                  data={listaAlunos}
-                  renderItem={renderItem}
-                  keyExtractor={item => item.numero}
-                  extraData={selectedId}
-                />
+              <View>
+                  <Text style={styles.textLoad}>Adicione os alunos...</Text>
+              </View>
             )
-        }else{
+          case 'carregando':
             return(
-                <View>
-                    <Text style={styles.textLoad}>Carregando...</Text>
-                </View>
+              <View>
+                  <Text style={styles.textLoad}>Carregando...</Text>
+              </View>
+            )   
+          case 'carregado':
+            return(
+              <FlatList
+                data={listaAlunos}
+                renderItem={renderItem}
+                keyExtractor={item => item.numero}
+                extraData={selectedId}
+              />
             )
         }
     }

@@ -60,7 +60,7 @@ data()
         item={item}
         onPress={() => [setSelectedId(item.classe),
           setClasseSelec(item.classe), 
-          setflagLoadAlunos(false),
+          setflagLoadAlunos('carregando'),
           console.log(classeSelec)]}
         // onLongPress={setModalDelClasse(true)}
         backgroundColor={backgroundColor}
@@ -78,6 +78,12 @@ data()
                 <Text style={styles.textLoad}>Adicione uma classe...</Text>
             </View>
           )
+        case 'carregando':
+          return(
+            <View>
+                <Text style={styles.textLoad}>Carregando...</Text>
+            </View>
+          )
         case 'carregado':
           return(
             <SafeAreaView >
@@ -89,12 +95,6 @@ data()
                 extraData={selectedId}
               />
             </SafeAreaView>
-          )
-        case 'carregando':
-          return(
-            <View>
-                <Text style={styles.textLoad}>Carregando...</Text>
-            </View>
           )
       }
     }
