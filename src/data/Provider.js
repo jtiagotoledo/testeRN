@@ -11,10 +11,11 @@ export default function Provider ({children}){
     const[modalDelClasse,setModalDelClasse]=useState(false);
     const[modalCalendario,setModalCalendario]=useState(false);
     const[flagLoadClasses,setflagLoadClasses]=useState('');
+    const[flagLoadAlunos,setflagLoadAlunos]=useState('');
+    const[flagLoadFrequencia,setFlagLoadFrequencia]=useState('');
+    const[flagLoadCalendario,setflagLoadCalendario]=useState('');
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
-    const[flagLoadAlunos,setflagLoadAlunos]=useState(false);
-    const[flagLoadCalendario,setflagLoadCalendario]=useState('');
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
@@ -32,6 +33,7 @@ export default function Provider ({children}){
             modalCalendario,setModalCalendario,
             flagLoadClasses,setflagLoadClasses,
             flagLoadAlunos,setflagLoadAlunos,
+            flagLoadFrequencia,setFlagLoadFrequencia,
             flagLoadCalendario,setflagLoadCalendario,
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,

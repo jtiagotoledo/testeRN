@@ -34,7 +34,8 @@ const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:'',frequencia:''}]);
-    const {periodoSelec,classeSelec,setNumAlunoSelec,dataSelec} = useContext(Context)
+    const {periodoSelec,classeSelec,setNumAlunoSelec,
+      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -44,9 +45,17 @@ const FlatListFrequencia = () => {
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
       .get().then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
-      alunos.push(documentSnapshot.data());
-      });
+        if(querySnapshot.empty){
+          setFlagLoadFrequencia('vazio')
+        }else{
+          querySnapshot.forEach((documentSnapshot,index) => {
+          alunos.push(documentSnapshot.data());
+            if(querySnapshot.size-index==1){
+              setFlagLoadFrequencia('carregado');
+              console.log('entrou no if da flag alunos')
+            }
+          });
+        }    
       });
       setListaALunos(alunos)
     }
@@ -82,14 +91,51 @@ const FlatListFrequencia = () => {
     );
   };
 
+  const renderCarregamento = () =>{
+    if(classeSelec!=''){
+      if(dataSelec!=''){
+        switch(flagLoadFrequencia){
+          case 'vazio':
+            return(
+              <View>
+                  <Text style={styles.textLoad}>Adicione os alunos...</Text>
+              </View>
+            )
+          case 'carregando':
+            return(
+              <View>
+                  <Text style={styles.textLoad}>Carregando...</Text>
+              </View>
+            )   
+          case 'carregado':
+            return(
+              <FlatList
+                data={listaAlunos}
+                renderItem={renderItem}
+                keyExtractor={item => item.numero}
+                extraData={selectedId}
+              />
+            )
+        }
+      }else{
+        return(
+          <View>
+              <Text style={styles.textLoad}>Selecione uma data...</Text>
+          </View>
+        )
+      }
+    }else{
+      return(
+        <View>
+            <Text style={styles.textLoad}>Selecione uma Classe...</Text>
+        </View>
+      ) 
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={listaAlunos}
-        renderItem={renderItem}
-        keyExtractor={item => item.numero}
-        extraData={selectedId}
-      />
+        {renderCarregamento()}
     </SafeAreaView>
   );
 };
@@ -120,6 +166,10 @@ const styles = StyleSheet.create({
   },
   frequencia:{
     flex:1
+  },
+  textLoad:{
+    fontSize:24,
+    color:Globais.corTextoClaro,
   }
 });
 

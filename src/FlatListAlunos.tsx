@@ -31,7 +31,6 @@ const FlatListAlunos = () => {
 
   useEffect(()=>{
     const data = async ()=>{
-    // setflagLoadAlunos('carregando')
     await firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
