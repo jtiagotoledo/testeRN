@@ -1,8 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native"
+import { StyleSheet, View, Button } from "react-native"
 import Globais from "./Globais";
 import HeaderNotas from "./HeaderNotas";
 import FlatListClasses from "./FlatListClasses";
+import TesteStorage from "./TesteStorage";
 
 const Notas = () =>{
     return(
@@ -10,6 +11,7 @@ const Notas = () =>{
             <HeaderNotas title="Notas"></HeaderNotas>
             <FlatListClasses></FlatListClasses>
             <Button title='add NOTAS'></Button>
+            <TesteStorage></TesteStorage>
         </View>
     )
 }
