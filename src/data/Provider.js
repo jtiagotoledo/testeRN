@@ -16,6 +16,7 @@ export default function Provider ({children}){
     const[flagLoadCalendario,setflagLoadCalendario]=useState('');
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
+    const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
@@ -37,6 +38,7 @@ export default function Provider ({children}){
             flagLoadCalendario,setflagLoadCalendario,
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,
+            recarregarFrequencia,setRecarregarFrequencia,
             periodoSelec,setPeriodoSelec,
             classeSelec,setClasseSelec,
             numAlunoSelec,setNumAlunoSelec,

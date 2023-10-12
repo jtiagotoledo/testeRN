@@ -34,8 +34,8 @@ const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:'',frequencia:''}]);
-    const {periodoSelec,classeSelec,setNumAlunoSelec,
-      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia} = useContext(Context)
+    const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
+      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -60,7 +60,7 @@ const FlatListFrequencia = () => {
       setListaALunos(alunos)
     }
     data()        
-  },[dataSelec]);
+  },[dataSelec,recarregarFrequencia]);
 
   const onPressItemFreq = (item:any) =>{
     const numAluno = item.numero;
@@ -75,6 +75,7 @@ const FlatListFrequencia = () => {
           nome:item.nome,
           frequencia:'A'
         });
+    setRecarregarFrequencia('atualizarFrequencia')
   }
 
   const renderItem = ({item}: {item: ItemData}) => {

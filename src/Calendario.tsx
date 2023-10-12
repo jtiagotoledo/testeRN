@@ -20,7 +20,7 @@ LocaleConfig.defaultLocale = "br";
 const Calendario = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-  const {flagLoadCalendario,setflagLoadCalendario} = useContext(Context)
+  const {flagLoadCalendario,setflagLoadCalendario,setFlagLoadFrequencia} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -94,6 +94,7 @@ const Calendario = () => {
               <Calendar
                 onDayPress={day => {
                   setDataSelec(day.dateString.toString());
+                  setFlagLoadFrequencia('carregando')
                   console.log(listaDatas);
                   if(listaDatas.includes(day.dateString)){
                     setModalCalendario(!modalCalendario)
