@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, Text, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {SafeAreaView, Button, FlatList, Text, StyleSheet, TouchableOpacity, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ItemData = {
   classe: string;
@@ -25,6 +26,7 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 const FlatListClasses = () => {
     let classes:any []= []
     const [selectedId, setSelectedId] = useState<string>();
+    const [listaPronta, setListaPronta] = useState()
     const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses} = useContext(Context)
@@ -48,9 +50,30 @@ const FlatListClasses = () => {
       }
     });
     setListaClasses(classes)
-}
-data()        
-},[periodoSelec,recarregarClasses]);
+  }
+  data()   
+  },[periodoSelec,recarregarClasses]);
+
+  const storeData = async () => {
+    try {
+      const jsonValue = JSON.stringify(listaClasses);
+      await AsyncStorage.setItem('chave', jsonValue);
+      console.log('valor armazenado',jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('chave');
+      console.log('dentro do storage',jsonValue);
+      setListaPronta(JSON.parse(jsonValue||''))
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      // error reading value
+    }
+  };
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
@@ -91,7 +114,7 @@ data()
             <SafeAreaView >
               <FlatList
                 horizontal = {true}
-                data={listaClasses}
+                data={listaPronta}
                 renderItem={renderItem}
                 keyExtractor={item => item.classe}
                 extraData={selectedId}
@@ -105,6 +128,8 @@ data()
   return (
     <View>
       {renderCarregamento()}
+      <Button title='salvar dados' onPress={()=>storeData()}></Button>
+      <Button title='restaurando dados' onPress={()=>getData()}></Button>
     </View>
   );
 };
