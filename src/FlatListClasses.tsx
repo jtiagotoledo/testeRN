@@ -31,29 +31,6 @@ const FlatListClasses = () => {
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses} = useContext(Context)
 
-  useEffect(()=>{
-    const data = async ()=>{
-      setflagLoadClasses('carregando')
-      await firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .get().then(querySnapshot => {
-      if(querySnapshot.empty){
-        setflagLoadClasses('vazio')
-      }else{
-        querySnapshot.forEach((documentSnapshot,index) => {
-        classes.push(documentSnapshot.data());
-          if(querySnapshot.size-index==1){
-            setflagLoadClasses('carregado')
-            console.log('entrou no if da flag classes')
-          } 
-        });
-      }
-    });
-    setListaClasses(classes)
-  }
-  data()   
-  },[periodoSelec,recarregarClasses]);
-
   const storeData = async () => {
     try {
       const jsonValue = JSON.stringify(listaClasses);
@@ -74,6 +51,32 @@ const FlatListClasses = () => {
       // error reading value
     }
   };
+  
+      
+  useEffect(()=>{
+    const data = async ()=>{
+      setflagLoadClasses('carregando')
+      await firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .get().then(querySnapshot => {
+      if(querySnapshot.empty){
+        setflagLoadClasses('vazio')
+      }else{
+        querySnapshot.forEach((documentSnapshot,index) => {
+        classes.push(documentSnapshot.data());
+          if(querySnapshot.size-index==1){
+            setflagLoadClasses('carregado')
+            console.log('entrou no if da flag classes')
+          } 
+        });
+      }
+    });
+    setListaClasses(classes)
+    getData();
+  }
+  data()   
+  },[periodoSelec,recarregarClasses]);
+
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
@@ -96,7 +99,19 @@ const FlatListClasses = () => {
 
   const renderCarregamento = () =>{
     if(periodoSelec!=''){
-      switch(flagLoadClasses){
+      return(
+        <SafeAreaView >
+          <FlatList
+            horizontal = {true}
+            data={listaPronta}
+            renderItem={renderItem}
+            keyExtractor={item => item.classe}
+            extraData={selectedId}
+          />
+        </SafeAreaView>
+      )
+      
+      /* switch(flagLoadClasses){
         case 'vazio':
           return(
             <View>
@@ -120,8 +135,8 @@ const FlatListClasses = () => {
                 extraData={selectedId}
               />
             </SafeAreaView>
-          )
-      }
+          ) */
+      
     }
   }
 
