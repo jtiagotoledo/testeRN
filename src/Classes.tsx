@@ -7,6 +7,7 @@ import Fab from "./Fab";
 import DropDown from "./DropDown";
 import FlatListAlunos from "./FlatListAlunos";
 import FlatListClasses from "./FlatListClasses";
+import FlatListClassesTest from "./FlatListClassesTest";
 import HeaderClasses from "./HeaderClasses";
 import Globais from "./Globais";
 
@@ -25,7 +26,7 @@ function Classes() {
       <HeaderClasses title="Classes"></HeaderClasses>
       <DropDown ></DropDown>
       <Text style={styles.text}>Selecione uma classe:</Text>
-      <FlatListClasses></FlatListClasses>
+      <FlatListClassesTest></FlatListClassesTest>
       <Divider style={styles.divider}></Divider>
       <FlatListAlunos></FlatListAlunos>
       <ModalAddPeriodo></ModalAddPeriodo>

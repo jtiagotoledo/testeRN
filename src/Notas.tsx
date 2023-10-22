@@ -3,7 +3,6 @@ import { StyleSheet, View, Button, TextInput, Text } from "react-native"
 import Globais from "./Globais";
 import HeaderNotas from "./HeaderNotas";
 import FlatListClasses from "./FlatListClasses";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Notas = () =>{
 
@@ -11,7 +10,7 @@ const Notas = () =>{
   const[valor,setValor]=useState('');
 
 
-  const storeData = async () => {
+  /* const storeData = async () => {
       try {
         const jsonValue = JSON.stringify(valor);
         await AsyncStorage.setItem('my-key', jsonValue);
@@ -30,14 +29,14 @@ const Notas = () =>{
       // error reading value
     }
   };
-
+ */
   return(
       <View style={styles.container}>
           <HeaderNotas title="Notas"></HeaderNotas>
           <FlatListClasses></FlatListClasses>
-          <Button title='salvar valores' onPress={()=>storeData()}></Button>
+          {/* <Button title='salvar valores' onPress={()=>storeData()}></Button> */}
           <TextInput placeholder="digite" onChangeText={(item)=>setValor(item)}></TextInput>
-          <Button title='pegar valores' onPress={()=>getData()}></Button>
+          {/* <Button title='pegar valores' onPress={()=>getData()}></Button> */}
           <Text>{lista}</Text>
       </View>
   )
