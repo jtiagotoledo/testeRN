@@ -24,6 +24,11 @@ const ModalAddClasse = () =>{
         });
         setModalClasse(!modalClasse);
         console.log('função adicionar',valueClasse);
+
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(valueClasse).collection('Frequencia').add({})
+
       }else{
         ToastAndroid.show(
           'Digite o nome da classe!',

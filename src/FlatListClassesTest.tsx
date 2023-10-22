@@ -32,15 +32,16 @@ const FlatListClasses = () => {
   useEffect(()=>{
     const data = async ()=>{
       setflagLoadClasses('carregando')
-      await firestore().collection('Usuario')
+      firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
-      .get().then(querySnapshot => {
-      if(querySnapshot.empty){
+      .onSnapshot((snapshot)=>
+      {
+      if(snapshot.empty){
         setflagLoadClasses('vazio')
       }else{
-        querySnapshot.forEach((documentSnapshot,index) => {
+        snapshot.forEach((documentSnapshot,index) => {
         classes.push(documentSnapshot.data());
-          if(querySnapshot.size-index==1){
+          if(snapshot.size-index==1){
             setflagLoadClasses('carregado')
             console.log('entrou no if da flag classes')
           } 
