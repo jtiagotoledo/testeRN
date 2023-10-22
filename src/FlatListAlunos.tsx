@@ -35,13 +35,13 @@ const FlatListAlunos = () => {
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
-    .get().then(querySnapshot => {
-    if(querySnapshot.empty){
+    .onSnapshot((snapshot)=>{
+    if(snapshot.empty){
       setflagLoadAlunos('vazio')
     }else{
-      querySnapshot.forEach((documentSnapshot,index) => {
+      snapshot.forEach((documentSnapshot,index) => {
       alunos.push(documentSnapshot.data());
-      if(querySnapshot.size-index==1){
+      if(snapshot.size-index==1){
         setflagLoadAlunos('carregado');
         console.log('entrou no if da flag alunos')
       }
@@ -51,7 +51,7 @@ const FlatListAlunos = () => {
     setListaALunos(alunos)
   }
   data()        
-  },[classeSelec,recarregarAlunos]);
+  },[classeSelec]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

@@ -1,13 +1,10 @@
 import { View, StyleSheet, Text} from "react-native"
-import React, { useContext} from 'react';
-import { Context } from "./data/Provider";
 import { Divider } from "react-native-paper";
 
 import Fab from "./Fab";
 import DropDown from "./DropDown";
 import FlatListAlunos from "./FlatListAlunos";
 import FlatListClasses from "./FlatListClasses";
-import FlatListClassesTest from "./FlatListClassesTest";
 import HeaderClasses from "./HeaderClasses";
 import Globais from "./Globais";
 
@@ -19,14 +16,12 @@ import ModalDelClasse from "./ModalDelClasse";
 
 function Classes() {
     
-  const {classeSelec, numAlunoSelec} = useContext(Context)
-
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
       <DropDown ></DropDown>
       <Text style={styles.text}>Selecione uma classe:</Text>
-      <FlatListClassesTest></FlatListClassesTest>
+      <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>
       <FlatListAlunos></FlatListAlunos>
       <ModalAddPeriodo></ModalAddPeriodo>

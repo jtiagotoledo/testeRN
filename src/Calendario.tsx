@@ -26,19 +26,21 @@ const Calendario = () => {
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
+    console.log('testeCalendario')
     if(listaDatas.length==0){
       setflagLoadCalendario('carregando')
     }
+    console.log('testeCalendário')
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
-    .get().then(querySnapshot => {
-      querySnapshot.forEach((documentSnapshot, index) => {
+    .onSnapshot(snapshot => {
+      snapshot.forEach((documentSnapshot, index) => {
         if(!listaDatas.includes(documentSnapshot.id)){
           listaDatas.push(documentSnapshot.id)
           datasMarcadas[documentSnapshot.id]={selected:true}
         }
-        if(querySnapshot.size-index==1){
+        if(snapshot.size-index==1){
           setflagLoadCalendario('carregado')
           console.log('entrou no if da flag calendário')
         }
@@ -71,7 +73,7 @@ const Calendario = () => {
         .doc(numero+'').set({
           numero: numero,
           nome: nome,
-          frequencia: 'P'
+          frequencia:'P'
         })
       });
     });

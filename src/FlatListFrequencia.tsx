@@ -39,18 +39,18 @@ const FlatListFrequencia = () => {
 
   useEffect(()=>{
     const data = async ()=>{
-      await firestore().collection('Usuario')
+      firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('Frequencia')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
-      .get().then(querySnapshot => {
-        if(querySnapshot.empty){
+      .onSnapshot(snapshot => {
+        if(snapshot.empty){
           setFlagLoadFrequencia('vazio')
         }else{
-          querySnapshot.forEach((documentSnapshot,index) => {
+          snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
-            if(querySnapshot.size-index==1){
+            if(snapshot.size-index==1){
               setFlagLoadFrequencia('carregado');
               console.log('entrou no if da flag alunos')
             }

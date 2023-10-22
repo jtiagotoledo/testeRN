@@ -31,6 +31,9 @@ const ModalAddAluno = () =>{
         setModalAluno(!modalAluno);
         console.log('função adicionar',valueNome);
 
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(classeSelec).collection('Frequencia')
         
       }else{
         ToastAndroid.show(
