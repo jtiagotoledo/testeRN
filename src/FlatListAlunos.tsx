@@ -27,31 +27,35 @@ const FlatListAlunos = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
     const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
-      setNumAlunoSelec,recarregarAlunos} = useContext(Context)
+      setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
-    await firestore().collection('Usuario')
-    .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('ListaAlunos')
-    .orderBy('numero')
-    .onSnapshot((snapshot)=>{
-    if(snapshot.empty){
-      setflagLoadAlunos('vazio')
-    }else{
-      snapshot.forEach((documentSnapshot,index) => {
-      alunos.push(documentSnapshot.data());
-      if(snapshot.size-index==1){
-        setflagLoadAlunos('carregado');
-        console.log('entrou no if da flag alunos')
-      }
-      });
+      setListaALunos([{nome:'',numero:''}]);
+      console.log('testandoListaAlunos',listaAlunos);
+      setRecarregarAlunos('');
+      setflagLoadAlunos('carregando');
+      firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('ListaAlunos')
+      .orderBy('numero')
+      .onSnapshot((snapshot)=>{
+      if(snapshot.empty){
+        setflagLoadAlunos('vazio')
+      }else{
+        snapshot.forEach((documentSnapshot,index) => {
+        alunos.push(documentSnapshot.data());
+        if(snapshot.size-index==1){
+          setflagLoadAlunos('carregado');
+          console.log('entrou no if da flag alunos')
+        }
+        });
     }
     });
     setListaALunos(alunos)
   }
   data()        
-  },[classeSelec]);
+  },[classeSelec,recarregarAlunos]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;

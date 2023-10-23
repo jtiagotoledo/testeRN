@@ -27,12 +27,14 @@ const FlatListClasses = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
-      setFlagLoadFrequencia,listaClasses,setListaClasses} = useContext(Context)
+      setFlagLoadFrequencia,listaClasses,setListaClasses,setRecarregarClasses} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
-      setflagLoadClasses('carregando')
-      await firestore().collection('Usuario')
+      setListaClasses('');
+      setRecarregarClasses('');
+      setflagLoadClasses('carregando');
+      firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .onSnapshot(snapshot => {
       if(snapshot.empty){

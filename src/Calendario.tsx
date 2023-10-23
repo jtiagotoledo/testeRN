@@ -28,7 +28,8 @@ const Calendario = () => {
     incluídas na lista de datas. */
     console.log('testeCalendario')
     if(listaDatas.length==0){
-      setflagLoadCalendario('carregando')
+      setflagLoadCalendario('carregado')
+      console.log('vazio')
     }
     console.log('testeCalendário')
     firestore().collection('Usuario')
