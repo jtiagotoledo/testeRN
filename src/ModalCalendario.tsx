@@ -7,7 +7,7 @@ import { Icon } from "./Icon";
 
 const ModalCalendario = () =>{
 
-    const {modalCalendario,setModalCalendario} = useContext(Context)
+    const {modalCalendario,setModalCalendario,setRecarregarFrequencia} = useContext(Context)
 
     return(
         <View>

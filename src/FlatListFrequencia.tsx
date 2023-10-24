@@ -41,6 +41,7 @@ const FlatListFrequencia = () => {
     const data = async ()=>{
       setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
       setRecarregarFrequencia('');
+      console.log('recarregarFreq');
       setFlagLoadFrequencia('carregando');
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
@@ -63,7 +64,7 @@ const FlatListFrequencia = () => {
       setListaFrequencia(alunos)
     }
     data()        
-  },[dataSelec,recarregarFrequencia]);
+  },[dataSelec,recarregarFrequencia,classeSelec]);
 
   const onPressItemFreq = (item:any) =>{
     const numAluno = item.numero;

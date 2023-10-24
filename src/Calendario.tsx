@@ -6,7 +6,7 @@ import Globais from './Globais';
 import firestore from '@react-native-firebase/firestore';
 
 let datasMarcadas:any = {}
-const  listaDatas: any[]=[];
+// const  listaDatas: any[]=[];
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -20,25 +20,28 @@ LocaleConfig.defaultLocale = "br";
 const Calendario = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-  const {flagLoadCalendario,setflagLoadCalendario,setFlagLoadFrequencia} = useContext(Context)
+  const {flagLoadCalendario,setflagLoadCalendario,setFlagLoadFrequencia,
+    listaDatas,setListaDatas,setRecarregarFrequencia,recarregarCalendario,setRecarregarCalendario} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
-    console.log('testeCalendario')
+
+    setflagLoadCalendario('carregando');
     if(listaDatas.length==0){
       setflagLoadCalendario('carregado')
       console.log('vazio')
     }
-    console.log('testeCalendário')
+    setListaDatas('');
+    setRecarregarCalendario('');
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .onSnapshot(snapshot => {
       snapshot.forEach((documentSnapshot, index) => {
         if(!listaDatas.includes(documentSnapshot.id)){
-          listaDatas.push(documentSnapshot.id)
+          setListaDatas(documentSnapshot.id)
           datasMarcadas[documentSnapshot.id]={selected:true}
         }
         if(snapshot.size-index==1){
@@ -50,7 +53,7 @@ const Calendario = () => {
     console.log('listaDatas',listaDatas) 
   }
   data()        
-  },[classeSelec,flagLoadCalendario]); 
+  },[classeSelec,recarregarCalendario]); 
 
   const onPressAddData = async () =>{
     setflagLoadCalendario('inicio')
@@ -78,7 +81,8 @@ const Calendario = () => {
         })
       });
     });
-    setflagLoadCalendario('carregando');
+    
+    setRecarregarFrequencia('recarregarFrequencia');
     setModalCalendario(!modalCalendario);
   }
 
@@ -107,7 +111,7 @@ const Calendario = () => {
               />
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={onPressAddData}>
+                onPress={()=>[onPressAddData(),setRecarregarCalendario('recarregarCalendário'),setflagLoadCalendario('carregando')]}>
                 <Text style={styles.textStyle}>Criar data</Text>
               </Pressable>
             </View>

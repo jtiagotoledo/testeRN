@@ -17,6 +17,7 @@ export default function Provider ({children}){
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
     const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
+    const[recarregarCalendario,setRecarregarCalendario]=useState('');
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
@@ -24,8 +25,7 @@ export default function Provider ({children}){
     const[listaClasses,setListaClasses]=useState([{classe:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
     const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
-
-
+    const[listaDatas,setListaDatas]=useState('');
 
     return(
         <Context.Provider value={{
@@ -42,13 +42,15 @@ export default function Provider ({children}){
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,
             recarregarFrequencia,setRecarregarFrequencia,
+            recarregarCalendario,setRecarregarCalendario,
             periodoSelec,setPeriodoSelec,
             classeSelec,setClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
             dataSelec,setDataSelec,
             listaClasses,setListaClasses,
             listaAlunos,setListaAlunos,
-            listaFrequencia,setListaFrequencia}}>
+            listaFrequencia,setListaFrequencia,
+            listaDatas,setListaDatas}}>
             {children}
         </Context.Provider>
     )
