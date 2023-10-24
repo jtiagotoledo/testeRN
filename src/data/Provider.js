@@ -22,6 +22,9 @@ export default function Provider ({children}){
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
     const[dataSelec,setDataSelec]=useState('');
     const[listaClasses,setListaClasses]=useState([{classe:''}]);
+    const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
+    const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
+
 
 
     return(
@@ -43,7 +46,9 @@ export default function Provider ({children}){
             classeSelec,setClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
             dataSelec,setDataSelec,
-            listaClasses,setListaClasses}}>
+            listaClasses,setListaClasses,
+            listaAlunos,setListaAlunos,
+            listaFrequencia,setListaFrequencia}}>
             {children}
         </Context.Provider>
     )

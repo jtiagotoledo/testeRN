@@ -33,12 +33,15 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
-    const [listaAlunos,setListaALunos]=useState([{numero:'',nome:'',frequencia:''}]);
     const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
-      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia} = useContext(Context)
+      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
+      listaFrequencia,setListaFrequencia} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
+      setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
+      setRecarregarFrequencia('');
+      setFlagLoadFrequencia('carregando');
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('Frequencia')
@@ -57,7 +60,7 @@ const FlatListFrequencia = () => {
           });
         }    
       });
-      setListaALunos(alunos)
+      setListaFrequencia(alunos)
     }
     data()        
   },[dataSelec,recarregarFrequencia]);
@@ -111,7 +114,7 @@ const FlatListFrequencia = () => {
           case 'carregado':
             return(
               <FlatList
-                data={listaAlunos}
+                data={listaFrequencia}
                 renderItem={renderItem}
                 keyExtractor={item => item.numero}
                 extraData={selectedId}

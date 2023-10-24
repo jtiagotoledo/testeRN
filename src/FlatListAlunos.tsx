@@ -25,14 +25,13 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListAlunos = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
-    const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
     const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
-      setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos} = useContext(Context)
+      setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,
+      listaAlunos,setListaAlunos} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
-      setListaALunos([{nome:'',numero:''}]);
-      console.log('testandoListaAlunos',listaAlunos);
+      setListaAlunos([{nome:'',numero:''}]);
       setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
       firestore().collection('Usuario')
@@ -52,7 +51,7 @@ const FlatListAlunos = () => {
         });
     }
     });
-    setListaALunos(alunos)
+    setListaAlunos(alunos)
   }
   data()        
   },[classeSelec,recarregarAlunos]);
