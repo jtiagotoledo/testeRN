@@ -66,8 +66,8 @@ const Calendario = () => {
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
-    .get().then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
+    .onSnapshot(snapshot => {
+      snapshot.forEach(documentSnapshot => {
         const numero = documentSnapshot.data().numero;
         const nome = documentSnapshot.data().nome;
         firestore().collection('Usuario')
