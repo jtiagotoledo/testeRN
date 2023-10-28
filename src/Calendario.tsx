@@ -21,19 +21,20 @@ const Calendario = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
   const {flagLoadCalendario,setflagLoadCalendario,setFlagLoadFrequencia,
-    listaDatas,setListaDatas,setRecarregarFrequencia,recarregarCalendario,setRecarregarCalendario} = useContext(Context)
+    listaDatas,setListaDatas,setRecarregarFrequencia,recarregarCalendario,
+    setRecarregarCalendario,listaDatasMarcadas,setListaDatasMarcadas} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
-
+    console.log('useEffect calendario')
     setflagLoadCalendario('carregando');
     if(listaDatas.length==0){
       setflagLoadCalendario('carregado')
-      console.log('vazio')
     }
     setListaDatas('');
+    setListaDatasMarcadas({})
     setRecarregarCalendario('');
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
@@ -50,12 +51,16 @@ const Calendario = () => {
         }
       });
     });
+    setListaDatasMarcadas(datasMarcadas)
     console.log('listaDatas',listaDatas) 
   }
   data()        
   },[classeSelec,recarregarCalendario]); 
 
   const onPressAddData = async () =>{
+
+    setModalCalendario(!modalCalendario);
+
     setflagLoadCalendario('inicio')
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
@@ -82,8 +87,7 @@ const Calendario = () => {
       });
     });
     
-    setRecarregarFrequencia('recarregarFrequencia');
-    setModalCalendario(!modalCalendario);
+    // setRecarregarFrequencia('recarregarFrequencia');
   }
 
   const renderCarregamento = () =>{
@@ -107,7 +111,7 @@ const Calendario = () => {
                     setModalCalendario(!modalCalendario)
                   }
                 }}
-                markedDates={datasMarcadas}
+                markedDates={listaDatasMarcadas}
               />
               <Pressable
                 style={[styles.button, styles.buttonClose]}

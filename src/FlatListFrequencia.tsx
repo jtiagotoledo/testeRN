@@ -41,7 +41,7 @@ const FlatListFrequencia = () => {
     const data = async ()=>{
       setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
       setRecarregarFrequencia('');
-      console.log('recarregarFreq');
+      console.log('useEffect lista frequencia');
       setFlagLoadFrequencia('carregando');
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
@@ -56,7 +56,7 @@ const FlatListFrequencia = () => {
           alunos.push(documentSnapshot.data());
             if(snapshot.size-index==1){
               setFlagLoadFrequencia('carregado');
-              console.log('entrou no if da flag alunos')
+              console.log('entrou no if da flag frequencia')
             }
           });
         }    
