@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { Button, StyleSheet, Text, View } from "react-native"
 import {Context} from "./data/Provider";
+import { FAB } from '@rneui/themed';
+import {Icon} from './Icon'
+import FabFrequencia from "./FabFrequencia";
+
 
 import ModalCalendario from "./ModalCalendario";
 import Globais from "./Globais";
@@ -28,11 +32,11 @@ const Frequencia = () =>{
         <View style={styles.container}>
             <HeaderFrequencia title="Frequência"></HeaderFrequencia>
             <FlatListClasses></FlatListClasses>
-            <Button title="Add data" disabled={flagBtnAddData} onPress={()=>setModalCalendario(true)}></Button>
             <View style={styles.containerText}>
                 <Text style={styles.text}>{data}</Text>
             </View>
             <FlatListFrequencia></FlatListFrequencia>
+            <FabFrequencia></FabFrequencia>
             <ModalCalendario></ModalCalendario>
         </View>
     )

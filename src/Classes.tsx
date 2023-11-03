@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text} from "react-native"
 import { Divider } from "react-native-paper";
 
-import Fab from "./Fab";
+import FabClasses from "./FabClasses";
 import DropDown from "./DropDown";
 import FlatListAlunos from "./FlatListAlunos";
 import FlatListClasses from "./FlatListClasses";
@@ -20,7 +20,6 @@ function Classes() {
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
       <DropDown ></DropDown>
-      <Text style={styles.text}>Selecione uma classe:</Text>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>
       <FlatListAlunos></FlatListAlunos>
@@ -29,7 +28,7 @@ function Classes() {
       <ModalAddAluno></ModalAddAluno>
       <ModalDelAluno></ModalDelAluno>
       <ModalDelClasse></ModalDelClasse>
-      <Fab></Fab>
+      <FabClasses></FabClasses>
     </View>
   );
 }
