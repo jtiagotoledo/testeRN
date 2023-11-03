@@ -10,13 +10,14 @@ import FlatListClasses from "./FlatListClasses";
 
 
 const Frequencia = () =>{
-    const {setModalCalendario, dataSelec} = useContext(Context);
+    const {setModalCalendario, dataSelec,
+        flagBtnAddData} = useContext(Context);
 
     return(
         <View style={styles.container}>
             <HeaderFrequencia title="Frequência"></HeaderFrequencia>
             <FlatListClasses></FlatListClasses>
-            <Button title="Add data" onPress={()=>setModalCalendario(true)}></Button>
+            <Button title="Add data" disabled={flagBtnAddData} onPress={()=>setModalCalendario(true)}></Button>
             <Text style={styles.text}>{dataSelec}</Text>
             <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendario></ModalCalendario>

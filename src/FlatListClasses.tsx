@@ -24,10 +24,10 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListClasses = () => {
     let classes:any []= []
-    const [selectedId, setSelectedId] = useState<string>();
     const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
-      setFlagLoadFrequencia,listaClasses,setListaClasses,setRecarregarClasses} = useContext(Context)
+      setFlagLoadFrequencia,listaClasses,setListaClasses,
+      setRecarregarClasses} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -38,7 +38,7 @@ const FlatListClasses = () => {
       .doc(periodoSelec).collection('Classes')
       .onSnapshot(snapshot => {
         if(snapshot.empty){
-          setflagLoadClasses('vazio')
+          setflagLoadClasses('vazio');
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           classes.push(documentSnapshot.data());
@@ -63,7 +63,6 @@ const FlatListClasses = () => {
         <Item
         item={item}
         onPress={() => [
-          setSelectedId(item.classe),
           setClasseSelec(item.classe), 
           setflagLoadAlunos('carregando'),
           setFlagLoadFrequencia('carregando'),
@@ -98,7 +97,6 @@ const FlatListClasses = () => {
                 data={listaClasses}
                 renderItem={renderItem}
                 keyExtractor={item => item.classe}
-                extraData={selectedId}
               />
             </SafeAreaView>
           )

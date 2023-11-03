@@ -35,7 +35,7 @@ const FlatListFrequencia = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
       dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
-      listaFrequencia,setListaFrequencia} = useContext(Context)
+      listaFrequencia,setListaFrequencia,setFlagBtnAddData} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -50,7 +50,7 @@ const FlatListFrequencia = () => {
       .orderBy('numero')
       .onSnapshot(snapshot => {
         if(snapshot.empty){
-          setFlagLoadFrequencia('vazio')
+          setFlagLoadFrequencia('vazio');
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
@@ -64,7 +64,7 @@ const FlatListFrequencia = () => {
       setListaFrequencia(alunos)
     }
     data()        
-  },[recarregarFrequencia]);
+  },[classeSelec,recarregarFrequencia]);
 
   const onPressItemFreq = (item:any) =>{
     const numAluno = item.numero;

@@ -27,12 +27,13 @@ const FlatListAlunos = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,
-      listaAlunos,setListaAlunos} = useContext(Context)
+      listaAlunos,setListaAlunos,setFlagBtnAddData} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
       setListaAlunos([{nome:'',numero:''}]);
       setRecarregarAlunos('');
+      setFlagBtnAddData(false);
       setflagLoadAlunos('carregando');
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
@@ -40,7 +41,8 @@ const FlatListAlunos = () => {
       .orderBy('numero')
       .onSnapshot((snapshot)=>{
       if(snapshot.empty){
-        setflagLoadAlunos('vazio')
+        setflagLoadAlunos('vazio');
+        setFlagBtnAddData(true);
       }else{
         snapshot.forEach((documentSnapshot,index) => {
         alunos.push(documentSnapshot.data());

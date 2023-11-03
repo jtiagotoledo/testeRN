@@ -14,6 +14,7 @@ export default function Provider ({children}){
     const[flagLoadAlunos,setflagLoadAlunos]=useState('');
     const[flagLoadFrequencia,setFlagLoadFrequencia]=useState('');
     const[flagLoadCalendario,setflagLoadCalendario]=useState('');
+    const[flagBtnAddData,setFlagBtnAddData]=useState(false);
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
     const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
@@ -40,6 +41,7 @@ export default function Provider ({children}){
             flagLoadAlunos,setflagLoadAlunos,
             flagLoadFrequencia,setFlagLoadFrequencia,
             flagLoadCalendario,setflagLoadCalendario,
+            flagBtnAddData,setFlagBtnAddData,
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,
             recarregarFrequencia,setRecarregarFrequencia,
