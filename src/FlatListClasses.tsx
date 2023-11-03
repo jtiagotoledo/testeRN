@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, Button, FlatList, Text, StyleSheet, TouchableOpacity, View} from 'react-native'
+import {SafeAreaView, FlatList, Text, StyleSheet, TouchableOpacity, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
@@ -56,13 +56,14 @@ const FlatListClasses = () => {
 
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.classe === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.classe === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const backgroundColor = item.classe === classeSelec ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.classe === classeSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
         <Item
         item={item}
-        onPress={() => [setSelectedId(item.classe),
+        onPress={() => [
+          setSelectedId(item.classe),
           setClasseSelec(item.classe), 
           setflagLoadAlunos('carregando'),
           setFlagLoadFrequencia('carregando'),

@@ -1,11 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
 import firestore from '@react-native-firebase/firestore';
-
-// const  listaDatas: any[]=[];
 
 LocaleConfig.locales.br = {
   monthNames: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
@@ -41,7 +39,8 @@ const Calendario = () => {
     .doc(classeSelec).collection('Frequencia')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
-        setflagLoadCalendario('carregado')
+        setflagLoadCalendario('carregado');
+        console.log('snapshot vazio calendario');
       }
       snapshot.forEach((documentSnapshot, index) => {
         datas.push(documentSnapshot.id);
@@ -119,7 +118,7 @@ const Calendario = () => {
               />
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={()=>[onPressAddData(),setRecarregarCalendario('recarregarCalendário'),setflagLoadCalendario('carregando')]}>
+                onPress={()=>[onPressAddData(),setflagLoadCalendario('carregando')]}>
                 <Text style={styles.textStyle}>Criar data</Text>
               </Pressable>
             </View>
