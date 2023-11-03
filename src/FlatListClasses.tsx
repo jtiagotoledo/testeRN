@@ -37,17 +37,17 @@ const FlatListClasses = () => {
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .onSnapshot(snapshot => {
-      if(snapshot.empty){
-        setflagLoadClasses('vazio')
-      }else{
-        snapshot.forEach((documentSnapshot,index) => {
-        classes.push(documentSnapshot.data());
-          if(snapshot.size-index==1){
-            setflagLoadClasses('carregado')
-            console.log('entrou no if da flag classes')
-          } 
-        });
-      }
+        if(snapshot.empty){
+          setflagLoadClasses('vazio')
+        }else{
+          snapshot.forEach((documentSnapshot,index) => {
+          classes.push(documentSnapshot.data());
+            if(snapshot.size-index==1){
+              setflagLoadClasses('carregado')
+              console.log('entrou no if da flag classes')
+            } 
+          });
+        }
     });
     setListaClasses(classes);
   }

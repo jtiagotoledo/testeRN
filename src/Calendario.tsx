@@ -5,7 +5,6 @@ import {Context} from "./data/Provider";
 import Globais from './Globais';
 import firestore from '@react-native-firebase/firestore';
 
-let datasMarcadas:any = {}
 // const  listaDatas: any[]=[];
 
 LocaleConfig.locales.br = {
@@ -18,6 +17,10 @@ LocaleConfig.locales.br = {
 LocaleConfig.defaultLocale = "br";
 
 const Calendario = () => {
+
+  let datasMarcadas:any = {}
+  const  datas: any[]=[];
+
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
   const {flagLoadCalendario,setflagLoadCalendario,setFlagLoadFrequencia,
@@ -30,9 +33,6 @@ const Calendario = () => {
     incluídas na lista de datas. */
     console.log('useEffect calendario')
     setflagLoadCalendario('carregando');
-    if(listaDatas.length==0){
-      setflagLoadCalendario('carregado')
-    }
     setListaDatas('');
     setListaDatasMarcadas({})
     setRecarregarCalendario('');
@@ -40,17 +40,19 @@ const Calendario = () => {
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .onSnapshot(snapshot => {
+      if(snapshot.empty){
+        setflagLoadCalendario('carregado')
+      }
       snapshot.forEach((documentSnapshot, index) => {
-        if(!listaDatas.includes(documentSnapshot.id)){
-          setListaDatas(documentSnapshot.id)
-          datasMarcadas[documentSnapshot.id]={selected:true}
-        }
-        if(snapshot.size-index==1){
-          setflagLoadCalendario('carregado')
-          console.log('entrou no if da flag calendário')
-        }
+        datas.push(documentSnapshot.id);
+        datasMarcadas[documentSnapshot.id]={selected:true}
+          if(snapshot.size-index==1){
+            setflagLoadCalendario('carregado')
+            console.log('entrou no if da flag calendário')
+          }
       });
     });
+    setListaDatas(datas);
     setListaDatasMarcadas(datasMarcadas)
     console.log('listaDatas',listaDatas) 
   }
@@ -83,11 +85,11 @@ const Calendario = () => {
           numero: numero,
           nome: nome,
           frequencia:'P'
-        })
+        }).then(setRecarregarFrequencia('recarregarFrequencia'))
       });
     });
     
-    // setRecarregarFrequencia('recarregarFrequencia');
+    
   }
 
   const renderCarregamento = () =>{
@@ -105,9 +107,11 @@ const Calendario = () => {
               <Calendar
                 onDayPress={day => {
                   setDataSelec(day.dateString.toString());
-                  setFlagLoadFrequencia('carregando')
+                  setFlagLoadFrequencia('carregando');
+                  setRecarregarFrequencia('recarregarFrequencia');
                   console.log(listaDatas);
                   if(listaDatas.includes(day.dateString)){
+                    console.log('listaDatasMarcadas',listaDatasMarcadas)
                     setModalCalendario(!modalCalendario)
                   }
                 }}

@@ -64,7 +64,7 @@ const FlatListFrequencia = () => {
       setListaFrequencia(alunos)
     }
     data()        
-  },[dataSelec,recarregarFrequencia,classeSelec]);
+  },[recarregarFrequencia]);
 
   const onPressItemFreq = (item:any) =>{
     const numAluno = item.numero;
