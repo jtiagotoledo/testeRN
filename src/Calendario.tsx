@@ -105,7 +105,7 @@ const Calendario = () => {
             <View style={styles.container}>
               <Calendar
                 onDayPress={day => {
-                  setDataSelec(day.dateString.toString());
+                  setDataSelec(day.dateString);
                   setFlagLoadFrequencia('carregando');
                   setRecarregarFrequencia('recarregarFrequencia');
                   console.log(listaDatas);
