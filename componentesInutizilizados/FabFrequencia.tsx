@@ -1,9 +1,8 @@
 import { FloatingAction } from "react-native-floating-action";
 import React, { useContext } from 'react';
 import { View } from "react-native";
-import {Icon} from './Icon'
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
+import {Context} from "../src/data/Provider";
+import Globais from "../src/Globais";
 
 const FabFrequencia = ()=>{
 
@@ -13,7 +12,6 @@ const FabFrequencia = ()=>{
         <View>
             <FloatingAction
             color={Globais.corPrimaria}
-            onOpen={()=>null}
             onPressMain={()=>setModalCalendario(true)}
             />
         </View>

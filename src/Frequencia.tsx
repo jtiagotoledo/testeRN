@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { Button, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
 import {Context} from "./data/Provider";
-import { FAB } from '@rneui/themed';
-import {Icon} from './Icon'
-import FabFrequencia from "./FabFrequencia";
+import { Divider } from "react-native-paper";
+
 
 
 import ModalCalendario from "./ModalCalendario";
@@ -11,10 +10,11 @@ import Globais from "./Globais";
 import HeaderFrequencia from "./HeaderFrequencia";
 import FlatListFrequencia from "./FlatListFrequencia";
 import FlatListClasses from "./FlatListClasses";
+import {Icon} from './Icon'
 
 
 const Frequencia = () =>{
-    const {setModalCalendario, dataSelec,flagBtnAddData} = useContext(Context);
+    const {dataSelec,setModalCalendario,classeSelec,flagLoadAlunos} = useContext(Context);
     let dataAno=''
     let dataMes=''
     let dataDia=''
@@ -26,17 +26,46 @@ const Frequencia = () =>{
         dataDia = dataSelec.slice(8,10);
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
+
+    const renderData = () =>{
+        if(data==''){
+            return(
+                <TouchableOpacity onPress={()=>{
+                        if(classeSelec!='' && flagLoadAlunos!='vazio'){
+                            setModalCalendario(true)
+                        }else if(classeSelec==''){
+                            ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
+                        }
+                        if(flagLoadAlunos=='vazio'){
+                            ToastAndroid.show('Primeiro, adicione os alunos nessa classe...',ToastAndroid.SHORT)
+                        }
+                    }
+                }>    
+                    <Icon name="plus" color="black" size={20}/>
+                </TouchableOpacity>
+            )
+        }else{
+            return(
+                <TouchableOpacity onPress={()=>setModalCalendario(true)}>
+                    <Text style={styles.text}>{data}</Text>
+                </TouchableOpacity>  
+            )
+        }
+    }
     
 
     return(
         <View style={styles.container}>
             <HeaderFrequencia title="Frequência"></HeaderFrequencia>
             <FlatListClasses></FlatListClasses>
+            <Divider style={styles.divider}></Divider>
             <View style={styles.containerText}>
-                <Text style={styles.text}>{data}</Text>
+                {renderData()}
+            </View>
+            <View style={styles.containerInput}>
+                <TextInput placeholder="Descreva as atividades realizadas..." style={styles.textInput}></TextInput>
             </View>
             <FlatListFrequencia></FlatListFrequencia>
-            <FabFrequencia></FabFrequencia>
             <ModalCalendario></ModalCalendario>
         </View>
     )
@@ -59,6 +88,18 @@ const styles = StyleSheet.create({
         padding:5,
         color: Globais.corTextoEscuro,
       },
+    divider:{
+        backgroundColor: Globais.corPrimaria,
+    },
+    textInput:{
+        width:'90%',
+        backgroundColor:Globais.corTextoClaro
+    },
+    containerInput:{
+        marginTop:16,
+        flexDirection:'row',
+        justifyContent:'center',
+    }
 });
 
 export default Frequencia;
