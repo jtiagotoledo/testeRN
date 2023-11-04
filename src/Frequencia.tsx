@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
 import {Context} from "./data/Provider";
 import { Divider } from "react-native-paper";
-
-
 
 import ModalCalendario from "./ModalCalendario";
 import Globais from "./Globais";
@@ -11,20 +9,39 @@ import HeaderFrequencia from "./HeaderFrequencia";
 import FlatListFrequencia from "./FlatListFrequencia";
 import FlatListClasses from "./FlatListClasses";
 import {Icon} from './Icon'
+import firestore from '@react-native-firebase/firestore';
+
 
 
 const Frequencia = () =>{
-    const {dataSelec,setModalCalendario,classeSelec,flagLoadAlunos} = useContext(Context);
+    const [valueAtividade,setValueAtividade] = useState<string>('')
+    const {dataSelec,setModalCalendario,classeSelec,
+        flagLoadAlunos,periodoSelec} = useContext(Context);
+    
     let dataAno=''
     let dataMes=''
     let dataDia=''
     let data=''
+
+    useEffect(()=>{
+        const data = async ()=>{
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(classeSelec).collection('Frequencia')
+        .doc(dataSelec).set({atividade:valueAtividade})
+      }
+      data()        
+      },[classeSelec]);
 
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
         dataMes = dataSelec.slice(5,7);
         dataDia = dataSelec.slice(8,10);
         data = dataDia+'/'+dataMes+'/'+dataAno
+    }
+
+    const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
+        setValueAtividade(event.nativeEvent.text);
     }
 
     const renderData = () =>{
@@ -62,8 +79,9 @@ const Frequencia = () =>{
             <View style={styles.containerText}>
                 {renderData()}
             </View>
+            <Divider style={styles.divider}></Divider>
             <View style={styles.containerInput}>
-                <TextInput placeholder="Descreva as atividades realizadas..." style={styles.textInput}></TextInput>
+                <TextInput placeholder="Descreva as atividades realizadas..." onChange={onChangeInputAtividades} style={styles.textInput}></TextInput>
             </View>
             <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendario></ModalCalendario>
@@ -80,6 +98,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         marginTop:16,
+        marginBottom:16,
     },
     text:{
         alignContent:'center',
@@ -97,6 +116,7 @@ const styles = StyleSheet.create({
     },
     containerInput:{
         marginTop:16,
+        
         flexDirection:'row',
         justifyContent:'center',
     }
