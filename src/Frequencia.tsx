@@ -11,10 +11,7 @@ import FlatListClasses from "./FlatListClasses";
 import {Icon} from './Icon'
 import firestore from '@react-native-firebase/firestore';
 
-
-
 const Frequencia = () =>{
-    const [valueAtividade,setValueAtividade] = useState<string>('')
     const {dataSelec,setModalCalendario,classeSelec,
         flagLoadAlunos,periodoSelec} = useContext(Context);
     
@@ -25,10 +22,10 @@ const Frequencia = () =>{
 
     useEffect(()=>{
         const data = async ()=>{
-        firestore().collection('Usuario')
+        /* firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
-        .doc(dataSelec).set({atividade:valueAtividade})
+        .doc(dataSelec).set({atividade:valueAtividade}) */
       }
       data()        
       },[classeSelec]);
@@ -41,7 +38,10 @@ const Frequencia = () =>{
     }
 
     const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
-        setValueAtividade(event.nativeEvent.text);
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(classeSelec).collection('Frequencia')
+        .doc(dataSelec).set({atividade:event.nativeEvent.text})
     }
 
     const renderData = () =>{

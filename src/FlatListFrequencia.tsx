@@ -33,6 +33,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
+    const [valueAtividade,setValueAtividade] = useState<string>('')
     const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
       dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
       listaFrequencia,setListaFrequencia,setFlagBtnAddData} = useContext(Context)
@@ -62,6 +63,17 @@ const FlatListFrequencia = () => {
         }    
       });
       setListaFrequencia(alunos)
+
+      //Recuperar atividades da data selecionada no BD.
+      /* firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('Frequencia')
+      .doc(dataSelec).
+      .onSnapshot(snapshot=>{
+        console.log('atividade',)
+
+      }); */
+      
     }
     data()        
   },[classeSelec,recarregarFrequencia]);
