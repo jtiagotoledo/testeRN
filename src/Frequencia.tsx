@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
 import {Context} from "./data/Provider";
 import { Divider } from "react-native-paper";
 
@@ -13,12 +13,13 @@ import firestore from '@react-native-firebase/firestore';
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendario,classeSelec,
-        flagLoadAlunos,periodoSelec,valueAtividade} = useContext(Context);
+        flagLoadAlunos,periodoSelec,valueAtividade,setValueAtividade} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
     let dataDia=''
     let data=''
+    const textoAtividades = ''
 
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
@@ -27,12 +28,28 @@ const Frequencia = () =>{
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
 
-    const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
+    const onChangeInputAtividades = (text:String) =>{
         firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
-        .doc(dataSelec).set({atividade:event.nativeEvent.text})
+        .doc(dataSelec).set({atividade:text})
     }
+
+    useEffect(()=>{
+        const data = async ()=>{
+            //Recuperar atividades da data selecionada no BD.
+            firestore().collection('Usuario')
+            .doc(periodoSelec).collection('Classes')
+            .doc(classeSelec).collection('Frequencia')
+            .doc(dataSelec)
+            .onSnapshot(snapshot=>{
+                setValueAtividade(snapshot.data()||'') 
+                console.log('atividades',valueAtividade.atividade)
+            })
+        }
+    data()        
+    },[dataSelec]);
+
 
     const renderData = () =>{
         if(data==''){
@@ -73,8 +90,9 @@ const Frequencia = () =>{
             <View style={styles.containerInput}>
                 {dataSelec!=''?
                 <TextInput 
+                multiline
                 placeholder="Descreva as atividades realizadas..." 
-                onChange={onChangeInputAtividades}
+                onChangeText={onChangeInputAtividades}
                 value={valueAtividade.atividade}
                 style={styles.textInput}></TextInput>:null}
             </View>

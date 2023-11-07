@@ -62,18 +62,6 @@ const FlatListFrequencia = () => {
         }    
       });
       setListaFrequencia(alunos)
-
-      //Recuperar atividades da data selecionada no BD.
-      firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Frequencia')
-      .doc(dataSelec)
-      .onSnapshot(snapshot=>{
-        let atividade = snapshot.data()
-        setValueAtividade(atividade) 
-        console.log('atividades',valueAtividade.atividade)
-      })
-      
     }
     data()        
   },[classeSelec,recarregarFrequencia]);
