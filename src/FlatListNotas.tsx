@@ -30,7 +30,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
   
 );
 
-const FlatListFrequencia = () => {
+const FlatListNotas = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
     const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
@@ -190,4 +190,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FlatListFrequencia;
+export default FlatListNotas;

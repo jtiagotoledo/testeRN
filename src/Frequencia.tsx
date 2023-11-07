@@ -71,11 +71,12 @@ const Frequencia = () =>{
             </View>
             <Divider style={styles.divider}></Divider>
             <View style={styles.containerInput}>
+                {dataSelec!=''?
                 <TextInput 
                 placeholder="Descreva as atividades realizadas..." 
                 onChange={onChangeInputAtividades}
                 value={valueAtividade}
-                style={styles.textInput}></TextInput>
+                style={styles.textInput}></TextInput>:null}
             </View>
             <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendario></ModalCalendario>
