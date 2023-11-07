@@ -13,22 +13,12 @@ import firestore from '@react-native-firebase/firestore';
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendario,classeSelec,
-        flagLoadAlunos,periodoSelec} = useContext(Context);
+        flagLoadAlunos,periodoSelec,valueAtividade} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
     let dataDia=''
     let data=''
-
-    useEffect(()=>{
-        const data = async ()=>{
-        /* firestore().collection('Usuario')
-        .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
-        .doc(dataSelec).set({atividade:valueAtividade}) */
-      }
-      data()        
-      },[classeSelec]);
 
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
@@ -81,7 +71,11 @@ const Frequencia = () =>{
             </View>
             <Divider style={styles.divider}></Divider>
             <View style={styles.containerInput}>
-                <TextInput placeholder="Descreva as atividades realizadas..." onChange={onChangeInputAtividades} style={styles.textInput}></TextInput>
+                <TextInput 
+                placeholder="Descreva as atividades realizadas..." 
+                onChange={onChangeInputAtividades}
+                value={valueAtividade}
+                style={styles.textInput}></TextInput>
             </View>
             <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendario></ModalCalendario>
