@@ -71,7 +71,7 @@ const FlatListFrequencia = () => {
       .onSnapshot(snapshot=>{
         let atividade = snapshot.data()
         setValueAtividade(atividade) 
-        console.log('atividades',typeof(atividade))
+        console.log('atividades',valueAtividade.atividade)
       })
       
     }

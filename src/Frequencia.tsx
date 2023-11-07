@@ -75,7 +75,7 @@ const Frequencia = () =>{
                 <TextInput 
                 placeholder="Descreva as atividades realizadas..." 
                 onChange={onChangeInputAtividades}
-                value={valueAtividade}
+                value={valueAtividade.atividade}
                 style={styles.textInput}></TextInput>:null}
             </View>
             <FlatListFrequencia></FlatListFrequencia>
