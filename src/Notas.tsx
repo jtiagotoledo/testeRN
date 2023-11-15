@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, Nat
 import {Context} from "./data/Provider";
 import { Divider } from "react-native-paper";
 
-import ModalCalendario from "./ModalCalendario";
+import ModalCalendarioNota from "./ModalCalendarioNota";
 import Globais from "./Globais";
 import FlatListClasses from "./FlatListClasses";
 import {Icon} from './Icon'
@@ -71,7 +71,7 @@ const Notas = () =>{
             </View>
             <Divider style={styles.divider}></Divider>
             <FlatListNotas></FlatListNotas>
-            <ModalCalendario></ModalCalendario>
+            <ModalCalendarioNota></ModalCalendarioNota>
         </View>
     )
 }

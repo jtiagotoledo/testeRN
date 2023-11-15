@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} fro
 import {Context} from "./data/Provider";
 import { Divider } from "react-native-paper";
 
-import ModalCalendario from "./ModalCalendario";
+import ModalCalendarioFrequencia from "./ModalCalendarioFrequencia";
 import Globais from "./Globais";
 import HeaderFrequencia from "./HeaderFrequencia";
 import FlatListFrequencia from "./FlatListFrequencia";
@@ -93,7 +93,7 @@ const Frequencia = () =>{
                 style={styles.textInput}></TextInput>:null}
             </View>
             <FlatListFrequencia></FlatListFrequencia>
-            <ModalCalendario></ModalCalendario>
+            <ModalCalendarioFrequencia></ModalCalendarioFrequencia>
         </View>
     )
 }

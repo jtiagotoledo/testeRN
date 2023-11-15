@@ -2,10 +2,10 @@ import { View, StyleSheet, Modal, TouchableOpacity } from "react-native"
 import React, { useContext } from 'react';
 import {Context} from "./data/Provider";
 import Globais from "./Globais";
-import Calendario from "./Calendario";
+import CalendarioNota from "./CalendarioNota";
 import { Icon } from "./Icon";
 
-const ModalCalendario = () =>{
+const ModalCalendarioNota = () =>{
 
     const {modalCalendario,setModalCalendario,setRecarregarFrequencia} = useContext(Context)
 
@@ -25,7 +25,7 @@ const ModalCalendario = () =>{
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Calendario></Calendario>
+                        <CalendarioNota></CalendarioNota>
                     </View>
                 </View>
             </Modal>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ModalCalendario
+export default ModalCalendarioNota;

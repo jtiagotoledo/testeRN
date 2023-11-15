@@ -14,7 +14,7 @@ LocaleConfig.locales.br = {
 
 LocaleConfig.defaultLocale = "br";
 
-const Calendario = () => {
+const CalendarioNota = () => {
 
   let datasMarcadas:any = {}
   const  datas: any[]=[];
@@ -29,7 +29,6 @@ const Calendario = () => {
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
-    console.log('useEffect calendario')
     setflagLoadCalendario('carregando');
     setListaDatas('');
     setListaDatasMarcadas({})
@@ -163,4 +162,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Calendario;
+export default CalendarioNota;

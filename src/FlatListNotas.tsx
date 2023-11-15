@@ -8,7 +8,6 @@ import { TextInput } from 'react-native-paper';
 type ItemData = {
   nome: string;
   numero: string;
-  frequencia: string;
   nota: string;
 };
 
@@ -52,7 +51,7 @@ const FlatListNotas= () => {
   useEffect(()=>{
     const data = async ()=>{
       
-      setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
+      setListaFrequencia([{numero:'',nome:'',nota:''}]);
       setRecarregarFrequencia('');
       console.log('useEffect lista frequencia');
       setFlagLoadFrequencia('carregando');
@@ -88,7 +87,9 @@ const FlatListNotas= () => {
     .doc(classeSelec).collection('Notas')
     .doc(dataSelec).collection('Alunos')
     .doc(numAluno+'').set({
-        nota:valueNota
+        numero:item.numero,
+        nome:item.nome,
+        nota:item.nota
     });
     console.log('entrouNoPressNota')
     setRecarregarFrequencia('atualizarFrequencia')
