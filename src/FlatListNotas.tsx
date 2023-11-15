@@ -3,11 +3,13 @@ import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpac
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
+import { TextInput } from 'react-native-paper';
 
 type ItemData = {
   nome: string;
   numero: string;
   frequencia: string;
+  nota: string;
 };
 
 type ItemProps = {
@@ -17,28 +19,39 @@ type ItemProps = {
   textColor: string;
 };
 
-const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
-  <View style={styles.containerItem}>
-    <View style={[styles.item, styles.nome]}>
-      <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
-    </View>
-    <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
-    ]}>
-      <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
-    </TouchableOpacity>
-  </View>
-  
-);
+const FlatListNotas= () => {
+  const alunos:any[] = []
+  const [selectedId, setSelectedId] = useState<string>();
+  const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
+    dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
+    listaFrequencia,setListaFrequencia,valueNota,setValueNota} = useContext(Context)
 
-const FlatListNotas = () => {
-    const alunos:any[] = []
-    const [selectedId, setSelectedId] = useState<string>();
-    const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
-      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
-      listaFrequencia,setListaFrequencia,valueAtividade,setValueAtividade} = useContext(Context)
+  const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+    <View style={styles.containerItem}>
+      <View style={[styles.item, styles.nome]}>
+        <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
+      </View>
+      <View>
+        <TextInput 
+        style={styles.itemNota}
+        placeholder='Nota'
+        inputMode='numeric'
+        // onSubmitEditing={()=>onPressItemNota(item)}
+        onChangeText={onChangeInputNota}
+        value={item.nota}>
+        </TextInput>
+      </View>
+    </View>
+  );
+  
+  const onChangeInputNota = (text:String) =>{
+    setValueNota(text)
+    console.log('changing',valueNota)
+  }
 
   useEffect(()=>{
     const data = async ()=>{
+      
       setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
       setRecarregarFrequencia('');
       console.log('useEffect lista frequencia');
@@ -62,35 +75,22 @@ const FlatListNotas = () => {
         }    
       });
       setListaFrequencia(alunos)
-
-      //Recuperar atividades da data selecionada no BD.
-      firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Frequencia')
-      .doc(dataSelec)
-      .onSnapshot(snapshot=>{
-        let atividade = snapshot.data()
-        setValueAtividade(atividade) 
-        console.log('atividades',typeof(atividade))
-      })
-      
     }
     data()        
-  },[classeSelec,recarregarFrequencia]);
+  },[classeSelec,recarregarFrequencia,dataSelec]);
 
-  const onPressItemFreq = (item:any) =>{
+  const onPressItemNota = (item:any) =>{
     const numAluno = item.numero;
     setSelectedId(item.numero);
     setNumAlunoSelec(item.numero.toString());
     firestore().collection('Usuario')
-        .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
-        .doc(dataSelec).collection('Alunos')
-        .doc(numAluno+'').set({
-          numero:item.numero,
-          nome:item.nome,
-          frequencia:'A'
-        });
+    .doc(periodoSelec).collection('Classes')
+    .doc(classeSelec).collection('Notas')
+    .doc(dataSelec).collection('Alunos')
+    .doc(numAluno+'').set({
+        nota:valueNota
+    });
+    console.log('entrouNoPressNota')
     setRecarregarFrequencia('atualizarFrequencia')
   }
 
@@ -101,7 +101,7 @@ const FlatListNotas = () => {
     return (
       <Item
         item={item}
-        onPress={() => onPressItemFreq(item)}
+        onPress={() => onPressItemNota(item)}
         backgroundColor={backgroundColor}
         textColor={color}
       />
@@ -167,6 +167,12 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    backgroundColor: Globais.corTerciaria,
+  },
+  itemNota: {
+    width:80,
     marginVertical: 8,
     marginHorizontal: 16,
     backgroundColor: Globais.corTerciaria,
