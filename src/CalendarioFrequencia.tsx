@@ -22,8 +22,8 @@ const CalendarioFrequencia = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
   const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
-    listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendario,
-    setRecarregarCalendario,listaDatasMarcadasFreq,setListaDatasMarcadasFreq} = useContext(Context)
+    listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
+    setRecarregarCalendarioFreq,listaDatasMarcadasFreq,setListaDatasMarcadasFreq} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -32,7 +32,7 @@ const CalendarioFrequencia = () => {
     setflagLoadCalendarioFreq('carregando');
     setListaDatasFreq('');
     setListaDatasMarcadasFreq({})
-    setRecarregarCalendario('');
+    setRecarregarCalendarioFreq('');
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
@@ -54,7 +54,7 @@ const CalendarioFrequencia = () => {
     setListaDatasMarcadasFreq(datasMarcadas)
   }
   data()        
-  },[classeSelec,recarregarCalendario]); 
+  },[classeSelec,recarregarCalendarioFreq]); 
 
   const onPressAddData = async () =>{
 

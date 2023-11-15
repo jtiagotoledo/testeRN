@@ -22,8 +22,8 @@ const CalendarioNota = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
   const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
-    listaDatasNotas,setListaDatasNotas,setRecarregarFrequencia,recarregarCalendario,
-    setRecarregarCalendario,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
+    listaDatasNotas,setListaDatasNotas,setRecarregarFrequencia,recarregarCalendarioNotas,
+    setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -32,10 +32,10 @@ const CalendarioNota = () => {
     setflagLoadCalendarioNotas('carregando');
     setListaDatasNotas('');
     setListaDatasMarcadasNotas({})
-    setRecarregarCalendario('');
+    setRecarregarCalendarioNotas('');
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Frequencia')
+    .doc(classeSelec).collection('Notas')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
         setflagLoadCalendarioNotas('carregado');
@@ -54,7 +54,7 @@ const CalendarioNota = () => {
     setListaDatasMarcadasNotas(datasMarcadas)
   }
   data()        
-  },[classeSelec,recarregarCalendario]); 
+  },[classeSelec,recarregarCalendarioNotas]); 
 
   const onPressAddData = async () =>{
 

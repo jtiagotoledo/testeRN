@@ -19,7 +19,8 @@ export default function Provider ({children}){
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
     const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
-    const[recarregarCalendario,setRecarregarCalendario]=useState('');
+    const[recarregarCalendarioFreq,setRecarregarCalendarioFreq]=useState('');
+    const[recarregarCalendarioNotas,setRecarregarCalendarioNotas]=useState('');
     const[periodoSelec,setPeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
@@ -51,7 +52,8 @@ export default function Provider ({children}){
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,
             recarregarFrequencia,setRecarregarFrequencia,
-            recarregarCalendario,setRecarregarCalendario,
+            recarregarCalendarioFreq,setRecarregarCalendarioFreq,
+            recarregarCalendarioNotas,setRecarregarCalendarioNotas,
             periodoSelec,setPeriodoSelec,
             classeSelec,setClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
