@@ -21,38 +21,37 @@ const CalendarioNota = () => {
 
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-  const {flagLoadCalendario,setflagLoadCalendario,setFlagLoadFrequencia,
-    listaDatas,setListaDatas,setRecarregarFrequencia,recarregarCalendario,
-    setRecarregarCalendario,listaDatasMarcadas,setListaDatasMarcadas} = useContext(Context)
+  const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadFrequencia,
+    listaDatasNotas,setListaDatasNotas,setRecarregarFrequencia,recarregarCalendario,
+    setRecarregarCalendario,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
-    setflagLoadCalendario('carregando');
-    setListaDatas('');
-    setListaDatasMarcadas({})
+    setflagLoadCalendarioNotas('carregando');
+    setListaDatasNotas('');
+    setListaDatasMarcadasNotas({})
     setRecarregarCalendario('');
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
-        setflagLoadCalendario('carregado');
+        setflagLoadCalendarioNotas('carregado');
         console.log('snapshot vazio calendario');
       }
       snapshot.forEach((documentSnapshot, index) => {
         datas.push(documentSnapshot.id);
         datasMarcadas[documentSnapshot.id]={selected:true}
           if(snapshot.size-index==1){
-            setflagLoadCalendario('carregado')
+            setflagLoadCalendarioNotas('carregado')
             console.log('entrou no if da flag calendário')
           }
       });
     });
-    setListaDatas(datas);
-    setListaDatasMarcadas(datasMarcadas)
-    console.log('listaDatas',listaDatas) 
+    setListaDatasNotas(datas);
+    setListaDatasMarcadasNotas(datasMarcadas)
   }
   data()        
   },[classeSelec,recarregarCalendario]); 
@@ -61,7 +60,7 @@ const CalendarioNota = () => {
 
     setModalCalendario(!modalCalendario);
 
-    setflagLoadCalendario('inicio')
+    setflagLoadCalendarioNotas('inicio')
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
@@ -92,7 +91,7 @@ const CalendarioNota = () => {
 
   const renderCarregamento = () =>{
     if(classeSelec!=''){
-      switch(flagLoadCalendario){
+      switch(flagLoadCalendarioNotas){
         case 'carregando':
           return(
             <View>
@@ -107,17 +106,16 @@ const CalendarioNota = () => {
                   setDataSelec(day.dateString);
                   setFlagLoadFrequencia('carregando');
                   setRecarregarFrequencia('recarregarFrequencia');
-                  console.log(listaDatas);
-                  if(listaDatas.includes(day.dateString)){
-                    console.log('listaDatasMarcadas',listaDatasMarcadas)
+                  console.log(listaDatasNotas);
+                  if(listaDatasNotas.includes(day.dateString)){
                     setModalCalendario(!modalCalendario)
                   }
                 }}
-                markedDates={listaDatasMarcadas}
+                markedDates={listaDatasMarcadasNotas}
               />
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={()=>[onPressAddData(),setflagLoadCalendario('carregando')]}>
+                onPress={()=>[onPressAddData(),setflagLoadCalendarioNotas('carregando')]}>
                 <Text style={styles.textStyle}>Criar data</Text>
               </Pressable>
             </View>

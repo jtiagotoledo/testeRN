@@ -13,7 +13,8 @@ export default function Provider ({children}){
     const[flagLoadClasses,setflagLoadClasses]=useState('');
     const[flagLoadAlunos,setflagLoadAlunos]=useState('');
     const[flagLoadFrequencia,setFlagLoadFrequencia]=useState('');
-    const[flagLoadCalendario,setflagLoadCalendario]=useState('');
+    const[flagLoadCalendarioFreq,setflagLoadCalendarioFreq]=useState('');
+    const[flagLoadCalendarioNotas,setflagLoadCalendarioNotas]=useState('');
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
     const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
@@ -25,8 +26,10 @@ export default function Provider ({children}){
     const[listaClasses,setListaClasses]=useState([{classe:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
     const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
-    const[listaDatas,setListaDatas]=useState('');
-    const[listaDatasMarcadas,setListaDatasMarcadas]=useState({});
+    const[listaDatasFreq,setListaDatasFreq]=useState('');
+    const[listaDatasNotas,setListaDatasNotas]=useState('');
+    const[listaDatasMarcadasFreq,setListaDatasMarcadasFreq]=useState({});
+    const[listaDatasMarcadasNotas,setListaDatasMarcadasNotas]=useState({});
     const[valueAtividade,setValueAtividade]=useState([{atividade:''}]);
     const[valueNota,setValueNota]=useState([{nota:''}]);
 
@@ -41,7 +44,8 @@ export default function Provider ({children}){
             flagLoadClasses,setflagLoadClasses,
             flagLoadAlunos,setflagLoadAlunos,
             flagLoadFrequencia,setFlagLoadFrequencia,
-            flagLoadCalendario,setflagLoadCalendario,
+            flagLoadCalendarioFreq,setflagLoadCalendarioFreq,
+            flagLoadCalendarioNotas,setflagLoadCalendarioNotas,
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,
             recarregarFrequencia,setRecarregarFrequencia,
@@ -53,8 +57,10 @@ export default function Provider ({children}){
             listaClasses,setListaClasses,
             listaAlunos,setListaAlunos,
             listaFrequencia,setListaFrequencia,
-            listaDatas,setListaDatas,
-            listaDatasMarcadas,setListaDatasMarcadas,
+            listaDatasNotas,setListaDatasNotas,
+            listaDatasFreq,setListaDatasFreq,
+            listaDatasMarcadasFreq,setListaDatasMarcadasFreq,
+            listaDatasMarcadasNotas,setListaDatasMarcadasNotas,
             valueAtividade,setValueAtividade,
             valueNota,setValueNota}}>
             {children}
