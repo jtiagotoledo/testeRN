@@ -39,6 +39,7 @@ const FlatListFrequencia = () => {
 
   useEffect(()=>{
     const data = async ()=>{
+      
       setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
       setRecarregarFrequencia('');
       console.log('useEffect lista frequencia');
@@ -67,6 +68,7 @@ const FlatListFrequencia = () => {
   },[classeSelec,recarregarFrequencia]);
 
   const onPressItemFreq = (item:any) =>{
+    let statusFrequencia = item.frequencia=='P'?'A':'P'
     const numAluno = item.numero;
     setSelectedId(item.numero);
     setNumAlunoSelec(item.numero.toString());
@@ -77,7 +79,7 @@ const FlatListFrequencia = () => {
         .doc(numAluno+'').set({
           numero:item.numero,
           nome:item.nome,
-          frequencia:'A'
+          frequencia:statusFrequencia
         });
     setRecarregarFrequencia('atualizarFrequencia')
   }

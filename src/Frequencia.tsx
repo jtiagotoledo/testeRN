@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
 import {Context} from "./data/Provider";
 import { Divider } from "react-native-paper";
@@ -19,7 +19,6 @@ const Frequencia = () =>{
     let dataMes=''
     let dataDia=''
     let data=''
-    const textoAtividades = ''
 
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
@@ -45,15 +44,9 @@ const Frequencia = () =>{
             .doc(dataSelec).get().then()
             setValueAtividade((await textoAtividade).data()||'')
             console.log('valueAtividade',(await textoAtividade).data())
-            
-            /* .onSnapshot(snapshot=>{
-                setValueAtividade(snapshot.data().atividade||'') 
-                console.log('atividades',valueAtividade.atividade)
-            }) */
         }
     data()        
     },[dataSelec]);
-
 
     const renderData = () =>{
         if(data==''){
@@ -80,7 +73,6 @@ const Frequencia = () =>{
             )
         }
     }
-    
 
     return(
         <View style={styles.container}>
