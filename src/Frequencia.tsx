@@ -31,21 +31,25 @@ const Frequencia = () =>{
     const onChangeInputAtividades = (text:String) =>{
         firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
+        .doc(classeSelec).collection('Atividades')
         .doc(dataSelec).set({atividade:text})
+        setValueAtividade({atividade:text})
     }
 
     useEffect(()=>{
         const data = async ()=>{
             //Recuperar atividades da data selecionada no BD.
-            firestore().collection('Usuario')
+            const textoAtividade =  firestore().collection('Usuario')
             .doc(periodoSelec).collection('Classes')
-            .doc(classeSelec).collection('Frequencia')
-            .doc(dataSelec)
-            .onSnapshot(snapshot=>{
-                setValueAtividade(snapshot.data()||'') 
+            .doc(classeSelec).collection('Atividades')
+            .doc(dataSelec).get().then()
+            setValueAtividade((await textoAtividade).data()||'')
+            console.log('valueAtividade',(await textoAtividade).data())
+            
+            /* .onSnapshot(snapshot=>{
+                setValueAtividade(snapshot.data().atividade||'') 
                 console.log('atividades',valueAtividade.atividade)
-            })
+            }) */
         }
     data()        
     },[dataSelec]);

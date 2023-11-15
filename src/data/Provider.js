@@ -27,7 +27,7 @@ export default function Provider ({children}){
     const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
     const[listaDatas,setListaDatas]=useState('');
     const[listaDatasMarcadas,setListaDatasMarcadas]=useState({});
-    const[valueAtividade,setValueAtividade]=useState([{classe:''}]);
+    const[valueAtividade,setValueAtividade]=useState([{atividade:''}]);
 
     return(
         <Context.Provider value={{
