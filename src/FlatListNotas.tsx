@@ -22,7 +22,7 @@ const FlatListNotas= () => {
   const alunos:any[] = []
   const [selectedId, setSelectedId] = useState<string>();
   const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
-    dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
+    dataSelec,flagLoadFrequencia,setFlagLoadNotas,setRecarregarFrequencia,
     listaFrequencia,setListaFrequencia,valueNota,setValueNota} = useContext(Context)
 
   const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
@@ -54,7 +54,7 @@ const FlatListNotas= () => {
       setListaFrequencia([{numero:'',nome:'',nota:''}]);
       setRecarregarFrequencia('');
       console.log('useEffect lista frequencia');
-      setFlagLoadFrequencia('carregando');
+      setFlagLoadNotas('carregando');
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('Frequencia')
@@ -62,12 +62,12 @@ const FlatListNotas= () => {
       .orderBy('numero')
       .onSnapshot(snapshot => {
         if(snapshot.empty){
-          setFlagLoadFrequencia('vazio');
+          setFlagLoadNotas('vazio');
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
             if(snapshot.size-index==1){
-              setFlagLoadFrequencia('carregado');
+              setFlagLoadNotas('carregado');
               console.log('entrou no if da flag frequencia')
             }
           });

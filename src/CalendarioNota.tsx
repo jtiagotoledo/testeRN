@@ -21,7 +21,7 @@ const CalendarioNota = () => {
 
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
-  const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadFrequencia,
+  const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
     listaDatasNotas,setListaDatasNotas,setRecarregarFrequencia,recarregarCalendario,
     setRecarregarCalendario,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
 
@@ -104,7 +104,7 @@ const CalendarioNota = () => {
               <Calendar
                 onDayPress={day => {
                   setDataSelec(day.dateString);
-                  setFlagLoadFrequencia('carregando');
+                  setFlagLoadNotas('carregando');
                   setRecarregarFrequencia('recarregarFrequencia');
                   console.log(listaDatasNotas);
                   if(listaDatasNotas.includes(day.dateString)){
