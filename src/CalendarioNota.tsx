@@ -63,7 +63,7 @@ const CalendarioNota = () => {
     setflagLoadCalendarioNotas('inicio')
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Frequencia')
+    .doc(classeSelec).collection('Notas')
     .doc(dataSelec).set({});
     
     firestore().collection('Usuario')
@@ -76,12 +76,12 @@ const CalendarioNota = () => {
         const nome = documentSnapshot.data().nome;
         firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
+        .doc(classeSelec).collection('Notas')
         .doc(dataSelec).collection('Alunos')
         .doc(numero+'').set({
           numero: numero,
           nome: nome,
-          frequencia:'P'
+          nota:''
         }).then(setRecarregarFrequencia('recarregarFrequencia'))
       });
     });
