@@ -19,6 +19,7 @@ export default function Provider ({children}){
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
     const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
+    const[recarregarNotas,setRecarregarNotas]=useState('');
     const[recarregarCalendarioFreq,setRecarregarCalendarioFreq]=useState('');
     const[recarregarCalendarioNotas,setRecarregarCalendarioNotas]=useState('');
     const[periodoSelec,setPeriodoSelec]=useState('');
@@ -28,6 +29,7 @@ export default function Provider ({children}){
     const[listaClasses,setListaClasses]=useState([{classe:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
     const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
+    const[listaNotas,setListaNotas]=useState([{numero:'',nome:'',nota:''}]);
     const[listaDatasFreq,setListaDatasFreq]=useState('');
     const[listaDatasNotas,setListaDatasNotas]=useState('');
     const[listaDatasMarcadasFreq,setListaDatasMarcadasFreq]=useState({});
@@ -52,6 +54,7 @@ export default function Provider ({children}){
             recarregarAlunos,setRecarregarAlunos,
             recarregarClasses,setRecarregarClasses,
             recarregarFrequencia,setRecarregarFrequencia,
+            recarregarNotas,setRecarregarNotas,
             recarregarCalendarioFreq,setRecarregarCalendarioFreq,
             recarregarCalendarioNotas,setRecarregarCalendarioNotas,
             periodoSelec,setPeriodoSelec,
@@ -61,6 +64,7 @@ export default function Provider ({children}){
             listaClasses,setListaClasses,
             listaAlunos,setListaAlunos,
             listaFrequencia,setListaFrequencia,
+            listaNotas,setListaNotas,
             listaDatasNotas,setListaDatasNotas,
             listaDatasFreq,setListaDatasFreq,
             listaDatasMarcadasFreq,setListaDatasMarcadasFreq,

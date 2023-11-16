@@ -22,8 +22,8 @@ const FlatListNotas= () => {
   const alunos:any[] = []
   const [selectedId, setSelectedId] = useState<string>();
   const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
-    dataSelec,flagLoadFrequencia,setFlagLoadNotas,setRecarregarFrequencia,
-    listaFrequencia,setListaFrequencia,valueNota,setValueNota} = useContext(Context)
+    dataSelec,flagLoadNotas,setFlagLoadNotas,setRecarregarNotas,
+    listaNotas,setListaNotas,valueNota,setValueNota} = useContext(Context)
 
   const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
     <View style={styles.containerItem}>
@@ -51,13 +51,13 @@ const FlatListNotas= () => {
   useEffect(()=>{
     const data = async ()=>{
       
-      setListaFrequencia([{numero:'',nome:'',nota:''}]);
-      setRecarregarFrequencia('');
-      console.log('useEffect lista frequencia');
+      setListaNotas([{numero:'',nome:'',nota:''}]);
+      setRecarregarNotas('');
+      console.log('useEffect lista notas');
       setFlagLoadNotas('carregando');
       firestore().collection('Usuario')
       .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Frequencia')
+      .doc(classeSelec).collection('Notas')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
       .onSnapshot(snapshot => {
@@ -66,14 +66,16 @@ const FlatListNotas= () => {
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
+          console.log('teste notas',documentSnapshot.data())
             if(snapshot.size-index==1){
               setFlagLoadNotas('carregado');
-              console.log('entrou no if da flag frequencia')
+              console.log('entrou no if da flag notas')
             }
           });
         }    
       });
-      setListaFrequencia(alunos)
+      setListaNotas(alunos);
+      console.log('listaAlunos',alunos);
     }
     data()        
   },[classeSelec,recarregarFrequencia,dataSelec]);
@@ -92,7 +94,7 @@ const FlatListNotas= () => {
         nota:item.nota
     });
     console.log('entrouNoPressNota')
-    setRecarregarFrequencia('atualizarFrequencia')
+    setRecarregarNotas('atualizarFrequencia')
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
@@ -112,7 +114,7 @@ const FlatListNotas= () => {
   const renderCarregamento = () =>{
     if(classeSelec!=''){
       if(dataSelec!=''){
-        switch(flagLoadFrequencia){
+        switch(flagLoadNotas){
           case 'vazio':
             return(
               <View>
@@ -128,7 +130,7 @@ const FlatListNotas= () => {
           case 'carregado':
             return(
               <FlatList
-                data={listaFrequencia}
+                data={listaNotas}
                 renderItem={renderItem}
                 keyExtractor={item => item.numero}
                 extraData={selectedId}
