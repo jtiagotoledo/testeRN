@@ -22,7 +22,7 @@ const CalendarioNota = () => {
   const {periodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
   const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
-    listaDatasNotas,setListaDatasNotas,setRecarregarFrequencia,recarregarCalendarioNotas,
+    listaDatasNotas,setListaDatasNotas,setRecarregarNotas,recarregarCalendarioNotas,
     setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
 
   useEffect(()=>{
@@ -82,7 +82,7 @@ const CalendarioNota = () => {
           numero: numero,
           nome: nome,
           nota:''
-        }).then(setRecarregarFrequencia('recarregarFrequencia'))
+        }).then(setRecarregarNotas('recarregarFrequencia'))
       });
     });
     
@@ -105,7 +105,7 @@ const CalendarioNota = () => {
                 onDayPress={day => {
                   setDataSelec(day.dateString);
                   setFlagLoadNotas('carregando');
-                  setRecarregarFrequencia('recarregarFrequencia');
+                  setRecarregarNotas('recarregarFrequencia');
                   console.log(listaDatasNotas);
                   if(listaDatasNotas.includes(day.dateString)){
                     setModalCalendario(!modalCalendario)

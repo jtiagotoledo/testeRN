@@ -21,7 +21,7 @@ type ItemProps = {
 const FlatListNotas= () => {
   const alunos:any[] = []
   const [selectedId, setSelectedId] = useState<string>();
-  const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
+  const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarNotas,
     dataSelec,flagLoadNotas,setFlagLoadNotas,setRecarregarNotas,
     listaNotas,setListaNotas,valueNota,setValueNota} = useContext(Context)
 
@@ -45,7 +45,7 @@ const FlatListNotas= () => {
 
   const onChangeInputNota = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
     setValueNota(event.nativeEvent.text);
-    console.log('changing',valueNota)
+    console.log('changing',event.nativeEvent.target)
 }
   
   useEffect(()=>{
@@ -78,7 +78,7 @@ const FlatListNotas= () => {
       console.log('listaAlunos',alunos);
     }
     data()        
-  },[classeSelec,recarregarFrequencia,dataSelec]);
+  },[classeSelec,recarregarNotas,dataSelec]);
 
   const onPressItemNota = (item:any) =>{
     const numAluno = item.numero;

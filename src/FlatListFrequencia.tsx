@@ -52,9 +52,11 @@ const FlatListFrequencia = () => {
       .onSnapshot(snapshot => {
         if(snapshot.empty){
           setFlagLoadFrequencia('vazio');
+          console.log('flag freq vazio')
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
+          console.log('listaFreq',documentSnapshot.data())
             if(snapshot.size-index==1){
               setFlagLoadFrequencia('carregado');
               console.log('entrou no if da flag frequencia')
