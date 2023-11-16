@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "./data/Provider";
 import Globais from './Globais';
@@ -35,19 +35,19 @@ const FlatListNotas= () => {
         style={styles.itemNota}
         placeholder='Nota'
         inputMode='numeric'
-        // onSubmitEditing={()=>onPressItemNota(item)}
-        onChangeText={onChangeInputNota}
+        onBlur={()=>onPressItemNota(item)}
+        onChange={onChangeInputNota}
         value={item.nota}>
         </TextInput>
       </View>
     </View>
   );
-  
-  const onChangeInputNota = (text:String) =>{
-    setValueNota(text)
-    console.log('changing',valueNota)
-  }
 
+  const onChangeInputNota = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+    setValueNota(event.nativeEvent.text);
+    console.log('changing',valueNota)
+}
+  
   useEffect(()=>{
     const data = async ()=>{
       
@@ -91,7 +91,7 @@ const FlatListNotas= () => {
     .doc(numAluno+'').set({
         numero:item.numero,
         nome:item.nome,
-        nota:item.nota
+        nota:valueNota
     });
     console.log('entrouNoPressNota')
     setRecarregarNotas('atualizarFrequencia')
