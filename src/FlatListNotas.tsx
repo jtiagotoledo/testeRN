@@ -20,6 +20,7 @@ type ItemProps = {
 
 const FlatListNotas= () => {
   const alunos:any[] = []
+  let nota = ''
   const [selectedId, setSelectedId] = useState<string>();
   const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarNotas,
     dataSelec,flagLoadNotas,setFlagLoadNotas,setRecarregarNotas,
@@ -44,8 +45,8 @@ const FlatListNotas= () => {
   );
 
   const onChangeInputNota = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-    setValueNota(event.nativeEvent.text);
-    console.log('changing',event.nativeEvent.target)
+    nota = event.nativeEvent.text.toString();
+    console.log('changing',event.nativeEvent.text)
 }
   
   useEffect(()=>{
@@ -91,7 +92,7 @@ const FlatListNotas= () => {
     .doc(numAluno+'').set({
         numero:item.numero,
         nome:item.nome,
-        nota:valueNota
+        nota:nota
     });
     console.log('entrouNoPressNota')
     setRecarregarNotas('atualizarFrequencia')
