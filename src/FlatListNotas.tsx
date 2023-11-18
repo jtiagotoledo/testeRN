@@ -19,7 +19,7 @@ type ItemProps = {
 };
 
 const FlatListNotas= () => {
-  const alunos:any[] = []
+  // const alunos:any[] = []
   let nota = ''
   const [selectedId, setSelectedId] = useState<string>();
   const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarNotas,
@@ -36,52 +36,14 @@ const FlatListNotas= () => {
         style={styles.itemNota}
         placeholder='Nota'
         inputMode='numeric'
-        onBlur={()=>onPressItemNota(item)}
-        onChange={onChangeInputNota}
+        onChangeText={(text)=>onPressItemNota(item,text)}
         value={item.nota}>
         </TextInput>
       </View>
     </View>
   );
 
-  const onChangeInputNota = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-    nota = event.nativeEvent.text.toString();
-    console.log('changing',event.nativeEvent.text)
-}
-  
-  useEffect(()=>{
-    const data = async ()=>{
-      
-      setListaNotas([{numero:'',nome:'',nota:''}]);
-      setRecarregarNotas('');
-      console.log('useEffect lista notas');
-      setFlagLoadNotas('carregando');
-      firestore().collection('Usuario')
-      .doc(periodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Notas')
-      .doc(dataSelec).collection('Alunos')
-      .orderBy('numero')
-      .onSnapshot(snapshot => {
-        if(snapshot.empty){
-          setFlagLoadNotas('vazio');
-        }else{
-          snapshot.forEach((documentSnapshot,index) => {
-          alunos.push(documentSnapshot.data());
-          console.log('teste notas',documentSnapshot.data())
-            if(snapshot.size-index==1){
-              setFlagLoadNotas('carregado');
-              console.log('entrou no if da flag notas')
-            }
-          });
-        }    
-      });
-      setListaNotas(alunos);
-      console.log('listaAlunos',alunos);
-    }
-    data()        
-  },[classeSelec,recarregarNotas,dataSelec]);
-
-  const onPressItemNota = (item:any) =>{
+  const onPressItemNota = (item:ItemData,text:string) =>{
     const numAluno = item.numero;
     setSelectedId(item.numero);
     setNumAlunoSelec(item.numero.toString());
@@ -90,13 +52,47 @@ const FlatListNotas= () => {
     .doc(classeSelec).collection('Notas')
     .doc(dataSelec).collection('Alunos')
     .doc(numAluno+'').set({
-        numero:item.numero,
-        nome:item.nome,
-        nota:nota
+      numero:item.numero,
+      nome:item.nome,
+      nota:text
     });
-    console.log('entrouNoPressNota')
-    setRecarregarNotas('atualizarFrequencia')
+    setValueNota(text)
   }
+  
+  useEffect(()=>{
+    const data = async ()=>{
+      
+      setListaNotas([{numero:'',nome:'',nota:''}]);
+      setRecarregarNotas('');
+      console.log('useEffect lista notas');
+      setFlagLoadNotas('carregando');
+      const subscriber = firestore().collection('Usuario')
+      .doc(periodoSelec).collection('Classes')
+      .doc(classeSelec).collection('Notas')
+      .doc(dataSelec).collection('Alunos')
+      .orderBy('numero')
+      .onSnapshot(snapshot => {
+        if(snapshot.empty){
+          setFlagLoadNotas('vazio');
+        }else{
+          let alunos:any[]=[]
+          snapshot.forEach((documentSnapshot,index) => {
+          alunos.push(documentSnapshot.data());
+          setListaNotas(alunos);
+          console.log('teste notas',documentSnapshot.data())
+            if(snapshot.size-index==1){
+              setFlagLoadNotas('carregado');
+              console.log('entrou no if da flag notas')
+            }
+          });
+        }    
+      });
+      
+      return ()=> subscriber();
+    }
+    data()        
+  },[classeSelec,dataSelec]);
+
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
@@ -105,7 +101,7 @@ const FlatListNotas= () => {
     return (
       <Item
         item={item}
-        onPress={() => onPressItemNota(item)}
+        onPress={() => null}
         backgroundColor={backgroundColor}
         textColor={color}
       />
