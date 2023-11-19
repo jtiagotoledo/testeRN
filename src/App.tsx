@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 
 import {Icon} from './Icon'
 import Classes from './Classes';
@@ -16,8 +15,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <Provider>
-      <NavigationContainer>
-        <Tab.Navigator 
+        {<Tab.Navigator 
           screenOptions={({ route }) => ({
             headerShown:false,
             tabBarIcon: ({ focused, color, size }) => {
@@ -39,11 +37,11 @@ const App = () => {
           <Tab.Screen name="Classes" component={Classes}></Tab.Screen>
           <Tab.Screen name="Frequencia" component={Frequencia} />
           <Tab.Screen name="Notas" component={Notas}/>
-        </Tab.Navigator>
-      </NavigationContainer>
+        </Tab.Navigator>}
     </Provider>
   );
 };
+
 
 const styles = StyleSheet.create({
   iconDelete:{
