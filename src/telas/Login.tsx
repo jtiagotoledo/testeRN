@@ -33,9 +33,14 @@ const Login = ({navigation}:any)=>{
         <View style={styles.container}>
             <TextInput style={styles.textInput} 
             onChange={onChangeInputEmail}
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoCorrect={false}
             placeholder='Email'></TextInput>
             <TextInput style={styles.textInput}
             onChange={onChangeInputSenha} 
+            autoCapitalize='none'
+            autoCorrect={false}
             placeholder='Senha'></TextInput>
             <Button title='Entrar' onPress={entrarConta}></Button>
             <View style={styles.containerText}>

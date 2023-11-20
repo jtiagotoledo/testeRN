@@ -37,9 +37,14 @@ const NovaConta = ({navigation}:any)=>{
         <View style={styles.container}>
             <TextInput style={styles.textInput} 
             onChange={onChangeInputEmail}
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoCorrect={false}
             placeholder='Digite um Email válido'></TextInput>
             <TextInput style={styles.textInput}
             onChange={onChangeInputSenha} 
+            autoCapitalize='none'
+            autoCorrect={false}
             placeholder='Crie uma senha'></TextInput>
             <Button title='Cria conta' onPress={criarConta}></Button>
             <View style={styles.containerText}>
