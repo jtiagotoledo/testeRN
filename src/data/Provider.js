@@ -4,6 +4,8 @@ export const Context = createContext();
 
 export default function Provider ({children}){
 
+    const[email,setEmail]=useState('');
+    const[senha,setSenha]=useState('');
     const[modalPeriodo,setModalPeriodo]=useState(false);
     const[modalClasse,setModalClasse]=useState(false);
     const[modalAluno,setModalAluno]=useState(false);
@@ -40,6 +42,8 @@ export default function Provider ({children}){
 
     return(
         <Context.Provider value={{
+            email,setEmail,
+            senha,setSenha,
             modalPeriodo,setModalPeriodo,
             modalClasse,setModalClasse,
             modalAluno,setModalAluno,

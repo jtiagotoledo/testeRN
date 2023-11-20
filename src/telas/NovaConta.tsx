@@ -1,30 +1,47 @@
-import React from 'react';
-import { TextInput, View, Button, Text, StyleSheet, ToastAndroid } from 'react-native';
+import React, {useContext} from 'react';
+import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {Context} from "../data/Provider";
 
 const NovaConta = ({navigation}:any)=>{
+    const {email,setEmail,senha,setSenha} = useContext(Context);
 
     const criarConta = () =>{
         auth()
-            .createUserWithEmailAndPassword('jane.doeexample.com', 'SuperSecretPassword!')
+            .createUserWithEmailAndPassword(email,senha)
             .then(() => {
                 ToastAndroid.show('Conta criada com sucesso',ToastAndroid.SHORT)
+                navigation.reset({index:0,routes:[{name:"App"}]})
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
                     ToastAndroid.show('Este Email já está em uso',ToastAndroid.SHORT)
                 }
-
                 if (error.code === 'auth/invalid-email') {
                     ToastAndroid.show('Email inválido',ToastAndroid.SHORT)
                 }
             });
     }
+
+    const onChangeInputEmail = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+            setEmail(event.nativeEvent.text);
+            console.log('email',email);
+        }
+
+    const onChangeInputSenha = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+            setSenha(event.nativeEvent.text);
+            console.log('senha',senha);
+        }
+
     return(
         <View style={styles.container}>
-            <TextInput style={styles.textInput} placeholder='Digite um Email válido'></TextInput>
-            <TextInput style={styles.textInput} placeholder='Crie uma senha'></TextInput>
-            <Button title='Cria conta' onPress={()=>criarConta()}></Button>
+            <TextInput style={styles.textInput} 
+            onChange={onChangeInputEmail}
+            placeholder='Digite um Email válido'></TextInput>
+            <TextInput style={styles.textInput}
+            onChange={onChangeInputSenha} 
+            placeholder='Crie uma senha'></TextInput>
+            <Button title='Cria conta' onPress={criarConta}></Button>
             <View style={styles.containerText}>
                 <Text style={styles.text} onPress={()=>navigation.reset({
                     index:0,
