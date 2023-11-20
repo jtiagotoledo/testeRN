@@ -7,10 +7,11 @@ import Globais from "../data/Globais";
 
 const ModalDelAluno = () =>{
 
-    const {periodoSelec, classeSelec, numAlunoSelec, modalDelAluno, setModalDelAluno} = useContext(Context);
+    const {periodoSelec, classeSelec, numAlunoSelec, modalDelAluno,
+       setModalDelAluno,idUsuario} = useContext(Context);
 
     const deletarAluno = ()=> {
-      firestore().collection('Usuario')
+      firestore().collection(idUsuario)
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('ListaAlunos')
       .doc(numAlunoSelec).delete()

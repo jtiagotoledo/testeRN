@@ -8,7 +8,7 @@ import { Icon } from "../componentes/Icon";
 const ModalAddPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalPeriodo,setModalPeriodo} = useContext(Context)
+    const {modalPeriodo,setModalPeriodo,idUsuario} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -17,7 +17,7 @@ const ModalAddPeriodo = () =>{
     const onPressAddPeriodo = () =>{
       if(valuePeriodo!=''){
         firestore()
-        .collection('Usuario')
+        .collection(idUsuario||'')
         .doc(valuePeriodo)
         .set({
         })

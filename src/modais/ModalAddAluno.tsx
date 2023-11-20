@@ -10,7 +10,7 @@ const ModalAddAluno = () =>{
     const [valueNumero,setValueNumero] = useState<string>('')
     const [valueNome,setValueNome] = useState<string>('')
     const {periodoSelec,classeSelec,modalAluno,
-      setModalAluno,setRecarregarAlunos} = useContext(Context)
+      setModalAluno,setRecarregarAlunos,idUsuario} = useContext(Context)
 
     const onChangeInputNumero = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueNumero(event.nativeEvent.text);
@@ -21,7 +21,7 @@ const ModalAddAluno = () =>{
     
     const onPressAddAluno = () =>{
       if(valueNumero!='' && valueNome!=''){
-        firestore().collection('Usuario')
+        firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('ListaAlunos')
         .doc(valueNumero).set({

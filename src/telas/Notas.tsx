@@ -13,7 +13,7 @@ import FlatListNotas from "../listas/FlatListNotas";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,classeSelec,
-        flagLoadAlunos,periodoSelec,valueAtividade} = useContext(Context);
+        flagLoadAlunos,periodoSelec,idUsuario} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -28,7 +28,7 @@ const Notas = () =>{
     }
 
     const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
-        firestore().collection('Usuario')
+        firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
         .doc(dataSelec).set({atividade:event.nativeEvent.text})

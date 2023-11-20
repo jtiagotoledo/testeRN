@@ -3,6 +3,7 @@ import App from './App';
 import Login from '../telas/Login';
 import NovaConta from '../telas/NovaConta';
 import Provider from "../data/Provider";
+import auth from '@react-native-firebase/auth';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,7 +15,7 @@ function Routes() {
       <Provider>
         <NavigationContainer>
           <Stack.Navigator 
-          initialRouteName="Login"
+          initialRouteName={auth().currentUser?'App':'Login'}
           screenOptions={() => ({
               headerShown:false
               })

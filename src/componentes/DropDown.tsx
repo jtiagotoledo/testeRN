@@ -6,17 +6,19 @@ import {Icon} from './Icon'
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 
+
 const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,setflagLoadClasses,setListaClasses} = useContext(Context)
+    const {setPeriodoSelec,setflagLoadClasses,idUsuario} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
     useEffect(()=>{
         const data = async ()=>{
-        await firestore().collection('Usuario').get().then(querySnapshot => {
+        await firestore().collection(idUsuario)
+        .get().then(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
         let id = documentSnapshot.id
         listaPeriodos.push({label:id,value:id});

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text} from "react-native"
+import { View, StyleSheet, Text, Button} from "react-native"
 import { Divider } from "react-native-paper";
 import auth from '@react-native-firebase/auth';
 
@@ -15,12 +15,18 @@ import ModalAddAluno from "../modais/ModalAddAluno";
 import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalDelClasse from "../modais/ModalDelClasse";
 
-function Classes() {
+function Classes({navigation}:any) {
     
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
       <Text>{auth().currentUser?.email}</Text>
+      <Button title="sair" onPress={()=>
+        auth().signOut()
+        .then(()=>[
+          console.log('usuário saiu'),
+          navigation.reset({index:0,routes:[{name:"Login"}]})
+        ])}></Button>
       <DropDown ></DropDown>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>

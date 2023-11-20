@@ -35,7 +35,7 @@ const FlatListFrequencia = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
       dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
-      listaFrequencia,setListaFrequencia,valueAtividade,setValueAtividade} = useContext(Context)
+      listaFrequencia,setListaFrequencia,idUsuario} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -44,7 +44,7 @@ const FlatListFrequencia = () => {
       setRecarregarFrequencia('');
       console.log('useEffect lista frequencia');
       setFlagLoadFrequencia('carregando');
-      firestore().collection('Usuario')
+      firestore().collection(idUsuario)
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('Frequencia')
       .doc(dataSelec).collection('Alunos')
@@ -74,7 +74,7 @@ const FlatListFrequencia = () => {
     const numAluno = item.numero;
     setSelectedId(item.numero);
     setNumAlunoSelec(item.numero.toString());
-    firestore().collection('Usuario')
+    firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')

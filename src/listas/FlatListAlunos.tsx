@@ -27,14 +27,14 @@ const FlatListAlunos = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,
-      listaAlunos,setListaAlunos} = useContext(Context)
+      listaAlunos,setListaAlunos,idUsuario} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
       setListaAlunos([{nome:'',numero:''}]);
       setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
-      firestore().collection('Usuario')
+      firestore().collection(idUsuario)
       .doc(periodoSelec).collection('Classes')
       .doc(classeSelec).collection('ListaAlunos')
       .orderBy('numero')

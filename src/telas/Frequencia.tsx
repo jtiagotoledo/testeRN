@@ -13,7 +13,8 @@ import firestore from '@react-native-firebase/firestore';
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,classeSelec,
-        flagLoadAlunos,periodoSelec,valueAtividade,setValueAtividade} = useContext(Context);
+        flagLoadAlunos,periodoSelec,valueAtividade,setValueAtividade,
+        idUsuario} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -28,7 +29,7 @@ const Frequencia = () =>{
     }
 
     const onChangeInputAtividades = (text:String) =>{
-        firestore().collection('Usuario')
+        firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Atividades')
         .doc(dataSelec).set({atividade:text})
@@ -38,7 +39,7 @@ const Frequencia = () =>{
     useEffect(()=>{
         const data = async ()=>{
             //Recuperar atividades da data selecionada no BD.
-            const textoAtividade =  firestore().collection('Usuario')
+            const textoAtividade =  firestore().collection(idUsuario)
             .doc(periodoSelec).collection('Classes')
             .doc(classeSelec).collection('Atividades')
             .doc(dataSelec).get().then()

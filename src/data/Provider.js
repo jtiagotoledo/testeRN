@@ -1,10 +1,12 @@
 import React, {createContext, useState} from "react";
+import auth from '@react-native-firebase/auth';
 
 export const Context = createContext();
 
 export default function Provider ({children}){
 
     const[email,setEmail]=useState('');
+    const[idUsuario,setIdUsuario]=useState(auth().currentUser?.email);
     const[senha,setSenha]=useState('');
     const[modalPeriodo,setModalPeriodo]=useState(false);
     const[modalClasse,setModalClasse]=useState(false);
@@ -44,6 +46,7 @@ export default function Provider ({children}){
         <Context.Provider value={{
             email,setEmail,
             senha,setSenha,
+            idUsuario,setIdUsuario,
             modalPeriodo,setModalPeriodo,
             modalClasse,setModalClasse,
             modalAluno,setModalAluno,

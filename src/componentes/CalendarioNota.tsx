@@ -23,7 +23,8 @@ const CalendarioNota = () => {
     setDataSelec,modalCalendarioNota,setModalCalendarioNota} = useContext(Context);
   const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
     listaDatasNotas,setListaDatasNotas,setRecarregarNotas,recarregarCalendarioNotas,
-    setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
+    setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas,
+    idUsuario} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -33,7 +34,7 @@ const CalendarioNota = () => {
     setListaDatasNotas('');
     setListaDatasMarcadasNotas({})
     setRecarregarCalendarioNotas('');
-    firestore().collection('Usuario')
+    firestore().collection(idUsuario)
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Notas')
     .onSnapshot(snapshot => {
@@ -61,12 +62,12 @@ const CalendarioNota = () => {
     setModalCalendarioNota(!modalCalendarioNota);
 
     setflagLoadCalendarioNotas('inicio')
-    firestore().collection('Usuario')
+    firestore().collection(idUsuario)
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Notas')
     .doc(dataSelec).set({});
     
-    firestore().collection('Usuario')
+    firestore().collection(idUsuario)
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
@@ -74,7 +75,7 @@ const CalendarioNota = () => {
       snapshot.forEach(documentSnapshot => {
         const numero = documentSnapshot.data().numero;
         const nome = documentSnapshot.data().nome;
-        firestore().collection('Usuario')
+        firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('Notas')
         .doc(dataSelec).collection('Alunos')

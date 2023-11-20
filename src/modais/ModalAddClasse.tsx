@@ -9,7 +9,8 @@ import { Icon } from "../componentes/Icon";
 const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalClasse,setModalClasse,periodoSelec,setRecarregarClasses} = useContext(Context)
+    const {modalClasse,setModalClasse,periodoSelec,
+      setRecarregarClasses,idUsuario} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -17,7 +18,7 @@ const ModalAddClasse = () =>{
     
     const onPressAddClasse = () =>{
       if(valueClasse!=''){
-        firestore().collection('Usuario')
+        firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(valueClasse).set({
           classe:valueClasse
