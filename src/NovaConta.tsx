@@ -1,21 +1,26 @@
 import React from 'react';
 import { TextInput, View, Button, Text, StyleSheet } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
+const NovaConta = ({navigation}:any)=>{
 
-const Login = ({navigation}:any)=>{
+    const criarConta = () =>{
+
+    }
+
     return(
         <View style={styles.container}>
-            <TextInput style={styles.textInput} placeholder='Email'></TextInput>
-            <TextInput style={styles.textInput} placeholder='Senha'></TextInput>
-            <Button title='Entrar' onPress={()=>navigation.reset({
+            <TextInput style={styles.textInput} placeholder='Digite um Email válido'></TextInput>
+            <TextInput style={styles.textInput} placeholder='Crie uma senha'></TextInput>
+            <Button title='Cria conta' onPress={()=>navigation.reset({
                 index:0,
-                routes:[{name:"App"}]
+                routes:[{name:"Login"}]
             })}></Button>
             <View style={styles.containerText}>
                 <Text style={styles.text} onPress={()=>navigation.reset({
                     index:0,
-                    routes:[{name:"NovaConta"}]
-                })}>Criar conta</Text>
+                    routes:[{name:"Login"}]
+                })}>Já possui uma conta?</Text>
             </View>
         </View>
     )
@@ -43,4 +48,4 @@ const styles = StyleSheet.create({
     }
 });
   
-export default Login;
+export default NovaConta;
