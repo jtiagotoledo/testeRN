@@ -12,7 +12,7 @@ import {Icon} from './Icon'
 import firestore from '@react-native-firebase/firestore';
 
 const Frequencia = () =>{
-    const {dataSelec,setModalCalendario,classeSelec,
+    const {dataSelec,setModalCalendarioFreq,classeSelec,
         flagLoadAlunos,periodoSelec,valueAtividade,setValueAtividade} = useContext(Context);
     
     let dataAno=''
@@ -53,7 +53,7 @@ const Frequencia = () =>{
             return(
                 <TouchableOpacity onPress={()=>{
                         if(classeSelec!='' && flagLoadAlunos!='vazio'){
-                            setModalCalendario(true)
+                            setModalCalendarioFreq(true)
                         }else if(classeSelec==''){
                             ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
                         }
@@ -67,7 +67,7 @@ const Frequencia = () =>{
             )
         }else{
             return(
-                <TouchableOpacity onPress={()=>setModalCalendario(true)}>
+                <TouchableOpacity onPress={()=>setModalCalendarioFreq(true)}>
                     <Text style={styles.text}>{data}</Text>
                 </TouchableOpacity>  
             )

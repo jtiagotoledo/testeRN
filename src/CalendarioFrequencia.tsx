@@ -20,7 +20,7 @@ const CalendarioFrequencia = () => {
   const  datas: any[]=[];
 
   const {periodoSelec,classeSelec,dataSelec,
-    setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
+    setDataSelec,modalCalendarioFreq,setModalCalendarioFreq} = useContext(Context);
   const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
     listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
     setRecarregarCalendarioFreq,listaDatasMarcadasFreq,setListaDatasMarcadasFreq} = useContext(Context)
@@ -58,7 +58,7 @@ const CalendarioFrequencia = () => {
 
   const onPressAddData = async () =>{
 
-    setModalCalendario(!modalCalendario);
+    setModalCalendarioFreq(!modalCalendarioFreq);
 
     setflagLoadCalendarioFreq('inicio')
     firestore().collection('Usuario')
@@ -107,7 +107,7 @@ const CalendarioFrequencia = () => {
                   setFlagLoadFrequencia('carregando');
                   setRecarregarFrequencia('recarregarFrequencia');
                   if(listaDatasFreq.includes(day.dateString)){
-                    setModalCalendario(!modalCalendario)
+                    setModalCalendarioFreq(!modalCalendarioFreq)
                   }
                 }}
                 markedDates={listaDatasMarcadasFreq}

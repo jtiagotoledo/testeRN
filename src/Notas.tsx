@@ -12,7 +12,7 @@ import HeaderNotas from "./HeaderNotas";
 import FlatListNotas from "./FlatListNotas";
 
 const Notas = () =>{
-    const {dataSelec,setModalCalendario,classeSelec,
+    const {dataSelec,setModalCalendarioNota,classeSelec,
         flagLoadAlunos,periodoSelec,valueAtividade} = useContext(Context);
     
     let dataAno=''
@@ -39,7 +39,7 @@ const Notas = () =>{
             return(
                 <TouchableOpacity onPress={()=>{
                         if(classeSelec!='' && flagLoadAlunos!='vazio'){
-                            setModalCalendario(true)
+                            setModalCalendarioNota(true)
                         }else if(classeSelec==''){
                             ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
                         }
@@ -53,7 +53,7 @@ const Notas = () =>{
             )
         }else{
             return(
-                <TouchableOpacity onPress={()=>setModalCalendario(true)}>
+                <TouchableOpacity onPress={()=>setModalCalendarioNota(true)}>
                     <Text style={styles.text}>{data}</Text>
                 </TouchableOpacity>  
             )

@@ -20,7 +20,7 @@ const CalendarioNota = () => {
   const  datas: any[]=[];
 
   const {periodoSelec,classeSelec,dataSelec,
-    setDataSelec,modalCalendario,setModalCalendario} = useContext(Context);
+    setDataSelec,modalCalendarioNota,setModalCalendarioNota} = useContext(Context);
   const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
     listaDatasNotas,setListaDatasNotas,setRecarregarNotas,recarregarCalendarioNotas,
     setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
@@ -58,7 +58,7 @@ const CalendarioNota = () => {
 
   const onPressAddData = async () =>{
 
-    setModalCalendario(!modalCalendario);
+    setModalCalendarioNota(!modalCalendarioNota);
 
     setflagLoadCalendarioNotas('inicio')
     firestore().collection('Usuario')
@@ -108,7 +108,7 @@ const CalendarioNota = () => {
                   setRecarregarNotas('recarregarFrequencia');
                   console.log(listaDatasNotas);
                   if(listaDatasNotas.includes(day.dateString)){
-                    setModalCalendario(!modalCalendario)
+                    setModalCalendarioNota(!modalCalendarioNota)
                   }
                 }}
                 markedDates={listaDatasMarcadasNotas}

@@ -7,21 +7,21 @@ import { Icon } from "./Icon";
 
 const ModalCalendarioNota = () =>{
 
-    const {modalCalendario,setModalCalendario,setRecarregarFrequencia} = useContext(Context)
+    const {modalCalendarioNota,setModalCalendarioNota} = useContext(Context)
 
     return(
         <View>
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalCalendario}
+                visible={modalCalendarioNota}
                 onRequestClose={() => {
-                setModalCalendario(!modalCalendario);
+                setModalCalendarioNota(!modalCalendarioNota);
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalCalendario(!modalCalendario)}>
+                            <TouchableOpacity  onPress={()=>setModalCalendarioNota(!modalCalendarioNota)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
