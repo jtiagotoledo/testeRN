@@ -3,7 +3,7 @@ import { Chip } from '@rneui/themed';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../src/data/Provider';
-import Globais from '../src/Globais';
+import Globais from '../src/data/Globais';
 
 
 const ListaClassesChips = ()=>{

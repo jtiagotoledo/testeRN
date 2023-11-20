@@ -3,15 +3,15 @@ import {StyleSheet,View} from 'react-native';
 import { Header as HeaderRNE} from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import {Icon} from './Icon'
-import {Context} from "./data/Provider";
-import Globais from './Globais';
+import {Context} from "../data/Provider";
+import Globais from '../data/Globais';
 
 type HeaderComponentProps = {
 title: string;
 view?: string;
 };
 
-const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
+const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
     const {setModalDelAluno} = useContext(Context);
     
@@ -33,7 +33,7 @@ const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
                 </TouchableOpacity>
             </View>
         }
-        centerComponent={{ text: 'Notas', style: styles.heading }}
+        centerComponent={{ text: 'Classes', style: styles.heading }}
         />
     
     );
@@ -65,4 +65,4 @@ subheaderText: {
 },
 });
 
-export default HeaderNotas;
+export default HeaderClasses;

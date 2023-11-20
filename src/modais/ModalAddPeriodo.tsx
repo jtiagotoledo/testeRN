@@ -1,39 +1,32 @@
 import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
-import {Icon} from './Icon'
+import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
+import { Icon } from "../componentes/Icon";
 
-const ModalAddAluno = () =>{
+const ModalAddPeriodo = () =>{
 
-    const [valueNumero,setValueNumero] = useState<string>('')
-    const [valueNome,setValueNome] = useState<string>('')
-    const {periodoSelec,classeSelec,modalAluno,
-      setModalAluno,setRecarregarAlunos} = useContext(Context)
+    const [valuePeriodo,setValuePeriodo] = useState<string>('')
+    const {modalPeriodo,setModalPeriodo} = useContext(Context)
 
-    const onChangeInputNumero = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-        setValueNumero(event.nativeEvent.text);
-    }
-    const onChangeInputNome = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-      setValueNome(event.nativeEvent.text);
-    }
+    const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+        setValuePeriodo(event.nativeEvent.text);
+      }
     
-    const onPressAddAluno = () =>{
-      if(valueNumero!='' && valueNome!=''){
-        firestore().collection('Usuario')
-        .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('ListaAlunos')
-        .doc(valueNumero).set({
-          numero: parseInt(valueNumero),
-          nome: valueNome
-        });
-        setModalAluno(!modalAluno);
-        console.log('função adicionar',valueNome);
-
-      }else{
+    const onPressAddPeriodo = () =>{
+      if(valuePeriodo!=''){
+        firestore()
+        .collection('Usuario')
+        .doc(valuePeriodo)
+        .set({
+        })
+        setModalPeriodo(!modalPeriodo);
+        console.log('função adicionar período',valuePeriodo);
+      }
+      else{
         ToastAndroid.show(
-          'Digite o número e o nome do aluno!',
+          'Digite o nome do período!',
           ToastAndroid.SHORT)
       }
     }
@@ -43,23 +36,22 @@ const ModalAddAluno = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalAluno}
+                visible={modalPeriodo}
                 onRequestClose={() => {
-                setModalAluno(!modalAluno);
-                }}>
+                setModalPeriodo(!modalPeriodo);
+            }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalAluno(!modalAluno)}>
+                            <TouchableOpacity  onPress={()=>setModalPeriodo(!modalPeriodo)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Adicione um novo aluno:</Text>
-                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
-                        <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
+                        <Text style={styles.modalText}>Crie um novo período:</Text>
+                        <TextInput placeholder='Nome do período' onChange={onChangeInputPeriodo} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={()=>[onPressAddAluno(),setRecarregarAlunos('recarregarAluno')]}>
+                            onPress={onPressAddPeriodo}>
                             <Text style={styles.textStyle}>Criar</Text>
                         </Pressable>
                     </View>
@@ -122,7 +114,7 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       textAlign: 'center',
       color: 'white',
-      fontSize:18
+      fontSize:18,
     },
     textInput:{
       backgroundColor: 'white', 
@@ -131,4 +123,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ModalAddAluno
+export default ModalAddPeriodo

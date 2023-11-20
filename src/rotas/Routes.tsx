@@ -1,7 +1,7 @@
 import React from 'react'
 import App from './App';
-import Login from './Login';
-import NovaConta from './NovaConta';
+import Login from '../telas/Login';
+import NovaConta from '../telas/NovaConta';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 

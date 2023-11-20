@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {View, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../src/data/Provider";
-import Globais from '../src/Globais';
+import Globais from '../src/data/Globais';
 
 const FlatListClasses = () => {
   const alunos:any[] = []

@@ -1,9 +1,9 @@
 import { Text, View, StyleSheet, Pressable, Modal, TouchableOpacity} from "react-native"
 import React, { useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {Context} from "./data/Provider";
-import { Icon } from "./Icon";
-import Globais from "./Globais";
+import {Context} from "../data/Provider";
+import { Icon } from "../componentes/Icon";
+import Globais from "../data/Globais";
 
 const ModalDelAluno = () =>{
 

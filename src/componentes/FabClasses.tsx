@@ -2,8 +2,8 @@ import { FloatingAction } from "react-native-floating-action";
 import React, { useContext } from 'react';
 import { View, ToastAndroid } from "react-native";
 import {Icon} from './Icon'
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
+import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
 
 const actions = [
     {

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
-import {Context} from "./data/Provider";
-import Globais from './Globais';
+import {Context} from "../data/Provider";
+import Globais from '../data/Globais';
 
 type ItemData = {
   nome: string;

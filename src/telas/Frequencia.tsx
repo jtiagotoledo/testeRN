@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
-import {Context} from "./data/Provider";
+import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
 
-import ModalCalendarioFrequencia from "./ModalCalendarioFrequencia";
-import Globais from "./Globais";
-import HeaderFrequencia from "./HeaderFrequencia";
-import FlatListFrequencia from "./FlatListFrequencia";
-import FlatListClasses from "./FlatListClasses";
-import {Icon} from './Icon'
+import ModalCalendarioFrequencia from "../modais/ModalCalendarioFrequencia";
+import Globais from "../data/Globais";
+import HeaderFrequencia from "../componentes/HeaderFrequencia";
+import FlatListFrequencia from "../listas/FlatListFrequencia";
+import FlatListClasses from "../listas/FlatListClasses";
+import {Icon} from '../componentes/Icon'
 import firestore from '@react-native-firebase/firestore';
 
 const Frequencia = () =>{

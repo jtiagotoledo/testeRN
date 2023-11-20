@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
+import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
 
 const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');

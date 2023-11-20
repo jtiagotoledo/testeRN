@@ -1,39 +1,41 @@
 import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
-import { Icon } from "./Icon";
+import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
+import {Icon} from '../componentes/Icon'
 
+const ModalAddAluno = () =>{
 
-const ModalAddClasse = () =>{
+    const [valueNumero,setValueNumero] = useState<string>('')
+    const [valueNome,setValueNome] = useState<string>('')
+    const {periodoSelec,classeSelec,modalAluno,
+      setModalAluno,setRecarregarAlunos} = useContext(Context)
 
-    const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalClasse,setModalClasse,periodoSelec,setRecarregarClasses} = useContext(Context)
-
-    const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-        setValueClasse(event.nativeEvent.text);
-      }
+    const onChangeInputNumero = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+        setValueNumero(event.nativeEvent.text);
+    }
+    const onChangeInputNome = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+      setValueNome(event.nativeEvent.text);
+    }
     
-    const onPressAddClasse = () =>{
-      if(valueClasse!=''){
+    const onPressAddAluno = () =>{
+      if(valueNumero!='' && valueNome!=''){
         firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
-        .doc(valueClasse).set({
-          classe:valueClasse
+        .doc(classeSelec).collection('ListaAlunos')
+        .doc(valueNumero).set({
+          numero: parseInt(valueNumero),
+          nome: valueNome
         });
-        setModalClasse(!modalClasse);
-        console.log('função adicionar',valueClasse);
-
-        
+        setModalAluno(!modalAluno);
+        console.log('função adicionar',valueNome);
 
       }else{
         ToastAndroid.show(
-          'Digite o nome da classe!',
+          'Digite o número e o nome do aluno!',
           ToastAndroid.SHORT)
       }
-      
-      
     }
 
     return(
@@ -41,22 +43,23 @@ const ModalAddClasse = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalClasse}
+                visible={modalAluno}
                 onRequestClose={() => {
-                setModalClasse(!modalClasse);
-            }}>
+                setModalAluno(!modalAluno);
+                }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalClasse(!modalClasse)}>
+                            <TouchableOpacity  onPress={()=>setModalAluno(!modalAluno)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Crie uma nova classe:</Text>
-                        <TextInput placeholder='Nome da classe' onChange={onChangeInputClasse} style={styles.textInput}></TextInput>
+                        <Text style={styles.modalText}>Adicione um novo aluno:</Text>
+                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
+                        <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={()=>[onPressAddClasse(),setRecarregarClasses('recarregarClasses')]}>
+                            onPress={()=>[onPressAddAluno(),setRecarregarAlunos('recarregarAluno')]}>
                             <Text style={styles.textStyle}>Criar</Text>
                         </Pressable>
                     </View>
@@ -119,14 +122,13 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       textAlign: 'center',
       color: 'white',
-      fontSize:18,
+      fontSize:18
     },
     textInput:{
       backgroundColor: 'white', 
       minWidth:100, 
       marginBottom:20
     }
-
   });
 
-export default ModalAddClasse
+export default ModalAddAluno

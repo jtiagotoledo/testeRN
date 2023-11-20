@@ -1,31 +1,31 @@
 import { View, StyleSheet, Modal, TouchableOpacity } from "react-native"
 import React, { useContext } from 'react';
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
-import CalendarioFrequencia from "./CalendarioFrequencia";
-import { Icon } from "./Icon";
+import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
+import CalendarioNota from "../componentes/CalendarioNota";
+import { Icon } from "../componentes/Icon";
 
-const ModalCalendarioFrequencia = () =>{
+const ModalCalendarioNota = () =>{
 
-    const {modalCalendarioFreq,setModalCalendarioFreq} = useContext(Context)
+    const {modalCalendarioNota,setModalCalendarioNota} = useContext(Context)
 
     return(
         <View>
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalCalendarioFreq}
+                visible={modalCalendarioNota}
                 onRequestClose={() => {
-                setModalCalendarioFreq(!modalCalendarioFreq);
+                setModalCalendarioNota(!modalCalendarioNota);
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalCalendarioFreq(!modalCalendarioFreq)}>
+                            <TouchableOpacity  onPress={()=>setModalCalendarioNota(!modalCalendarioNota)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <CalendarioFrequencia></CalendarioFrequencia>
+                        <CalendarioNota></CalendarioNota>
                     </View>
                 </View>
             </Modal>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default ModalCalendarioFrequencia;
+export default ModalCalendarioNota;

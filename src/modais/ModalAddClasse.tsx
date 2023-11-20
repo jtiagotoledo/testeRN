@@ -1,34 +1,39 @@
 import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity } from "react-native"
 import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import {Context} from "./data/Provider";
-import Globais from "./Globais";
-import { Icon } from "./Icon";
+import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
+import { Icon } from "../componentes/Icon";
 
-const ModalAddPeriodo = () =>{
 
-    const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalPeriodo,setModalPeriodo} = useContext(Context)
+const ModalAddClasse = () =>{
 
-    const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-        setValuePeriodo(event.nativeEvent.text);
+    const [valueClasse,setValueClasse] = useState<string>('')
+    const {modalClasse,setModalClasse,periodoSelec,setRecarregarClasses} = useContext(Context)
+
+    const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+        setValueClasse(event.nativeEvent.text);
       }
     
-    const onPressAddPeriodo = () =>{
-      if(valuePeriodo!=''){
-        firestore()
-        .collection('Usuario')
-        .doc(valuePeriodo)
-        .set({
-        })
-        setModalPeriodo(!modalPeriodo);
-        console.log('função adicionar período',valuePeriodo);
-      }
-      else{
+    const onPressAddClasse = () =>{
+      if(valueClasse!=''){
+        firestore().collection('Usuario')
+        .doc(periodoSelec).collection('Classes')
+        .doc(valueClasse).set({
+          classe:valueClasse
+        });
+        setModalClasse(!modalClasse);
+        console.log('função adicionar',valueClasse);
+
+        
+
+      }else{
         ToastAndroid.show(
-          'Digite o nome do período!',
+          'Digite o nome da classe!',
           ToastAndroid.SHORT)
       }
+      
+      
     }
 
     return(
@@ -36,22 +41,22 @@ const ModalAddPeriodo = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalPeriodo}
+                visible={modalClasse}
                 onRequestClose={() => {
-                setModalPeriodo(!modalPeriodo);
+                setModalClasse(!modalClasse);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalPeriodo(!modalPeriodo)}>
+                            <TouchableOpacity  onPress={()=>setModalClasse(!modalClasse)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Crie um novo período:</Text>
-                        <TextInput placeholder='Nome do período' onChange={onChangeInputPeriodo} style={styles.textInput}></TextInput>
+                        <Text style={styles.modalText}>Crie uma nova classe:</Text>
+                        <TextInput placeholder='Nome da classe' onChange={onChangeInputClasse} style={styles.textInput}></TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={onPressAddPeriodo}>
+                            onPress={()=>[onPressAddClasse(),setRecarregarClasses('recarregarClasses')]}>
                             <Text style={styles.textStyle}>Criar</Text>
                         </Pressable>
                     </View>
@@ -121,6 +126,7 @@ const styles = StyleSheet.create({
       minWidth:100, 
       marginBottom:20
     }
+
   });
 
-export default ModalAddPeriodo
+export default ModalAddClasse

@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
-import {Context} from "./data/Provider";
+import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
 
-import ModalCalendarioNota from "./ModalCalendarioNota";
-import Globais from "./Globais";
-import FlatListClasses from "./FlatListClasses";
-import {Icon} from './Icon'
+import ModalCalendarioNota from "../modais/ModalCalendarioNota";
+import Globais from "../data/Globais";
+import FlatListClasses from "../listas/FlatListClasses";
+import {Icon} from '../componentes/Icon'
 import firestore from '@react-native-firebase/firestore';
-import HeaderNotas from "./HeaderNotas";
-import FlatListNotas from "./FlatListNotas";
+import HeaderNotas from "../componentes/HeaderNotas";
+import FlatListNotas from "../listas/FlatListNotas";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,classeSelec,

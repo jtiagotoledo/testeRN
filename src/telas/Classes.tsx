@@ -1,18 +1,18 @@
 import { View, StyleSheet} from "react-native"
 import { Divider } from "react-native-paper";
 
-import FabClasses from "./FabClasses";
-import DropDown from "./DropDown";
-import FlatListAlunos from "./FlatListAlunos";
-import FlatListClasses from "./FlatListClasses";
-import HeaderClasses from "./HeaderClasses";
-import Globais from "./Globais";
+import FabClasses from "../componentes/FabClasses";
+import DropDown from "../componentes/DropDown";
+import FlatListAlunos from "../listas/FlatListAlunos";
+import FlatListClasses from "../listas/FlatListClasses";
+import HeaderClasses from "../componentes/HeaderClasses";
+import Globais from "../data/Globais";
 
-import ModalAddPeriodo from "./ModalAddPeriodo";
-import ModalAddClasse from "./ModalAddClasse";
-import ModalAddAluno from "./ModalAddAluno";
-import ModalDelAluno from "./ModalDelAluno";
-import ModalDelClasse from "./ModalDelClasse";
+import ModalAddPeriodo from "../modais/ModalAddPeriodo";
+import ModalAddClasse from "../modais/ModalAddClasse";
+import ModalAddAluno from "../modais/ModalAddAluno";
+import ModalDelAluno from "../modais/ModalDelAluno";
+import ModalDelClasse from "../modais/ModalDelClasse";
 
 function Classes() {
     

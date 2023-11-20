@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {Calendar, LocaleConfig} from 'react-native-calendars';
-import {Context} from "./data/Provider";
-import Globais from './Globais';
+import {Context} from "../data/Provider";
+import Globais from '../data/Globais';
 import firestore from '@react-native-firebase/firestore';
 
 LocaleConfig.locales.br = {
@@ -14,56 +14,56 @@ LocaleConfig.locales.br = {
 
 LocaleConfig.defaultLocale = "br";
 
-const CalendarioFrequencia = () => {
+const CalendarioNota = () => {
 
   let datasMarcadas:any = {}
   const  datas: any[]=[];
 
   const {periodoSelec,classeSelec,dataSelec,
-    setDataSelec,modalCalendarioFreq,setModalCalendarioFreq} = useContext(Context);
-  const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
-    listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
-    setRecarregarCalendarioFreq,listaDatasMarcadasFreq,setListaDatasMarcadasFreq} = useContext(Context)
+    setDataSelec,modalCalendarioNota,setModalCalendarioNota} = useContext(Context);
+  const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
+    listaDatasNotas,setListaDatasNotas,setRecarregarNotas,recarregarCalendarioNotas,
+    setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
     /* essa consulta no BD retorna as datas ainda não 
     incluídas na lista de datas. */
-    setflagLoadCalendarioFreq('carregando');
-    setListaDatasFreq('');
-    setListaDatasMarcadasFreq({})
-    setRecarregarCalendarioFreq('');
+    setflagLoadCalendarioNotas('carregando');
+    setListaDatasNotas('');
+    setListaDatasMarcadasNotas({})
+    setRecarregarCalendarioNotas('');
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Frequencia')
+    .doc(classeSelec).collection('Notas')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
-        setflagLoadCalendarioFreq('carregado');
+        setflagLoadCalendarioNotas('carregado');
         console.log('snapshot vazio calendario');
       }
       snapshot.forEach((documentSnapshot, index) => {
         datas.push(documentSnapshot.id);
         datasMarcadas[documentSnapshot.id]={selected:true}
           if(snapshot.size-index==1){
-            setflagLoadCalendarioFreq('carregado')
+            setflagLoadCalendarioNotas('carregado')
             console.log('entrou no if da flag calendário')
           }
       });
     });
-    setListaDatasFreq(datas);
-    setListaDatasMarcadasFreq(datasMarcadas)
+    setListaDatasNotas(datas);
+    setListaDatasMarcadasNotas(datasMarcadas)
   }
   data()        
-  },[classeSelec,recarregarCalendarioFreq]); 
+  },[classeSelec,recarregarCalendarioNotas]); 
 
   const onPressAddData = async () =>{
 
-    setModalCalendarioFreq(!modalCalendarioFreq);
+    setModalCalendarioNota(!modalCalendarioNota);
 
-    setflagLoadCalendarioFreq('inicio')
+    setflagLoadCalendarioNotas('inicio')
     firestore().collection('Usuario')
     .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Frequencia')
+    .doc(classeSelec).collection('Notas')
     .doc(dataSelec).set({});
     
     firestore().collection('Usuario')
@@ -76,13 +76,13 @@ const CalendarioFrequencia = () => {
         const nome = documentSnapshot.data().nome;
         firestore().collection('Usuario')
         .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
+        .doc(classeSelec).collection('Notas')
         .doc(dataSelec).collection('Alunos')
         .doc(numero+'').set({
           numero: numero,
           nome: nome,
-          frequencia:'P'
-        }).then(setRecarregarFrequencia('recarregarFrequencia'))
+          nota:''
+        }).then(setRecarregarNotas('recarregarFrequencia'))
       });
     });
     
@@ -91,7 +91,7 @@ const CalendarioFrequencia = () => {
 
   const renderCarregamento = () =>{
     if(classeSelec!=''){
-      switch(flagLoadCalendarioFreq){
+      switch(flagLoadCalendarioNotas){
         case 'carregando':
           return(
             <View>
@@ -104,17 +104,18 @@ const CalendarioFrequencia = () => {
               <Calendar
                 onDayPress={day => {
                   setDataSelec(day.dateString);
-                  setFlagLoadFrequencia('carregando');
-                  setRecarregarFrequencia('recarregarFrequencia');
-                  if(listaDatasFreq.includes(day.dateString)){
-                    setModalCalendarioFreq(!modalCalendarioFreq)
+                  setFlagLoadNotas('carregando');
+                  setRecarregarNotas('recarregarFrequencia');
+                  console.log(listaDatasNotas);
+                  if(listaDatasNotas.includes(day.dateString)){
+                    setModalCalendarioNota(!modalCalendarioNota)
                   }
                 }}
-                markedDates={listaDatasMarcadasFreq}
+                markedDates={listaDatasMarcadasNotas}
               />
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={()=>[onPressAddData(),setflagLoadCalendarioFreq('carregando')]}>
+                onPress={()=>[onPressAddData(),setflagLoadCalendarioNotas('carregando')]}>
                 <Text style={styles.textStyle}>Criar data</Text>
               </Pressable>
             </View>
@@ -159,4 +160,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CalendarioFrequencia;
+export default CalendarioNota;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Button, TextInput, Text } from "react-native"
-import Globais from "../src/Globais";
-import HeaderNotas from "../src/HeaderNotas";
-import FlatListClasses from "../src/FlatListClasses";
+import Globais from "../src/data/Globais";
+import HeaderNotas from "../src/componentes/HeaderNotas";
+import FlatListClasses from "../src/listas/FlatListClasses";
 
 const Notas = () =>{
 

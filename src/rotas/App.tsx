@@ -3,12 +3,12 @@ import { StyleSheet } from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {Icon} from './Icon'
-import Classes from './Classes';
-import Frequencia from './Frequencia';
-import Notas from './Notas';
-import Provider from "./data/Provider";
-import Globais from './Globais';
+import {Icon} from '../componentes/Icon'
+import Classes from '../telas/Classes';
+import Frequencia from '../telas/Frequencia';
+import Notas from '../telas/Notas';
+import Provider from "../data/Provider";
+import Globais from '../data/Globais';
 
 const Tab = createBottomTabNavigator();
 
