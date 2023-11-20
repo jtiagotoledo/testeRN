@@ -1,5 +1,6 @@
-import { View, StyleSheet} from "react-native"
+import { View, StyleSheet, Text} from "react-native"
 import { Divider } from "react-native-paper";
+import auth from '@react-native-firebase/auth';
 
 import FabClasses from "../componentes/FabClasses";
 import DropDown from "../componentes/DropDown";
@@ -19,6 +20,7 @@ function Classes() {
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
+      <Text>{auth().currentUser?.email}</Text>
       <DropDown ></DropDown>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>
