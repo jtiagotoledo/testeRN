@@ -29,7 +29,10 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         rightComponent={
             <View style={styles.headerRight}>
                 <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
-                <Icon name="bin" color="white" size={20}/>
+                  <Icon style={styles.icon} name="bin" color="white" size={20}/>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.icon} onPress={()=>setModalDelAluno(true)}>
+                  <Icon name="equalizer" color="white" size={20}/>
                 </TouchableOpacity>
             </View>
         }
@@ -57,6 +60,10 @@ headerRight: {
   display: 'flex',
   flexDirection: 'row',
   marginTop: 5,
+},
+icon:{
+  marginLeft:10,
+  marginRight:10,
 },
 subheaderText: {
   color: 'white',

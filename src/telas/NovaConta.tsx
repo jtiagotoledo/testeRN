@@ -44,6 +44,7 @@ const NovaConta = ({navigation}:any)=>{
             <TextInput style={styles.textInput}
             onChange={onChangeInputSenha} 
             autoCapitalize='none'
+            secureTextEntry={true}
             autoCorrect={false}
             placeholder='Crie uma senha'></TextInput>
             <Button title='Cria conta' onPress={criarConta}></Button>

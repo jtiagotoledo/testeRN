@@ -40,6 +40,7 @@ const Login = ({navigation}:any)=>{
             <TextInput style={styles.textInput}
             onChange={onChangeInputSenha} 
             autoCapitalize='none'
+            secureTextEntry={true}
             autoCorrect={false}
             placeholder='Senha'></TextInput>
             <Button title='Entrar' onPress={entrarConta}></Button>
