@@ -14,6 +14,7 @@ import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
 import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalDelClasse from "../modais/ModalDelClasse";
+import ModalMenu from "../modais/ModalMenu";
 
 function Classes({navigation}:any) {
     
@@ -36,6 +37,7 @@ function Classes({navigation}:any) {
       <ModalAddAluno></ModalAddAluno>
       <ModalDelAluno></ModalDelAluno>
       <ModalDelClasse></ModalDelClasse>
+      <ModalMenu></ModalMenu>
       <FabClasses></FabClasses>
     </View>
   );

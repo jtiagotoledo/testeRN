@@ -13,7 +13,7 @@ view?: string;
 
 const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-    const {setModalDelAluno} = useContext(Context);
+    const {setModalDelAluno, setModalMenu} = useContext(Context);
     
     return (
         <HeaderRNE
@@ -21,8 +21,8 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         style={styles.headerContainer}
         leftComponent={
             <View style={styles.headerRight}>
-                <TouchableOpacity>
-                <Icon name="menu" color="white" size={20}/>
+                <TouchableOpacity onPress={()=>[setModalMenu(true),console.log('apertou modal menu')]}>
+                  <Icon name="menu" color="white" size={20}/>
                 </TouchableOpacity>
             </View>
         }
