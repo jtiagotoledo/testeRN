@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity } from "react-native"
+import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity, TouchableWithoutFeedback } from "react-native"
 import React, { useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
@@ -10,18 +10,17 @@ const ModalMenu = () =>{
     const {modalMenu,setModalMenu} = useContext(Context)
 
     return(
-        <View>
+        <View style={styles.container}>
             <Modal
-                animationType="slide"
                 transparent={true}
                 visible={modalMenu}
                 onRequestClose={() => {
-                setModalMenu(!setModalMenu);
+                setModalMenu(!modalMenu);
                 }}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        
-                    </View>
+                <TouchableWithoutFeedback onPress={() => {setModalMenu(!modalMenu)}}>
+                  <View style={styles.modalOverlay} />
+                </TouchableWithoutFeedback>
+                <View style={styles.modalView}>
                 </View>
             </Modal>
         </View>
@@ -29,39 +28,42 @@ const ModalMenu = () =>{
 }
 
 const styles = StyleSheet.create({
-    centeredView: {
-      flex: 1,
-      height:100,
-      justifyContent: 'center',
-      // alignItems: 'center',
-      marginTop: 22,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
+  modalView: {
+    backgroundColor: Globais.corTerciaria,
+    padding: 35,
+    position:'absolute',
+    top:0,
+    height:'100%',
+    width:'70%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    modalView: {
-      backgroundColor: Globais.corTerciaria,
-      borderRadius: 20,
-      padding: 35,
-      height:'100%',
-      width:'80%',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-    },
-    textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    modalText: {
-      marginBottom: 15,
-      textAlign: 'center',
-      color: 'white',
-      fontSize:18
-    },
-  });
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    color: 'white',
+    fontSize:18
+  },
+});
 
 export default ModalMenu

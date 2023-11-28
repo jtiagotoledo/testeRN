@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import {StyleSheet,View} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {NativeSyntheticEvent, StyleSheet,View} from 'react-native';
 import { Header as HeaderRNE} from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import {Icon} from './Icon'
@@ -14,7 +14,7 @@ view?: string;
 const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
     const {setModalDelAluno, setModalMenu} = useContext(Context);
-    
+
     return (
         <HeaderRNE
         backgroundColor = {Globais.corPrimaria}
@@ -36,9 +36,8 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
                 </TouchableOpacity>
             </View>
         }
-        centerComponent={{ text: 'Classes', style: styles.heading }}
+        centerComponent={{ text:'Classes', style: styles.heading }}
         />
-    
     );
 };
 
