@@ -4,6 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
+import HeaderMenu from '../componentes/HeaderMenu'
 import {Icon} from '../componentes/Icon'
 
 const ModalMenu = ({navigation}:any) =>{
@@ -30,8 +31,13 @@ const ModalMenu = ({navigation}:any) =>{
                   <View style={styles.modalOverlay} />
                 </TouchableWithoutFeedback>
                 <View style={styles.modalView}>
-                  <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
-                  <Button title='SAIR' onPress={funcSair}></Button>
+                  <View>
+                    <HeaderMenu title="Menu"></HeaderMenu>
+                  </View>
+                  <View style={styles.modalComponentes}>
+                    <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
+                    <Button title='SAIR' onPress={funcSair}></Button>
+                  </View>
                 </View>
             </Modal>
         </View>
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
   },
   modalView: {
     backgroundColor: Globais.corTerciaria,
-    padding: 35,
     position:'absolute',
     top:0,
     height:'100%',
@@ -63,6 +68,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  modalComponentes:{
+    padding: 35,
   },
   textStyle: {
     color: 'white',
