@@ -21,13 +21,6 @@ function Classes({navigation}:any) {
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
-      <Text>{auth().currentUser?.email}</Text>
-      <Button title="sair" onPress={()=>
-        auth().signOut()
-        .then(()=>[
-          console.log('usuário saiu'),
-          navigation.reset({index:0,routes:[{name:"Login"}]})
-        ])}></Button>
       <DropDown ></DropDown>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>
@@ -37,7 +30,7 @@ function Classes({navigation}:any) {
       <ModalAddAluno></ModalAddAluno>
       <ModalDelAluno></ModalDelAluno>
       <ModalDelClasse></ModalDelClasse>
-      <ModalMenu></ModalMenu>
+      <ModalMenu navigation={navigation}></ModalMenu>
       <FabClasses></FabClasses>
     </View>
   );

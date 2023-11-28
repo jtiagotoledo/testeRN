@@ -1,13 +1,22 @@
-import { Text, View, StyleSheet, Pressable, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, ToastAndroid, TouchableOpacity, TouchableWithoutFeedback } from "react-native"
+import { Text, View, StyleSheet, Button, Modal, TouchableWithoutFeedback } from "react-native"
 import React, { useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 import {Icon} from '../componentes/Icon'
 
-const ModalMenu = () =>{
+const ModalMenu = ({navigation}:any) =>{
 
     const {modalMenu,setModalMenu} = useContext(Context)
+
+    const funcSair = () =>{
+      auth().signOut()
+        .then(()=>[
+          console.log('usuário saiu'),
+          navigation.reset({index:0,routes:[{name:"Login"}]})
+        ])
+    }
 
     return(
         <View style={styles.container}>
@@ -21,6 +30,8 @@ const ModalMenu = () =>{
                   <View style={styles.modalOverlay} />
                 </TouchableWithoutFeedback>
                 <View style={styles.modalView}>
+                  <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
+                  <Button title='SAIR' onPress={funcSair}></Button>
                 </View>
             </Modal>
         </View>
