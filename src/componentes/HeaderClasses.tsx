@@ -21,19 +21,19 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         style={styles.headerContainer}
         leftComponent={
             <View style={styles.headerRight}>
-                <TouchableOpacity onPress={()=>[setModalMenu(true),console.log('apertou modal menu')]}>
-                  <Icon name="menu" color="white" size={20}/>
+                <TouchableOpacity onPress={()=>setModalMenu(true)}>
+                  <Icon name="equalizer" color="white" size={20}/>
                 </TouchableOpacity>
             </View>
         }
         rightComponent={
             <View style={styles.headerRight}>
-                <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
-                  <Icon style={styles.icon} name="bin" color="white" size={20}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon} onPress={()=>setModalDelAluno(true)}>
-                  <Icon name="equalizer" color="white" size={20}/>
-                </TouchableOpacity>
+              <TouchableOpacity>
+                <Icon style={styles.icon} name="pencil" color="white" size={20}/>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
+                <Icon style={styles.icon} name="bin" color="white" size={20}/>
+              </TouchableOpacity>
             </View>
         }
         centerComponent={{ text:'Classes', style: styles.heading }}

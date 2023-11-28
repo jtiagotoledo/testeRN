@@ -13,7 +13,7 @@ view?: string;
 
 const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-    const {setModalDelAluno} = useContext(Context);
+    const {setModalDelAluno,setModalMenu} = useContext(Context);
     
     return (
         <HeaderRNE
@@ -21,16 +21,19 @@ const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
         style={styles.headerContainer}
         leftComponent={
             <View style={styles.headerRight}>
-                <TouchableOpacity>
-                <Icon name="menu" color="white" size={20}/>
+                <TouchableOpacity onPress={()=>setModalMenu(true)}>
+                <Icon name="equalizer" color="white" size={20}/>
                 </TouchableOpacity>
             </View>
         }
         rightComponent={
             <View style={styles.headerRight}>
-                <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
-                <Icon name="bin" color="white" size={20}/>
+                <TouchableOpacity>
+                  <Icon style={styles.icon} name="pencil" color="white" size={20}/>
                 </TouchableOpacity>
+              <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
+                <Icon style={styles.icon} name="bin" color="white" size={20}/>
+              </TouchableOpacity>
             </View>
         }
         centerComponent={{ text: 'Notas', style: styles.heading }}
@@ -57,6 +60,10 @@ headerRight: {
   display: 'flex',
   flexDirection: 'row',
   marginTop: 5,
+},
+icon:{
+  marginLeft:10,
+  marginRight:10,
 },
 subheaderText: {
   color: 'white',

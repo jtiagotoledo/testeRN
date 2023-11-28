@@ -32,7 +32,7 @@ const ModalMenu = ({navigation}:any) =>{
                 </TouchableWithoutFeedback>
                 <View style={styles.modalView}>
                   <View>
-                    <HeaderMenu title="Menu"></HeaderMenu>
+                    <HeaderMenu title="Configurações"></HeaderMenu>
                   </View>
                   <View style={styles.modalComponentes}>
                     <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
