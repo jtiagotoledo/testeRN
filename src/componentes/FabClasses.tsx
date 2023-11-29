@@ -33,7 +33,7 @@ const actions = [
     
   ];
 
-const Fab = ()=>{
+const FabClasses = ()=>{
 
     const {setModalPeriodo, setModalClasse,
       setModalAluno, periodoSelec, classeSelec} = useContext(Context);
@@ -64,4 +64,4 @@ const Fab = ()=>{
     )
 }
 
-export default Fab
+export default FabClasses;

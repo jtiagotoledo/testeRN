@@ -10,6 +10,7 @@ import FlatListFrequencia from "../listas/FlatListFrequencia";
 import FlatListClasses from "../listas/FlatListClasses";
 import {Icon} from '../componentes/Icon'
 import firestore from '@react-native-firebase/firestore';
+import FabFrequencia from "../componentes/FabFrequencia";
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,classeSelec,
@@ -50,23 +51,7 @@ const Frequencia = () =>{
     },[dataSelec]);
 
     const renderData = () =>{
-        if(data==''){
-            return(
-                <TouchableOpacity onPress={()=>{
-                        if(classeSelec!='' && flagLoadAlunos!='vazio'){
-                            setModalCalendarioFreq(true)
-                        }else if(classeSelec==''){
-                            ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
-                        }
-                        if(flagLoadAlunos=='vazio'){
-                            ToastAndroid.show('Primeiro, adicione os alunos nessa classe...',ToastAndroid.SHORT)
-                        }
-                    }
-                }>    
-                    <Icon name="plus" color="black" size={20}/>
-                </TouchableOpacity>
-            )
-        }else{
+        if(data!=''){
             return(
                 <TouchableOpacity onPress={()=>setModalCalendarioFreq(true)}>
                     <Text style={styles.text}>{data}</Text>
@@ -95,6 +80,7 @@ const Frequencia = () =>{
             </View>
             <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendarioFrequencia></ModalCalendarioFrequencia>
+            <FabFrequencia></FabFrequencia>
         </View>
     )
 }
