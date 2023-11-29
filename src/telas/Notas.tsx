@@ -6,10 +6,10 @@ import { Divider } from "react-native-paper";
 import ModalCalendarioNota from "../modais/ModalCalendarioNota";
 import Globais from "../data/Globais";
 import FlatListClasses from "../listas/FlatListClasses";
-import {Icon} from '../componentes/Icon'
 import firestore from '@react-native-firebase/firestore';
 import HeaderNotas from "../componentes/HeaderNotas";
 import FlatListNotas from "../listas/FlatListNotas";
+import FabNotas from "../componentes/FabNotas";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,classeSelec,
@@ -35,32 +35,15 @@ const Notas = () =>{
     }
 
     const renderData = () =>{
-        if(data==''){
-            return(
-                <TouchableOpacity onPress={()=>{
-                        if(classeSelec!='' && flagLoadAlunos!='vazio'){
-                            setModalCalendarioNota(true)
-                        }else if(classeSelec==''){
-                            ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
-                        }
-                        if(flagLoadAlunos=='vazio'){
-                            ToastAndroid.show('Primeiro, adicione os alunos nessa classe...',ToastAndroid.SHORT)
-                        }
-                    }
-                }>    
-                    <Icon name="plus" color="black" size={20}/>
-                </TouchableOpacity>
-            )
-        }else{
+        if(data!=''){
             return(
                 <TouchableOpacity onPress={()=>setModalCalendarioNota(true)}>
                     <Text style={styles.text}>{data}</Text>
                 </TouchableOpacity>  
             )
-        }
+            }
     }
     
-
     return(
         <View style={styles.container}>
             <HeaderNotas title="Frequência"></HeaderNotas>
@@ -72,6 +55,7 @@ const Notas = () =>{
             <Divider style={styles.divider}></Divider>
             <FlatListNotas></FlatListNotas>
             <ModalCalendarioNota></ModalCalendarioNota>
+            <FabNotas></FabNotas>
         </View>
     )
 }

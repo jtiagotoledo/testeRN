@@ -9,6 +9,7 @@ const actions = [
     {
       text: "Adicionar período",
       textBackground: Globais.corPrimaria,
+      textColor: Globais.corTextoClaro,
       color: Globais.corPrimaria,
       icon: <Icon name={'calendar'} color={'white'}></Icon>,
       name: "periodo",
@@ -17,6 +18,7 @@ const actions = [
     {
       text: "Adicionar classe",
       textBackground: Globais.corPrimaria,
+      textColor: Globais.corTextoClaro,
       color: Globais.corPrimaria,
       icon: <Icon name={'book'} color={'white'}></Icon>,
       name: "classe",
@@ -25,6 +27,7 @@ const actions = [
     {
       text: "Adicionar aluno",
       textBackground: Globais.corPrimaria,
+      textColor: Globais.corTextoClaro,
       color: Globais.corPrimaria,
       icon: <Icon name={'user'} color={'white'}></Icon>,
       name: "aluno",
@@ -43,6 +46,7 @@ const FabClasses = ()=>{
             <FloatingAction
             color={Globais.corPrimaria}
             actions={actions}
+            floatingIcon={<Icon name={'plus'} color={'white'}></Icon>}
             onPressItem={name => {
                 name=='periodo'?setModalPeriodo(true):null
                 if(periodoSelec!=''){

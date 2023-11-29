@@ -5,14 +5,14 @@ import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 import {Icon} from './Icon'
 
-const FabFrequencia = ()=>{
+const FabNotas = ()=>{
 
-  const {setModalCalendarioFreq, flagLoadAlunos,
+  const {setModalCalendarioNota, flagLoadAlunos,
      classeSelec} = useContext(Context);
 
   const abrirCalendário = () =>{
     if(classeSelec!='' && flagLoadAlunos!='vazio'){
-      setModalCalendarioFreq(true)
+      setModalCalendarioNota(true)
     }else if(classeSelec==''){
         ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
     }
@@ -44,4 +44,4 @@ const FabFrequencia = ()=>{
   )
 }
 
-export default FabFrequencia;
+export default FabNotas;
