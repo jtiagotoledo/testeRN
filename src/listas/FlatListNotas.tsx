@@ -96,7 +96,7 @@ const FlatListNotas= () => {
       });
       
       return ()=> subscriber();
-  },[dataSelec]);
+  },[classeSelec,dataSelec]);
 
 
   const renderItem = ({item}: {item: ItemData}) => {

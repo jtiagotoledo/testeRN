@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
 import {Icon} from './Icon'
@@ -7,11 +7,12 @@ import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 
 
+
 const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,setflagLoadClasses,idUsuario} = useContext(Context)
+    const {setPeriodoSelec,setflagLoadClasses,idUsuario,setModalDelPeriodo} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -50,11 +51,11 @@ const DropDown = () =>{
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
           data={valuePeriodo}
-          search
           value={valuePSelec}
           maxHeight={300}
           labelField="label"
           valueField="value"
+          // renderLeftIcon={()=><Icon name="equalizer" color="white" size={20}/>}
           placeholder={!isFocus ? 'Selecione o período' : '...'}
           searchPlaceholder="Procurar..."
           onFocus={() => setIsFocus(true)}
@@ -66,13 +67,15 @@ const DropDown = () =>{
             setflagLoadClasses(false);
             console.log(item.label);
           }}          
-          renderLeftIcon={() => (
-            <Icon
-              style={styles.icon}
-              color={isFocus ? Globais.corPrimaria : 'black'}
-              name="checkmark2"
-              size={20}
-            />
+          renderRightIcon={() => (
+            <TouchableOpacity onPress={setModalDelPeriodo(true)}>
+              <Icon
+                style={styles.icon}
+                color={isFocus ? Globais.corPrimaria : 'black'}
+                name="bin"
+                size={20}
+              />
+            </TouchableOpacity>
           )}
         />
       </View>

@@ -3,25 +3,31 @@ import { Divider } from "react-native-paper";
 import auth from '@react-native-firebase/auth';
 
 import FabClasses from "../componentes/FabClasses";
-import DropDown from "../componentes/DropDown";
 import FlatListAlunos from "../listas/FlatListAlunos";
 import FlatListClasses from "../listas/FlatListClasses";
 import HeaderClasses from "../componentes/HeaderClasses";
 import Globais from "../data/Globais";
 
+import { useContext } from "react";
 import ModalAddPeriodo from "../modais/ModalAddPeriodo";
 import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
 import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalDelClasse from "../modais/ModalDelClasse";
+import ModalDelPeriodo from "../modais/ModalDelPeriodo";
 import ModalMenu from "../modais/ModalMenu";
+import {Context} from "../data/Provider";
+
 
 function Classes({navigation}:any) {
+
+  const {periodoSelec} = useContext(Context)
     
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
-      <DropDown ></DropDown>
+      <Text style={styles.textLoad}>{periodoSelec!=''?'Período: '+periodoSelec:'Selecione um período'}</Text>
+      <Divider style={styles.divider}></Divider>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>
       <FlatListAlunos></FlatListAlunos>
@@ -30,6 +36,7 @@ function Classes({navigation}:any) {
       <ModalAddAluno></ModalAddAluno>
       <ModalDelAluno></ModalDelAluno>
       <ModalDelClasse></ModalDelClasse>
+      {/* <ModalDelPeriodo></ModalDelPeriodo> */}
       <ModalMenu navigation={navigation}></ModalMenu>
       <FabClasses></FabClasses>
     </View>
@@ -49,6 +56,10 @@ const styles = StyleSheet.create({
   },
   divider:{
     backgroundColor: Globais.corPrimaria,
+  },
+  textLoad:{
+    fontSize:24,
+    color:Globais.corTextoClaro,
   }
 });
 

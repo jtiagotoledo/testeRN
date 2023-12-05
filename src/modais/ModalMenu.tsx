@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 import HeaderMenu from '../componentes/HeaderMenu'
-import {Icon} from '../componentes/Icon'
+import DropDown from "../componentes/DropDown";
 
 const ModalMenu = ({navigation}:any) =>{
 
@@ -35,6 +35,7 @@ const ModalMenu = ({navigation}:any) =>{
                     <HeaderMenu title="Configurações"></HeaderMenu>
                   </View>
                   <View style={styles.modalComponentes}>
+                    <DropDown ></DropDown>
                     <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
                     <Button title='SAIR' onPress={funcSair}></Button>
                   </View>
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     position:'absolute',
     top:0,
     height:'100%',
-    width:'70%',
+    width:'75%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalComponentes:{
-    padding: 35,
+    padding: 16,
   },
   textStyle: {
     color: 'white',
