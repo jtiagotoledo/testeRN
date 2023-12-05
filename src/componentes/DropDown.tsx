@@ -9,10 +9,10 @@ import Globais from "../data/Globais";
 
 
 const DropDown = () =>{
-    const [valuePSelec, setValuePSelec] = useState('');
+    const [valuePSelec, setValuePSelec] = useState({periodo:''});
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,setflagLoadClasses,idUsuario,setModalDelPeriodo} = useContext(Context)
+    const {setPeriodoSelec,setflagLoadClasses,idUsuario} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -20,15 +20,34 @@ const DropDown = () =>{
         const data = async ()=>{
         await firestore().collection(idUsuario)
         .get().then(querySnapshot => {
-        querySnapshot.forEach(documentSnapshot => {
-        let id = documentSnapshot.id
-        listaPeriodos.push({label:id,value:id});
-      });
-      setValuePeriodo(listaPeriodos) 
-      });
+          querySnapshot.forEach(documentSnapshot => {
+          let id = documentSnapshot.id
+          listaPeriodos.push({label:id,value:id});
+        });
+        setValuePeriodo(listaPeriodos) 
+        });
+
+        const estadoPeriodo = firestore().collection(idUsuario).
+        doc('Estados').get().then()
+        // setValuePSelec((await estadoPeriodo).data().periodo||{periodo:''})
+        console.log('estadoPeriodo',(await estadoPeriodo).data())
     }
     data()   
-    })
+    },[])
+
+    const onChangePeriodo = (item:any) =>{
+      setValuePSelec(item.label);
+      setPeriodoSelec(item.label);
+      setIsFocus(false);
+      setflagLoadClasses(false);
+      console.log(item.label);
+
+      //Salvando estado do período
+      firestore().collection(idUsuario).
+      doc('Estados').set({
+        periodo:item.label
+      })
+    }
 
     const renderLabel = () => {
       if (valuePSelec || isFocus) {
@@ -51,7 +70,7 @@ const DropDown = () =>{
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
           data={valuePeriodo}
-          value={valuePSelec}
+          value={valuePSelec.periodo}
           maxHeight={300}
           labelField="label"
           valueField="value"
@@ -60,15 +79,9 @@ const DropDown = () =>{
           searchPlaceholder="Procurar..."
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValuePSelec(item.label);
-            setPeriodoSelec(item.label);
-            setIsFocus(false);
-            setflagLoadClasses(false);
-            console.log(item.label);
-          }}          
+          onChange={item => {onChangePeriodo(item)}}          
           renderRightIcon={() => (
-            <TouchableOpacity onPress={setModalDelPeriodo(true)}>
+            <TouchableOpacity>
               <Icon
                 style={styles.icon}
                 color={isFocus ? Globais.corPrimaria : 'black'}

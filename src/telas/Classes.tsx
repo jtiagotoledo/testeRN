@@ -14,7 +14,6 @@ import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
 import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalDelClasse from "../modais/ModalDelClasse";
-import ModalDelPeriodo from "../modais/ModalDelPeriodo";
 import ModalMenu from "../modais/ModalMenu";
 import {Context} from "../data/Provider";
 
@@ -36,7 +35,6 @@ function Classes({navigation}:any) {
       <ModalAddAluno></ModalAddAluno>
       <ModalDelAluno></ModalDelAluno>
       <ModalDelClasse></ModalDelClasse>
-      {/* <ModalDelPeriodo></ModalDelPeriodo> */}
       <ModalMenu navigation={navigation}></ModalMenu>
       <FabClasses></FabClasses>
     </View>
