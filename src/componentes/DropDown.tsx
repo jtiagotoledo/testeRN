@@ -28,7 +28,8 @@ const DropDown = () =>{
         });
 
         firestore().collection(idUsuario).
-        doc('Dados').onSnapshot(snapShot=>{
+        doc('Dados').collection('Estados')
+        .doc('EstadosApp').onSnapshot(snapShot=>{
           setPeriodoSelec(snapShot.data()?.periodo)
         })
         
@@ -45,7 +46,8 @@ const DropDown = () =>{
 
       //Salvando estado do período
       firestore().collection(idUsuario).
-      doc('Estados').set({
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').set({
         periodo:item.label
       })
     }

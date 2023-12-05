@@ -8,19 +8,32 @@ import FlatListClasses from "../listas/FlatListClasses";
 import HeaderClasses from "../componentes/HeaderClasses";
 import Globais from "../data/Globais";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ModalAddPeriodo from "../modais/ModalAddPeriodo";
 import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
 import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalDelClasse from "../modais/ModalDelClasse";
 import ModalMenu from "../modais/ModalMenu";
+import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
 
 
 function Classes({navigation}:any) {
 
-  const {periodoSelec} = useContext(Context)
+  const {periodoSelec,idUsuario,setPeriodoSelec} = useContext(Context)
+
+  useEffect(()=>{
+    const data = async ()=>{
+    firestore().collection(idUsuario).
+    doc('Dados').collection('Estados')
+    .doc('EstadosApp').onSnapshot(snapShot=>{
+      setPeriodoSelec(snapShot.data()?.periodo)
+      console.log('estadosPeriodo')
+    })
+  }
+  data()   
+  },[])
     
   return (
     <View style={styles.container}>
