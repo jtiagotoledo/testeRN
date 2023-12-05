@@ -19,18 +19,18 @@ type ItemProps = {
 };
 
 const FlatListNotas= () => {
-  const nota = {
+  const notaAluno = {
     nome:'',
     numero:'',
     nota:''
   }
   
   const [selectedId, setSelectedId] = useState<string>();
-  const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarNotas,
-    dataSelec,flagLoadNotas,setFlagLoadNotas,setRecarregarNotas,
-    listaNotas,setListaNotas,setValueNota,valueNota,idUsuario} = useContext(Context)
+  const {periodoSelec,classeSelec,dataSelec,flagLoadNotas,
+    setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
   const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+    
     <View style={styles.containerItem}>
       <View style={[styles.item, styles.nome]}>
         <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
@@ -42,7 +42,7 @@ const FlatListNotas= () => {
         inputMode='numeric'
         onChangeText={(text)=>onChangeNota(item,text)}
         onBlur={salvarNota}
-        // value={item.nota}
+        defaultValue={item.nota}
         >
         </TextInput>
       </View>
@@ -50,37 +50,25 @@ const FlatListNotas= () => {
   );
 
   const onChangeNota = (item:ItemData,text:string) =>{
-    /* const numAluno = item.numero;
-    firestore().collection(idUsuario)
-    .doc(periodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Notas')
-    .doc(dataSelec).collection('Alunos')
-    .doc(numAluno+'').set({
-      numero:item.numero,
-      nome:item.nome,
-      nota:text
-    }); */
-    nota.nome=item.nome;
-    nota.numero=item.numero
-    nota.nota=text
+    notaAluno.nome=item.nome;
+    notaAluno.numero=item.numero
+    notaAluno.nota=text
   }
 
   const salvarNota = () =>{
-    const numAluno = nota.numero;
+    const numAluno = notaAluno.numero;
     firestore().collection(idUsuario)
     .doc(periodoSelec).collection('Classes')
     .doc(classeSelec).collection('Notas')
     .doc(dataSelec).collection('Alunos')
     .doc(numAluno+'').set({
-      numero:nota.numero,
-      nome:nota.nome,
-      nota:nota.nota
+      numero:notaAluno.numero,
+      nome:notaAluno.nome,
+      nota:notaAluno.nota
     });
   }
   
   useEffect(()=>{
-    const data = async ()=>{
-      
       setListaNotas([{numero:'',nome:'',nota:''}]);
       setRecarregarNotas('');
       console.log('useEffect lista notas');
@@ -108,8 +96,6 @@ const FlatListNotas= () => {
       });
       
       return ()=> subscriber();
-    }
-    data()        
   },[dataSelec]);
 
 
