@@ -9,10 +9,10 @@ import Globais from "../data/Globais";
 
 
 const DropDown = () =>{
-    const [valuePSelec, setValuePSelec] = useState({periodo:''});
+    const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,setflagLoadClasses,idUsuario} = useContext(Context)
+    const {setPeriodoSelec,periodoSelec,setflagLoadClasses,idUsuario} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -27,10 +27,11 @@ const DropDown = () =>{
         setValuePeriodo(listaPeriodos) 
         });
 
-        const estadoPeriodo = firestore().collection(idUsuario).
-        doc('Estados').get().then()
-        // setValuePSelec((await estadoPeriodo).data().periodo||{periodo:''})
-        console.log('estadoPeriodo',(await estadoPeriodo).data())
+        firestore().collection(idUsuario).
+        doc('Dados').onSnapshot(snapShot=>{
+          setPeriodoSelec(snapShot.data()?.periodo)
+        })
+        
     }
     data()   
     },[])
@@ -70,7 +71,7 @@ const DropDown = () =>{
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
           data={valuePeriodo}
-          value={valuePSelec.periodo}
+          value={periodoSelec}
           maxHeight={300}
           labelField="label"
           valueField="value"
