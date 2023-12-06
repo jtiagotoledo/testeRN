@@ -27,7 +27,7 @@ const FlatListClasses = () => {
     const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses,
-      setRecarregarClasses,idUsuario} = useContext(Context)
+      setRecarregarClasses,idUsuario,setFlagLongPressClasse} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -57,9 +57,10 @@ const FlatListClasses = () => {
   },[periodoSelec,recarregarClasses]);
 
   const onPressItem = (item:any) =>{
-    setClasseSelec(item.classe), 
-    setflagLoadAlunos('carregando'),
-    setFlagLoadFrequencia('carregando'),
+    setClasseSelec(item.classe),
+    setflagLoadAlunos('carregando')
+    setFlagLoadFrequencia('carregando')
+    setFlagLongPressClasse(false)
     console.log(classeSelec)
 
     //salvando estado da classe
@@ -71,8 +72,8 @@ const FlatListClasses = () => {
   }
 
   const onLongPressItem = (item:any) =>{
-    setModalDelClasse(true)
     setClasseSelec(item.classe)
+    setFlagLongPressClasse(true)
   }
 
   const renderItem = ({item}: {item: ItemData}) => {

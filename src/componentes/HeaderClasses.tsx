@@ -13,7 +13,12 @@ view?: string;
 
 const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-    const {setModalDelAluno, setModalMenu} = useContext(Context);
+    const {setModalDelAluno, setModalMenu, flagLongPressClasse,
+      setModalDelClasse} = useContext(Context);
+
+    const onPressBin = () =>{
+      flagLongPressClasse?setModalDelClasse(true):null
+    }
 
     return (
         <HeaderRNE
@@ -21,7 +26,7 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         style={styles.headerContainer}
         leftComponent={
             <View style={styles.headerRight}>
-                <TouchableOpacity onPress={()=>setModalMenu(true)}>
+                <TouchableOpacity onPress={onPressBin}>
                   <Icon name="equalizer" color="white" size={20}/>
                 </TouchableOpacity>
             </View>
@@ -32,7 +37,12 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
                 <Icon style={styles.icon} name="pencil" color="white" size={20}/>
               </TouchableOpacity>
               <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
-                <Icon style={styles.icon} name="bin" color="white" size={20}/>
+                <Icon 
+                style={styles.icon}  
+                selectable={false}
+                name="bin" 
+                color={flagLongPressClasse?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
+                size={20}/>
               </TouchableOpacity>
             </View>
         }
