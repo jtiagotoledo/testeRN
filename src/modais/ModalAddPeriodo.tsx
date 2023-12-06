@@ -8,7 +8,7 @@ import { Icon } from "../componentes/Icon";
 const ModalAddPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalPeriodo,setModalPeriodo,idUsuario} = useContext(Context)
+    const {modalPeriodo,setModalPeriodo,idUsuario,setPeriodoSelec} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -22,6 +22,7 @@ const ModalAddPeriodo = () =>{
         .set({
         })
         setModalPeriodo(!modalPeriodo);
+        setPeriodoSelec(valuePeriodo);
         console.log('função adicionar período',valuePeriodo);
       }
       else{

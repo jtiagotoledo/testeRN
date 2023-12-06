@@ -56,6 +56,24 @@ const FlatListClasses = () => {
   data()   
   },[periodoSelec,recarregarClasses]);
 
+  const onPressItem = (item:any) =>{
+    setClasseSelec(item.classe), 
+    setflagLoadAlunos('carregando'),
+    setFlagLoadFrequencia('carregando'),
+    console.log(classeSelec)
+
+    //salvando estado da classe
+    firestore().collection(idUsuario).
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').update({
+        classe:item.classe
+      })
+  }
+
+  const onLongPressItem = (item:any) =>{
+    setModalDelClasse(true)
+    setClasseSelec(item.classe)
+  }
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.classe === classeSelec ? Globais.corPrimaria : Globais.corTerciaria;
@@ -64,12 +82,8 @@ const FlatListClasses = () => {
     return (
         <Item
         item={item}
-        onPress={() => [
-          setClasseSelec(item.classe), 
-          setflagLoadAlunos('carregando'),
-          setFlagLoadFrequencia('carregando'),
-          console.log(classeSelec)]}
-        onLongPress={()=>setModalDelClasse(true)}
+        onPress={() => onPressItem(item)}
+        onLongPress={() => onLongPressItem(item)}
         backgroundColor={backgroundColor}
         textColor={color}
       />

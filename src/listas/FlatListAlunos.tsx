@@ -54,7 +54,7 @@ const FlatListAlunos = () => {
     setListaAlunos(alunos)
   }
   data()        
-  },[classeSelec,recarregarAlunos]);
+  },[periodoSelec,classeSelec,recarregarAlunos]);
 
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
