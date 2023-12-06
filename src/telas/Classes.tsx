@@ -24,15 +24,12 @@ function Classes({navigation}:any) {
   const {periodoSelec,idUsuario,setPeriodoSelec} = useContext(Context)
 
   useEffect(()=>{
-    const data = async ()=>{
     firestore().collection(idUsuario).
     doc('Dados').collection('Estados')
-    .doc('EstadosApp').onSnapshot(snapShot=>{
+    .doc('EstadosApp').get().then(snapShot=>{
       setPeriodoSelec(snapShot.data()?.periodo)
       console.log('estadosPeriodo')
     })
-  }
-  data()   
   },[])
     
   return (

@@ -26,13 +26,6 @@ const DropDown = () =>{
         });
         setValuePeriodo(listaPeriodos) 
         });
-
-        firestore().collection(idUsuario).
-        doc('Dados').collection('Estados')
-        .doc('EstadosApp').onSnapshot(snapShot=>{
-          setPeriodoSelec(snapShot.data()?.periodo)
-        })
-        
     }
     data()   
     },[])
