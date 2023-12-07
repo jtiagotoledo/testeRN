@@ -61,7 +61,6 @@ const FlatListClasses = () => {
     setflagLoadAlunos('carregando')
     setFlagLoadFrequencia('carregando')
     setFlagLongPressClasse(false)
-    console.log(classeSelec)
 
     //salvando estado da classe
     firestore().collection(idUsuario).

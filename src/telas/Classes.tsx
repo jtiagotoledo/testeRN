@@ -21,14 +21,17 @@ import {Context} from "../data/Provider";
 
 function Classes({navigation}:any) {
 
-  const {periodoSelec,idUsuario,setPeriodoSelec,setClasseSelec} = useContext(Context)
+  const {periodoSelec,idUsuario,setPeriodoSelec,
+    setClasseSelec,setRecarregarAlunos} = useContext(Context)
 
   useEffect(()=>{
+    //recuperar dados dos estados do app
     firestore().collection(idUsuario).
     doc('Dados').collection('Estados')
     .doc('EstadosApp').get().then(snapShot=>{
       setPeriodoSelec(snapShot.data()?.periodo)
       setClasseSelec(snapShot.data()?.classe)
+      setRecarregarAlunos('recarregar')
       console.log('estadosPeriodo')
     })
   },[])

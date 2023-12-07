@@ -12,12 +12,13 @@ type ItemData = {
 type ItemProps = {
   item: ItemData;
   onPress: () => void;
+  onLongPress: () => void;
   backgroundColor: string;
   textColor: string;
 };
 
-const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProps) => (
+  <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, {backgroundColor}]}>
     <Text style={[styles.title, {color: textColor}]}>{item.numero} {item.nome}</Text>
   </TouchableOpacity>
 );
@@ -27,7 +28,7 @@ const FlatListAlunos = () => {
     const [selectedId, setSelectedId] = useState<string>();
     const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,
-      listaAlunos,setListaAlunos,idUsuario} = useContext(Context)
+      listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -56,6 +57,17 @@ const FlatListAlunos = () => {
   data()        
   },[periodoSelec,classeSelec,recarregarAlunos]);
 
+  const onPressItem = (item:any) =>{
+    setSelectedId(item.numero)
+    setNumAlunoSelec(item.numero.toString())
+  }
+
+  const onLongPressItem = (item:any) =>{
+    setSelectedId(item.numero)
+    setFlagLongPressAluno(true)
+    console.log('onlongPressAluno')
+  }
+
   const renderItem = ({item}: {item: ItemData}) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
@@ -63,7 +75,8 @@ const FlatListAlunos = () => {
     return (
       <Item
         item={item}
-        onPress={() => [setSelectedId(item.numero),setNumAlunoSelec(item.numero.toString())]}
+        onPress={() => onPressItem(item)}
+        onLongPress={() => onLongPressItem(item)}
         backgroundColor={backgroundColor}
         textColor={color}
       />
