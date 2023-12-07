@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import {NativeSyntheticEvent, StyleSheet,View} from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet,TouchableWithoutFeedback,View } from 'react-native';
 import { Header as HeaderRNE} from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
-import {Icon} from './Icon'
-import {Context} from "../data/Provider";
+import { Icon } from './Icon'
+import { Context } from "../data/Provider";
 import Globais from '../data/Globais';
 
 type HeaderComponentProps = {
@@ -14,10 +14,11 @@ view?: string;
 const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
     const {setModalDelAluno, setModalMenu, flagLongPressClasse,
-      setModalDelClasse} = useContext(Context);
+      flagLongPressAluno,setModalDelClasse} = useContext(Context);
 
     const onPressBin = () =>{
       flagLongPressClasse?setModalDelClasse(true):null
+      flagLongPressAluno?setModalDelAluno(true):null
     }
 
     return (
@@ -33,17 +34,17 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         }
         rightComponent={
             <View style={styles.headerRight}>
-              <TouchableOpacity>
+              <TouchableWithoutFeedback>
                 <Icon style={styles.icon} name="pencil" color="white" size={20}/>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={onPressBin}>
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={onPressBin}>
                 <Icon 
                 style={styles.icon}  
                 selectable={false}
                 name="bin" 
-                color={flagLongPressClasse?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
+                color={flagLongPressClasse||flagLongPressAluno?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
                 size={20}/>
-              </TouchableOpacity>
+              </TouchableWithoutFeedback>
             </View>
         }
         centerComponent={{ text:'Classes', style: styles.heading }}

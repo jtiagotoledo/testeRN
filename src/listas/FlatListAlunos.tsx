@@ -60,6 +60,7 @@ const FlatListAlunos = () => {
   const onPressItem = (item:any) =>{
     setSelectedId(item.numero)
     setNumAlunoSelec(item.numero.toString())
+    setFlagLongPressAluno(false)
   }
 
   const onLongPressItem = (item:any) =>{
