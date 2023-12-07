@@ -17,17 +17,14 @@ const DropDown = () =>{
     const  listaPeriodos: any[]=[];
 
     useEffect(()=>{
-        const data = async ()=>{
-        await firestore().collection(idUsuario)
-        .get().then(querySnapshot => {
+        firestore().collection(idUsuario)
+        .onSnapshot(querySnapshot => {
           querySnapshot.forEach(documentSnapshot => {
           let id = documentSnapshot.id
           listaPeriodos.push({label:id,value:id});
         });
         setValuePeriodo(listaPeriodos) 
         });
-    }
-    data()   
     },[])
 
     const onChangePeriodo = (item:any) =>{
