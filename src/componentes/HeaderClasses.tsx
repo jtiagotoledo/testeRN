@@ -21,6 +21,11 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
       flagLongPressAluno?setModalDelAluno(true):null
     }
 
+    const onPressEdit = () =>{
+      flagLongPressClasse?setModalDelClasse(true):null
+      flagLongPressAluno?setModalDelAluno(true):null
+    }
+
     return (
         <HeaderRNE
         backgroundColor = {Globais.corPrimaria}
@@ -34,8 +39,12 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
         }
         rightComponent={
             <View style={styles.headerRight}>
-              <TouchableWithoutFeedback>
-                <Icon style={styles.icon} name="pencil" color="white" size={20}/>
+              <TouchableWithoutFeedback onPress={onPressEdit}>
+                <Icon 
+                style={styles.icon} 
+                name="pencil" 
+                color={flagLongPressClasse||flagLongPressAluno?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'} 
+                size={20}/>
               </TouchableWithoutFeedback>
               <TouchableWithoutFeedback onPress={onPressBin}>
                 <Icon 

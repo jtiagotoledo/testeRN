@@ -12,7 +12,8 @@ const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,periodoSelec,setflagLoadClasses,idUsuario} = useContext(Context)
+    const {setPeriodoSelec,periodoSelec,setflagLoadClasses,
+      idUsuario,setModalMenu} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -32,6 +33,7 @@ const DropDown = () =>{
       setPeriodoSelec(item.label);
       setIsFocus(false);
       setflagLoadClasses(false);
+      setModalMenu(false)
       console.log(item.label);
 
       //Salvando estado do período

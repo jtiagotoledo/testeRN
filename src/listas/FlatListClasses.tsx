@@ -24,10 +24,11 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListClasses = () => {
     let classes:any []= []
-    const {periodoSelec,classeSelec,setClasseSelec,setModalDelClasse,recarregarClasses} = useContext(Context)
+    const {periodoSelec,classeSelec,setClasseSelec,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses,
-      setRecarregarClasses,idUsuario,setFlagLongPressClasse} = useContext(Context)
+      setRecarregarClasses,idUsuario,setFlagLongPressClasse,
+      setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -61,6 +62,9 @@ const FlatListClasses = () => {
     setflagLoadAlunos('carregando')
     setFlagLoadFrequencia('carregando')
     setFlagLongPressClasse(false)
+    setFlagLongPressAluno(false)
+    setSelectedIdAluno('')
+    setNumAlunoSelec('')
 
     //salvando estado da classe
     firestore().collection(idUsuario).
