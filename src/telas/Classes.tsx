@@ -28,7 +28,7 @@ function Classes({navigation}:any) {
     //recuperar dados dos estados do app
     firestore().collection(idUsuario).
     doc('Dados').collection('Estados')
-    .doc('EstadosApp').onSnapshot(snapShot=>{
+    .doc('EstadosApp').get().then(snapShot=>{
       setPeriodoSelec(snapShot.data()?.periodo)
       setClasseSelec(snapShot.data()?.classe)
       console.log('estadoClasse',snapShot.data()?.classe)

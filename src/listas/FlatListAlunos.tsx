@@ -25,10 +25,10 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListAlunos = () => {
     const alunos:any[] = []
-    const [selectedId, setSelectedId] = useState<string>();
     const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
-      setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,
-      listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno} = useContext(Context)
+      setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,setFlagLongPressClasse,
+      listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno,
+      selectedIdAluno, setSelectedIdAluno} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -58,20 +58,22 @@ const FlatListAlunos = () => {
   },[periodoSelec,classeSelec,recarregarAlunos]);
 
   const onPressItem = (item:any) =>{
-    setSelectedId(item.numero)
+    setSelectedIdAluno(item.numero)
     setNumAlunoSelec(item.numero.toString())
     setFlagLongPressAluno(false)
   }
 
   const onLongPressItem = (item:any) =>{
-    setSelectedId(item.numero)
+    setSelectedIdAluno(item.numero)
+    setNumAlunoSelec(item.numero.toString())
     setFlagLongPressAluno(true)
+    setFlagLongPressClasse(false)
     console.log('onlongPressAluno')
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const backgroundColor = item.numero === selectedIdAluno ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.numero === selectedIdAluno ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
       <Item
@@ -105,7 +107,7 @@ const FlatListAlunos = () => {
                 data={listaAlunos}
                 renderItem={renderItem}
                 keyExtractor={item => item.numero}
-                extraData={selectedId}
+                extraData={selectedIdAluno}
               />
             )
         }
