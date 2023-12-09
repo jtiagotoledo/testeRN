@@ -40,14 +40,13 @@ const FlatListClasses = () => {
       .onSnapshot(snapshot => {
         if(snapshot.empty){
           setflagLoadClasses('vazio');
-          console.log('idUsuario',idUsuario)
-          console.log('periodoSelec',periodoSelec)
+          console.log('classe empty',periodoSelec)
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           classes.push(documentSnapshot.data());
             if(snapshot.size-index==1){
               setflagLoadClasses('carregado')
-              console.log('entrou no if da flag classes')
+              console.log('entrou no if da flag classes', periodoSelec)
             } 
           });
         }

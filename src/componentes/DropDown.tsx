@@ -34,14 +34,13 @@ const DropDown = () =>{
       setIsFocus(false);
       setflagLoadClasses(false);
       setModalMenu(false)
-      console.log(item.label);
+      console.log('onChangePeriodo',item.label);
 
       //Salvando estado do período
       firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
       doc('EstadosApp').update({
         periodo:item.label,
-        classe:''
       })
     }
 

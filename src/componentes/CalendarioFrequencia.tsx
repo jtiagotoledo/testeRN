@@ -33,6 +33,7 @@ const CalendarioFrequencia = () => {
     setflagLoadCalendarioFreq('carregando');
     setListaDatasFreq('');
     setListaDatasMarcadasFreq({})
+    console.log('entrouCalendFreq')
     setRecarregarCalendarioFreq('');
     firestore().collection(idUsuario)
     .doc(periodoSelec).collection('Classes')

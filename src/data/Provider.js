@@ -30,8 +30,8 @@ export default function Provider ({children}){
     const[recarregarNotas,setRecarregarNotas]=useState('');
     const[recarregarCalendarioFreq,setRecarregarCalendarioFreq]=useState('');
     const[recarregarCalendarioNotas,setRecarregarCalendarioNotas]=useState('');
-    const[periodoSelec,setPeriodoSelec]=useState('');
-    const[classeSelec,setClasseSelec]=useState('');
+    const[periodoSelec,setPeriodoSelec]=useState('aa');
+    const[classeSelec,setClasseSelec]=useState('aa');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
     const[selectedIdAluno, setSelectedIdAluno]=useState('');
     const[dataSelec,setDataSelec]=useState('');

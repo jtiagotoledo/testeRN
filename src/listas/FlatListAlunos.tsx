@@ -42,12 +42,13 @@ const FlatListAlunos = () => {
       .onSnapshot((snapshot)=>{
       if(snapshot.empty){
         setflagLoadAlunos('vazio');
+        console.log('alunos empty',classeSelec)
       }else{
         snapshot.forEach((documentSnapshot,index) => {
         alunos.push(documentSnapshot.data());
         if(snapshot.size-index==1){
           setflagLoadAlunos('carregado');
-          console.log('entrou no if da flag alunos')
+          console.log('entrou no if da flag alunos',classeSelec)
         }
         });
     }
@@ -68,7 +69,6 @@ const FlatListAlunos = () => {
     setNumAlunoSelec(item.numero.toString())
     setFlagLongPressAluno(true)
     setFlagLongPressClasse(false)
-    console.log('onlongPressAluno')
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
