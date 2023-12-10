@@ -40,7 +40,7 @@ const FlatListAlunos = () => {
       .doc(classeSelec).collection('ListaAlunos')
       .orderBy('numero')
       .onSnapshot((snapshot)=>{
-      if(snapshot.empty){
+      if(snapshot.empty  && classeSelec!=''){
         setflagLoadAlunos('vazio');
         console.log('alunos empty',classeSelec)
       }else{

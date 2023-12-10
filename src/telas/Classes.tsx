@@ -1,11 +1,11 @@
 import { View, StyleSheet, Text, Button} from "react-native"
 import { Divider } from "react-native-paper";
-import auth from '@react-native-firebase/auth';
 
 import FabClasses from "../componentes/FabClasses";
 import FlatListAlunos from "../listas/FlatListAlunos";
 import FlatListClasses from "../listas/FlatListClasses";
 import HeaderClasses from "../componentes/HeaderClasses";
+import ConexaoInternet from "../componentes/ConexaoInternet";
 import Globais from "../data/Globais";
 
 import { useContext, useEffect } from "react";
@@ -39,6 +39,7 @@ function Classes({navigation}:any) {
   return (
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
+      <ConexaoInternet></ConexaoInternet>
       <Text style={styles.textLoad}>{periodoSelec!=''?'Período: '+periodoSelec:'Selecione um período'}</Text>
       <Divider style={styles.divider}></Divider>
       <FlatListClasses></FlatListClasses>

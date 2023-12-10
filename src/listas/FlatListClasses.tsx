@@ -38,7 +38,7 @@ const FlatListClasses = () => {
       firestore().collection(idUsuario)
       .doc(periodoSelec).collection('Classes')
       .onSnapshot(snapshot => {
-        if(snapshot.empty){
+        if(snapshot.empty && periodoSelec!=''){
           setflagLoadClasses('vazio');
           console.log('classe empty',periodoSelec)
         }else{
