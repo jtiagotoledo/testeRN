@@ -10,7 +10,7 @@ const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
     const {modalClasse,setModalClasse,periodoSelec,
-      setRecarregarClasses,idUsuario} = useContext(Context)
+      setRecarregarClasses,idUsuario,setClasseSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -24,6 +24,7 @@ const ModalAddClasse = () =>{
           classe:valueClasse
         });
         setModalClasse(!modalClasse);
+        setClasseSelec(valueClasse);
         console.log('função adicionar',valueClasse);
 
         

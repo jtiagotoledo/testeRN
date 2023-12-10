@@ -21,9 +21,8 @@ import {Context} from "../data/Provider";
 
 function Classes({navigation}:any) {
 
-  const {periodoSelec,idUsuario,setPeriodoSelec,classeSelec,
-    setClasseSelec,setRecarregarAlunos,setRecarregarClasses} = useContext(Context)
-
+  const {periodoSelec,idUsuario,setPeriodoSelec,setClasseSelec} = useContext(Context)
+    
   useEffect(()=>{
     //recuperar dados dos estados do app
     firestore().collection(idUsuario).

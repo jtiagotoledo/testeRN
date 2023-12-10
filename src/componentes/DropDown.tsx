@@ -12,8 +12,8 @@ const DropDown = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,periodoSelec,setflagLoadClasses,
-      idUsuario,setModalMenu} = useContext(Context)
+    const {setPeriodoSelec,periodoSelec,setFlagLongPressAluno,
+      idUsuario,setModalMenu,setFlagLongPressClasse} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -32,8 +32,9 @@ const DropDown = () =>{
       setValuePSelec(item.label);
       setPeriodoSelec(item.label);
       setIsFocus(false);
-      setflagLoadClasses(false);
-      setModalMenu(false)
+      setFlagLongPressClasse(false)
+      setFlagLongPressAluno(false)
+      setModalMenu(false);
       console.log('onChangePeriodo',item.label);
 
       //Salvando estado do período
@@ -41,6 +42,7 @@ const DropDown = () =>{
       doc('Dados').collection('Estados').
       doc('EstadosApp').update({
         periodo:item.label,
+        classe:''
       })
     }
 
