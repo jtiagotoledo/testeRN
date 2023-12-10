@@ -8,14 +8,18 @@ export default function Provider ({children}){
     const[email,setEmail]=useState('');
     const[idUsuario,setIdUsuario]=useState(auth().currentUser?.email);
     const[senha,setSenha]=useState('');
-    const[modalPeriodo,setModalPeriodo]=useState(false);
-    const[modalClasse,setModalClasse]=useState(false);
-    const[modalAluno,setModalAluno]=useState(false);
-    const[modalMenu,setModalMenu]=useState(false);
-    const[modalDelAluno,setModalDelAluno]=useState(false);
+    const[modalAddPeriodo,setModalAddPeriodo]=useState(false);
+    const[modalAddClasse,setModalAddClasse]=useState(false);
+    const[modalAddAluno,setModalAddAluno]=useState(false);
+    const[modalEditPeriodo,setModalEditPeriodo]=useState(false);
+    const[modalEditClasse,setModalEditClasse]=useState(false);
+    const[modalEditAluno,setModalEditAluno]=useState(false);
+    const[modalDelPeriodo,setModalDelPeriodo]=useState(false);
     const[modalDelClasse,setModalDelClasse]=useState(false);
+    const[modalDelAluno,setModalDelAluno]=useState(false);
     const[modalCalendarioFreq,setModalCalendarioFreq]=useState(false);
     const[modalCalendarioNota,setModalCalendarioNota]=useState(false);
+    const[modalMenu,setModalMenu]=useState(false);
     const[flagLoadClasses,setflagLoadClasses]=useState('');
     const[flagLoadAlunos,setflagLoadAlunos]=useState('');
     const[flagLoadFrequencia,setFlagLoadFrequencia]=useState('');
@@ -24,8 +28,9 @@ export default function Provider ({children}){
     const[flagLoadCalendarioNotas,setflagLoadCalendarioNotas]=useState('');
     const[flagLongPressClasse,setFlagLongPressClasse]=useState(false);
     const[flagLongPressAluno,setFlagLongPressAluno]=useState(false);
-    const[recarregarAlunos,setRecarregarAlunos]=useState('');
+    const[recarregarPeriodo,setRecarregarPeriodo]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
+    const[recarregarAlunos,setRecarregarAlunos]=useState('');
     const[recarregarFrequencia,setRecarregarFrequencia]=useState('');
     const[recarregarNotas,setRecarregarNotas]=useState('');
     const[recarregarCalendarioFreq,setRecarregarCalendarioFreq]=useState('');
@@ -51,14 +56,18 @@ export default function Provider ({children}){
             email,setEmail,
             senha,setSenha,
             idUsuario,setIdUsuario,
-            modalPeriodo,setModalPeriodo,
-            modalClasse,setModalClasse,
-            modalAluno,setModalAluno,
-            modalMenu,setModalMenu,
-            modalDelAluno,setModalDelAluno,
+            modalAddPeriodo,setModalAddPeriodo,
+            modalAddClasse,setModalAddClasse,
+            modalAddAluno,setModalAddAluno,
+            modalEditPeriodo,setModalEditPeriodo,
+            modalEditClasse,setModalEditClasse,
+            modalEditAluno,setModalEditAluno,
+            modalDelPeriodo,setModalDelPeriodo,
             modalDelClasse,setModalDelClasse,
+            modalDelAluno,setModalDelAluno,
             modalCalendarioFreq,setModalCalendarioFreq,
             modalCalendarioNota,setModalCalendarioNota,
+            modalMenu,setModalMenu,
             flagLoadClasses,setflagLoadClasses,
             flagLoadAlunos,setflagLoadAlunos,
             flagLoadFrequencia,setFlagLoadFrequencia,
@@ -67,8 +76,9 @@ export default function Provider ({children}){
             flagLoadCalendarioNotas,setflagLoadCalendarioNotas,
             flagLongPressClasse,setFlagLongPressClasse,
             flagLongPressAluno,setFlagLongPressAluno,
-            recarregarAlunos,setRecarregarAlunos,
+            recarregarPeriodo,setRecarregarPeriodo,
             recarregarClasses,setRecarregarClasses,
+            recarregarAlunos,setRecarregarAlunos,
             recarregarFrequencia,setRecarregarFrequencia,
             recarregarNotas,setRecarregarNotas,
             recarregarCalendarioFreq,setRecarregarCalendarioFreq,

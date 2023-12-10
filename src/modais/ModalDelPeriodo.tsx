@@ -7,12 +7,23 @@ import Globais from "../data/Globais";
 
 const ModalDelPeriodo = () =>{
 
-    const {periodoSelec, modalDelPeriodo, setModalDelPeriodo, idUsuario} = useContext(Context);
+    const {periodoSelec, modalDelPeriodo, setModalDelPeriodo, idUsuario,
+      setPeriodoSelec,setRecarregarPeriodo} = useContext(Context);
 
     const deletarClasse = ()=> {
       firestore().collection(idUsuario)
       .doc(periodoSelec).delete()
       setModalDelPeriodo(!modalDelPeriodo)
+      setPeriodoSelec('')
+      setRecarregarPeriodo('recarregar')
+
+      //deletando o estado do período
+      firestore().collection(idUsuario).
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').update({
+        periodo:'',
+        classe:''
+      })
     }
     
     return(
@@ -31,7 +42,7 @@ const ModalDelPeriodo = () =>{
                                 <Icon name="cancel-circle" color="black" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Deseja realmente excluir a classe?</Text>
+                        <Text style={styles.modalText}>Deseja realmente excluir o período?</Text>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={deletarClasse}>

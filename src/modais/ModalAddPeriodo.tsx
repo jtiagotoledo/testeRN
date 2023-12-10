@@ -8,7 +8,7 @@ import { Icon } from "../componentes/Icon";
 const ModalAddPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalPeriodo,setModalPeriodo,idUsuario,setPeriodoSelec} = useContext(Context)
+    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setPeriodoSelec} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -21,7 +21,7 @@ const ModalAddPeriodo = () =>{
         .doc(valuePeriodo)
         .set({
         })
-        setModalPeriodo(!modalPeriodo);
+        setModalAddPeriodo(!modalAddPeriodo);
         setPeriodoSelec(valuePeriodo);
         console.log('função adicionar período',valuePeriodo);
       }
@@ -30,6 +30,14 @@ const ModalAddPeriodo = () =>{
           'Digite o nome do período!',
           ToastAndroid.SHORT)
       }
+
+      //atualizando o estado do período
+      firestore().collection(idUsuario).
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').update({
+        periodo:valuePeriodo,
+        classe:''
+      })
     }
 
     return(
@@ -37,14 +45,14 @@ const ModalAddPeriodo = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalPeriodo}
+                visible={modalAddPeriodo}
                 onRequestClose={() => {
-                setModalPeriodo(!modalPeriodo);
+                setModalAddPeriodo(!modalAddPeriodo);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalPeriodo(!modalPeriodo)}>
+                            <TouchableOpacity  onPress={()=>setModalAddPeriodo(!modalAddPeriodo)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>

@@ -9,7 +9,7 @@ import { Icon } from "../componentes/Icon";
 const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalClasse,setModalClasse,periodoSelec,
+    const {modalAddClasse,setModalAddClasse,periodoSelec,
       setRecarregarClasses,idUsuario,setClasseSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
@@ -23,17 +23,21 @@ const ModalAddClasse = () =>{
         .doc(valueClasse).set({
           classe:valueClasse
         });
-        setModalClasse(!modalClasse);
+        setModalAddClasse(!modalAddClasse);
         setClasseSelec(valueClasse);
         console.log('função adicionar',valueClasse);
-
-        
-
       }else{
         ToastAndroid.show(
           'Digite o nome da classe!',
           ToastAndroid.SHORT)
       }
+
+      //atualizando o estado da classe
+      firestore().collection(idUsuario).
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').update({
+        classe:valueClasse
+      })
       
       
     }
@@ -43,14 +47,14 @@ const ModalAddClasse = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalClasse}
+                visible={modalAddClasse}
                 onRequestClose={() => {
-                setModalClasse(!modalClasse);
+                  setModalAddClasse(!modalAddClasse);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalClasse(!modalClasse)}>
+                            <TouchableOpacity  onPress={()=>setModalAddClasse(!modalAddClasse)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>

@@ -19,6 +19,13 @@ const ModalDelClasse = () =>{
       setFlagLongPressClasse(false)
       setClasseSelec('')
       setRecarregarClasses('recarregar')
+
+      //deletando o estado da classe
+      firestore().collection(idUsuario).
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').update({
+        classe:''
+      })
     }
     
     return(

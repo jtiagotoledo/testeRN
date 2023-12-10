@@ -3,39 +3,44 @@ import React, { useState, useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
-import {Icon} from '../componentes/Icon'
+import { Icon } from "../componentes/Icon";
 
-const ModalAddAluno = () =>{
 
-    const [valueNumero,setValueNumero] = useState<string>('')
-    const [valueNome,setValueNome] = useState<string>('')
-    const {periodoSelec,classeSelec,modalAddAluno,
-      setModalAddAluno,setRecarregarAlunos,idUsuario} = useContext(Context)
+const ModalEditClasse = () =>{
 
-    const onChangeInputNumero = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-        setValueNumero(event.nativeEvent.text);
-    }
-    const onChangeInputNome = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-      setValueNome(event.nativeEvent.text);
-    }
+    const [valueClasse,setValueClasse] = useState<string>('')
+    const {modalEditClasse,setModalEditClasse,periodoSelec,
+      setRecarregarClasses,idUsuario,setClasseSelec,classeSelec} = useContext(Context)
+
+    const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+        setValueClasse(event.nativeEvent.text);
+      }
     
-    const onPressAddAluno = () =>{
-      if(valueNumero!='' && valueNome!=''){
+    const onPressEditClasse = () =>{
+      if(valueClasse!=''){
+        console.log('entrouAqui')
         firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
-        .doc(classeSelec).collection('ListaAlunos')
-        .doc(valueNumero).set({
-          numero: parseInt(valueNumero),
-          nome: valueNome
+        .doc(valueClasse).update({
+          classe:valueClasse
         });
-        setModalAddAluno(!modalAddAluno);
-        console.log('função adicionar',valueNome);
-
+        setModalEditClasse(!modalEditClasse);
+        setClasseSelec(valueClasse);
+        console.log('função editar',valueClasse);
       }else{
         ToastAndroid.show(
-          'Digite o número e o nome do aluno!',
+          'Digite o nome da classe!',
           ToastAndroid.SHORT)
       }
+
+      //atualizando o estado da classe
+      firestore().collection(idUsuario).
+      doc('Dados').collection('Estados').
+      doc('EstadosApp').update({
+        classe:valueClasse
+      })
+      
+      
     }
 
     return(
@@ -43,24 +48,28 @@ const ModalAddAluno = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalAddAluno}
+                visible={modalEditClasse}
                 onRequestClose={() => {
-                  setModalAddAluno(!modalAddAluno);
-                }}>
+                  setModalEditClasse(!modalEditClasse);
+            }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalAddAluno(!modalAddAluno)}>
+                            <TouchableOpacity  onPress={()=>setModalEditClasse(!modalEditClasse)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Adicione um novo aluno:</Text>
-                        <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
-                        <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
+                        <Text style={styles.modalText}>Edite o nome da classe:</Text>
+                        <TextInput 
+                          style={styles.textInput}
+                          placeholder='Nome da classe'
+                          defaultValue={classeSelec} 
+                          onChange={onChangeInputClasse}>
+                        </TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={()=>[onPressAddAluno(),setRecarregarAlunos('recarregarAluno')]}>
-                            <Text style={styles.textStyle}>Criar</Text>
+                            onPress={()=>[onPressEditClasse(),setRecarregarClasses('recarregarClasses')]}>
+                            <Text style={styles.textStyle}>Editar</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -122,13 +131,14 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       textAlign: 'center',
       color: 'white',
-      fontSize:18
+      fontSize:18,
     },
     textInput:{
       backgroundColor: 'white', 
       minWidth:100, 
       marginBottom:20
     }
+
   });
 
-export default ModalAddAluno
+export default ModalEditClasse;

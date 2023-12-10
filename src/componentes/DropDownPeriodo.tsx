@@ -8,12 +8,13 @@ import Globais from "../data/Globais";
 
 
 
-const DropDown = () =>{
+const DropDownPeriodo = () =>{
     const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
     const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
     const {setPeriodoSelec,periodoSelec,setFlagLongPressAluno,
-      idUsuario,setModalMenu,setFlagLongPressClasse} = useContext(Context)
+      idUsuario,setModalMenu,setFlagLongPressClasse,setModalDelPeriodo,
+      recarregarPeriodo} = useContext(Context)
 
     const  listaPeriodos: any[]=[];
 
@@ -26,7 +27,7 @@ const DropDown = () =>{
         });
         setValuePeriodo(listaPeriodos) 
         });
-    },[])
+    },[recarregarPeriodo])
 
     const onChangePeriodo = (item:any) =>{
       setValuePSelec(item.label);
@@ -78,7 +79,7 @@ const DropDown = () =>{
           onBlur={() => setIsFocus(false)}
           onChange={item => {onChangePeriodo(item)}}          
           renderRightIcon={() => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>setModalDelPeriodo(true)}>
               <Icon
                 style={styles.icon}
                 color={isFocus ? Globais.corPrimaria : 'black'}
@@ -92,7 +93,7 @@ const DropDown = () =>{
     )
 }
 
-export default DropDown;
+export default DropDownPeriodo;
 
 const styles = StyleSheet.create({
     container: {

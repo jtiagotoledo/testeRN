@@ -38,8 +38,8 @@ const actions = [
 
 const FabClasses = ()=>{
 
-    const {setModalPeriodo, setModalClasse,
-      setModalAluno, periodoSelec, classeSelec} = useContext(Context);
+    const {setModalAddPeriodo, setModalAddClasse,
+      setModalAddAluno, periodoSelec, classeSelec} = useContext(Context);
 
     return(
         <View>
@@ -48,16 +48,16 @@ const FabClasses = ()=>{
             actions={actions}
             floatingIcon={<Icon name={'plus'} color={'white'}></Icon>}
             onPressItem={name => {
-                name=='periodo'?setModalPeriodo(true):null
+                name=='periodo'?setModalAddPeriodo(true):null
                 if(periodoSelec!=''){
-                  name=='classe'?setModalClasse(true):null
+                  name=='classe'?setModalAddClasse(true):null
                 }else if(periodoSelec!=''||name=='classe'){
                   ToastAndroid.show(
                     'Selecione um período primeiro!',
                     ToastAndroid.SHORT)
                 }
                 if(classeSelec!=''){
-                  name=='aluno'?setModalAluno(true):null
+                  name=='aluno'?setModalAddAluno(true):null
                 }else if(classeSelec!=''||name=='aluno'){
                     ToastAndroid.show(
                       'Selecione uma classe primeiro!',

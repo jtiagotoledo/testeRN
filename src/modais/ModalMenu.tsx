@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 import HeaderMenu from '../componentes/HeaderMenu'
-import DropDown from "../componentes/DropDown";
+import DropDown from "../componentes/DropDownPeriodo";
 
 const ModalMenu = ({navigation}:any) =>{
 

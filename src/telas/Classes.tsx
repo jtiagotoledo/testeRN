@@ -12,8 +12,10 @@ import { useContext, useEffect } from "react";
 import ModalAddPeriodo from "../modais/ModalAddPeriodo";
 import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
-import ModalDelAluno from "../modais/ModalDelAluno";
+import ModalEditClasse from "../modais/ModalEditClasse";
+import ModalDelPeriodo from "../modais/ModalDelPeriodo";
 import ModalDelClasse from "../modais/ModalDelClasse";
+import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalMenu from "../modais/ModalMenu";
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
@@ -47,8 +49,10 @@ function Classes({navigation}:any) {
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
       <ModalAddAluno></ModalAddAluno>
-      <ModalDelAluno></ModalDelAluno>
+      <ModalEditClasse></ModalEditClasse>
+      <ModalDelPeriodo></ModalDelPeriodo>
       <ModalDelClasse></ModalDelClasse>
+      <ModalDelAluno></ModalDelAluno>
       <ModalMenu navigation={navigation}></ModalMenu>
       <FabClasses></FabClasses>
     </View>

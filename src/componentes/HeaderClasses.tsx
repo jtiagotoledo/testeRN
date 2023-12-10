@@ -14,7 +14,7 @@ view?: string;
 const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
     const {setModalDelAluno, setModalMenu, flagLongPressClasse,
-      flagLongPressAluno,setModalDelClasse} = useContext(Context);
+      flagLongPressAluno,setModalDelClasse,setModalEditClasse} = useContext(Context);
 
     const onPressBin = () =>{
       flagLongPressClasse?setModalDelClasse(true):null
@@ -22,7 +22,7 @@ const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => 
     }
 
     const onPressEdit = () =>{
-      flagLongPressClasse?setModalDelClasse(true):null
+      flagLongPressClasse?setModalEditClasse(true):null
       flagLongPressAluno?setModalDelAluno(true):null
     }
 
