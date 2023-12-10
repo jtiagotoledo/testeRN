@@ -16,17 +16,32 @@ const ModalEditClasse = () =>{
         setValueClasse(event.nativeEvent.text);
       }
     
-    const onPressEditClasse = () =>{
+    const onPressEditClasse = async () =>{
       if(valueClasse!=''){
-        console.log('entrouAqui')
+
         firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
-        .doc(valueClasse).update({
+        .doc(classeSelec).update({
           classe:valueClasse
-        });
-        setModalEditClasse(!modalEditClasse);
+        })
+
+        // ref doc antigo
+        const oldDocRef = firestore().collection(idUsuario)
+        .doc(periodoSelec).collection('Classes').doc(classeSelec)
+        // dados do documento antigo
+        const oldDocSnapshot = await oldDocRef.get();
+        const data = oldDocSnapshot.data();
+        // novo doc
+        const newDocRef = firestore().collection(idUsuario)
+        .doc(periodoSelec).collection('Classes').doc(valueClasse)
+        // salvar os dados no doc novo
+        await newDocRef.set(data||{});
+        // Exclusão do doc antigo
+        await oldDocRef.delete();
+        
+        setRecarregarClasses('recarregar')
         setClasseSelec(valueClasse);
-        console.log('função editar',valueClasse);
+        setModalEditClasse(!modalEditClasse);
       }else{
         ToastAndroid.show(
           'Digite o nome da classe!',

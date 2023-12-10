@@ -68,8 +68,9 @@ const FlatListClasses = () => {
     //salvando estado da classe
     firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
-      doc('EstadosApp').update({
-        classe:item.classe
+      doc('EstadosApp').set({
+        periodo:periodoSelec,
+        classe:classeSelec
       })
   }
 
