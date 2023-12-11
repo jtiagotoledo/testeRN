@@ -54,7 +54,7 @@ const FlatListClasses = () => {
     setListaClasses(classes);
   }
   data()   
-  },[periodoSelec,recarregarClasses]);
+  },[periodoSelec,classeSelec,recarregarClasses]);
 
   const onPressItem = (item:any) =>{
     setClasseSelec(item.classe),

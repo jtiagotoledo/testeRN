@@ -16,16 +16,16 @@ const ModalAddClasse = () =>{
         setValueClasse(event.nativeEvent.text);
       }
     
-    const onPressAddClasse = () =>{
+    const onPressAddClasse = async () =>{
       if(valueClasse!=''){
-        firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
-        .doc(valueClasse).set({
-          classe:valueClasse
-        });
+        const refDoc = firestore().collection(idUsuario).doc(periodoSelec).collection('Classes');
+        const idClasse = (await refDoc.add({})).id
+        refDoc.doc(idClasse).set({
+          classe:valueClasse,
+          idClasse:idClasse
+        })
         setModalAddClasse(!modalAddClasse);
-        setClasseSelec(valueClasse);
-        console.log('função adicionar',valueClasse);
+        setClasseSelec(idClasse);
       }else{
         ToastAndroid.show(
           'Digite o nome da classe!',

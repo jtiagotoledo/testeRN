@@ -31,13 +31,15 @@ const ModalEditClasse = () =>{
         // dados do documento antigo
         const oldDocSnapshot = await oldDocRef.get();
         const data = oldDocSnapshot.data();
+        // Exclusão do doc antigo
+        await oldDocRef.delete();
+        // setRecarregarClasses('recarregar')
+
         // novo doc
         const newDocRef = firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes').doc(valueClasse)
         // salvar os dados no doc novo
         await newDocRef.set(data||{});
-        // Exclusão do doc antigo
-        await oldDocRef.delete();
         
         setRecarregarClasses('recarregar')
         setClasseSelec(valueClasse);
