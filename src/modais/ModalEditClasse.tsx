@@ -18,29 +18,11 @@ const ModalEditClasse = () =>{
     
     const onPressEditClasse = async () =>{
       if(valueClasse!=''){
-
         firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).update({
           classe:valueClasse
         })
-
-        // ref doc antigo
-        const oldDocRef = firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes').doc(classeSelec)
-        // dados do documento antigo
-        const oldDocSnapshot = await oldDocRef.get();
-        const data = oldDocSnapshot.data();
-        // Exclusão do doc antigo
-        await oldDocRef.delete();
-        // setRecarregarClasses('recarregar')
-
-        // novo doc
-        const newDocRef = firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes').doc(valueClasse)
-        // salvar os dados no doc novo
-        await newDocRef.set(data||{});
-        
         setRecarregarClasses('recarregar')
         setClasseSelec(valueClasse);
         setModalEditClasse(!modalEditClasse);
