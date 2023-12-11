@@ -23,14 +23,16 @@ import {Context} from "../data/Provider";
 
 function Classes({navigation}:any) {
 
-  const {periodoSelec,idUsuario,setPeriodoSelec,setClasseSelec} = useContext(Context)
+  const {nomePeriodoSelec,idUsuario,setIdPeriodoSelec,setClasseSelec,
+    setNomePeriodoSelec} = useContext(Context)
     
   useEffect(()=>{
     //recuperar dados dos estados do app
     firestore().collection(idUsuario).
     doc('Dados').collection('Estados')
     .doc('EstadosApp').onSnapshot(snapShot=>{
-      setPeriodoSelec(snapShot.data()?.idPeriodo)
+      setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+      setNomePeriodoSelec(snapShot.data()?.periodo)
       setClasseSelec(snapShot.data()?.idClasse)
       console.log('estadoPeriodoUseEfectPeriodo',snapShot.data()?.periodo)
       console.log('estadoClasseUseEfectClasses',snapShot.data()?.classe)
@@ -41,7 +43,7 @@ function Classes({navigation}:any) {
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
       <ConexaoInternet></ConexaoInternet>
-      <Text style={styles.textLoad}>{periodoSelec!=''?'Período: '+periodoSelec:'Selecione um período'}</Text>
+      <Text style={styles.textLoad}>{nomePeriodoSelec!=''?'Período: '+nomePeriodoSelec:'Selecione um período'}</Text>
       <Divider style={styles.divider}></Divider>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>

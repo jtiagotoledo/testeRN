@@ -9,7 +9,7 @@ import { Icon } from "../componentes/Icon";
 const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalAddClasse,setModalAddClasse,periodoSelec,
+    const {modalAddClasse,setModalAddClasse,idPeriodoSelec,
       setRecarregarClasses,idUsuario,setClasseSelec,classeSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
@@ -18,15 +18,15 @@ const ModalAddClasse = () =>{
     
     const onPressAddClasse = async () =>{
       if(valueClasse!=''){
-        const refDoc = firestore().collection(idUsuario).doc(periodoSelec).collection('Classes');
+        const refDoc = firestore().collection(idUsuario).doc(idPeriodoSelec).collection('Classes');
         const idClasse = (await refDoc.add({})).id
         refDoc.doc(idClasse).set({
           classe:valueClasse,
           idClasse:idClasse
         })
+        setClasseSelec(idClasse);
         setRecarregarClasses('recarregar')
         setModalAddClasse(!modalAddClasse);
-        setClasseSelec(idClasse);
       }else{
         ToastAndroid.show(
           'Digite o nome da classe!',
@@ -37,8 +37,8 @@ const ModalAddClasse = () =>{
       firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
       doc('EstadosApp').set({
-        idPeriodo:periodoSelec,
-        periodo:periodoSelec,
+        idPeriodo:idPeriodoSelec,
+        periodo:idPeriodoSelec,
         idClasse:classeSelec,
         classe:valueClasse,
       })

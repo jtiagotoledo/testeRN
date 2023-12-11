@@ -8,23 +8,25 @@ import { Icon } from "../componentes/Icon";
 const ModalAddPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setPeriodoSelec,
-      periodoSelec} = useContext(Context)
+    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setNomePeriodoSelec,
+      idPeriodoSelec,setRecarregarPeriodo,setIdPeriodoSelec} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
       }
     
-    const onPressAddPeriodo = () =>{
+    const onPressAddPeriodo = async () =>{
       if(valuePeriodo!=''){
-        firestore()
-        .collection(idUsuario||'')
-        .doc(valuePeriodo)
-        .set({
+        const refDoc = firestore().collection(idUsuario);
+        const idPeriodo = (await refDoc.add({})).id
+        refDoc.doc(idPeriodo).set({
+          periodo:valuePeriodo,
+          idPeriodo:idPeriodo
         })
+        setIdPeriodoSelec(idPeriodo);
+        setNomePeriodoSelec(valuePeriodo)
+        setRecarregarPeriodo('recarregar')
         setModalAddPeriodo(!modalAddPeriodo);
-        setPeriodoSelec(valuePeriodo);
-        console.log('função adicionar período',valuePeriodo);
       }
       else{
         ToastAndroid.show(
@@ -36,8 +38,8 @@ const ModalAddPeriodo = () =>{
       firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
       doc('EstadosApp').set({
-        idPeriodo:periodoSelec,
-        periodo:periodoSelec,
+        idPeriodo:idPeriodoSelec,
+        periodo:valuePeriodo,
         idClasse:'',
         classe:'',
       })

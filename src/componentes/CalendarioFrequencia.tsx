@@ -19,7 +19,7 @@ const CalendarioFrequencia = () => {
   let datasMarcadas:any = {}
   const  datas: any[]=[];
 
-  const {periodoSelec,classeSelec,dataSelec,
+  const {idPeriodoSelec,classeSelec,dataSelec,
     setDataSelec,modalCalendarioFreq,setModalCalendarioFreq} = useContext(Context);
   const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
     listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
@@ -36,7 +36,7 @@ const CalendarioFrequencia = () => {
     console.log('entrouCalendFreq')
     setRecarregarCalendarioFreq('');
     firestore().collection(idUsuario)
-    .doc(periodoSelec).collection('Classes')
+    .doc(idPeriodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
@@ -64,12 +64,12 @@ const CalendarioFrequencia = () => {
 
     setflagLoadCalendarioFreq('inicio')
     firestore().collection(idUsuario)
-    .doc(periodoSelec).collection('Classes')
+    .doc(idPeriodoSelec).collection('Classes')
     .doc(classeSelec).collection('Frequencia')
     .doc(dataSelec).set({});
     
     firestore().collection(idUsuario)
-    .doc(periodoSelec).collection('Classes')
+    .doc(idPeriodoSelec).collection('Classes')
     .doc(classeSelec).collection('ListaAlunos')
     .orderBy('numero')
     .onSnapshot(snapshot => {
@@ -77,7 +77,7 @@ const CalendarioFrequencia = () => {
         const numero = documentSnapshot.data().numero;
         const nome = documentSnapshot.data().nome;
         firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
+        .doc(idPeriodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
         .doc(numero+'').set({

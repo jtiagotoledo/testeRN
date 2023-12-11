@@ -9,7 +9,7 @@ const ModalAddAluno = () =>{
 
     const [valueNumero,setValueNumero] = useState<string>('')
     const [valueNome,setValueNome] = useState<string>('')
-    const {periodoSelec,classeSelec,modalAddAluno,
+    const {idPeriodoSelec,classeSelec,modalAddAluno,
       setModalAddAluno,setRecarregarAlunos,idUsuario} = useContext(Context)
 
     const onChangeInputNumero = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
@@ -23,7 +23,7 @@ const ModalAddAluno = () =>{
       if(valueNumero!='' && valueNome!=''){
         console.log('classeSelecAddAluno',classeSelec)
         firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
+        .doc(idPeriodoSelec).collection('Classes')
         .doc(classeSelec).collection('ListaAlunos')
         .doc(valueNumero).set({
           numero: parseInt(valueNumero),

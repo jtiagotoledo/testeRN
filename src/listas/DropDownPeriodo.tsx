@@ -2,48 +2,55 @@ import React, {useState, useEffect, useContext} from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import firestore from '@react-native-firebase/firestore';
-import {Icon} from './Icon'
+import {Icon} from '../componentes/Icon'
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 
 
 
 const DropDownPeriodo = () =>{
-    const [valuePSelec, setValuePSelec] = useState('');
+  const [valuePSelec, setValuePSelec] = useState('');
     const [isFocus, setIsFocus] = useState(false);
-    const [valuePeriodo,setValuePeriodo] = useState([{label:'',value:''}]);
-    const {setPeriodoSelec,periodoSelec,setFlagLongPressAluno,
+    const {setIdPeriodoSelec,setFlagLongPressAluno,
       idUsuario,setModalMenu,setFlagLongPressClasse,setModalDelPeriodo,
-      recarregarPeriodo} = useContext(Context)
+      recarregarPeriodo,listaPeriodos,setListaPeriodos,
+      setNomePeriodoSelec,nomePeriodoSelec} = useContext(Context)
 
-    const  listaPeriodos: any[]=[];
+    const  periodos: any[]=[];
 
     useEffect(()=>{
         firestore().collection(idUsuario)
         .onSnapshot(querySnapshot => {
           querySnapshot.forEach(documentSnapshot => {
-          let id = documentSnapshot.id
-          listaPeriodos.push({label:id,value:id});
+          let label = documentSnapshot.data().periodo
+          let value = documentSnapshot.data().periodo
+          let idPeriodo = documentSnapshot.data().idPeriodo
+          let periodo = documentSnapshot.data().periodo
+            periodos.push({label:label,value:value,idPeriodo:idPeriodo,periodo:periodo});
         });
-        setValuePeriodo(listaPeriodos) 
+        setListaPeriodos(periodos)
+        // console.log('periodos',periodos)
         });
     },[recarregarPeriodo])
 
     const onChangePeriodo = (item:any) =>{
-      setValuePSelec(item.label);
-      setPeriodoSelec(item.label);
+      setValuePSelec(item.periodo);
+      setNomePeriodoSelec(item.periodo)
+      setIdPeriodoSelec(item.idPeriodo);
       setIsFocus(false);
       setFlagLongPressClasse(false)
       setFlagLongPressAluno(false)
       setModalMenu(false);
-      console.log('onChangePeriodo',item.label);
+      console.log('onChangePeriodo',item.periodo);
 
       //Salvando estado do período
       firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
       doc('EstadosApp').set({
-        periodo:periodoSelec,
-        classe:''
+        idPeriodo:item.idPeriodo,
+        periodo:item.periodo,
+        idClasse:'',
+        classe:'',
       })
     }
 
@@ -67,8 +74,8 @@ const DropDownPeriodo = () =>{
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
-          data={valuePeriodo}
-          value={periodoSelec}
+          data={listaPeriodos}
+          value={nomePeriodoSelec}
           maxHeight={300}
           labelField="label"
           valueField="value"

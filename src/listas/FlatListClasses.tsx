@@ -25,11 +25,11 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListClasses = () => {
     let classes:any []= []
-    const {periodoSelec,classeSelec,setClasseSelec,recarregarClasses} = useContext(Context)
+    const {idPeriodoSelec,classeSelec,setClasseSelec,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses,
       setRecarregarClasses,idUsuario,setFlagLongPressClasse,
-      setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno} = useContext(Context)
+      setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno,nomePeriodoSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -37,18 +37,18 @@ const FlatListClasses = () => {
       setRecarregarClasses('');
       setflagLoadClasses('carregando');
       firestore().collection(idUsuario)
-      .doc(periodoSelec).collection('Classes')
+      .doc(idPeriodoSelec).collection('Classes')
       .orderBy('classe')
       .onSnapshot(snapshot => {
-        if(snapshot.empty && periodoSelec!=''){
+        if(snapshot.empty && idPeriodoSelec!=''){
           setflagLoadClasses('vazio');
-          console.log('classe empty',periodoSelec)
+          console.log('classe empty',idPeriodoSelec)
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           classes.push(documentSnapshot.data());
             if(snapshot.size-index==1){
               setflagLoadClasses('carregado')
-              console.log('entrou no if da flag classes', periodoSelec)
+              console.log('entrou no if da flag classes', idPeriodoSelec)
             } 
           });
         }
@@ -57,7 +57,7 @@ const FlatListClasses = () => {
     console.log('listaClasses',listaClasses)
   }
   data()   
-  },[periodoSelec,recarregarClasses]);
+  },[idPeriodoSelec,recarregarClasses]);
 
   const onPressItem = (item:any) =>{
     setClasseSelec(item.idClasse),
@@ -72,8 +72,8 @@ const FlatListClasses = () => {
     firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
       doc('EstadosApp').set({
-        idPeriodo:periodoSelec,
-        periodo:periodoSelec,
+        idPeriodo:idPeriodoSelec,
+        periodo:nomePeriodoSelec,
         idClasse:item.idClasse,
         classe:item.classe,
       })
@@ -100,7 +100,7 @@ const FlatListClasses = () => {
   };
 
   const renderCarregamento = () =>{
-    if(periodoSelec!=''){
+    if(idPeriodoSelec!=''){
       switch(flagLoadClasses){
         case 'vazio':
           return(

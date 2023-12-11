@@ -35,11 +35,13 @@ export default function Provider ({children}){
     const[recarregarNotas,setRecarregarNotas]=useState('');
     const[recarregarCalendarioFreq,setRecarregarCalendarioFreq]=useState('');
     const[recarregarCalendarioNotas,setRecarregarCalendarioNotas]=useState('');
-    const[periodoSelec,setPeriodoSelec]=useState('');
+    const[idPeriodoSelec,setIdPeriodoSelec]=useState('');
+    const[nomePeriodoSelec,setNomePeriodoSelec]=useState('');
     const[classeSelec,setClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
     const[selectedIdAluno, setSelectedIdAluno]=useState('');
     const[dataSelec,setDataSelec]=useState('');
+    const[listaPeriodos,setListaPeriodos] = useState([{label:'',value:'',periodo:'',idPeriodo:''}]);
     const[listaClasses,setListaClasses]=useState([{classe:'',idClasse:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
     const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
@@ -83,11 +85,13 @@ export default function Provider ({children}){
             recarregarNotas,setRecarregarNotas,
             recarregarCalendarioFreq,setRecarregarCalendarioFreq,
             recarregarCalendarioNotas,setRecarregarCalendarioNotas,
-            periodoSelec,setPeriodoSelec,
+            idPeriodoSelec,setIdPeriodoSelec,
+            nomePeriodoSelec,setNomePeriodoSelec,
             classeSelec,setClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
             selectedIdAluno, setSelectedIdAluno,
             dataSelec,setDataSelec,
+            listaPeriodos,setListaPeriodos,
             listaClasses,setListaClasses,
             listaAlunos,setListaAlunos,
             listaFrequencia,setListaFrequencia,

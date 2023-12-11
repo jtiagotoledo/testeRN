@@ -9,7 +9,7 @@ import { Icon } from "../componentes/Icon";
 const ModalEditClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalEditClasse,setModalEditClasse,periodoSelec,
+    const {modalEditClasse,setModalEditClasse,idPeriodoSelec,
       setRecarregarClasses,idUsuario,setClasseSelec,classeSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
@@ -19,7 +19,7 @@ const ModalEditClasse = () =>{
     const onPressEditClasse = async () =>{
       if(valueClasse!=''){
         firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
+        .doc(idPeriodoSelec).collection('Classes')
         .doc(classeSelec).update({
           classe:valueClasse
         })

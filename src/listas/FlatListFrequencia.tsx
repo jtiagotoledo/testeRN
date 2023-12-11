@@ -33,7 +33,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
-    const {periodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
+    const {idPeriodoSelec,classeSelec,setNumAlunoSelec,recarregarFrequencia,
       dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
       listaFrequencia,setListaFrequencia,idUsuario} = useContext(Context)
 
@@ -45,7 +45,7 @@ const FlatListFrequencia = () => {
       console.log('useEffect lista frequencia');
       setFlagLoadFrequencia('carregando');
       firestore().collection(idUsuario)
-      .doc(periodoSelec).collection('Classes')
+      .doc(idPeriodoSelec).collection('Classes')
       .doc(classeSelec).collection('Frequencia')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
@@ -75,7 +75,7 @@ const FlatListFrequencia = () => {
     setSelectedId(item.numero);
     setNumAlunoSelec(item.numero.toString());
     firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
+        .doc(idPeriodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
         .doc(numAluno+'').set({

@@ -14,7 +14,7 @@ import FabFrequencia from "../componentes/FabFrequencia";
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,classeSelec,
-        flagLoadAlunos,periodoSelec,valueAtividade,setValueAtividade,
+        flagLoadAlunos,idPeriodoSelec,valueAtividade,setValueAtividade,
         idUsuario} = useContext(Context);
     
     let dataAno=''
@@ -31,7 +31,7 @@ const Frequencia = () =>{
 
     const onChangeInputAtividades = (text:String) =>{
         firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
+        .doc(idPeriodoSelec).collection('Classes')
         .doc(classeSelec).collection('Atividades')
         .doc(dataSelec).set({atividade:text})
         setValueAtividade({atividade:text})
@@ -41,7 +41,7 @@ const Frequencia = () =>{
         const data = async ()=>{
             //Recuperar atividades da data selecionada no BD.
             const textoAtividade =  firestore().collection(idUsuario)
-            .doc(periodoSelec).collection('Classes')
+            .doc(idPeriodoSelec).collection('Classes')
             .doc(classeSelec).collection('Atividades')
             .doc(dataSelec).get().then()
             setValueAtividade((await textoAtividade).data()||'')

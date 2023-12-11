@@ -25,7 +25,7 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListAlunos = () => {
     const alunos:any[] = []
-    const {flagLoadAlunos,setflagLoadAlunos,periodoSelec,classeSelec,
+    const {flagLoadAlunos,setflagLoadAlunos,idPeriodoSelec,classeSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,setFlagLongPressClasse,
       listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno,
       selectedIdAluno, setSelectedIdAluno} = useContext(Context)
@@ -36,7 +36,7 @@ const FlatListAlunos = () => {
       setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
       firestore().collection(idUsuario)
-      .doc(periodoSelec).collection('Classes')
+      .doc(idPeriodoSelec).collection('Classes')
       .doc(classeSelec).collection('ListaAlunos')
       .orderBy('numero')
       .onSnapshot((snapshot)=>{
@@ -56,7 +56,7 @@ const FlatListAlunos = () => {
     setListaAlunos(alunos)
   }
   data()        
-  },[periodoSelec,classeSelec,recarregarAlunos]);
+  },[idPeriodoSelec,classeSelec,recarregarAlunos]);
 
   const onPressItem = (item:any) =>{
     setSelectedIdAluno(item.numero)

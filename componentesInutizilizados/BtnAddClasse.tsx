@@ -6,7 +6,7 @@ import {Context} from "./data/Provider";
 
 const BtnAddClasse = () =>{
 
-    const {setModalClasse, periodoSelec} = useContext(Context);
+    const {setModalClasse, idPeriodoSelec} = useContext(Context);
     
     const showToast = () =>{
         ToastAndroid.show('Selecione primeiro o período',2000)
@@ -16,7 +16,7 @@ const BtnAddClasse = () =>{
         <View>
             <Pressable
                 style={style.button}
-                onPress={()=>periodoSelec!=''?setModalClasse(true):showToast()}>
+                onPress={()=>idPeriodoSelec!=''?setModalClasse(true):showToast()}>
                 <Text>+</Text>
             </Pressable>
         </View>

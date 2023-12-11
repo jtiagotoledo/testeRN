@@ -13,7 +13,7 @@ import FabNotas from "../componentes/FabNotas";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,classeSelec,
-        flagLoadAlunos,periodoSelec,idUsuario} = useContext(Context);
+        flagLoadAlunos,idPeriodoSelec,idUsuario} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -29,7 +29,7 @@ const Notas = () =>{
 
     const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
         firestore().collection(idUsuario)
-        .doc(periodoSelec).collection('Classes')
+        .doc(idPeriodoSelec).collection('Classes')
         .doc(classeSelec).collection('Frequencia')
         .doc(dataSelec).set({atividade:event.nativeEvent.text})
     }

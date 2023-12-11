@@ -26,7 +26,7 @@ const FlatListNotas= () => {
   }
   
   const [selectedId, setSelectedId] = useState<string>();
-  const {periodoSelec,classeSelec,dataSelec,flagLoadNotas,
+  const {idPeriodoSelec,classeSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
   const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
@@ -58,7 +58,7 @@ const FlatListNotas= () => {
   const salvarNota = () =>{
     const numAluno = notaAluno.numero;
     firestore().collection(idUsuario)
-    .doc(periodoSelec).collection('Classes')
+    .doc(idPeriodoSelec).collection('Classes')
     .doc(classeSelec).collection('Notas')
     .doc(dataSelec).collection('Alunos')
     .doc(numAluno+'').set({
@@ -74,7 +74,7 @@ const FlatListNotas= () => {
       console.log('useEffect lista notas');
       setFlagLoadNotas('carregando');
       const subscriber = firestore().collection(idUsuario)
-      .doc(periodoSelec).collection('Classes')
+      .doc(idPeriodoSelec).collection('Classes')
       .doc(classeSelec).collection('Notas')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')

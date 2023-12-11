@@ -8,13 +8,13 @@ import Globais from "../data/Globais";
 const ModalDelPeriodo = () =>{
 
     const {periodoSelec, modalDelPeriodo, setModalDelPeriodo, idUsuario,
-      setPeriodoSelec,setRecarregarPeriodo} = useContext(Context);
+      setIdPeriodoSelec,setRecarregarPeriodo} = useContext(Context);
 
     const deletarClasse = ()=> {
       firestore().collection(idUsuario)
       .doc(periodoSelec).delete()
       setModalDelPeriodo(!modalDelPeriodo)
-      setPeriodoSelec('')
+      setIdPeriodoSelec('')
       setRecarregarPeriodo('recarregar')
 
       //deletando o estado do período
