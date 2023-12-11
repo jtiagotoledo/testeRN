@@ -30,8 +30,8 @@ function Classes({navigation}:any) {
     firestore().collection(idUsuario).
     doc('Dados').collection('Estados')
     .doc('EstadosApp').onSnapshot(snapShot=>{
-      setPeriodoSelec(snapShot.data()?.periodo)
-      setClasseSelec(snapShot.data()?.classe)
+      setPeriodoSelec(snapShot.data()?.idPeriodo)
+      setClasseSelec(snapShot.data()?.idClasse)
       console.log('estadoPeriodoUseEfectPeriodo',snapShot.data()?.periodo)
       console.log('estadoClasseUseEfectClasses',snapShot.data()?.classe)
     })

@@ -8,7 +8,8 @@ import { Icon } from "../componentes/Icon";
 const ModalAddPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setPeriodoSelec} = useContext(Context)
+    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setPeriodoSelec,
+      periodoSelec} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -34,9 +35,11 @@ const ModalAddPeriodo = () =>{
       //atualizando o estado do período
       firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
-      doc('EstadosApp').update({
-        periodo:valuePeriodo,
-        classe:''
+      doc('EstadosApp').set({
+        idPeriodo:periodoSelec,
+        periodo:periodoSelec,
+        idClasse:'',
+        classe:'',
       })
     }
 

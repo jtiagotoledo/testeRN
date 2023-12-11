@@ -6,6 +6,7 @@ import Globais from '../data/Globais';
 
 type ItemData = {
   classe: string;
+  idClasse: string;
 };
 
 type ItemProps = {
@@ -52,12 +53,13 @@ const FlatListClasses = () => {
         }
     });
     setListaClasses(classes);
+    console.log('listaClasses',listaClasses)
   }
   data()   
-  },[periodoSelec,classeSelec,recarregarClasses]);
+  },[periodoSelec,recarregarClasses]);
 
   const onPressItem = (item:any) =>{
-    setClasseSelec(item.classe),
+    setClasseSelec(item.idClasse),
     setflagLoadAlunos('carregando')
     setFlagLoadFrequencia('carregando')
     setFlagLongPressClasse(false)
@@ -69,19 +71,21 @@ const FlatListClasses = () => {
     firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
       doc('EstadosApp').set({
+        idPeriodo:periodoSelec,
         periodo:periodoSelec,
-        classe:classeSelec
+        idClasse:item.idClasse,
+        classe:item.classe,
       })
   }
 
   const onLongPressItem = (item:any) =>{
-    setClasseSelec(item.classe)
+    setClasseSelec(item.idClasse)
     setFlagLongPressClasse(true)
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.classe === classeSelec ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.classe === classeSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const backgroundColor = item.idClasse === classeSelec ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.idClasse === classeSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
         <Item
@@ -116,7 +120,7 @@ const FlatListClasses = () => {
                 horizontal = {true}
                 data={listaClasses}
                 renderItem={renderItem}
-                keyExtractor={item => item.classe}
+                keyExtractor={item => item.idClasse}
               />
             </SafeAreaView>
           )

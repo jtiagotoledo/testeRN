@@ -10,7 +10,7 @@ const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
     const {modalAddClasse,setModalAddClasse,periodoSelec,
-      setRecarregarClasses,idUsuario,setClasseSelec} = useContext(Context)
+      setRecarregarClasses,idUsuario,setClasseSelec,classeSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -24,6 +24,7 @@ const ModalAddClasse = () =>{
           classe:valueClasse,
           idClasse:idClasse
         })
+        setRecarregarClasses('recarregar')
         setModalAddClasse(!modalAddClasse);
         setClasseSelec(idClasse);
       }else{
@@ -35,8 +36,11 @@ const ModalAddClasse = () =>{
       //atualizando o estado da classe
       firestore().collection(idUsuario).
       doc('Dados').collection('Estados').
-      doc('EstadosApp').update({
-        classe:valueClasse
+      doc('EstadosApp').set({
+        idPeriodo:periodoSelec,
+        periodo:periodoSelec,
+        idClasse:classeSelec,
+        classe:valueClasse,
       })
       
       

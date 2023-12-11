@@ -21,6 +21,7 @@ const ModalAddAluno = () =>{
     
     const onPressAddAluno = () =>{
       if(valueNumero!='' && valueNome!=''){
+        console.log('classeSelecAddAluno',classeSelec)
         firestore().collection(idUsuario)
         .doc(periodoSelec).collection('Classes')
         .doc(classeSelec).collection('ListaAlunos')

@@ -40,7 +40,7 @@ export default function Provider ({children}){
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
     const[selectedIdAluno, setSelectedIdAluno]=useState('');
     const[dataSelec,setDataSelec]=useState('');
-    const[listaClasses,setListaClasses]=useState([{classe:''}]);
+    const[listaClasses,setListaClasses]=useState([{classe:'',idClasse:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
     const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
     const[listaNotas,setListaNotas]=useState([{numero:'',nome:'',nota:''}]);
