@@ -24,7 +24,7 @@ import {Context} from "../data/Provider";
 
 function Classes({navigation}:any) {
 
-  const {nomePeriodoSelec,idUsuario,setIdPeriodoSelec,setClasseSelec,
+  const {nomePeriodoSelec,idUsuario,setIdPeriodoSelec,setIdClasseSelec,
     setNomePeriodoSelec} = useContext(Context)
     
   useEffect(()=>{
@@ -34,7 +34,7 @@ function Classes({navigation}:any) {
     .doc('EstadosApp').onSnapshot(snapShot=>{
       setIdPeriodoSelec(snapShot.data()?.idPeriodo)
       setNomePeriodoSelec(snapShot.data()?.periodo)
-      setClasseSelec(snapShot.data()?.idClasse)
+      setIdClasseSelec(snapShot.data()?.idClasse)
       console.log('estadoPeriodoUseEfectPeriodo',snapShot.data()?.periodo)
       console.log('estadoClasseUseEfectClasses',snapShot.data()?.classe)
     })

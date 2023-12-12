@@ -10,7 +10,7 @@ const ModalEditPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
     const {modalEditPeriodo,setModalEditPeriodo,idPeriodoSelec,
-      setRecarregarPeriodo,idUsuario,setClasseSelec,nomePeriodoSelec} = useContext(Context)
+      setRecarregarPeriodo,idUsuario,setIdClasseSelec,nomePeriodoSelec} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -23,7 +23,7 @@ const ModalEditPeriodo = () =>{
           periodo:valuePeriodo
         })
         setRecarregarPeriodo('recarregar')
-        setClasseSelec(valuePeriodo);
+        setIdClasseSelec(valuePeriodo);
         setModalEditPeriodo(!modalEditPeriodo);
       }else{
         ToastAndroid.show(

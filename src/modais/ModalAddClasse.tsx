@@ -10,8 +10,8 @@ const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
     const {modalAddClasse,setModalAddClasse,idPeriodoSelec,
-      setRecarregarClasses,idUsuario,setClasseSelec,classeSelec,
-      nomePeriodoSelec} = useContext(Context)
+      setRecarregarClasses,idUsuario,setIdClasseSelec,idCasseSelec,
+      nomePeriodoSelec,setNomeClasseSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -19,32 +19,31 @@ const ModalAddClasse = () =>{
     
     const onPressAddClasse = async () =>{
       if(valueClasse!=''){
+        setNomeClasseSelec(valueClasse)
         const refDoc = firestore().collection(idUsuario).doc(idPeriodoSelec).collection('Classes');
         const idClasse = (await refDoc.add({})).id
         refDoc.doc(idClasse).set({
           classe:valueClasse,
           idClasse:idClasse
         })
-        setClasseSelec(idClasse);
+        await setIdClasseSelec(idClasse);
         setRecarregarClasses('recarregar')
         setModalAddClasse(!modalAddClasse);
+
+        //atualizando o estado da classe
+        firestore().collection(idUsuario).
+        doc('Dados').collection('Estados').
+        doc('EstadosApp').set({
+          idPeriodo:idPeriodoSelec,
+          periodo:nomePeriodoSelec,
+          idClasse:idClasse,
+          classe:valueClasse,
+        })
       }else{
         ToastAndroid.show(
           'Digite o nome da classe!',
           ToastAndroid.SHORT)
       }
-
-      //atualizando o estado da classe
-      firestore().collection(idUsuario).
-      doc('Dados').collection('Estados').
-      doc('EstadosApp').set({
-        idPeriodo:idPeriodoSelec,
-        periodo:nomePeriodoSelec,
-        idClasse:classeSelec,
-        classe:valueClasse,
-      })
-      
-      
     }
 
     return(

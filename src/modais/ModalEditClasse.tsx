@@ -10,7 +10,7 @@ const ModalEditClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
     const {modalEditClasse,setModalEditClasse,idPeriodoSelec,
-      setRecarregarClasses,idUsuario,setClasseSelec,classeSelec} = useContext(Context)
+      setRecarregarClasses,idUsuario,setIdClasseSelec,idCasseSelec,nomeClasseSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -20,11 +20,11 @@ const ModalEditClasse = () =>{
       if(valueClasse!=''){
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(classeSelec).update({
+        .doc(idCasseSelec).update({
           classe:valueClasse
         })
         setRecarregarClasses('recarregar')
-        setClasseSelec(valueClasse);
+        setIdClasseSelec(valueClasse);
         setModalEditClasse(!modalEditClasse);
       }else{
         ToastAndroid.show(
@@ -62,7 +62,7 @@ const ModalEditClasse = () =>{
                         <TextInput 
                           style={styles.textInput}
                           placeholder='Nome da classe'
-                          defaultValue={classeSelec} 
+                          defaultValue={nomeClasseSelec} 
                           onChange={onChangeInputClasse}>
                         </TextInput>
                         <Pressable

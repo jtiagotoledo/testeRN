@@ -26,7 +26,7 @@ const FlatListNotas= () => {
   }
   
   const [selectedId, setSelectedId] = useState<string>();
-  const {idPeriodoSelec,classeSelec,dataSelec,flagLoadNotas,
+  const {idPeriodoSelec,idCasseSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
   const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
@@ -59,7 +59,7 @@ const FlatListNotas= () => {
     const numAluno = notaAluno.numero;
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Notas')
+    .doc(idCasseSelec).collection('Notas')
     .doc(dataSelec).collection('Alunos')
     .doc(numAluno+'').set({
       numero:notaAluno.numero,
@@ -75,7 +75,7 @@ const FlatListNotas= () => {
       setFlagLoadNotas('carregando');
       const subscriber = firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
-      .doc(classeSelec).collection('Notas')
+      .doc(idCasseSelec).collection('Notas')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
       .onSnapshot(snapshot => {
@@ -96,7 +96,7 @@ const FlatListNotas= () => {
       });
       
       return ()=> subscriber();
-  },[classeSelec,dataSelec]);
+  },[idCasseSelec,dataSelec]);
 
 
   const renderItem = ({item}: {item: ItemData}) => {
@@ -114,7 +114,7 @@ const FlatListNotas= () => {
   };
 
   const renderCarregamento = () =>{
-    if(classeSelec!=''){
+    if(idCasseSelec!=''){
       if(dataSelec!=''){
         switch(flagLoadNotas){
           case 'vazio':

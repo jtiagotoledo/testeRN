@@ -39,7 +39,7 @@ const actions = [
 const FabClasses = ()=>{
 
     const {setModalAddPeriodo, setModalAddClasse,
-      setModalAddAluno, idPeriodoSelec, classeSelec} = useContext(Context);
+      setModalAddAluno, idPeriodoSelec, idCasseSelec} = useContext(Context);
 
     return(
         <View>
@@ -56,9 +56,9 @@ const FabClasses = ()=>{
                     'Selecione um período primeiro!',
                     ToastAndroid.SHORT)
                 }
-                if(classeSelec!=''){
+                if(idCasseSelec!=''){
                   name=='aluno'?setModalAddAluno(true):null
-                }else if(classeSelec!=''||name=='aluno'){
+                }else if(idCasseSelec!=''||name=='aluno'){
                     ToastAndroid.show(
                       'Selecione uma classe primeiro!',
                       ToastAndroid.SHORT)

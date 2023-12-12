@@ -25,7 +25,7 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListClasses = () => {
     let classes:any []= []
-    const {idPeriodoSelec,classeSelec,setClasseSelec,recarregarClasses} = useContext(Context)
+    const {idPeriodoSelec,idCasseSelec,setIdClasseSelec,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses,
       setRecarregarClasses,idUsuario,setFlagLongPressClasse,
@@ -60,7 +60,7 @@ const FlatListClasses = () => {
   },[idPeriodoSelec,recarregarClasses]);
 
   const onPressItem = (item:any) =>{
-    setClasseSelec(item.idClasse),
+    setIdClasseSelec(item.idClasse),
     setflagLoadAlunos('carregando')
     setFlagLoadFrequencia('carregando')
     setFlagLongPressClasse(false)
@@ -80,13 +80,13 @@ const FlatListClasses = () => {
   }
 
   const onLongPressItem = (item:any) =>{
-    setClasseSelec(item.idClasse)
+    setIdClasseSelec(item.idClasse)
     setFlagLongPressClasse(true)
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.idClasse === classeSelec ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.idClasse === classeSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const backgroundColor = item.idClasse === idCasseSelec ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.idClasse === idCasseSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
         <Item

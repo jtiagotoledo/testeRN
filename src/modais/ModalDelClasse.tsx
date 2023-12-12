@@ -7,17 +7,17 @@ import Globais from "../data/Globais";
 
 const ModalDelClasse = () =>{
 
-    const {idPeriodoSelec, classeSelec, modalDelClasse, 
+    const {idPeriodoSelec, idCasseSelec, modalDelClasse, 
       setModalDelClasse, idUsuario, setRecarregarClasses,
-      setFlagLongPressClasse,setClasseSelec} = useContext(Context);
+      setFlagLongPressClasse,setIdClasseSelec} = useContext(Context);
 
     const deletarClasse = ()=> {
       firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
-      .doc(classeSelec).delete()
+      .doc(idCasseSelec).delete()
       setModalDelClasse(!modalDelClasse)
       setFlagLongPressClasse(false)
-      setClasseSelec('')
+      setIdClasseSelec('')
       setRecarregarClasses('recarregar')
 
       //deletando o estado da classe

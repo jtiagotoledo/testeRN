@@ -37,7 +37,8 @@ export default function Provider ({children}){
     const[recarregarCalendarioNotas,setRecarregarCalendarioNotas]=useState('');
     const[idPeriodoSelec,setIdPeriodoSelec]=useState('');
     const[nomePeriodoSelec,setNomePeriodoSelec]=useState('');
-    const[classeSelec,setClasseSelec]=useState('');
+    const[idClasseSelec,setIdClasseSelec]=useState('');
+    const[nomeClasseSelec,setNomeClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
     const[selectedIdAluno, setSelectedIdAluno]=useState('');
     const[dataSelec,setDataSelec]=useState('');
@@ -87,7 +88,8 @@ export default function Provider ({children}){
             recarregarCalendarioNotas,setRecarregarCalendarioNotas,
             idPeriodoSelec,setIdPeriodoSelec,
             nomePeriodoSelec,setNomePeriodoSelec,
-            classeSelec,setClasseSelec,
+            idClasseSelec,setIdClasseSelec,
+            nomeClasseSelec,setNomeClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
             selectedIdAluno, setSelectedIdAluno,
             dataSelec,setDataSelec,

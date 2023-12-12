@@ -8,12 +8,12 @@ import {Icon} from './Icon'
 const FabFrequencia = ()=>{
 
   const {setModalCalendarioFreq, flagLoadAlunos,
-     classeSelec} = useContext(Context);
+     idCasseSelec} = useContext(Context);
 
   const abrirCalendário = () =>{
-    if(classeSelec!='' && flagLoadAlunos!='vazio'){
+    if(idCasseSelec!='' && flagLoadAlunos!='vazio'){
       setModalCalendarioFreq(true)
-    }else if(classeSelec==''){
+    }else if(idCasseSelec==''){
         ToastAndroid.show('Selecione uma classe primeiro...',ToastAndroid.SHORT)
     }
     if(flagLoadAlunos=='vazio'){

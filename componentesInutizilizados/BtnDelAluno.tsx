@@ -8,12 +8,12 @@ import firestore from '@react-native-firebase/firestore';
 const BtnDelAluno = () =>{
 
     const {setModalDelAluno, idPeriodoSelec,
-        classeSelec,numAlunoSelec} = useContext(Context);
+        idCasseSelec,numAlunoSelec} = useContext(Context);
     
     const deletar = ()=> {
         firestore().collection('Usuario')
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(classeSelec).collection('ListaAlunos')
+        .doc(idCasseSelec).collection('ListaAlunos')
         .doc(numAlunoSelec).delete()
       }
 

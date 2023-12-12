@@ -19,7 +19,7 @@ const CalendarioFrequencia = () => {
   let datasMarcadas:any = {}
   const  datas: any[]=[];
 
-  const {idPeriodoSelec,classeSelec,dataSelec,
+  const {idPeriodoSelec,idCasseSelec,dataSelec,
     setDataSelec,modalCalendarioFreq,setModalCalendarioFreq} = useContext(Context);
   const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
     listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
@@ -37,7 +37,7 @@ const CalendarioFrequencia = () => {
     setRecarregarCalendarioFreq('');
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Frequencia')
+    .doc(idCasseSelec).collection('Frequencia')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
         setflagLoadCalendarioFreq('carregado');
@@ -56,7 +56,7 @@ const CalendarioFrequencia = () => {
     setListaDatasMarcadasFreq(datasMarcadas)
   }
   data()        
-  },[classeSelec,recarregarCalendarioFreq]); 
+  },[idCasseSelec,recarregarCalendarioFreq]); 
 
   const onPressAddData = async () =>{
 
@@ -65,12 +65,12 @@ const CalendarioFrequencia = () => {
     setflagLoadCalendarioFreq('inicio')
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(classeSelec).collection('Frequencia')
+    .doc(idCasseSelec).collection('Frequencia')
     .doc(dataSelec).set({});
     
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(classeSelec).collection('ListaAlunos')
+    .doc(idCasseSelec).collection('ListaAlunos')
     .orderBy('numero')
     .onSnapshot(snapshot => {
       snapshot.forEach(documentSnapshot => {
@@ -78,7 +78,7 @@ const CalendarioFrequencia = () => {
         const nome = documentSnapshot.data().nome;
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(classeSelec).collection('Frequencia')
+        .doc(idCasseSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
         .doc(numero+'').set({
           numero: numero,
@@ -92,7 +92,7 @@ const CalendarioFrequencia = () => {
   }
 
   const renderCarregamento = () =>{
-    if(classeSelec!=''){
+    if(idCasseSelec!=''){
       switch(flagLoadCalendarioFreq){
         case 'carregando':
           return(
