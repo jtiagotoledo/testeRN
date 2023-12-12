@@ -12,6 +12,7 @@ import { useContext, useEffect } from "react";
 import ModalAddPeriodo from "../modais/ModalAddPeriodo";
 import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
+import ModalEditPeriodo from "../modais/ModalEditPeriodo";
 import ModalEditClasse from "../modais/ModalEditClasse";
 import ModalDelPeriodo from "../modais/ModalDelPeriodo";
 import ModalDelClasse from "../modais/ModalDelClasse";
@@ -51,6 +52,7 @@ function Classes({navigation}:any) {
       <ModalAddPeriodo></ModalAddPeriodo>
       <ModalAddClasse></ModalAddClasse>
       <ModalAddAluno></ModalAddAluno>
+      <ModalEditPeriodo></ModalEditPeriodo>
       <ModalEditClasse></ModalEditClasse>
       <ModalDelPeriodo></ModalDelPeriodo>
       <ModalDelClasse></ModalDelClasse>

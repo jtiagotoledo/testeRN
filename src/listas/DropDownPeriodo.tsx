@@ -14,7 +14,7 @@ const DropDownPeriodo = () =>{
     const {setIdPeriodoSelec,setFlagLongPressAluno,
       idUsuario,setModalMenu,setFlagLongPressClasse,setModalDelPeriodo,
       recarregarPeriodo,listaPeriodos,setListaPeriodos,
-      setNomePeriodoSelec,nomePeriodoSelec} = useContext(Context)
+      setNomePeriodoSelec,nomePeriodoSelec,setModalEditPeriodo} = useContext(Context)
 
     const  periodos: any[]=[];
 
@@ -86,14 +86,25 @@ const DropDownPeriodo = () =>{
           onBlur={() => setIsFocus(false)}
           onChange={item => {onChangePeriodo(item)}}          
           renderRightIcon={() => (
-            <TouchableOpacity onPress={()=>setModalDelPeriodo(true)}>
-              <Icon
-                style={styles.icon}
-                color={isFocus ? Globais.corPrimaria : 'black'}
-                name="bin"
-                size={20}
-              />
-            </TouchableOpacity>
+            <View style={styles.containerIcon}>
+                <TouchableOpacity onPress={()=>setModalEditPeriodo(true)}>
+                  <Icon
+                    style={styles.icon}
+                    color={isFocus ? Globais.corPrimaria : 'white'}
+                    name="pencil"
+                    size={20}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>setModalDelPeriodo(true)}>
+                <Icon
+                  style={styles.icon}
+                  color={isFocus ? Globais.corPrimaria : 'white'}
+                  name="bin"
+                  size={20}
+                />
+              </TouchableOpacity>
+            </View>
+            
           )}
         />
       </View>
@@ -108,6 +119,9 @@ const styles = StyleSheet.create({
       padding: 8,
       width:'100%'
     },
+    containerIcon: {
+      flexDirection:'row'
+    },
     dropdown: {
       height: 50,
       borderColor: Globais.corPrimaria,
@@ -116,7 +130,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 8,
     },
     icon: {
-      marginRight: 5,
+      marginRight: 16,
     },
     label: {
       position: 'absolute',

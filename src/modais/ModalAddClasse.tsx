@@ -10,7 +10,8 @@ const ModalAddClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
     const {modalAddClasse,setModalAddClasse,idPeriodoSelec,
-      setRecarregarClasses,idUsuario,setClasseSelec,classeSelec} = useContext(Context)
+      setRecarregarClasses,idUsuario,setClasseSelec,classeSelec,
+      nomePeriodoSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -38,7 +39,7 @@ const ModalAddClasse = () =>{
       doc('Dados').collection('Estados').
       doc('EstadosApp').set({
         idPeriodo:idPeriodoSelec,
-        periodo:idPeriodoSelec,
+        periodo:nomePeriodoSelec,
         idClasse:classeSelec,
         classe:valueClasse,
       })
