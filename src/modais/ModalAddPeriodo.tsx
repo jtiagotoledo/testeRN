@@ -33,8 +33,8 @@ const ModalAddPeriodo = () =>{
         doc('EstadosApp').set({
           idPeriodo:idPeriodo,
           periodo:valuePeriodo,
-          idClasse:idClasse,
-          classe:nomeClasse,
+          idClasse:'',
+          classe:'',
         })
       }
       else{
