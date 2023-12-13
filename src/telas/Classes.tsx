@@ -30,8 +30,7 @@ function Classes({navigation}:any) {
     
   useEffect(()=>{
     //recuperar dados dos estados do app
-    firestore().collection(idUsuario).
-    doc('Dados').collection('Estados')
+    firestore().collection(idUsuario)
     .doc('EstadosApp').onSnapshot(snapShot=>{
       setIdPeriodoSelec(snapShot.data()?.idPeriodo)
       setNomePeriodoSelec(snapShot.data()?.periodo)
