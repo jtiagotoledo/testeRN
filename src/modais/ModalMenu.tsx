@@ -9,13 +9,14 @@ import DropDown from "../listas/DropDownPeriodo";
 
 const ModalMenu = ({navigation}:any) =>{
 
-    const {modalMenu,setModalMenu} = useContext(Context)
+    const {modalMenu,setModalMenu,setIdUsuario} = useContext(Context)
 
     const funcSair = () =>{
       auth().signOut()
         .then(()=>[
           console.log('usuário saiu'),
-          navigation.reset({index:0,routes:[{name:"Login"}]})
+          navigation.reset({index:0,routes:[{name:"Login"}]}),
+          setIdUsuario('')
         ])
     }
 

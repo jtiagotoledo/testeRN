@@ -2,9 +2,20 @@ import React, {useContext} from 'react';
 import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
+import firestore from '@react-native-firebase/firestore';
 
 const NovaConta = ({navigation}:any)=>{
-    const {email,setEmail,senha,setSenha} = useContext(Context);
+    const {email,setEmail,senha,setSenha,idUsuario,setIdUsuario} = useContext(Context);
+
+    const criarCaminhoSalvarEstados = () =>{
+        firestore().collection(email)
+        .doc('EstadosApp').set({
+            idPeriodo:'',
+            periodo:'',
+            idClasse:'',
+            classe:'',
+        })
+    }
 
     const criarConta = () =>{
         auth()
@@ -12,6 +23,8 @@ const NovaConta = ({navigation}:any)=>{
             .then(() => {
                 ToastAndroid.show('Conta criada com sucesso',ToastAndroid.SHORT)
                 navigation.reset({index:0,routes:[{name:"App"}]})
+                setIdUsuario(email)
+                criarCaminhoSalvarEstados()
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
