@@ -28,7 +28,7 @@ const FlatListAlunos = () => {
     const {flagLoadAlunos,setflagLoadAlunos,idPeriodoSelec,idClasseSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,setFlagLongPressClasse,
       listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno,
-      selectedIdAluno, setSelectedIdAluno} = useContext(Context)
+      selectedIdAluno, setSelectedIdAluno,setNomeAlunoSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -61,6 +61,7 @@ const FlatListAlunos = () => {
   const onPressItem = (item:any) =>{
     setSelectedIdAluno(item.numero)
     setNumAlunoSelec(item.numero.toString())
+    setNomeAlunoSelec(item.nome)
     setFlagLongPressAluno(false)
   }
 

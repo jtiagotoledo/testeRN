@@ -40,6 +40,7 @@ export default function Provider ({children}){
     const[idClasseSelec,setIdClasseSelec]=useState('');
     const[nomeClasseSelec,setNomeClasseSelec]=useState('');
     const[numAlunoSelec,setNumAlunoSelec]=useState('');
+    const[nomeAlunoSelec,setNomeAlunoSelec]=useState('');
     const[selectedIdAluno, setSelectedIdAluno]=useState('');
     const[dataSelec,setDataSelec]=useState('');
     const[listaPeriodos,setListaPeriodos] = useState([{label:'',value:'',periodo:'',idPeriodo:''}]);
@@ -91,6 +92,7 @@ export default function Provider ({children}){
             idClasseSelec,setIdClasseSelec,
             nomeClasseSelec,setNomeClasseSelec,
             numAlunoSelec,setNumAlunoSelec,
+            nomeAlunoSelec,setNomeAlunoSelec,
             selectedIdAluno, setSelectedIdAluno,
             dataSelec,setDataSelec,
             listaPeriodos,setListaPeriodos,

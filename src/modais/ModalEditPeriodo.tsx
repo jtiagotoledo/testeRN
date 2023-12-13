@@ -27,7 +27,7 @@ const ModalEditPeriodo = () =>{
         setModalEditPeriodo(!modalEditPeriodo);
       }else{
         ToastAndroid.show(
-          'Digite o nome do período!',
+          'O campo nome do período é obrigatório!',
           ToastAndroid.SHORT)
       }
 

@@ -6,40 +6,32 @@ import Globais from "../data/Globais";
 import { Icon } from "../componentes/Icon";
 
 
-const ModalEditClasse = () =>{
+const ModalEditAluno = () =>{
 
-    const [valueClasse,setValueClasse] = useState<string>('')
-    const {modalEditClasse,setModalEditClasse,idPeriodoSelec,
-      setRecarregarClasses,idUsuario,setIdClasseSelec,idClasseSelec,nomeClasseSelec} = useContext(Context)
+    const [valueAluno,setValueAluno] = useState<string>('')
+    const {modalEditAluno,setModalEditAluno,idPeriodoSelec,
+      setRecarregarAlunos,idUsuario,idClasseSelec,numAlunoSelec,
+      nomeAlunoSelec} = useContext(Context)
 
-    const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-        setValueClasse(event.nativeEvent.text);
+    const onChangeInputAluno = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+      setValueAluno(event.nativeEvent.text);
       }
     
-    const onPressEditClasse = async () =>{
-      if(valueClasse!=''){
+    const onPressEditAluno = async () =>{
+      if(valueAluno!=''){
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).update({
-          classe:valueClasse
+        .doc(idClasseSelec).collection('ListaAlunos')
+        .doc(numAlunoSelec).update({
+          nome:valueAluno
         })
-        setRecarregarClasses('recarregar')
-        setIdClasseSelec(valueClasse);
-        setModalEditClasse(!modalEditClasse);
+        setRecarregarAlunos('recarregar')
+        setModalEditAluno(!modalEditAluno);
       }else{
         ToastAndroid.show(
-          'O campo nome da classe é obrigatório!',
+          'O campo nome do aluno é obrigatório!',
           ToastAndroid.SHORT)
       }
-
-      //atualizando o estado da classe
-      firestore().collection(idUsuario).
-      doc('Dados').collection('Estados').
-      doc('EstadosApp').update({
-        classe:valueClasse
-      })
-      
-      
     }
 
     return(
@@ -47,27 +39,27 @@ const ModalEditClasse = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalEditClasse}
+                visible={modalEditAluno}
                 onRequestClose={() => {
-                  setModalEditClasse(!modalEditClasse);
+                  setModalEditAluno(!modalEditAluno);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalEditClasse(!modalEditClasse)}>
+                            <TouchableOpacity  onPress={()=>setModalEditAluno(!modalEditAluno)}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.modalText}>Edite o nome da classe:</Text>
+                        <Text style={styles.modalText}>Edite o nome do aluno:</Text>
                         <TextInput 
                           style={styles.textInput}
-                          placeholder='Nome da classe'
-                          defaultValue={nomeClasseSelec} 
-                          onChange={onChangeInputClasse}>
+                          placeholder='Nome do aluno'
+                          defaultValue={nomeAlunoSelec} 
+                          onChange={onChangeInputAluno}>
                         </TextInput>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={()=>[onPressEditClasse(),setRecarregarClasses('recarregarClasses')]}>
+                            onPress={()=>[onPressEditAluno(),setRecarregarAlunos('recarregarAlunos')]}>
                             <Text style={styles.textStyle}>Editar</Text>
                         </Pressable>
                     </View>
@@ -140,4 +132,4 @@ const styles = StyleSheet.create({
 
   });
 
-export default ModalEditClasse;
+export default ModalEditAluno;

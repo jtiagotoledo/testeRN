@@ -14,6 +14,7 @@ import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
 import ModalEditPeriodo from "../modais/ModalEditPeriodo";
 import ModalEditClasse from "../modais/ModalEditClasse";
+import ModalEditAluno from "../modais/ModalEditAluno";
 import ModalDelPeriodo from "../modais/ModalDelPeriodo";
 import ModalDelClasse from "../modais/ModalDelClasse";
 import ModalDelAluno from "../modais/ModalDelAluno";
@@ -54,6 +55,7 @@ function Classes({navigation}:any) {
       <ModalAddAluno></ModalAddAluno>
       <ModalEditPeriodo></ModalEditPeriodo>
       <ModalEditClasse></ModalEditClasse>
+      <ModalEditAluno></ModalEditAluno>
       <ModalDelPeriodo></ModalDelPeriodo>
       <ModalDelClasse></ModalDelClasse>
       <ModalDelAluno></ModalDelAluno>
