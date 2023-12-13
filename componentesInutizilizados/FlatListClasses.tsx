@@ -7,14 +7,14 @@ import Globais from '../src/data/Globais';
 const FlatListClasses = () => {
   const alunos:any[] = []
   const [listaAlunos,setListaALunos]=useState([{numero:'',nome:''}]);
-  const {idPeriodoSelec,idCasseSelec,setNumAlunoSelec} = useContext(Context)
+  const {idPeriodoSelec,idClasseSelec,setNumAlunoSelec} = useContext(Context)
 
 
   useEffect(()=>{
     const data = async ()=>{
     await firestore().collection('Usuario')
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(idCasseSelec).collection('ListaAlunos')
+    .doc(idClasseSelec).collection('ListaAlunos')
     .orderBy('numero')
     .get().then(querySnapshot => {
     querySnapshot.forEach(documentSnapshot => {

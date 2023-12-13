@@ -25,7 +25,7 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListAlunos = () => {
     const alunos:any[] = []
-    const {flagLoadAlunos,setflagLoadAlunos,idPeriodoSelec,idCasseSelec,
+    const {flagLoadAlunos,setflagLoadAlunos,idPeriodoSelec,idClasseSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,setFlagLongPressClasse,
       listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno,
       selectedIdAluno, setSelectedIdAluno} = useContext(Context)
@@ -37,18 +37,18 @@ const FlatListAlunos = () => {
       setflagLoadAlunos('carregando');
       firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
-      .doc(idCasseSelec).collection('ListaAlunos')
+      .doc(idClasseSelec).collection('ListaAlunos')
       .orderBy('numero')
       .onSnapshot((snapshot)=>{
-      if(snapshot.empty  && idCasseSelec!=''){
+      if(snapshot.empty  && idClasseSelec!=''){
         setflagLoadAlunos('vazio');
-        console.log('alunos empty',idCasseSelec)
+        console.log('alunos empty',idClasseSelec)
       }else{
         snapshot.forEach((documentSnapshot,index) => {
         alunos.push(documentSnapshot.data());
         if(snapshot.size-index==1){
           setflagLoadAlunos('carregado');
-          console.log('entrou no if da flag alunos',idCasseSelec)
+          console.log('entrou no if da flag alunos',idClasseSelec)
         }
         });
     }
@@ -56,7 +56,7 @@ const FlatListAlunos = () => {
     setListaAlunos(alunos)
   }
   data()        
-  },[idPeriodoSelec,idCasseSelec,recarregarAlunos]);
+  },[idPeriodoSelec,idClasseSelec,recarregarAlunos]);
 
   const onPressItem = (item:any) =>{
     setSelectedIdAluno(item.numero)
@@ -87,7 +87,7 @@ const FlatListAlunos = () => {
   };
 
   const renderCarregamento = () =>{
-    if(idCasseSelec!=''){
+    if(idClasseSelec!=''){
         switch(flagLoadAlunos){
           case 'vazio':
             return(

@@ -45,7 +45,6 @@ const DropDownPeriodo = () =>{
 
       //Salvando estado do período
       firestore().collection(idUsuario).
-      doc('Dados').collection('Estados').
       doc('EstadosApp').set({
         idPeriodo:item.idPeriodo,
         periodo:item.periodo,

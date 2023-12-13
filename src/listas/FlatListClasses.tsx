@@ -25,11 +25,12 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListClasses = () => {
     let classes:any []= []
-    const {idPeriodoSelec,idCasseSelec,setIdClasseSelec,recarregarClasses} = useContext(Context)
+    const {idPeriodoSelec,idClasseSelec,setIdClasseSelec,recarregarClasses} = useContext(Context)
     const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses,
       setRecarregarClasses,idUsuario,setFlagLongPressClasse,
-      setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno,nomePeriodoSelec} = useContext(Context)
+      setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno,
+      nomePeriodoSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -67,10 +68,10 @@ const FlatListClasses = () => {
     setFlagLongPressAluno(false)
     setSelectedIdAluno('')
     setNumAlunoSelec('')
+    console.log('testeIdClasse',idClasseSelec)
 
     //salvando estado da classe
     firestore().collection(idUsuario).
-      doc('Dados').collection('Estados').
       doc('EstadosApp').set({
         idPeriodo:idPeriodoSelec,
         periodo:nomePeriodoSelec,
@@ -85,8 +86,8 @@ const FlatListClasses = () => {
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.idClasse === idCasseSelec ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.idClasse === idCasseSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const backgroundColor = item.idClasse === idClasseSelec ? Globais.corPrimaria : Globais.corTerciaria;
+    const color = item.idClasse === idClasseSelec ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
         <Item

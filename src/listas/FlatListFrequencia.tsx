@@ -33,7 +33,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 const FlatListFrequencia = () => {
     const alunos:any[] = []
     const [selectedId, setSelectedId] = useState<string>();
-    const {idPeriodoSelec,idCasseSelec,setNumAlunoSelec,recarregarFrequencia,
+    const {idPeriodoSelec,idClasseSelec,setNumAlunoSelec,recarregarFrequencia,
       dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
       listaFrequencia,setListaFrequencia,idUsuario} = useContext(Context)
 
@@ -46,7 +46,7 @@ const FlatListFrequencia = () => {
       setFlagLoadFrequencia('carregando');
       firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
-      .doc(idCasseSelec).collection('Frequencia')
+      .doc(idClasseSelec).collection('Frequencia')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
       .onSnapshot(snapshot => {
@@ -67,7 +67,7 @@ const FlatListFrequencia = () => {
       setListaFrequencia(alunos)
     }
     data()        
-  },[idCasseSelec,recarregarFrequencia,dataSelec]);
+  },[idClasseSelec,recarregarFrequencia,dataSelec]);
 
   const onPressItemFreq = (item:any) =>{
     let statusFrequencia = item.frequencia=='P'?'A':'P'
@@ -76,7 +76,7 @@ const FlatListFrequencia = () => {
     setNumAlunoSelec(item.numero.toString());
     firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(idCasseSelec).collection('Frequencia')
+        .doc(idClasseSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
         .doc(numAluno+'').set({
           numero:item.numero,
@@ -101,7 +101,7 @@ const FlatListFrequencia = () => {
   };
 
   const renderCarregamento = () =>{
-    if(idCasseSelec!=''){
+    if(idClasseSelec!=''){
       if(dataSelec!=''){
         switch(flagLoadFrequencia){
           case 'vazio':

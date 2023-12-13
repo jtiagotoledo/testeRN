@@ -10,7 +10,7 @@ const ModalEditClasse = () =>{
 
     const [valueClasse,setValueClasse] = useState<string>('')
     const {modalEditClasse,setModalEditClasse,idPeriodoSelec,
-      setRecarregarClasses,idUsuario,setIdClasseSelec,idCasseSelec,nomeClasseSelec} = useContext(Context)
+      setRecarregarClasses,idUsuario,setIdClasseSelec,idClasseSelec,nomeClasseSelec} = useContext(Context)
 
     const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValueClasse(event.nativeEvent.text);
@@ -20,7 +20,7 @@ const ModalEditClasse = () =>{
       if(valueClasse!=''){
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(idCasseSelec).update({
+        .doc(idClasseSelec).update({
           classe:valueClasse
         })
         setRecarregarClasses('recarregar')

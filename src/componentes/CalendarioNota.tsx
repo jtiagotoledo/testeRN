@@ -19,7 +19,7 @@ const CalendarioNota = () => {
   let datasMarcadas:any = {}
   const  datas: any[]=[];
 
-  const {idPeriodoSelec,idCasseSelec,dataSelec,
+  const {idPeriodoSelec,idClasseSelec,dataSelec,
     setDataSelec,modalCalendarioNota,setModalCalendarioNota} = useContext(Context);
   const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
     listaDatasNotas,setListaDatasNotas,setRecarregarNotas,recarregarCalendarioNotas,
@@ -36,7 +36,7 @@ const CalendarioNota = () => {
     setRecarregarCalendarioNotas('');
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(idCasseSelec).collection('Notas')
+    .doc(idClasseSelec).collection('Notas')
     .onSnapshot(snapshot => {
       if(snapshot.empty){
         setflagLoadCalendarioNotas('carregado');
@@ -55,7 +55,7 @@ const CalendarioNota = () => {
     setListaDatasMarcadasNotas(datasMarcadas)
   }
   data()        
-  },[idCasseSelec,recarregarCalendarioNotas]); 
+  },[idClasseSelec,recarregarCalendarioNotas]); 
 
   const onPressAddData = async () =>{
 
@@ -64,12 +64,12 @@ const CalendarioNota = () => {
     setflagLoadCalendarioNotas('inicio')
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(idCasseSelec).collection('Notas')
+    .doc(idClasseSelec).collection('Notas')
     .doc(dataSelec).set({});
     
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
-    .doc(idCasseSelec).collection('ListaAlunos')
+    .doc(idClasseSelec).collection('ListaAlunos')
     .orderBy('numero')
     .onSnapshot(snapshot => {
       snapshot.forEach(documentSnapshot => {
@@ -77,7 +77,7 @@ const CalendarioNota = () => {
         const nome = documentSnapshot.data().nome;
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(idCasseSelec).collection('Notas')
+        .doc(idClasseSelec).collection('Notas')
         .doc(dataSelec).collection('Alunos')
         .doc(numero+'').set({
           numero: numero,
@@ -91,7 +91,7 @@ const CalendarioNota = () => {
   }
 
   const renderCarregamento = () =>{
-    if(idCasseSelec!=''){
+    if(idClasseSelec!=''){
       switch(flagLoadCalendarioNotas){
         case 'carregando':
           return(
