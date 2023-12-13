@@ -7,7 +7,8 @@ import {Icon} from '../componentes/Icon'
 
 const ModalAddAluno = () =>{
 
-    const [valueNumero,setValueNumero] = useState<string>('')
+  const [isSelecInativo,setIsSelecInativo] = useState<boolean>(false)
+  const [valueNumero,setValueNumero] = useState<string>('')
     const [valueNome,setValueNome] = useState<string>('')
     const {idPeriodoSelec,idClasseSelec,modalAddAluno,
       setModalAddAluno,setRecarregarAlunos,idUsuario} = useContext(Context)
@@ -27,9 +28,11 @@ const ModalAddAluno = () =>{
         .doc(idClasseSelec).collection('ListaAlunos')
         .doc(valueNumero).set({
           numero: parseInt(valueNumero),
-          nome: valueNome
+          nome: valueNome,
+          inativo: isSelecInativo
         });
         setModalAddAluno(!modalAddAluno);
+        setIsSelecInativo(false)
         console.log('função adicionar',valueNome);
 
       }else{
@@ -37,6 +40,14 @@ const ModalAddAluno = () =>{
           'Digite o número e o nome do aluno!',
           ToastAndroid.SHORT)
       }
+    }
+
+    const renderIconCheck = () =>{
+      return(
+        console.log(isSelecInativo),
+        isSelecInativo?<Icon name="checkmark" color="white" size={20}/>:
+                       <Icon name="checkmark2" color="white" size={20}/>
+      )
     }
 
     return(
@@ -51,13 +62,17 @@ const ModalAddAluno = () =>{
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalAddAluno(!modalAddAluno)}>
+                            <TouchableOpacity  onPress={()=>[setModalAddAluno(!modalAddAluno),setIsSelecInativo(false)]}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.modalText}>Adicione um novo aluno:</Text>
                         <TextInput placeholder='Número' onChange={onChangeInputNumero} style={styles.textInput} keyboardType='numeric'></TextInput>
                         <TextInput placeholder='Nome' onChange={onChangeInputNome} style={styles.textInput}></TextInput>
+                        <TouchableOpacity style={styles.iconCheckContainer} onPress={()=>setIsSelecInativo(!isSelecInativo)}>
+                          {renderIconCheck()}
+                          <Text style={[styles.textStyle,styles.textCheck]}>Aluno inativo?</Text>
+                        </TouchableOpacity>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={()=>[onPressAddAluno(),setRecarregarAlunos('recarregarAluno')]}>
@@ -81,6 +96,13 @@ const styles = StyleSheet.create({
     },
     containerIcon:{
       alignItems:'flex-end'
+    },
+    iconCheckContainer:{
+      flexDirection:'row',
+      marginBottom:16
+    },
+    textCheck:{
+      marginLeft:16
     },
     centeredView: {
       flex: 1,

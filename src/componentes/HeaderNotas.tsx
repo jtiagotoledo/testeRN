@@ -22,7 +22,7 @@ const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
         leftComponent={
             <View style={styles.headerRight}>
                 <TouchableOpacity onPress={()=>setModalMenu(true)}>
-                <Icon name="equalizer" color="white" size={20}/>
+                  <Icon name="equalizer" color="white" size={20}/>
                 </TouchableOpacity>
             </View>
         }
