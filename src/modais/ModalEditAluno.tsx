@@ -11,7 +11,8 @@ const ModalEditAluno = () =>{
     const [valueAluno,setValueAluno] = useState<string>('')
     const {modalEditAluno,setModalEditAluno,idPeriodoSelec,
       setRecarregarAlunos,idUsuario,idClasseSelec,numAlunoSelec,
-      nomeAlunoSelec} = useContext(Context)
+      nomeAlunoSelec,alunoInativo,setAlunoInativo,
+      setFlagLongPressAluno} = useContext(Context)
 
     const onChangeInputAluno = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
       setValueAluno(event.nativeEvent.text);
@@ -23,15 +24,25 @@ const ModalEditAluno = () =>{
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('ListaAlunos')
         .doc(numAlunoSelec).update({
-          nome:valueAluno
+          nome:valueAluno,
+          inativo:alunoInativo
         })
         setRecarregarAlunos('recarregar')
+        setAlunoInativo(false)
         setModalEditAluno(!modalEditAluno);
       }else{
         ToastAndroid.show(
           'O campo nome do aluno é obrigatório!',
           ToastAndroid.SHORT)
       }
+    }
+
+    const renderIconCheck = () =>{
+      return(
+        console.log(alunoInativo),
+        alunoInativo?<Icon name="checkmark" color="white" size={20}/>:
+                       <Icon name="checkmark2" color="white" size={20}/>
+      )
     }
 
     return(
@@ -46,7 +57,7 @@ const ModalEditAluno = () =>{
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalEditAluno(!modalEditAluno)}>
+                            <TouchableOpacity  onPress={()=>[setModalEditAluno(!modalEditAluno),setAlunoInativo(false),setFlagLongPressAluno(false)]}>
                                 <Icon name="cancel-circle" color="white" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
@@ -57,9 +68,13 @@ const ModalEditAluno = () =>{
                           defaultValue={nomeAlunoSelec} 
                           onChange={onChangeInputAluno}>
                         </TextInput>
+                        <TouchableOpacity style={styles.iconCheckContainer} onPress={()=>setAlunoInativo(!alunoInativo)}>
+                          {renderIconCheck()}
+                          <Text style={[styles.textStyle,styles.textCheck]}>Aluno inativo?</Text>
+                        </TouchableOpacity>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={()=>[onPressEditAluno(),setRecarregarAlunos('recarregarAlunos')]}>
+                            onPress={()=>[onPressEditAluno(),setRecarregarAlunos('recarregarAlunos'),setFlagLongPressAluno(false)]}>
                             <Text style={styles.textStyle}>Editar</Text>
                         </Pressable>
                     </View>
@@ -80,6 +95,13 @@ const styles = StyleSheet.create({
     },
     containerIcon:{
       alignItems:'flex-end'
+    },
+    iconCheckContainer:{
+      flexDirection:'row',
+      marginBottom:16
+    },
+    textCheck:{
+      marginLeft:16
     },
     centeredView: {
       flex: 1,
