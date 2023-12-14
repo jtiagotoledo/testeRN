@@ -7,6 +7,7 @@ import Globais from '../data/Globais';
 type ItemData = {
   nome: string;
   numero: string;
+  inativo: string
 };
 
 type ItemProps = {
@@ -28,7 +29,7 @@ const FlatListAlunos = () => {
     const {flagLoadAlunos,setflagLoadAlunos,idPeriodoSelec,idClasseSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,setFlagLongPressClasse,
       listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno,
-      selectedIdAluno, setSelectedIdAluno,setNomeAlunoSelec,setAlunoInativo} = useContext(Context)
+      selectedIdAluno, setSelectedIdAluno,setNomeAlunoSelec,alunoInativo,setAlunoInativo} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -74,7 +75,12 @@ const FlatListAlunos = () => {
   }
 
   const renderItem = ({item}: {item: ItemData}) => {
-    const backgroundColor = item.numero === selectedIdAluno ? Globais.corPrimaria : Globais.corTerciaria;
+    let backgroundColor = ''
+    if(item.inativo){
+      backgroundColor = Globais.corAlunoInativo
+    }else{
+      backgroundColor = item.numero === selectedIdAluno ? Globais.corPrimaria : Globais.corTerciaria;
+    }
     const color = item.numero === selectedIdAluno ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
