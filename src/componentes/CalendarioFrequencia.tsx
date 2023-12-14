@@ -24,7 +24,7 @@ const CalendarioFrequencia = () => {
   const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
     listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
     setRecarregarCalendarioFreq,listaDatasMarcadasFreq,setListaDatasMarcadasFreq,
-    idUsuario} = useContext(Context)
+    idUsuario,nomePeriodoSelec,idClasse,nomeClasseSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -88,7 +88,15 @@ const CalendarioFrequencia = () => {
       });
     });
     
-    
+    //atualizando o estado da data
+    firestore().collection(idUsuario).
+    doc('EstadosApp').set({
+      idPeriodo:idPeriodoSelec,
+      periodo:nomePeriodoSelec,
+      idClasse:idClasseSelec,
+      classe:nomeClasseSelec,
+      data:dataSelec
+    })
   }
 
   const renderCarregamento = () =>{

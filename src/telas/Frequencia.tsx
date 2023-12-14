@@ -14,13 +14,10 @@ import FabFrequencia from "../componentes/FabFrequencia";
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,idClasseSelec,
-        flagLoadAlunos,idPeriodoSelec,valueAtividade,setValueAtividade,
-        idUsuario} = useContext(Context);
+        idPeriodoSelec,valueAtividade,setValueAtividade,
+        idUsuario,setIdPeriodoSelec,setDataSelec,setIdClasseSelec} = useContext(Context);
     
-    let dataAno=''
-    let dataMes=''
-    let dataDia=''
-    let data=''
+    let dataAno='',dataMes='',dataDia='',data=''
 
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
@@ -36,6 +33,16 @@ const Frequencia = () =>{
         .doc(dataSelec).set({atividade:text})
         setValueAtividade({atividade:text})
     }
+
+    useEffect(()=>{
+        //recuperar dados dos estados do app
+        firestore().collection(idUsuario)
+        .doc('EstadosApp').onSnapshot(snapShot=>{
+          setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+          setIdClasseSelec(snapShot.data()?.idClasse)
+          setDataSelec(snapShot.data()?.data)
+        })
+      },[])
 
     useEffect(()=>{
         const data = async ()=>{

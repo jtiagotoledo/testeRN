@@ -35,8 +35,6 @@ function Classes({navigation}:any) {
       setIdPeriodoSelec(snapShot.data()?.idPeriodo)
       setNomePeriodoSelec(snapShot.data()?.periodo)
       setIdClasseSelec(snapShot.data()?.idClasse)
-      console.log('estadoPeriodoUseEfectPeriodo',snapShot.data()?.periodo)
-      console.log('estadoClasseUseEfectClasses',snapShot.data()?.classe)
     })
   },[])
     
