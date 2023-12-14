@@ -42,7 +42,7 @@ const FabClasses = ()=>{
       setModalAddAluno, idPeriodoSelec, idClasseSelec} = useContext(Context);
 
     return(
-        <View>
+        <View >
             <FloatingAction
             color={Globais.corPrimaria}
             actions={actions}

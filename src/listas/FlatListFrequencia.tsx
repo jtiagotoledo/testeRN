@@ -152,7 +152,6 @@ const FlatListFrequencia = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   containerItem:{
     flexDirection:'row',
