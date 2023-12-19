@@ -37,6 +37,8 @@ const ModalAddClasse = () =>{
           periodo:nomePeriodoSelec,
           idClasse:idClasse,
           classe:valueClasse,
+          data:'',
+          aba:''
         })
       }else{
         ToastAndroid.show(

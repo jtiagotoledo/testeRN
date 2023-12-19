@@ -35,6 +35,12 @@ const Frequencia = () =>{
     }
 
     useEffect(()=>{
+        //setar o nome da aba selecionada
+        firestore().collection(idUsuario).
+        doc('EstadosApp').update({
+            aba:'frequencia'
+        })
+        
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
         .doc('EstadosApp').onSnapshot(snapShot=>{

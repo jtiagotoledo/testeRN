@@ -44,6 +44,7 @@ export default function Provider ({children}){
     const[selectedIdAluno, setSelectedIdAluno]=useState('');
     const[alunoInativo,setAlunoInativo]=useState(false);
     const[dataSelec,setDataSelec]=useState('');
+    const[abaSelec,setAbaSelec]=useState('');
     const[listaPeriodos,setListaPeriodos] = useState([{label:'',value:'',periodo:'',idPeriodo:''}]);
     const[listaClasses,setListaClasses]=useState([{classe:'',idClasse:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
@@ -97,6 +98,7 @@ export default function Provider ({children}){
             selectedIdAluno, setSelectedIdAluno,
             alunoInativo,setAlunoInativo,
             dataSelec,setDataSelec,
+            abaSelec,setAbaSelec,
             listaPeriodos,setListaPeriodos,
             listaClasses,setListaClasses,
             listaAlunos,setListaAlunos,

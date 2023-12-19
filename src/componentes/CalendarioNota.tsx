@@ -24,7 +24,7 @@ const CalendarioNota = () => {
   const {flagLoadCalendarioNotas,setflagLoadCalendarioNotas,setFlagLoadNotas,
     listaDatasNotas,setListaDatasNotas,setRecarregarNotas,recarregarCalendarioNotas,
     setRecarregarCalendarioNotas,listaDatasMarcadasNotas,setListaDatasMarcadasNotas,
-    idUsuario} = useContext(Context)
+    idUsuario,nomePeriodoSelec,nomeClasseSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -87,6 +87,16 @@ const CalendarioNota = () => {
       });
     });
     
+    //atualizando o estado da data
+    firestore().collection(idUsuario).
+    doc('EstadosApp').set({
+      idPeriodo:idPeriodoSelec,
+      periodo:nomePeriodoSelec,
+      idClasse:idClasseSelec,
+      classe:nomeClasseSelec,
+      data:dataSelec,
+      aba:''
+    })
     
   }
 

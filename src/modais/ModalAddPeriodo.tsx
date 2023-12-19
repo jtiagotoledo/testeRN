@@ -8,8 +8,8 @@ import { Icon } from "../componentes/Icon";
 const ModalAddPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
-    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setNomePeriodoSelec,
-      nomeClasse,setRecarregarPeriodo,setIdPeriodoSelec,idClasse} = useContext(Context)
+    const {modalAddPeriodo,setModalAddPeriodo,idUsuario,setNomePeriodoSelec,setRecarregarPeriodo,
+      setIdPeriodoSelec} = useContext(Context)
 
     const onChangeInputPeriodo = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setValuePeriodo(event.nativeEvent.text);
@@ -35,6 +35,8 @@ const ModalAddPeriodo = () =>{
           periodo:valuePeriodo,
           idClasse:'',
           classe:'',
+          data:'',
+          aba:''
         })
       }
       else{

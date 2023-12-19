@@ -95,7 +95,8 @@ const CalendarioFrequencia = () => {
       periodo:nomePeriodoSelec,
       idClasse:idClasseSelec,
       classe:nomeClasseSelec,
-      data:dataSelec
+      data:dataSelec,
+      aba:''
     })
   }
 

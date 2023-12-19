@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
 import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
@@ -13,7 +13,8 @@ import FabNotas from "../componentes/FabNotas";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
-        flagLoadAlunos,idPeriodoSelec,idUsuario} = useContext(Context);
+        idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
+        setIdClasseSelec} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -33,6 +34,22 @@ const Notas = () =>{
         .doc(idClasseSelec).collection('Frequencia')
         .doc(dataSelec).set({atividade:event.nativeEvent.text})
     }
+
+    useEffect(()=>{
+        //setar o nome da aba selecionada
+        firestore().collection(idUsuario).
+        doc('EstadosApp').update({
+            aba:'notas'
+        })
+        
+        //recuperar dados dos estados do app
+        firestore().collection(idUsuario)
+        .doc('EstadosApp').onSnapshot(snapShot=>{
+          setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+          setIdClasseSelec(snapShot.data()?.idClasse)
+          setDataSelec(snapShot.data()?.data)
+        })
+      },[])
 
     const renderData = () =>{
         if(data!=''){
