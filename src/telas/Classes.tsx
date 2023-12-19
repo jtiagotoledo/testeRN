@@ -32,7 +32,7 @@ function Classes({navigation}:any) {
     //setar o nome da aba selecionada
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
-        aba:'classes'
+        aba:'Classes'
     })
 
     //recuperar dados dos estados do app

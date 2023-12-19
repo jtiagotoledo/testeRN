@@ -39,17 +39,17 @@ const Notas = () =>{
         //setar o nome da aba selecionada
         firestore().collection(idUsuario).
         doc('EstadosApp').update({
-            aba:'notas'
+            aba:'Notas'
         })
         
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
         .doc('EstadosApp').onSnapshot(snapShot=>{
-          setIdPeriodoSelec(snapShot.data()?.idPeriodo)
-          setIdClasseSelec(snapShot.data()?.idClasse)
-          setDataSelec(snapShot.data()?.data)
+            setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+            setIdClasseSelec(snapShot.data()?.idClasse)
+            setDataSelec(snapShot.data()?.data)
         })
-      },[])
+    },[])
 
     const renderData = () =>{
         if(data!=''){

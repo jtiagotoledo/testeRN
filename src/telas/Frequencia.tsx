@@ -38,7 +38,7 @@ const Frequencia = () =>{
         //setar o nome da aba selecionada
         firestore().collection(idUsuario).
         doc('EstadosApp').update({
-            aba:'frequencia'
+            aba:'Frequencia'
         })
         
         //recuperar dados dos estados do app
