@@ -7,36 +7,33 @@ import Frequencia from '../telas/Frequencia';
 import Notas from '../telas/Notas';
 import Provider from "../data/Provider";
 import Globais from '../data/Globais';
-import {Context} from "../data/Provider";
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import {Context} from "../data/Provider";
 
 const Tab = createBottomTabNavigator();
 
-const App = () => {
-  const {idUsuario,setIdPeriodoSelec,setDataSelec,
-    setIdClasseSelec,setAbaSelec,abaSelec} = useContext(Context);
+const App = ({navigation}:any) => {
+  const {setDataSelec} = useContext(Context)
     
-  useEffect(()=>{
-    //recuperar dados dos estados do app
-    firestore().collection(idUsuario)
-    .doc('EstadosApp').onSnapshot(snapShot=>{
-      setIdPeriodoSelec(snapShot.data()?.idPeriodo)
-      setIdClasseSelec(snapShot.data()?.idClasse)
-      setDataSelec(snapShot.data()?.data)
-      setAbaSelec(snapShot.data()?.aba)
-      console.log('abaSelec',abaSelec)
-    })
-  },[])
-  
+    useEffect(()=>{
+      //recuperar a última aba selecionada
+      const usuario = auth().currentUser?.email
+      firestore().collection(usuario+'')
+      .doc('EstadosApp').onSnapshot(snapShot=>{
+        navigation.navigate(snapShot.data()?.aba)
+      })
+    },[])
+
+    
+
   return (
     <Provider>
         <Tab.Navigator 
-          initialRouteName={abaSelec}
           screenOptions={({ route }) => ({
             headerShown:false,
             tabBarIcon: ({ focused, color, size }) => {
               let iconName='';
-
               if (route.name === 'Classes') {
                 iconName = 'book'
               } else if (route.name === 'Frequencia') {
@@ -57,7 +54,6 @@ const App = () => {
     </Provider>
   );
 };
-
 
 const styles = StyleSheet.create({
   iconDelete:{

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import App from './App';
 import Login from '../telas/Login';
 import NovaConta from '../telas/NovaConta';
 import Provider from "../data/Provider";
 import auth from '@react-native-firebase/auth';
+import {Context} from "../data/Provider";
+import firestore from '@react-native-firebase/firestore';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,6 +13,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 function Routes() {
+  
+
     return (
       <Provider>
         <NavigationContainer>
