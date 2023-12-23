@@ -89,13 +89,12 @@ const CalendarioNota = () => {
     
     //atualizando o estado da data
     firestore().collection(idUsuario).
-    doc('EstadosApp').set({
+    doc('EstadosApp').update({
       idPeriodo:idPeriodoSelec,
       periodo:nomePeriodoSelec,
       idClasse:idClasseSelec,
       classe:nomeClasseSelec,
-      data:dataSelec,
-      aba:''
+      data:dataSelec
     })
     
   }

@@ -25,20 +25,9 @@ import { useFocusEffect } from '@react-navigation/native';
 
 
 function Classes({navigation}:any) {
-
   const {nomePeriodoSelec,idUsuario,setIdPeriodoSelec,setIdClasseSelec,
     setNomePeriodoSelec} = useContext(Context)
 
-  const onTabFocus = useCallback(() => {
-    //setar o nome da aba selecionada
-    firestore().collection(idUsuario).
-    doc('EstadosApp').update({
-        aba:'Classes'
-    })
-  }, []);
-
-  useFocusEffect(onTabFocus);
-    
   useEffect(()=>{
     //recuperar dados dos estados do app
     firestore().collection(idUsuario)

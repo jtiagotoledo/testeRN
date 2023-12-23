@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {Icon} from '../componentes/Icon'
 import Classes from '../telas/Classes';
@@ -14,17 +14,46 @@ import {Context} from "../data/Provider";
 const Tab = createBottomTabNavigator();
 
 const App = ({navigation}:any) => {
-  const {abaSelec,setAbaSelec} = useContext(Context)
+  const {idUsuario,setAbaSelec,setIdPeriodoSelec,
+    setIdClasseSelec,setDataSelec,setNomePeriodoSelec} = useContext(Context)
     
     useEffect(()=>{
       //recuperar a última aba selecionada
       const usuario = auth().currentUser?.email
       firestore().collection(usuario+'')
       .doc('EstadosApp').onSnapshot(snapShot=>{
-        // setAbaSelec(snapShot.data()?.aba)
         navigation.navigate(snapShot.data()?.aba)
+        setAbaSelec(snapShot.data()?.aba)
       })
     },[])
+
+  const cliqueClasses = () =>{
+    console.log('entrou Aqui')
+    navigation.navigate('Classes')
+    //setar o nome da aba selecionada
+    firestore().collection(idUsuario).
+    doc('EstadosApp').update({
+        aba:'Classes'
+    })
+  }
+
+  const cliqueFrequencia = () =>{
+    navigation.navigate('Frequencia')
+    //setar o nome da aba selecionada
+    firestore().collection(idUsuario).
+    doc('EstadosApp').update({
+        aba:'Frequencia'
+    })
+  }
+
+  const cliqueNotas = () =>{
+    navigation.navigate('Notas')
+    //setar o nome da aba selecionada
+    firestore().collection(idUsuario).
+    doc('EstadosApp').update({
+        aba:'Notas'
+    })
+  }
 
   return (
     <Provider>
@@ -46,9 +75,18 @@ const App = ({navigation}:any) => {
             tabBarActiveTintColor: Globais.corPrimaria,
             tabBarInactiveTintColor: 'gray',
           })}>
-          <Tab.Screen name="Classes" component={Classes}></Tab.Screen>
-          <Tab.Screen name="Frequencia" component={Frequencia} />
-          <Tab.Screen name="Notas" component={Notas}/>
+          <Tab.Screen options={{
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} onPress={()=>cliqueClasses()}/>
+            )}} name="Classes" component={Classes}></Tab.Screen>
+          <Tab.Screen options={{
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} onPress={()=>cliqueFrequencia()}/>
+            )}}name="Frequencia" component={Frequencia} />
+          <Tab.Screen options={{
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} onPress={()=>cliqueNotas()}/>
+            )}}name="Notas" component={Notas}/>
         </Tab.Navigator>
     </Provider>
   );

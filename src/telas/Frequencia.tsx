@@ -27,16 +27,6 @@ const Frequencia = () =>{
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
 
-    const onTabFocus = useCallback(() => {
-        //setar o nome da aba selecionada
-        firestore().collection(idUsuario).
-        doc('EstadosApp').update({
-            aba:'Frequencia'
-        })
-      }, []);
-    
-    useFocusEffect(onTabFocus);
-
     const onChangeInputAtividades = (text:String) =>{
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')

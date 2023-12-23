@@ -29,16 +29,6 @@ const Notas = () =>{
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
 
-    const onTabFocus = useCallback(() => {
-        //setar o nome da aba selecionada
-        firestore().collection(idUsuario).
-        doc('EstadosApp').update({
-            aba:'Notas'
-        })
-      }, []);
-    
-      useFocusEffect(onTabFocus);
-
     const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
