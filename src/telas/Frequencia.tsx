@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
 import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
@@ -11,6 +11,7 @@ import FlatListClasses from "../listas/FlatListClasses";
 import {Icon} from '../componentes/Icon'
 import firestore from '@react-native-firebase/firestore';
 import FabFrequencia from "../componentes/FabFrequencia";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,idClasseSelec,
@@ -26,6 +27,16 @@ const Frequencia = () =>{
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
 
+    const onTabFocus = useCallback(() => {
+        //setar o nome da aba selecionada
+        firestore().collection(idUsuario).
+        doc('EstadosApp').update({
+            aba:'Frequencia'
+        })
+      }, []);
+    
+    useFocusEffect(onTabFocus);
+
     const onChangeInputAtividades = (text:String) =>{
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
@@ -35,12 +46,6 @@ const Frequencia = () =>{
     }
 
     useEffect(()=>{
-        //setar o nome da aba selecionada
-        firestore().collection(idUsuario).
-        doc('EstadosApp').update({
-            aba:'Frequencia'
-        })
-        
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
         .doc('EstadosApp').onSnapshot(snapShot=>{

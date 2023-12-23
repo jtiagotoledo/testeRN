@@ -8,7 +8,7 @@ import HeaderClasses from "../componentes/HeaderClasses";
 import ConexaoInternet from "../componentes/ConexaoInternet";
 import Globais from "../data/Globais";
 
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import ModalAddPeriodo from "../modais/ModalAddPeriodo";
 import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
@@ -21,20 +21,25 @@ import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalMenu from "../modais/ModalMenu";
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
+import { useFocusEffect } from '@react-navigation/native';
 
 
 function Classes({navigation}:any) {
 
   const {nomePeriodoSelec,idUsuario,setIdPeriodoSelec,setIdClasseSelec,
     setNomePeriodoSelec} = useContext(Context)
-    
-  useEffect(()=>{
+
+  const onTabFocus = useCallback(() => {
     //setar o nome da aba selecionada
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
         aba:'Classes'
     })
+  }, []);
 
+  useFocusEffect(onTabFocus);
+    
+  useEffect(()=>{
     //recuperar dados dos estados do app
     firestore().collection(idUsuario)
     .doc('EstadosApp').onSnapshot(snapShot=>{

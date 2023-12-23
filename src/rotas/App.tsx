@@ -14,18 +14,17 @@ import {Context} from "../data/Provider";
 const Tab = createBottomTabNavigator();
 
 const App = ({navigation}:any) => {
-  const {setDataSelec} = useContext(Context)
+  const {abaSelec,setAbaSelec} = useContext(Context)
     
     useEffect(()=>{
       //recuperar a última aba selecionada
       const usuario = auth().currentUser?.email
       firestore().collection(usuario+'')
       .doc('EstadosApp').onSnapshot(snapShot=>{
+        // setAbaSelec(snapShot.data()?.aba)
         navigation.navigate(snapShot.data()?.aba)
       })
     },[])
-
-    
 
   return (
     <Provider>

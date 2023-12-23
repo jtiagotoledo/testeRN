@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
 import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
@@ -10,6 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 import HeaderNotas from "../componentes/HeaderNotas";
 import FlatListNotas from "../listas/FlatListNotas";
 import FabNotas from "../componentes/FabNotas";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
@@ -28,6 +29,16 @@ const Notas = () =>{
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
 
+    const onTabFocus = useCallback(() => {
+        //setar o nome da aba selecionada
+        firestore().collection(idUsuario).
+        doc('EstadosApp').update({
+            aba:'Notas'
+        })
+      }, []);
+    
+      useFocusEffect(onTabFocus);
+
     const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
@@ -36,12 +47,6 @@ const Notas = () =>{
     }
 
     useEffect(()=>{
-        //setar o nome da aba selecionada
-        firestore().collection(idUsuario).
-        doc('EstadosApp').update({
-            aba:'Notas'
-        })
-        
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
         .doc('EstadosApp').onSnapshot(snapShot=>{
