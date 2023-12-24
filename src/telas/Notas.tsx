@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, {  useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
 import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
@@ -10,7 +10,6 @@ import firestore from '@react-native-firebase/firestore';
 import HeaderNotas from "../componentes/HeaderNotas";
 import FlatListNotas from "../listas/FlatListNotas";
 import FabNotas from "../componentes/FabNotas";
-import { useFocusEffect } from "@react-navigation/native";
 
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
@@ -74,6 +73,12 @@ const Notas = () =>{
         <View style={styles.container}>
             <HeaderNotas title="Frequência"></HeaderNotas>
             <Divider style={styles.divider}></Divider>
+            <FlatListClasses></FlatListClasses>
+            <Divider style={styles.divider}></Divider>
+            <View style={styles.containerText}>
+                {renderData()}
+            </View>
+            <Divider style={styles.divider}></Divider>
             <View style={styles.containerInput}>
                 {dataSelec!=''?
                 <TextInput 
@@ -83,12 +88,6 @@ const Notas = () =>{
                 value={valueAtividade.avaliacao}
                 style={styles.textInput}></TextInput>:null}
             </View>
-            <FlatListClasses></FlatListClasses>
-            <Divider style={styles.divider}></Divider>
-            <View style={styles.containerText}>
-                {renderData()}
-            </View>
-            <Divider style={styles.divider}></Divider>
             <FlatListNotas></FlatListNotas>
             <ModalCalendarioNota></ModalCalendarioNota>
             <FabNotas></FabNotas>

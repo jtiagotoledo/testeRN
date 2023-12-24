@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, {  useContext, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid} from "react-native"
 import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
@@ -8,10 +8,8 @@ import Globais from "../data/Globais";
 import HeaderFrequencia from "../componentes/HeaderFrequencia";
 import FlatListFrequencia from "../listas/FlatListFrequencia";
 import FlatListClasses from "../listas/FlatListClasses";
-import {Icon} from '../componentes/Icon'
 import firestore from '@react-native-firebase/firestore';
 import FabFrequencia from "../componentes/FabFrequencia";
-import { useFocusEffect } from "@react-navigation/native";
 
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,idClasseSelec,
