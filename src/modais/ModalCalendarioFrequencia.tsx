@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
       marginBottom:32,
     },
     modalView: {
+      
       margin: 20,
       backgroundColor: Globais.corTerciaria,
       borderRadius: 20,
       padding: 35,
-      // alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,

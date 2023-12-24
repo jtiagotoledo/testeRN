@@ -142,8 +142,6 @@ const CalendarioFrequencia = () => {
 
 const styles = StyleSheet.create({
   container:{
-    height:350,
-    width:350,
     marginBottom:24
   },
   button: {
