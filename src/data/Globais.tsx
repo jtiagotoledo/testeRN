@@ -4,7 +4,8 @@ export default class Globais{
     static corTerciaria = '#d9e7ed'; */
     static corPrimaria = 'steelblue';
     static corSecundaria = 'skyblue';
-    static corTerciaria = 'powderblue';
+    // static corTerciaria = 'powderblue';
+    static corTerciaria = '#dee9f2';
     static corAlerta = 'orange';
     static corAlunoInativo = 'silver';
     static corTextoEscuro = 'black';
