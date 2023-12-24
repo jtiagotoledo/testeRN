@@ -13,53 +13,53 @@ view?: string;
 
 const HeaderClasses: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-    const {setModalDelAluno, setModalMenu, flagLongPressClasse,
-      flagLongPressAluno,setModalDelClasse,setModalEditClasse,
-      setModalEditAluno} = useContext(Context);
+  const {setModalDelAluno, setModalMenu, flagLongPressClasse,
+    flagLongPressAluno,setModalDelClasse,setModalEditClasse,
+    setModalEditAluno} = useContext(Context);
 
-    const onPressBin = () =>{
-      flagLongPressClasse?setModalDelClasse(true):null
-      flagLongPressAluno?setModalDelAluno(true):null
-    }
+  const onPressBin = () =>{
+    flagLongPressClasse?setModalDelClasse(true):null
+    flagLongPressAluno?setModalDelAluno(true):null
+  }
 
-    const onPressEdit = () =>{
-      flagLongPressClasse?setModalEditClasse(true):null
-      flagLongPressAluno?setModalEditAluno(true):null
-    }
+  const onPressEdit = () =>{
+    flagLongPressClasse?setModalEditClasse(true):null
+    flagLongPressAluno?setModalEditAluno(true):null
+  }
 
-    return (
-        <HeaderRNE
-        backgroundColor = {Globais.corPrimaria}
-        style={styles.headerContainer}
-        leftComponent={
-            <View style={styles.headerRight}>
-                <TouchableOpacity onPress={()=>setModalMenu(true)}>
-                  <Icon name="equalizer" color="white" size={20}/>
-                </TouchableOpacity>
-            </View>
-        }
-        rightComponent={
-            <View style={styles.headerRight}>
-              <TouchableWithoutFeedback onPress={onPressEdit}>
-                <Icon 
-                style={styles.icon} 
-                name="pencil" 
-                color={flagLongPressClasse||flagLongPressAluno?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'} 
-                size={20}/>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={onPressBin}>
-                <Icon 
-                style={styles.icon}  
-                selectable={false}
-                name="bin" 
-                color={flagLongPressClasse||flagLongPressAluno?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
-                size={20}/>
-              </TouchableWithoutFeedback>
-            </View>
-        }
-        centerComponent={{ text:'Classes', style: styles.heading }}
-        />
-    );
+  return (
+      <HeaderRNE
+      backgroundColor = {Globais.corPrimaria}
+      style={styles.headerContainer}
+      leftComponent={
+          <View style={styles.headerRight}>
+              <TouchableOpacity onPress={()=>setModalMenu(true)}>
+                <Icon name="equalizer" color="white" size={20}/>
+              </TouchableOpacity>
+          </View>
+      }
+      rightComponent={
+          <View style={styles.headerRight}>
+            <TouchableWithoutFeedback onPress={onPressEdit}>
+              <Icon 
+              style={styles.icon} 
+              name="pencil" 
+              color={flagLongPressClasse||flagLongPressAluno?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'} 
+              size={20}/>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={onPressBin}>
+              <Icon 
+              style={styles.icon}  
+              selectable={false}
+              name="bin" 
+              color={flagLongPressClasse||flagLongPressAluno?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
+              size={20}/>
+            </TouchableWithoutFeedback>
+          </View>
+      }
+      centerComponent={{ text:'Classes', style: styles.heading }}
+      />
+  );
 };
 
 const styles = StyleSheet.create({

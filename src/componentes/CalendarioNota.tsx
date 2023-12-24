@@ -119,6 +119,16 @@ const CalendarioNota = () => {
                   console.log(listaDatasNotas);
                   if(listaDatasNotas.includes(day.dateString)){
                     setModalCalendarioNota(!modalCalendarioNota)
+                    
+                    //atualizando o estado da data
+                    firestore().collection(idUsuario).
+                    doc('EstadosApp').update({
+                      idPeriodo:idPeriodoSelec,
+                      periodo:nomePeriodoSelec,
+                      idClasse:idClasseSelec,
+                      classe:nomeClasseSelec,
+                      data:day.dateString,
+                    })
                   }
                 }}
                 markedDates={listaDatasMarcadasNotas}
@@ -143,8 +153,6 @@ const CalendarioNota = () => {
 
 const styles = StyleSheet.create({
   container:{
-    height:350,
-    width:350,
     marginBottom:24
   },
   button: {

@@ -8,8 +8,9 @@ import Globais from "../data/Globais";
 const ModalDelData = () =>{
 
     const {idPeriodoSelec, idClasseSelec,idUsuario, 
-      setRecarregarCalendarioFreq,dataSelec,modalDelData,
-      setModalDelData,setFlagLongPressData,setDataSelec} = useContext(Context);
+      setRecarregarFrequencia,dataSelec,modalDelData,
+      setModalDelData,setFlagLongPressData,setDataSelec,
+      setRecarregarCalendarioNotas} = useContext(Context);
 
     const deletarData = ()=> {
       firestore().collection(idUsuario)
@@ -19,11 +20,10 @@ const ModalDelData = () =>{
       setModalDelData(!modalDelData)
       setFlagLongPressData(false)
       setDataSelec('')
-      setRecarregarCalendarioFreq('recarregar')
+      setRecarregarFrequencia('recarregar')
 
       //deletando o estado da classe
       firestore().collection(idUsuario).
-      doc('Dados').collection('Estados').
       doc('EstadosApp').update({
         data:''
       })

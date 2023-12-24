@@ -4,6 +4,7 @@ import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
 
 import ModalCalendarioNota from "../modais/ModalCalendarioNota";
+import ModalDelData from "../modais/ModalDelData";
 import Globais from "../data/Globais";
 import FlatListClasses from "../listas/FlatListClasses";
 import firestore from '@react-native-firebase/firestore';
@@ -14,7 +15,8 @@ import FabNotas from "../componentes/FabNotas";
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
         idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
-        setIdClasseSelec,setValueAtividade,valueAtividade} = useContext(Context);
+        setIdClasseSelec,setValueAtividade,valueAtividade,
+        setFlagLongPressData} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -62,7 +64,9 @@ const Notas = () =>{
     const renderData = () =>{
         if(data!=''){
             return(
-                <TouchableOpacity onPress={()=>setModalCalendarioNota(true)}>
+                <TouchableOpacity 
+                onPress={()=>setModalCalendarioNota(true)}
+                onLongPress={()=>setFlagLongPressData(true)}>
                     <Text style={styles.text}>{data}</Text>
                 </TouchableOpacity>  
             )
@@ -90,6 +94,7 @@ const Notas = () =>{
             </View>
             <FlatListNotas></FlatListNotas>
             <ModalCalendarioNota></ModalCalendarioNota>
+            <ModalDelData></ModalDelData>
             <FabNotas></FabNotas>
         </View>
     )

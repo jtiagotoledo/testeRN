@@ -118,6 +118,16 @@ const CalendarioFrequencia = () => {
                   setRecarregarFrequencia('recarregarFrequencia');
                   if(listaDatasFreq.includes(day.dateString)){
                     setModalCalendarioFreq(!modalCalendarioFreq)
+
+                    //atualizando o estado da data
+                    firestore().collection(idUsuario).
+                    doc('EstadosApp').update({
+                      idPeriodo:idPeriodoSelec,
+                      periodo:nomePeriodoSelec,
+                      idClasse:idClasseSelec,
+                      classe:nomeClasseSelec,
+                      data:day.dateString
+                    })
                   }
                 }}
                 markedDates={listaDatasMarcadasFreq}

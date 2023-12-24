@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {StyleSheet,View} from 'react-native';
+import {StyleSheet,TouchableWithoutFeedback,View} from 'react-native';
 import { Header as HeaderRNE} from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import {Icon} from './Icon'
@@ -13,33 +13,39 @@ view?: string;
 
 const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-    const {setModalDelAluno,setModalMenu} = useContext(Context);
-    
-    return (
-        <HeaderRNE
-        backgroundColor = {Globais.corPrimaria}
-        style={styles.headerContainer}
-        leftComponent={
-            <View style={styles.headerRight}>
-                <TouchableOpacity onPress={()=>setModalMenu(true)}>
-                  <Icon name="equalizer" color="white" size={20}/>
-                </TouchableOpacity>
-            </View>
-        }
-        rightComponent={
-            <View style={styles.headerRight}>
-                <TouchableOpacity>
-                  <Icon style={styles.icon} name="pencil" color="white" size={20}/>
-                </TouchableOpacity>
-              <TouchableOpacity onPress={()=>setModalDelAluno(true)}>
-                <Icon style={styles.icon} name="bin" color="white" size={20}/>
+  const {setModalDelData,setModalMenu,flagLongPressData} = useContext(Context);
+   
+  const onPressBin = () =>{
+    flagLongPressData?setModalDelData(true):null
+  }
+
+  return (
+      <HeaderRNE
+      backgroundColor = {Globais.corPrimaria}
+      style={styles.headerContainer}
+      leftComponent={
+          <View style={styles.headerRight}>
+              <TouchableOpacity onPress={()=>setModalMenu(true)}>
+                <Icon name="equalizer" color="white" size={20}/>
               </TouchableOpacity>
-            </View>
-        }
-        centerComponent={{ text: 'Notas', style: styles.heading }}
-        />
-    
-    );
+          </View>
+      }
+      rightComponent={
+          <View style={styles.headerRight}>
+            <TouchableWithoutFeedback onPress={onPressBin}>
+              <Icon 
+              style={styles.icon}  
+              selectable={false}
+              name="bin" 
+              color={flagLongPressData?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
+              size={20}/>
+            </TouchableWithoutFeedback>
+          </View>
+      }
+      centerComponent={{ text: 'Notas', style: styles.heading }}
+      />
+  
+  );
 };
 
 const styles = StyleSheet.create({

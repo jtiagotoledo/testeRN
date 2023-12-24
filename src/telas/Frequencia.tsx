@@ -4,6 +4,7 @@ import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
 
 import ModalCalendarioFrequencia from "../modais/ModalCalendarioFrequencia";
+import ModalDelData from "../modais/ModalDelData";
 import Globais from "../data/Globais";
 import HeaderFrequencia from "../componentes/HeaderFrequencia";
 import FlatListFrequencia from "../listas/FlatListFrequencia";
@@ -14,7 +15,8 @@ import FabFrequencia from "../componentes/FabFrequencia";
 const Frequencia = () =>{
     const {dataSelec,setModalCalendarioFreq,idClasseSelec,
         idPeriodoSelec,valueAtividade,setValueAtividade,
-        idUsuario,setIdPeriodoSelec,setDataSelec,setIdClasseSelec} = useContext(Context);
+        idUsuario,setIdPeriodoSelec,setDataSelec,setIdClasseSelec,
+        setFlagLongPressData} = useContext(Context);
     
     let dataAno='',dataMes='',dataDia='',data=''
 
@@ -59,7 +61,9 @@ const Frequencia = () =>{
     const renderData = () =>{
         if(data!=''){
             return(
-                <TouchableOpacity onPress={()=>setModalCalendarioFreq(true)}>
+                <TouchableOpacity 
+                onPress={()=>setModalCalendarioFreq(true)}
+                onLongPress={()=>setFlagLongPressData(true)}>
                     <Text style={styles.text}>{data}</Text>
                 </TouchableOpacity>  
             )
@@ -86,6 +90,7 @@ const Frequencia = () =>{
             </View>
             <FlatListFrequencia></FlatListFrequencia>
             <ModalCalendarioFrequencia></ModalCalendarioFrequencia>
+            <ModalDelData></ModalDelData>
             <FabFrequencia></FabFrequencia>
         </View>
     )
