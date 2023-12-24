@@ -15,7 +15,7 @@ import { useFocusEffect } from "@react-navigation/native";
 const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
         idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
-        setIdClasseSelec} = useContext(Context);
+        setIdClasseSelec,setValueAtividade,valueAtividade} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -29,11 +29,12 @@ const Notas = () =>{
         data = dataDia+'/'+dataMes+'/'+dataAno
     }
 
-    const onChangeInputAtividades = (event: NativeSyntheticEvent<TextInputChangeEventData>) =>{
+    const onChangeInputAtividades = (text:String) =>{
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Frequencia')
-        .doc(dataSelec).set({atividade:event.nativeEvent.text})
+        .doc(idClasseSelec).collection('Notas')
+        .doc(dataSelec).set({avaliacao:text})
+        setValueAtividade({avaliacao:text})
     }
 
     useEffect(()=>{
@@ -45,6 +46,19 @@ const Notas = () =>{
             setDataSelec(snapShot.data()?.data)
         })
     },[])
+
+    useEffect(()=>{
+        const data = async ()=>{
+            //Recuperar o título das avaliações da data selecionada no BD.
+            const textoAvaliacao =  firestore().collection(idUsuario)
+            .doc(idPeriodoSelec).collection('Classes')
+            .doc(idClasseSelec).collection('Notas')
+            .doc(dataSelec).get().then()
+            setValueAtividade((await textoAvaliacao).data()||'')
+            console.log('valueAtividade',(await textoAvaliacao).data())
+        }
+    data()        
+    },[dataSelec]);
 
     const renderData = () =>{
         if(data!=''){
@@ -59,6 +73,16 @@ const Notas = () =>{
     return(
         <View style={styles.container}>
             <HeaderNotas title="Frequência"></HeaderNotas>
+            <Divider style={styles.divider}></Divider>
+            <View style={styles.containerInput}>
+                {dataSelec!=''?
+                <TextInput 
+                multiline
+                placeholder="Título da avaliação..." 
+                onChangeText={onChangeInputAtividades}
+                value={valueAtividade.avaliacao}
+                style={styles.textInput}></TextInput>:null}
+            </View>
             <FlatListClasses></FlatListClasses>
             <Divider style={styles.divider}></Divider>
             <View style={styles.containerText}>

@@ -30,7 +30,7 @@ const Frequencia = () =>{
     const onChangeInputAtividades = (text:String) =>{
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Atividades')
+        .doc(idClasseSelec).collection('Frequencia')
         .doc(dataSelec).set({atividade:text})
         setValueAtividade({atividade:text})
     }
@@ -50,7 +50,7 @@ const Frequencia = () =>{
             //Recuperar atividades da data selecionada no BD.
             const textoAtividade =  firestore().collection(idUsuario)
             .doc(idPeriodoSelec).collection('Classes')
-            .doc(idClasseSelec).collection('Atividades')
+            .doc(idClasseSelec).collection('Frequencia')
             .doc(dataSelec).get().then()
             setValueAtividade((await textoAtividade).data()||'')
             console.log('valueAtividade',(await textoAtividade).data())
