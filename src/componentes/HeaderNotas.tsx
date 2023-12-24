@@ -13,10 +13,10 @@ view?: string;
 
 const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-  const {setModalDelData,setModalMenu,flagLongPressData} = useContext(Context);
+  const {setModalDelDataNotas,setModalMenu,flagLongPressDataNotas} = useContext(Context);
    
   const onPressBin = () =>{
-    flagLongPressData?setModalDelData(true):null
+    flagLongPressDataNotas?setModalDelDataNotas(true):null
   }
 
   return (
@@ -37,7 +37,7 @@ const HeaderNotas: React.FunctionComponent<HeaderComponentProps> = (props) => {
               style={styles.icon}  
               selectable={false}
               name="bin" 
-              color={flagLongPressData?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
+              color={flagLongPressDataNotas?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
               size={20}/>
             </TouchableWithoutFeedback>
           </View>

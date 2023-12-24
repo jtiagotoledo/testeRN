@@ -14,8 +14,7 @@ import {Context} from "../data/Provider";
 const Tab = createBottomTabNavigator();
 
 const App = ({navigation}:any) => {
-  const {idUsuario,setAbaSelec,setIdPeriodoSelec,
-    setIdClasseSelec,setDataSelec,setNomePeriodoSelec} = useContext(Context)
+  const {idUsuario,setAbaSelec} = useContext(Context)
     
     useEffect(()=>{
       //recuperar a última aba selecionada

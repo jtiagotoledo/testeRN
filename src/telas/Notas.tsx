@@ -4,7 +4,7 @@ import {Context} from "../data/Provider";
 import { Divider } from "react-native-paper";
 
 import ModalCalendarioNota from "../modais/ModalCalendarioNota";
-import ModalDelData from "../modais/ModalDelData";
+import ModalDelDataNotas from "../modais/ModalDelDataNotas";
 import Globais from "../data/Globais";
 import FlatListClasses from "../listas/FlatListClasses";
 import firestore from '@react-native-firebase/firestore';
@@ -16,7 +16,7 @@ const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
         idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
         setIdClasseSelec,setValueAtividade,valueAtividade,
-        setFlagLongPressData} = useContext(Context);
+        setFlagLongPressDataNotas,nomePeriodoSelec} = useContext(Context);
     
     let dataAno=''
     let dataMes=''
@@ -65,8 +65,8 @@ const Notas = () =>{
         if(data!=''){
             return(
                 <TouchableOpacity 
-                onPress={()=>setModalCalendarioNota(true)}
-                onLongPress={()=>setFlagLongPressData(true)}>
+                onPress={()=>[setModalCalendarioNota(true),setFlagLongPressDataNotas(false)]}
+                onLongPress={()=>setFlagLongPressDataNotas(true)}>
                     <Text style={styles.text}>{data}</Text>
                 </TouchableOpacity>  
             )
@@ -76,6 +76,7 @@ const Notas = () =>{
     return(
         <View style={styles.container}>
             <HeaderNotas title="Frequência"></HeaderNotas>
+            <Text style={styles.textLoad}>{nomePeriodoSelec!=undefined?'Período: '+nomePeriodoSelec:'Selecione um período'}</Text>
             <Divider style={styles.divider}></Divider>
             <FlatListClasses></FlatListClasses>
             <Divider style={styles.divider}></Divider>
@@ -94,7 +95,7 @@ const Notas = () =>{
             </View>
             <FlatListNotas></FlatListNotas>
             <ModalCalendarioNota></ModalCalendarioNota>
-            <ModalDelData></ModalDelData>
+            <ModalDelDataNotas></ModalDelDataNotas>
             <FabNotas></FabNotas>
         </View>
     )
@@ -130,6 +131,10 @@ const styles = StyleSheet.create({
         
         flexDirection:'row',
         justifyContent:'center',
+    },
+    textLoad:{
+        fontSize:24,
+        color:Globais.corTextoClaro,
     }
 });
 

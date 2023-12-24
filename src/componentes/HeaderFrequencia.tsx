@@ -13,10 +13,10 @@ view?: string;
 
 const HeaderFrequencia: React.FunctionComponent<HeaderComponentProps> = (props) => {
 
-  const {setModalMenu,flagLongPressData,setModalDelData} = useContext(Context);
+  const {setModalMenu,flagLongPressDataFreq,setModalDelDataFreq} = useContext(Context);
   
   const onPressBin = () =>{
-    flagLongPressData?setModalDelData(true):null
+    flagLongPressDataFreq?setModalDelDataFreq(true):null
   }
 
   return (
@@ -37,7 +37,7 @@ const HeaderFrequencia: React.FunctionComponent<HeaderComponentProps> = (props) 
               style={styles.icon}  
               selectable={false}
               name="bin" 
-              color={flagLongPressData?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
+              color={flagLongPressDataFreq?'rgba(255,255,255,1)':'rgba(255,255,255,0.6)'}
               size={20}/>
             </TouchableWithoutFeedback>
           </View>

@@ -8,7 +8,7 @@ import HeaderClasses from "../componentes/HeaderClasses";
 import ConexaoInternet from "../componentes/ConexaoInternet";
 import Globais from "../data/Globais";
 
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import ModalAddPeriodo from "../modais/ModalAddPeriodo";
 import ModalAddClasse from "../modais/ModalAddClasse";
 import ModalAddAluno from "../modais/ModalAddAluno";
@@ -21,7 +21,6 @@ import ModalDelAluno from "../modais/ModalDelAluno";
 import ModalMenu from "../modais/ModalMenu";
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
-import { useFocusEffect } from '@react-navigation/native';
 
 
 function Classes({navigation}:any) {

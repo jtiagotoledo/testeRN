@@ -25,12 +25,13 @@ const Item = ({item, onPress, onLongPress, backgroundColor, textColor}: ItemProp
 
 const FlatListClasses = () => {
     let classes:any []= []
-    const {idPeriodoSelec,idClasseSelec,setIdClasseSelec,recarregarClasses} = useContext(Context)
-    const {flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
+    const {idPeriodoSelec,idClasseSelec,setIdClasseSelec,recarregarClasses,
+      flagLoadClasses,setflagLoadAlunos,setflagLoadClasses,
       setFlagLoadFrequencia,listaClasses,setListaClasses,
       setRecarregarClasses,idUsuario,setFlagLongPressClasse,
       setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno,
-      nomePeriodoSelec} = useContext(Context)
+      nomePeriodoSelec,abaSelec,setFlagLongPressDataFreq,
+      setFlagLongPressDataNotas} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -66,6 +67,8 @@ const FlatListClasses = () => {
     setFlagLoadFrequencia('carregando')
     setFlagLongPressClasse(false)
     setFlagLongPressAluno(false)
+    setFlagLongPressDataFreq(false)
+    setFlagLongPressDataNotas(false)
     setSelectedIdAluno('')
     setNumAlunoSelec('')
     console.log('testeIdClasse',idClasseSelec)
@@ -77,6 +80,8 @@ const FlatListClasses = () => {
         periodo:nomePeriodoSelec,
         idClasse:item.idClasse,
         classe:item.classe,
+        aba:abaSelec,
+        data:''
       })
   }
 

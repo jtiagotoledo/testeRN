@@ -5,24 +5,23 @@ import {Context} from "../data/Provider";
 import { Icon } from "../componentes/Icon";
 import Globais from "../data/Globais";
 
-const ModalDelData = () =>{
+const ModalDelDataNotas = () =>{
 
     const {idPeriodoSelec, idClasseSelec,idUsuario, 
-      setRecarregarFrequencia,dataSelec,modalDelData,
-      setModalDelData,setFlagLongPressData,setDataSelec,
-      setRecarregarCalendarioNotas} = useContext(Context);
+      setRecarregarFrequencia,dataSelec,modalDelDataNotas,
+      setModalDelDataNotas,setFlagLongPressDataNotas,setDataSelec} = useContext(Context);
 
     const deletarData = ()=> {
       firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('Frequencia')
+      .doc(idClasseSelec).collection('Notas')
       .doc(dataSelec).delete()
-      setModalDelData(!modalDelData)
-      setFlagLongPressData(false)
+      setModalDelDataNotas(!modalDelDataNotas)
+      setFlagLongPressDataNotas(false)
       setDataSelec('')
       setRecarregarFrequencia('recarregar')
 
-      //deletando o estado da classe
+      //deletando o estado da data
       firestore().collection(idUsuario).
       doc('EstadosApp').update({
         data:''
@@ -34,14 +33,14 @@ const ModalDelData = () =>{
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalDelData}
+                visible={modalDelDataNotas}
                 onRequestClose={() => {
-                setModalDelData(!modalDelData);
+                  setModalDelDataNotas(!modalDelDataNotas);
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalDelData(!modalDelData)}>
+                            <TouchableOpacity  onPress={()=>setModalDelDataNotas(!modalDelDataNotas)}>
                                 <Icon name="cancel-circle" color="black" size={20}></Icon>
                             </TouchableOpacity>
                         </View>
@@ -115,4 +114,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default ModalDelData;
+export default ModalDelDataNotas;

@@ -17,7 +17,8 @@ export default function Provider ({children}){
     const[modalDelPeriodo,setModalDelPeriodo]=useState(false);
     const[modalDelClasse,setModalDelClasse]=useState(false);
     const[modalDelAluno,setModalDelAluno]=useState(false);
-    const[modalDelData,setModalDelData]=useState(false);
+    const[modalDelDataFreq,setModalDelDataFreq]=useState(false);
+    const[modalDelDataNotas,setModalDelDataNotas]=useState(false);
     const[modalCalendarioFreq,setModalCalendarioFreq]=useState(false);
     const[modalCalendarioNota,setModalCalendarioNota]=useState(false);
     const[modalMenu,setModalMenu]=useState(false);
@@ -29,7 +30,8 @@ export default function Provider ({children}){
     const[flagLoadCalendarioNotas,setflagLoadCalendarioNotas]=useState('');
     const[flagLongPressClasse,setFlagLongPressClasse]=useState(false);
     const[flagLongPressAluno,setFlagLongPressAluno]=useState(false);
-    const[flagLongPressData,setFlagLongPressData]=useState(false);
+    const[flagLongPressDataFreq,setFlagLongPressDataFreq]=useState(false);
+    const[flagLongPressDataNotas,setFlagLongPressDataNotas]=useState(false);
     const[recarregarPeriodo,setRecarregarPeriodo]=useState('');
     const[recarregarClasses,setRecarregarClasses]=useState('');
     const[recarregarAlunos,setRecarregarAlunos]=useState('');
@@ -73,7 +75,8 @@ export default function Provider ({children}){
             modalDelPeriodo,setModalDelPeriodo,
             modalDelClasse,setModalDelClasse,
             modalDelAluno,setModalDelAluno,
-            modalDelData,setModalDelData,
+            modalDelDataFreq,setModalDelDataFreq,
+            modalDelDataNotas,setModalDelDataNotas,
             modalCalendarioFreq,setModalCalendarioFreq,
             modalCalendarioNota,setModalCalendarioNota,
             modalMenu,setModalMenu,
@@ -85,7 +88,8 @@ export default function Provider ({children}){
             flagLoadCalendarioNotas,setflagLoadCalendarioNotas,
             flagLongPressClasse,setFlagLongPressClasse,
             flagLongPressAluno,setFlagLongPressAluno,
-            flagLongPressData,setFlagLongPressData,
+            flagLongPressDataFreq,setFlagLongPressDataFreq,
+            flagLongPressDataNotas,setFlagLongPressDataNotas,
             recarregarPeriodo,setRecarregarPeriodo,
             recarregarClasses,setRecarregarClasses,
             recarregarAlunos,setRecarregarAlunos,
