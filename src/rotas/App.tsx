@@ -14,7 +14,7 @@ import {Context} from "../data/Provider";
 const Tab = createBottomTabNavigator();
 
 const App = ({navigation}:any) => {
-  const {idUsuario,setAbaSelec} = useContext(Context)
+  const {idUsuario,setAbaSelec,setDataSelec} = useContext(Context)
     
     useEffect(()=>{
       //recuperar a última aba selecionada
@@ -27,8 +27,6 @@ const App = ({navigation}:any) => {
     },[])
 
   const cliqueClasses = () =>{
-    console.log('entrou Aqui')
-    navigation.navigate('Classes')
     //setar o nome da aba selecionada
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
@@ -37,7 +35,6 @@ const App = ({navigation}:any) => {
   }
 
   const cliqueFrequencia = () =>{
-    navigation.navigate('Frequencia')
     //setar o nome da aba selecionada
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
@@ -46,7 +43,6 @@ const App = ({navigation}:any) => {
   }
 
   const cliqueNotas = () =>{
-    navigation.navigate('Notas')
     //setar o nome da aba selecionada
     firestore().collection(idUsuario).
     doc('EstadosApp').update({

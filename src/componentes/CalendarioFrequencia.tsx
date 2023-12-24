@@ -20,11 +20,11 @@ const CalendarioFrequencia = () => {
   const  datas: any[]=[];
 
   const {idPeriodoSelec,idClasseSelec,dataSelec,
-    setDataSelec,modalCalendarioFreq,setModalCalendarioFreq} = useContext(Context);
-  const {flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
+    setDataSelec,modalCalendarioFreq,setModalCalendarioFreq,
+    flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
     listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
     setRecarregarCalendarioFreq,listaDatasMarcadasFreq,setListaDatasMarcadasFreq,
-    idUsuario,nomePeriodoSelec,idClasse,nomeClasseSelec} = useContext(Context)
+    idUsuario,nomePeriodoSelec,nomeClasseSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
