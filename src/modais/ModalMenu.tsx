@@ -9,7 +9,7 @@ import DropDown from "../listas/DropDownPeriodo";
 
 const ModalMenu = ({navigation}:any) =>{
 
-    const {modalMenu,setModalMenu,setIdUsuario} = useContext(Context)
+    const {modalMenu,setModalMenu,setIdUsuario,idUsuario} = useContext(Context)
 
     const funcSair = () =>{
       auth().signOut()
@@ -18,6 +18,10 @@ const ModalMenu = ({navigation}:any) =>{
           navigation.reset({index:0,routes:[{name:"Login"}]}),
           setIdUsuario('')
         ])
+    }
+
+    const funcSenha = () =>{
+      auth().sendPasswordResetEmail(idUsuario)
     }
 
     return(
@@ -39,6 +43,7 @@ const ModalMenu = ({navigation}:any) =>{
                     <DropDown ></DropDown>
                     <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
                     <Button title='SAIR' onPress={funcSair}></Button>
+                    <Button title='Senha' onPress={funcSenha}></Button>
                   </View>
                 </View>
             </Modal>
