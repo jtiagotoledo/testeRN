@@ -13,7 +13,6 @@ const Login = ({navigation}:any)=>{
                 navigation.reset({index:0,routes:[{name:"App"}]})
             })
             .catch(error => {
-                console.log('erro',error)
                 if (error.code === 'auth/invalid-login') {
                     ToastAndroid.show('Este e-mail não está cadastrado ou senha incorreta',ToastAndroid.SHORT)
                 }
@@ -22,12 +21,10 @@ const Login = ({navigation}:any)=>{
 
     const onChangeInputEmail = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setEmail(event.nativeEvent.text);
-        console.log('email',email);
     }
 
     const onChangeInputSenha = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setSenha(event.nativeEvent.text);
-        console.log('senha',senha);
     }
     return(
         <View style={styles.container}>

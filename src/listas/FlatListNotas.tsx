@@ -71,7 +71,6 @@ const FlatListNotas= () => {
   useEffect(()=>{
       setListaNotas([{numero:'',nome:'',nota:''}]);
       setRecarregarNotas('');
-      console.log('useEffect lista notas');
       setFlagLoadNotas('carregando');
       const subscriber = firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
@@ -86,10 +85,8 @@ const FlatListNotas= () => {
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
           setListaNotas(alunos);
-          console.log('teste notas',documentSnapshot.data())
             if(snapshot.size-index==1){
               setFlagLoadNotas('carregado');
-              console.log('entrou no if da flag notas')
             }
           });
         }    

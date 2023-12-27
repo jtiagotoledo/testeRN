@@ -14,8 +14,13 @@ import {Context} from "../data/Provider";
 const Tab = createBottomTabNavigator();
 
 const App = ({navigation}:any) => {
-  const {idUsuario,setAbaSelec,setDataSelec} = useContext(Context)
-    
+
+  const {idUsuario,setAbaSelec,setFlagLoadAbas} = useContext(Context)
+  
+  const {idClasseSelec,
+    idPeriodoSelec,setIdPeriodoSelec,setDataSelec,
+    setIdClasseSelec} = useContext(Context);
+
     useEffect(()=>{
       //recuperar a última aba selecionada
       const usuario = auth().currentUser?.email
@@ -28,6 +33,8 @@ const App = ({navigation}:any) => {
 
   const cliqueClasses = () =>{
     //setar o nome da aba selecionada
+    console.log('abaCLasses')
+    setFlagLoadAbas('Classes')
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
         aba:'Classes'
@@ -36,17 +43,70 @@ const App = ({navigation}:any) => {
 
   const cliqueFrequencia = () =>{
     //setar o nome da aba selecionada
+    console.log('abaFrequencia')
+    setFlagLoadAbas('Frequencia')
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
         aba:'Frequencia'
+    })
+
+    //recuperar dados dos estados do app
+    firestore().collection(idUsuario)
+    .doc('EstadosApp').get().then(snapShot=>{
+        setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+        setIdClasseSelec(snapShot.data()?.idClasse)
+        
+        //verificação se a data já existe no DB
+        let datasFreq: any[]=[];
+        
+        firestore().collection(idUsuario)
+        .doc(idPeriodoSelec).collection('Classes')
+        .doc(idClasseSelec).collection('Frequencia')
+        .get().then(snapshot => {
+            snapshot.forEach((documentSnapshot) => {
+              datasFreq.push(documentSnapshot.id);
+            });
+            console.log('datasFreq',datasFreq)
+            if(datasFreq.includes(snapShot.data()?.data)){
+                setDataSelec(snapShot.data()?.data)
+            }else{
+                setDataSelec('')
+            }
+        });
     })
   }
 
   const cliqueNotas = () =>{
     //setar o nome da aba selecionada
+    console.log('abaNotas')
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
         aba:'Notas'
+    })
+
+
+    //recuperar dados dos estados do app
+    firestore().collection(idUsuario)
+    .doc('EstadosApp').get().then(snapShot=>{
+        setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+        setIdClasseSelec(snapShot.data()?.idClasse)
+        
+        //verificação se a data já existe no DB
+        let datasNotas: any[]=[];
+        firestore().collection(idUsuario)
+        .doc(idPeriodoSelec).collection('Classes')
+        .doc(idClasseSelec).collection('Notas')
+        .get().then(snapshot => {
+            snapshot.forEach((documentSnapshot) => {
+              datasNotas.push(documentSnapshot.id);
+            });
+            console.log('datasNotas',datasNotas)
+            if(datasNotas.includes(snapShot.data()?.data)){
+                setDataSelec(snapShot.data()?.data)
+            }else{
+                setDataSelec('')
+            }
+        });
     })
   }
 
@@ -72,15 +132,15 @@ const App = ({navigation}:any) => {
           })}>
           <Tab.Screen options={{
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} onPress={()=>cliqueClasses()}/>
+              <TouchableOpacity {...props} onPress={()=>[cliqueClasses()]}/>
             )}} name="Classes" component={Classes}></Tab.Screen>
           <Tab.Screen options={{
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} onPress={()=>cliqueFrequencia()}/>
+              <TouchableOpacity {...props} onPress={()=>[cliqueFrequencia()]}/>
             )}}name="Frequencia" component={Frequencia} />
           <Tab.Screen options={{
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} onPress={()=>cliqueNotas()}/>
+              <TouchableOpacity {...props} onPress={()=>[cliqueNotas()]}/>
             )}}name="Notas" component={Notas}/>
         </Tab.Navigator>
     </Provider>

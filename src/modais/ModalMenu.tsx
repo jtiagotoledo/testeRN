@@ -12,15 +12,16 @@ const ModalMenu = ({navigation}:any) =>{
     const {modalMenu,setModalMenu,setIdUsuario,idUsuario} = useContext(Context)
 
     const funcSair = () =>{
+      //logout
       auth().signOut()
         .then(()=>[
-          console.log('usuário saiu'),
           navigation.reset({index:0,routes:[{name:"Login"}]}),
           setIdUsuario('')
         ])
     }
 
     const funcSenha = () =>{
+      //redefinir senha com link no email
       auth().sendPasswordResetEmail(idUsuario)
     }
 

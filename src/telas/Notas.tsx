@@ -13,15 +13,15 @@ import FlatListNotas from "../listas/FlatListNotas";
 import FabNotas from "../componentes/FabNotas";
 
 const Notas = () =>{
+
+    let datas: any[]=[];
+
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
         idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
         setIdClasseSelec,setValueAtividade,valueAtividade,
-        setFlagLongPressDataNotas,nomePeriodoSelec} = useContext(Context);
+        setFlagLongPressDataNotas,nomePeriodoSelec,abaSelec,flagLoadAbas} = useContext(Context);
     
-    let dataAno=''
-    let dataMes=''
-    let dataDia=''
-    let data=''
+    let dataAno='',dataMes='',dataDia='',data=''
 
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
@@ -39,14 +39,32 @@ const Notas = () =>{
     }
 
     useEffect(()=>{
+        console.log('entrounouseEffectNotas')
+
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
-        .doc('EstadosApp').onSnapshot(snapShot=>{
+        .doc('EstadosApp').get().then(snapShot=>{
             setIdPeriodoSelec(snapShot.data()?.idPeriodo)
             setIdClasseSelec(snapShot.data()?.idClasse)
-            setDataSelec(snapShot.data()?.data)
+            
+            /* //verificação se a data já existe no DB
+            datas = []
+            firestore().collection(idUsuario)
+            .doc(idPeriodoSelec).collection('Classes')
+            .doc(idClasseSelec).collection('Notas')
+            .get().then(snapshot => {
+                snapshot.forEach((documentSnapshot) => {
+                    datas.push(documentSnapshot.id);
+                });
+                console.log('datas',datas)
+                if(datas.includes(snapShot.data()?.data)){
+                    setDataSelec(snapShot.data()?.data)
+                }else{
+                    setDataSelec('')
+                }
+            }); */
         })
-    },[])
+    },[abaSelec])
 
     useEffect(()=>{
         const data = async ()=>{
@@ -56,7 +74,6 @@ const Notas = () =>{
             .doc(idClasseSelec).collection('Notas')
             .doc(dataSelec).get().then()
             setValueAtividade((await textoAvaliacao).data()||'')
-            console.log('valueAtividade',(await textoAvaliacao).data())
         }
     data()        
     },[dataSelec]);

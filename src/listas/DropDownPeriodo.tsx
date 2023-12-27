@@ -29,7 +29,6 @@ const DropDownPeriodo = () =>{
             periodos.push({label:label,value:value,idPeriodo:idPeriodo,periodo:periodo});
         });
         setListaPeriodos(periodos)
-        // console.log('periodos',periodos)
         });
     },[recarregarPeriodo])
 
@@ -41,7 +40,6 @@ const DropDownPeriodo = () =>{
       setFlagLongPressClasse(false)
       setFlagLongPressAluno(false)
       setModalMenu(false);
-      console.log('onChangePeriodo',item.periodo);
 
       //Salvando estado do período
       firestore().collection(idUsuario).

@@ -40,14 +40,12 @@ const CalendarioNota = () => {
     .onSnapshot(snapshot => {
       if(snapshot.empty){
         setflagLoadCalendarioNotas('carregado');
-        console.log('snapshot vazio calendario');
       }
       snapshot.forEach((documentSnapshot, index) => {
         datas.push(documentSnapshot.id);
         datasMarcadas[documentSnapshot.id]={selected:true}
           if(snapshot.size-index==1){
             setflagLoadCalendarioNotas('carregado')
-            console.log('entrou no if da flag calendário')
           }
       });
     });
@@ -116,7 +114,6 @@ const CalendarioNota = () => {
                   setDataSelec(day.dateString);
                   setFlagLoadNotas('carregando');
                   setRecarregarNotas('recarregarFrequencia');
-                  console.log(listaDatasNotas);
                   if(listaDatasNotas.includes(day.dateString)){
                     setModalCalendarioNota(!modalCalendarioNota)
                     

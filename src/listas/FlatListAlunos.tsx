@@ -43,13 +43,11 @@ const FlatListAlunos = () => {
       .onSnapshot((snapshot)=>{
       if(snapshot.empty  && idClasseSelec!=''){
         setflagLoadAlunos('vazio');
-        console.log('alunos empty',idClasseSelec)
       }else{
         snapshot.forEach((documentSnapshot,index) => {
         alunos.push(documentSnapshot.data());
         if(snapshot.size-index==1){
           setflagLoadAlunos('carregado');
-          console.log('entrou no if da flag alunos',idClasseSelec)
         }
         });
     }

@@ -22,7 +22,6 @@ const ModalAddAluno = () =>{
     
     const onPressAddAluno = () =>{
       if(valueNumero!='' && valueNome!=''){
-        console.log('idClasseSelecAddAluno',idClasseSelec)
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('ListaAlunos')
@@ -33,7 +32,6 @@ const ModalAddAluno = () =>{
         });
         setModalAddAluno(!modalAddAluno);
         setAlunoInativo(false)
-        console.log('função adicionar',valueNome);
 
       }else{
         ToastAndroid.show(
@@ -44,7 +42,6 @@ const ModalAddAluno = () =>{
 
     const renderIconCheck = () =>{
       return(
-        console.log(alunoInativo),
         alunoInativo?<Icon name="checkmark" color="white" size={20}/>:
                        <Icon name="checkmark2" color="white" size={20}/>
       )

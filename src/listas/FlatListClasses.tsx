@@ -44,19 +44,16 @@ const FlatListClasses = () => {
       .onSnapshot(snapshot => {
         if(snapshot.empty && idPeriodoSelec!=''){
           setflagLoadClasses('vazio');
-          console.log('classe empty',idPeriodoSelec)
         }else{
           snapshot.forEach((documentSnapshot,index) => {
           classes.push(documentSnapshot.data());
             if(snapshot.size-index==1){
               setflagLoadClasses('carregado')
-              console.log('entrou no if da flag classes', idPeriodoSelec)
             } 
           });
         }
     });
     setListaClasses(classes);
-    console.log('listaClasses',listaClasses)
   }
   data()   
   },[idPeriodoSelec,recarregarClasses]);
@@ -71,7 +68,6 @@ const FlatListClasses = () => {
     setFlagLongPressDataNotas(false)
     setSelectedIdAluno('')
     setNumAlunoSelec('')
-    console.log('testeIdClasse',idClasseSelec)
 
     //salvando estado da classe
     firestore().collection(idUsuario).

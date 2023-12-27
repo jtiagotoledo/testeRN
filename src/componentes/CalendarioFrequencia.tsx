@@ -33,7 +33,6 @@ const CalendarioFrequencia = () => {
     setflagLoadCalendarioFreq('carregando');
     setListaDatasFreq('');
     setListaDatasMarcadasFreq({})
-    console.log('entrouCalendFreq')
     setRecarregarCalendarioFreq('');
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
@@ -41,14 +40,12 @@ const CalendarioFrequencia = () => {
     .onSnapshot(snapshot => {
       if(snapshot.empty){
         setflagLoadCalendarioFreq('carregado');
-        console.log('snapshot vazio calendario');
       }
       snapshot.forEach((documentSnapshot, index) => {
         datas.push(documentSnapshot.id);
         datasMarcadas[documentSnapshot.id]={selected:true}
           if(snapshot.size-index==1){
             setflagLoadCalendarioFreq('carregado')
-            console.log('entrou no if da flag calendário')
           }
       });
     });

@@ -38,12 +38,10 @@ const NovaConta = ({navigation}:any)=>{
 
     const onChangeInputEmail = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
             setEmail(event.nativeEvent.text);
-            console.log('email',email);
         }
 
     const onChangeInputSenha = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
             setSenha(event.nativeEvent.text);
-            console.log('senha',senha);
         }
 
     return(

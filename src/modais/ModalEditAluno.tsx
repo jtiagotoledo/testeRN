@@ -39,7 +39,6 @@ const ModalEditAluno = () =>{
 
     const renderIconCheck = () =>{
       return(
-        console.log(alunoInativo),
         alunoInativo?<Icon name="checkmark" color="white" size={20}/>:
                        <Icon name="checkmark2" color="white" size={20}/>
       )

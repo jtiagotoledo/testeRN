@@ -13,10 +13,13 @@ import firestore from '@react-native-firebase/firestore';
 import FabFrequencia from "../componentes/FabFrequencia";
 
 const Frequencia = () =>{
+
+    let datas: any[]=[];
+
     const {dataSelec,setModalCalendarioFreq,idClasseSelec,
         idPeriodoSelec,valueAtividade,setValueAtividade,
         idUsuario,setIdPeriodoSelec,setDataSelec,setIdClasseSelec,
-        setFlagLongPressDataFreq,nomePeriodoSelec} = useContext(Context);
+        setFlagLongPressDataFreq,nomePeriodoSelec,abaSelec,flagLoadAbas} = useContext(Context);
     
     let dataAno='',dataMes='',dataDia='',data=''
 
@@ -36,14 +39,34 @@ const Frequencia = () =>{
     }
 
     useEffect(()=>{
+        console.log('entrounouseEffectFreq')
+        
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
-        .doc('EstadosApp').onSnapshot(snapShot=>{
-          setIdPeriodoSelec(snapShot.data()?.idPeriodo)
-          setIdClasseSelec(snapShot.data()?.idClasse)
-          setDataSelec(snapShot.data()?.data)
+        .doc('EstadosApp').get().then(snapShot=>{
+        setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+        setIdClasseSelec(snapShot.data()?.idClasse)
+
+           /*  //verificação se a data já existe no DB
+            datas = []
+            firestore().collection(idUsuario)
+            .doc(idPeriodoSelec).collection('Classes')
+            .doc(idClasseSelec).collection('Frequencia')
+            .get().then(snapshot => {
+                snapshot.forEach((documentSnapshot) => {
+                    datas.push(documentSnapshot.id);
+                });
+                console.log('datas',datas)
+                if(datas.includes(snapShot.data()?.data)){
+                    setDataSelec(snapShot.data()?.data)
+                }else{
+                    setDataSelec('')
+                }
+            }); */
         })
-      },[])
+
+          
+      },[abaSelec])
 
     useEffect(()=>{
         const data = async ()=>{
@@ -53,7 +76,6 @@ const Frequencia = () =>{
             .doc(idClasseSelec).collection('Frequencia')
             .doc(dataSelec).get().then()
             setValueAtividade((await textoAtividade).data()||'')
-            console.log('valueAtividade',(await textoAtividade).data())
         }
     data()        
     },[dataSelec]);
