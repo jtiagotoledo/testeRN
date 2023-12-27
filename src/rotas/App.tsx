@@ -69,8 +69,15 @@ const App = ({navigation}:any) => {
             console.log('datasFreq',datasFreq)
             if(datasFreq.includes(snapShot.data()?.data)){
                 setDataSelec(snapShot.data()?.data)
+                console.log('dataincluida')
             }else{
                 setDataSelec('')
+                console.log('dataNãoincluida')
+
+                firestore().collection(idUsuario).
+                doc('EstadosApp').update({
+                    data:''
+                })
             }
         });
     })
@@ -103,8 +110,15 @@ const App = ({navigation}:any) => {
             console.log('datasNotas',datasNotas)
             if(datasNotas.includes(snapShot.data()?.data)){
                 setDataSelec(snapShot.data()?.data)
+                console.log('dataincluida')
             }else{
                 setDataSelec('')
+                console.log('dataNãoincluida')
+
+                firestore().collection(idUsuario).
+                doc('EstadosApp').update({
+                    data:''
+                })
             }
         });
     })

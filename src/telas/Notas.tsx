@@ -43,9 +43,11 @@ const Notas = () =>{
 
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
-        .doc('EstadosApp').get().then(snapShot=>{
+        .doc('EstadosApp').onSnapshot(snapShot=>{
             setIdPeriodoSelec(snapShot.data()?.idPeriodo)
             setIdClasseSelec(snapShot.data()?.idClasse)
+            setDataSelec(snapShot.data()?.data)
+
             
             /* //verificação se a data já existe no DB
             datas = []
@@ -64,7 +66,7 @@ const Notas = () =>{
                 }
             }); */
         })
-    },[abaSelec])
+    },[])
 
     useEffect(()=>{
         const data = async ()=>{
