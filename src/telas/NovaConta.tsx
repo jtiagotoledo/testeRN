@@ -14,6 +14,8 @@ const NovaConta = ({navigation}:any)=>{
             periodo:'',
             idClasse:'',
             classe:'',
+            data:'',
+            aba:'Classes'
         })
     }
 

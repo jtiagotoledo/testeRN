@@ -36,7 +36,7 @@ const ModalAddPeriodo = () =>{
           idClasse:'',
           classe:'',
           data:'',
-          aba:''
+          aba:'Classes'
         })
       }
       else{

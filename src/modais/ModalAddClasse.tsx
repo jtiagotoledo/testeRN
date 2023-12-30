@@ -38,7 +38,7 @@ const ModalAddClasse = () =>{
           idClasse:idClasse,
           classe:valueClasse,
           data:'',
-          aba:''
+          aba:'Classes'
         })
       }else{
         ToastAndroid.show(

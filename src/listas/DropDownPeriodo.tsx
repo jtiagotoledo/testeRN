@@ -14,7 +14,7 @@ const DropDownPeriodo = () =>{
     const {setIdPeriodoSelec,setFlagLongPressAluno,
       idUsuario,setModalMenu,setFlagLongPressClasse,setModalDelPeriodo,
       recarregarPeriodo,listaPeriodos,setListaPeriodos,
-      setNomePeriodoSelec,nomePeriodoSelec,setModalEditPeriodo} = useContext(Context)
+      setNomePeriodoSelec,nomePeriodoSelec,setModalEditPeriodo,abaSelec} = useContext(Context)
 
     const  periodos: any[]=[];
 
@@ -48,6 +48,8 @@ const DropDownPeriodo = () =>{
         periodo:item.periodo,
         idClasse:'',
         classe:'',
+        data:'',
+        aba:'Classes'
       })
     }
 
