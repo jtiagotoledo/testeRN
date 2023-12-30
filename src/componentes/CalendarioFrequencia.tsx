@@ -73,14 +73,17 @@ const CalendarioFrequencia = () => {
       snapshot.forEach(documentSnapshot => {
         const numero = documentSnapshot.data().numero;
         const nome = documentSnapshot.data().nome;
+        const idAluno = documentSnapshot.data().idAluno;
+
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
-        .doc(numero+'').set({
+        .doc(idAluno).set({
           numero: numero,
           nome: nome,
-          frequencia:'P'
+          frequencia:'P',
+          idAluno:idAluno,
         }).then(setRecarregarFrequencia('recarregarFrequencia'))
       });
     });

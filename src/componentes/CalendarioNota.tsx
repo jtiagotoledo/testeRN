@@ -73,15 +73,18 @@ const CalendarioNota = () => {
       snapshot.forEach(documentSnapshot => {
         const numero = documentSnapshot.data().numero;
         const nome = documentSnapshot.data().nome;
+        const idAluno = documentSnapshot.data().idAluno;
+
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('Notas')
         .doc(dataSelec).collection('Alunos')
-        .doc(numero+'').set({
+        .doc(idAluno).set({
           numero: numero,
           nome: nome,
-          nota:''
-        }).then(setRecarregarNotas('recarregarFrequencia'))
+          nota:'',
+          idAluno:idAluno,
+        }).then(setRecarregarNotas('recarregarNotas'))
       });
     });
     

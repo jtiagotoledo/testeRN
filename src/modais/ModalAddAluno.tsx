@@ -20,16 +20,18 @@ const ModalAddAluno = () =>{
       setValueNome(event.nativeEvent.text);
     }
     
-    const onPressAddAluno = () =>{
+    const onPressAddAluno = async () =>{
       if(valueNumero!='' && valueNome!=''){
-        firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('ListaAlunos')
-        .doc(valueNumero).set({
+
+        const refDoc = firestore().collection(idUsuario).doc(idPeriodoSelec).collection('Classes').doc(idClasseSelec).collection('ListaAlunos')
+        const idAluno = (await refDoc.add({})).id
+        refDoc.doc(idAluno).set({
           numero: parseInt(valueNumero),
           nome: valueNome,
-          inativo: alunoInativo
-        });
+          inativo: alunoInativo,
+          idAluno:idAluno,
+        })
+        setRecarregarAlunos('recarregar')
         setModalAddAluno(!modalAddAluno);
         setAlunoInativo(false)
 

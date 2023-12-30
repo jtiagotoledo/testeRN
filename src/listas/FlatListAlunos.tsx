@@ -7,7 +7,8 @@ import Globais from '../data/Globais';
 type ItemData = {
   nome: string;
   numero: string;
-  inativo: string
+  inativo: string;
+  idAluno: string;
 };
 
 type ItemProps = {
@@ -33,7 +34,7 @@ const FlatListAlunos = () => {
 
   useEffect(()=>{
     const data = async ()=>{
-      setListaAlunos([{nome:'',numero:''}]);
+      setListaAlunos('');
       setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
       firestore().collection(idUsuario)
@@ -50,7 +51,7 @@ const FlatListAlunos = () => {
           setflagLoadAlunos('carregado');
         }
         });
-    }
+      }
     });
     setListaAlunos(alunos)
   }
@@ -112,7 +113,7 @@ const FlatListAlunos = () => {
               <FlatList
                 data={listaAlunos}
                 renderItem={renderItem}
-                keyExtractor={item => item.numero}
+                keyExtractor={item => item.idAluno}
                 extraData={selectedIdAluno}
               />
             )

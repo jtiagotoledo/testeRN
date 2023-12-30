@@ -9,6 +9,7 @@ type ItemData = {
   nome: string;
   numero: string;
   nota: string;
+  idAluno: string;
 };
 
 type ItemProps = {
@@ -131,7 +132,7 @@ const FlatListNotas= () => {
               <FlatList
                 data={listaNotas}
                 renderItem={renderItem}
-                keyExtractor={item => item.numero}
+                keyExtractor={item => item.idAluno}
                 extraData={selectedId}
               />
             )
