@@ -39,32 +39,12 @@ const Frequencia = () =>{
     }
 
     useEffect(()=>{
-        console.log('entrounouseEffectFreq')
-        
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
         .doc('EstadosApp').onSnapshot(snapShot=>{
         setIdPeriodoSelec(snapShot.data()?.idPeriodo)
         setIdClasseSelec(snapShot.data()?.idClasse)
         setDataSelec(snapShot.data()?.data)
-
-
-           /*  //verificação se a data já existe no DB
-            datas = []
-            firestore().collection(idUsuario)
-            .doc(idPeriodoSelec).collection('Classes')
-            .doc(idClasseSelec).collection('Frequencia')
-            .get().then(snapshot => {
-                snapshot.forEach((documentSnapshot) => {
-                    datas.push(documentSnapshot.id);
-                });
-                console.log('datas',datas)
-                if(datas.includes(snapShot.data()?.data)){
-                    setDataSelec(snapShot.data()?.data)
-                }else{
-                    setDataSelec('')
-                }
-            }); */
         })
 
           

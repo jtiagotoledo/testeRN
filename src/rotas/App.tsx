@@ -33,7 +33,6 @@ const App = ({navigation}:any) => {
 
   const cliqueClasses = () =>{
     //setar o nome da aba selecionada
-    console.log('abaCLasses')
     setFlagLoadAbas('Classes')
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
@@ -43,7 +42,6 @@ const App = ({navigation}:any) => {
 
   const cliqueFrequencia = () =>{
     //setar o nome da aba selecionada
-    console.log('abaFrequencia')
     setFlagLoadAbas('Frequencia')
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
@@ -66,13 +64,10 @@ const App = ({navigation}:any) => {
             snapshot.forEach((documentSnapshot) => {
               datasFreq.push(documentSnapshot.id);
             });
-            console.log('datasFreq',datasFreq)
             if(datasFreq.includes(snapShot.data()?.data)){
                 setDataSelec(snapShot.data()?.data)
-                console.log('dataincluida')
             }else{
                 setDataSelec('')
-                console.log('dataNãoincluida')
 
                 firestore().collection(idUsuario).
                 doc('EstadosApp').update({
@@ -85,7 +80,6 @@ const App = ({navigation}:any) => {
 
   const cliqueNotas = () =>{
     //setar o nome da aba selecionada
-    console.log('abaNotas')
     firestore().collection(idUsuario).
     doc('EstadosApp').update({
         aba:'Notas'
@@ -107,14 +101,10 @@ const App = ({navigation}:any) => {
             snapshot.forEach((documentSnapshot) => {
               datasNotas.push(documentSnapshot.id);
             });
-            console.log('datasNotas',datasNotas)
             if(datasNotas.includes(snapShot.data()?.data)){
                 setDataSelec(snapShot.data()?.data)
-                console.log('dataincluida')
             }else{
                 setDataSelec('')
-                console.log('dataNãoincluida')
-
                 firestore().collection(idUsuario).
                 doc('EstadosApp').update({
                     data:''

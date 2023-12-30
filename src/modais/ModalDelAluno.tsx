@@ -12,6 +12,7 @@ const ModalDelAluno = () =>{
        setFlagLongPressAluno,setNumAlunoSelec,setSelectedIdAluno} = useContext(Context);
 
     const deletarAluno = ()=> {
+      //deletar aluno da lista de alunos
       firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
       .doc(idClasseSelec).collection('ListaAlunos')
@@ -21,6 +22,37 @@ const ModalDelAluno = () =>{
       setNumAlunoSelec('')
       setSelectedIdAluno('')
       setRecarregarAlunos('recarregar')
+
+      //deletar aluno da lista de frequencias
+      firestore().collection(idUsuario)
+      .doc(idPeriodoSelec).collection('Classes')
+      .doc(idClasseSelec).collection('Frequencia')
+      .onSnapshot(snapshot=>{
+        snapshot.forEach(docSnapshot=>{
+          const data = docSnapshot.id
+          firestore().collection(idUsuario)
+          .doc(idPeriodoSelec).collection('Classes')
+          .doc(idClasseSelec).collection('Frequencia')
+          .doc(data).collection('Alunos')
+          .doc(numAlunoSelec).delete()
+        })
+      })
+
+      //deletar aluno da lista de notas
+      firestore().collection(idUsuario)
+      .doc(idPeriodoSelec).collection('Classes')
+      .doc(idClasseSelec).collection('Notas')
+      .onSnapshot(snapshot=>{
+        snapshot.forEach(docSnapshot=>{
+          const data = docSnapshot.id
+          firestore().collection(idUsuario)
+          .doc(idPeriodoSelec).collection('Classes')
+          .doc(idClasseSelec).collection('Notas')
+          .doc(data).collection('Alunos')
+          .doc(numAlunoSelec).delete()
+        })
+      })
+      
     }
     
     return(

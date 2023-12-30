@@ -22,7 +22,6 @@ const Notas = () =>{
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('chave');
-      console.log(jsonValue);
       setLista(jsonValue||'')
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
