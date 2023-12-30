@@ -8,23 +8,29 @@ import { Icon } from "../componentes/Icon";
 
 const ModalEditAluno = () =>{
 
-    const [valueAluno,setValueAluno] = useState<string>('')
+  const [valueNomeAluno,setValueNomeAluno] = useState<string>('')
+  const [valueNumAluno,setValueNumAluno] = useState<string>('')
     const {modalEditAluno,setModalEditAluno,idPeriodoSelec,
       setRecarregarAlunos,idUsuario,idClasseSelec,numAlunoSelec,
       nomeAlunoSelec,alunoInativo,setAlunoInativo,
-      setFlagLongPressAluno} = useContext(Context)
+      setFlagLongPressAluno,idAlunoSelec} = useContext(Context)
 
-    const onChangeInputAluno = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-      setValueAluno(event.nativeEvent.text);
-      }
+    const onChangeInputAlunoNome = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+      setValueNomeAluno(event.nativeEvent.text);
+    }
+
+    const onChangeInputAlunoNum = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
+      setValueNumAluno(event.nativeEvent.text);
+    }
     
     const onPressEditAluno = async () =>{
-      if(valueAluno!=''){
+      if(valueNomeAluno!='' && valueNumAluno!=''){
         firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('ListaAlunos')
-        .doc(numAlunoSelec).update({
-          nome:valueAluno,
+        .doc(idAlunoSelec).update({
+          nome:valueNomeAluno,
+          numero:valueNumAluno,
           inativo:alunoInativo
         })
         setRecarregarAlunos('recarregar')
@@ -32,7 +38,7 @@ const ModalEditAluno = () =>{
         setModalEditAluno(!modalEditAluno);
       }else{
         ToastAndroid.show(
-          'O campo nome do aluno é obrigatório!',
+          'Os campos nome do aluno e número do aluno são obrigatórios!',
           ToastAndroid.SHORT)
       }
     }
@@ -63,9 +69,15 @@ const ModalEditAluno = () =>{
                         <Text style={styles.modalText}>Edite o nome do aluno:</Text>
                         <TextInput 
                           style={styles.textInput}
+                          placeholder='Número do aluno'
+                          defaultValue={numAlunoSelec} 
+                          onChange={onChangeInputAlunoNum}>
+                        </TextInput>
+                        <TextInput 
+                          style={styles.textInput}
                           placeholder='Nome do aluno'
                           defaultValue={nomeAlunoSelec} 
-                          onChange={onChangeInputAluno}>
+                          onChange={onChangeInputAlunoNome}>
                         </TextInput>
                         <TouchableOpacity style={styles.iconCheckContainer} onPress={()=>setAlunoInativo(!alunoInativo)}>
                           {renderIconCheck()}

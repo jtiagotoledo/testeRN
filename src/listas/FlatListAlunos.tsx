@@ -30,7 +30,7 @@ const FlatListAlunos = () => {
     const {flagLoadAlunos,setflagLoadAlunos,idPeriodoSelec,idClasseSelec,
       setNumAlunoSelec,setRecarregarAlunos,recarregarAlunos,setFlagLongPressClasse,
       listaAlunos,setListaAlunos,idUsuario,setFlagLongPressAluno,
-      selectedIdAluno, setSelectedIdAluno,setNomeAlunoSelec,alunoInativo,setAlunoInativo} = useContext(Context)
+      selectedIdAluno, setSelectedIdAluno,setNomeAlunoSelec,setIdAlunoSelec,setAlunoInativo} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -59,14 +59,17 @@ const FlatListAlunos = () => {
   },[idPeriodoSelec,idClasseSelec,recarregarAlunos]);
 
   const onPressItem = (item:any) =>{
-    setSelectedIdAluno(item.numero)
-    setNumAlunoSelec(item.numero.toString())
+    setSelectedIdAluno(item.idAluno)
+    setIdAlunoSelec(item.idAluno)
     setNomeAlunoSelec(item.nome)
+    setNumAlunoSelec(item.numero.toString())
     setFlagLongPressAluno(false)
   }
 
   const onLongPressItem = (item:any) =>{
-    setSelectedIdAluno(item.numero)
+    setSelectedIdAluno(item.idAluno)
+    setIdAlunoSelec(item.idAluno)
+    setNomeAlunoSelec(item.nome)
     setNumAlunoSelec(item.numero.toString())
     setAlunoInativo(item.inativo)
     setFlagLongPressAluno(true)
@@ -78,9 +81,9 @@ const FlatListAlunos = () => {
     if(item.inativo){
       backgroundColor = Globais.corAlunoInativo
     }else{
-      backgroundColor = item.numero === selectedIdAluno ? Globais.corPrimaria : Globais.corTerciaria;
+      backgroundColor = item.idAluno === selectedIdAluno ? Globais.corPrimaria : Globais.corTerciaria;
     }
-    const color = item.numero === selectedIdAluno ? Globais.corTextoClaro : Globais.corTextoEscuro;
+    const color = item.idAluno === selectedIdAluno ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     return (
       <Item
