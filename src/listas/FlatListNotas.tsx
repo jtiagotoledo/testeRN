@@ -23,7 +23,8 @@ const FlatListNotas= () => {
   const notaAluno = {
     nome:'',
     numero:'',
-    nota:''
+    nota:'',
+    idAluno:''
   }
   
   const [selectedId, setSelectedId] = useState<string>();
@@ -54,15 +55,16 @@ const FlatListNotas= () => {
     notaAluno.nome=item.nome;
     notaAluno.numero=item.numero
     notaAluno.nota=text
+    notaAluno.idAluno=item.idAluno
   }
 
   const salvarNota = () =>{
-    const numAluno = notaAluno.numero;
+    const idAluno = notaAluno.idAluno;
     firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('Notas')
     .doc(dataSelec).collection('Alunos')
-    .doc(numAluno+'').set({
+    .doc(idAluno).update({
       numero:notaAluno.numero,
       nome:notaAluno.nome,
       nota:notaAluno.nota
@@ -70,7 +72,7 @@ const FlatListNotas= () => {
   }
   
   useEffect(()=>{
-      setListaNotas([{numero:'',nome:'',nota:''}]);
+      setListaNotas([{numero:'',nome:'',nota:'',idAluno:''}]);
       setRecarregarNotas('');
       setFlagLoadNotas('carregando');
       const subscriber = firestore().collection(idUsuario)

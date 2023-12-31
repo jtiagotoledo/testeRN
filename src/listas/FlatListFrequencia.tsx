@@ -40,8 +40,7 @@ const FlatListFrequencia = () => {
 
   useEffect(()=>{
     const data = async ()=>{
-      
-      setListaFrequencia([{numero:'',nome:'',frequencia:''}]);
+      setListaFrequencia([{numero:'',nome:'',frequencia:'',idAluno:''}]);
       setRecarregarFrequencia('');
       setFlagLoadFrequencia('carregando');
       firestore().collection(idUsuario)
@@ -68,14 +67,14 @@ const FlatListFrequencia = () => {
 
   const onPressItemFreq = (item:any) =>{
     let statusFrequencia = item.frequencia=='P'?'A':'P'
-    const numAluno = item.numero;
-    setSelectedId(item.numero);
+    const idAluno = item.idAluno;
+    setSelectedId(item.idAluno);
     setNumAlunoSelec(item.numero.toString());
     firestore().collection(idUsuario)
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('Frequencia')
         .doc(dataSelec).collection('Alunos')
-        .doc(numAluno+'').set({
+        .doc(idAluno).update({
           numero:item.numero,
           nome:item.nome,
           frequencia:statusFrequencia
