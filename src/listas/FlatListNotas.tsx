@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpacity, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
 import Globais from '../data/Globais';
@@ -26,13 +26,33 @@ const FlatListNotas= () => {
     nota:'',
     idAluno:''
   }
-  
+
+  const flatListRef = useRef<FlatList>(null);
   const [selectedId, setSelectedId] = useState<string>();
   const {idPeriodoSelec,idClasseSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
-  const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+  const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => {
     
+    const scrollToItem = (itemId:any) => {
+      const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
+      console.log('index',index)
+  
+      if (index !== -1 && flatListRef.current) {
+        flatListRef.current.scrollToIndex({ index, animated: true });
+      }
+    };
+
+    const nextItem = (itemId:any) => {
+      const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
+      console.log('index',index)
+  
+      if (index !== -1 && flatListRef.current) {
+        flatListRef.current.scrollToIndex({ index, animated: true });
+      }
+    };
+    
+    return(
     <View style={styles.containerItem}>
       <View style={[styles.item, styles.nome]}>
         <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
@@ -45,13 +65,17 @@ const FlatListNotas= () => {
         onChangeText={(text)=>onChangeNota(item,text)}
         onBlur={salvarNota}
         defaultValue={item.nota}
+        onFocus={() => scrollToItem(item.idAluno)}
         >
         </TextInput>
       </View>
     </View>
-  );
+
+    )
+  }
 
   const onChangeNota = (item:ItemData,text:string) =>{
+    console.log(typeof(text))
     notaAluno.nome=item.nome;
     notaAluno.numero=item.numero
     notaAluno.nota=text
@@ -59,16 +83,18 @@ const FlatListNotas= () => {
   }
 
   const salvarNota = () =>{
-    const idAluno = notaAluno.idAluno;
-    firestore().collection(idUsuario)
-    .doc(idPeriodoSelec).collection('Classes')
-    .doc(idClasseSelec).collection('Notas')
-    .doc(dataSelec).collection('Alunos')
-    .doc(idAluno).update({
-      numero:notaAluno.numero,
-      nome:notaAluno.nome,
-      nota:notaAluno.nota
-    });
+    if(notaAluno.nota!=''){
+      const idAluno = notaAluno.idAluno;
+      firestore().collection(idUsuario)
+      .doc(idPeriodoSelec).collection('Classes')
+      .doc(idClasseSelec).collection('Notas')
+      .doc(dataSelec).collection('Alunos')
+      .doc(idAluno).update({
+        numero:notaAluno.numero,
+        nome:notaAluno.nome,
+        nota:notaAluno.nota
+      });
+    }
   }
   
   useEffect(()=>{
@@ -103,6 +129,8 @@ const FlatListNotas= () => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
+    
+
     return (
       <Item
         item={item}
@@ -134,8 +162,10 @@ const FlatListNotas= () => {
               <FlatList
                 data={listaNotas}
                 renderItem={renderItem}
+                ref={flatListRef}
                 keyExtractor={item => item.idAluno}
                 extraData={selectedId}
+                contentContainerStyle={{paddingBottom:300}}
               />
             )
         }
@@ -156,9 +186,9 @@ const FlatListNotas= () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-        {renderCarregamento()}
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+          {renderCarregamento()}
+      </SafeAreaView>
   );
 };
 
