@@ -33,49 +33,6 @@ const FlatListNotas= () => {
   const {idPeriodoSelec,idClasseSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
-  const Item = ({item, onPress, backgroundColor, textColor,index}: ItemProps) => {
-    
-    const scrollToItem = (itemId:any) => {
-      const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
-      console.log('index',index)
-      if (index !== -1 && flatListRef.current) {
-        flatListRef.current.scrollToIndex({ index, animated: true });
-      }
-    };
-
-    const nextItem = (itemId:any) => {
-      const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
-  
-      if (index !== -1 && flatListRef.current) {
-        flatListRef.current.scrollToIndex({ index:index+1, animated: true });
-        
-        textInputRefs.current[index + 1]?.focus()
-      }
-    };
-    
-    return(
-    <View style={styles.containerItem}>
-      <View style={[styles.item, styles.nome]}>
-        <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
-      </View>
-      <View>
-        <TextInput 
-        ref={(ref) => (textInputRefs.current[index] = ref!)}
-        style={styles.itemNota}
-        placeholder='Nota'
-        inputMode='numeric'
-        onChangeText={(text)=>onChangeNota(item,text)}
-        onBlur={salvarNota}
-        defaultValue={item.nota}
-        onFocus={() => scrollToItem(item.idAluno)}
-        onSubmitEditing={()=>nextItem(item.idAluno)}
-        >
-        </TextInput>
-      </View>
-    </View>
-
-    )
-  }
 
   const onChangeNota = (item:ItemData,text:string) =>{
     console.log(typeof(text))
@@ -131,19 +88,46 @@ const FlatListNotas= () => {
   },[idClasseSelec,dataSelec]);
 
 
-  const renderItem= ({item}: {item: ItemData},index: number) => {
-    const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
-    const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
-
+  const renderItem= ({item}:{item:ItemData}) => {
     
+    const scrollToItem = (itemId:any) => {
+      const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
+      console.log('index',index)
+      if (index !== -1 && flatListRef.current) {
+        flatListRef.current.scrollToIndex({ index, animated: true });
+      }
+    };
+
+    const nextItem = (itemId:any,itemNumero:any) => {
+      const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
+  
+      if (index !== -1 && flatListRef.current) {
+        flatListRef.current.scrollToIndex({ index:index+1, animated: true });
+        
+        textInputRefs.current[itemNumero + 1]?.focus()
+      }
+    };
+
     return (
-      <Item
-        item={item}
-        onPress={() => null}
-        backgroundColor={backgroundColor}
-        textColor={color}
-        index={index}
-      />
+      <View style={styles.containerItem}>
+        <View style={[styles.item, styles.nome]}>
+          <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
+        </View>
+        <View>
+          <TextInput 
+          ref={(ref) => (textInputRefs.current[parseInt(item.numero)] = ref!)}
+          style={styles.itemNota}
+          placeholder='Nota'
+          inputMode='numeric'
+          onChangeText={(text)=>onChangeNota(item,text)}
+          onBlur={salvarNota}
+          defaultValue={item.nota}
+          onFocus={() => scrollToItem(item.idAluno)}
+          onSubmitEditing={()=>nextItem(item.idAluno,item.numero)}
+          >
+          </TextInput>
+        </View>
+      </View>
     );
   };
 
