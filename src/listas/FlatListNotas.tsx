@@ -29,13 +29,11 @@ const FlatListNotas= () => {
 
   const flatListRef = useRef<FlatList>(null);
   const textInputRefs = useRef<TextInput[]>([]);
-  const [selectedId, setSelectedId] = useState<string>();
+  const [selection, setSelection] = useState({ start: 0, end: 0 });
   const {idPeriodoSelec,idClasseSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
-
   const onChangeNota = (item:ItemData,text:string) =>{
-    console.log(typeof(text))
     notaAluno.nome=item.nome;
     notaAluno.numero=item.numero
     notaAluno.nota=text
@@ -100,10 +98,11 @@ const FlatListNotas= () => {
 
     const nextItem = (itemId:any,itemNumero:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
-      const tempNextItem = setTimeout(()=>{
+      setTimeout(()=>{
         if (index !== -1 && flatListRef.current) {
           // flatListRef.current.scrollToIndex({ index:index+1, animated: true });
           textInputRefs.current[itemNumero + 1]?.focus()
+          setSelection({ start: item.nota.length, end: item.nota.length });
         }
       },300)
     };
@@ -124,7 +123,8 @@ const FlatListNotas= () => {
           defaultValue={item.nota}
           onFocus={() => scrollToItem(item.idAluno)}
           onSubmitEditing={()=>[nextItem(item.idAluno,item.numero)]}
-          
+          selection={selection}
+          onSelectionChange={({ nativeEvent }) => setSelection(nativeEvent.selection)}
           >
           </TextInput>
         </View>
@@ -155,7 +155,6 @@ const FlatListNotas= () => {
                 renderItem={renderItem}
                 ref={flatListRef}
                 keyExtractor={item => item.idAluno}
-                extraData={selectedId}
                 contentContainerStyle={{paddingBottom:300}}
                 keyboardShouldPersistTaps='handled'
               />
