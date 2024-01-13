@@ -100,12 +100,12 @@ const FlatListNotas= () => {
 
     const nextItem = (itemId:any,itemNumero:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
-  
-      if (index !== -1 && flatListRef.current) {
-        flatListRef.current.scrollToIndex({ index:index+1, animated: true });
-        
-        textInputRefs.current[itemNumero + 1]?.focus()
-      }
+      const tempNextItem = setTimeout(()=>{
+        if (index !== -1 && flatListRef.current) {
+          // flatListRef.current.scrollToIndex({ index:index+1, animated: true });
+          textInputRefs.current[itemNumero + 1]?.focus()
+        }
+      },300)
     };
 
     return (
@@ -123,7 +123,8 @@ const FlatListNotas= () => {
           onBlur={salvarNota}
           defaultValue={item.nota}
           onFocus={() => scrollToItem(item.idAluno)}
-          onSubmitEditing={()=>nextItem(item.idAluno,item.numero)}
+          onSubmitEditing={()=>[nextItem(item.idAluno,item.numero)]}
+          
           >
           </TextInput>
         </View>
@@ -156,6 +157,7 @@ const FlatListNotas= () => {
                 keyExtractor={item => item.idAluno}
                 extraData={selectedId}
                 contentContainerStyle={{paddingBottom:300}}
+                keyboardShouldPersistTaps='handled'
               />
             )
         }
