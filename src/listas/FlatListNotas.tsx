@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar} from 'react-native'
+import React, { createRef, useContext, useEffect, useRef, useState } from 'react'
+import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TextInput} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
 import Globais from '../data/Globais';
-import { TextInput } from 'react-native-paper';
 
 type ItemData = {
   nome: string;
@@ -37,7 +36,6 @@ const FlatListNotas= () => {
     const scrollToItem = (itemId:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
       console.log('index',index)
-  
       if (index !== -1 && flatListRef.current) {
         flatListRef.current.scrollToIndex({ index, animated: true });
       }
@@ -45,10 +43,9 @@ const FlatListNotas= () => {
 
     const nextItem = (itemId:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
-      console.log('index',index)
   
       if (index !== -1 && flatListRef.current) {
-        flatListRef.current.scrollToIndex({ index, animated: true });
+        flatListRef.current.scrollToIndex({ index:index+1, animated: true });
       }
     };
     
@@ -66,6 +63,7 @@ const FlatListNotas= () => {
         onBlur={salvarNota}
         defaultValue={item.nota}
         onFocus={() => scrollToItem(item.idAluno)}
+        onSubmitEditing={()=>nextItem(item.idAluno)}
         >
         </TextInput>
       </View>
@@ -111,6 +109,9 @@ const FlatListNotas= () => {
           setFlagLoadNotas('vazio');
         }else{
           let alunos:any[]=[]
+          let inputRefs:any[] = ([])
+          snapshot.docs.map(()=>inputRefs.push(createRef()))
+          console.log('inputRefs',inputRefs)
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
           setListaNotas(alunos);
