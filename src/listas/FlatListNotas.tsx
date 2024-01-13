@@ -16,6 +16,7 @@ type ItemProps = {
   onPress: () => void;
   backgroundColor: string;
   textColor: string;
+  index: number
 };
 
 const FlatListNotas= () => {
@@ -27,11 +28,12 @@ const FlatListNotas= () => {
   }
 
   const flatListRef = useRef<FlatList>(null);
+  const textInputRefs = useRef<TextInput[]>([]);
   const [selectedId, setSelectedId] = useState<string>();
   const {idPeriodoSelec,idClasseSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
-  const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => {
+  const Item = ({item, onPress, backgroundColor, textColor,index}: ItemProps) => {
     
     const scrollToItem = (itemId:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
@@ -46,6 +48,8 @@ const FlatListNotas= () => {
   
       if (index !== -1 && flatListRef.current) {
         flatListRef.current.scrollToIndex({ index:index+1, animated: true });
+        
+        textInputRefs.current[index + 1]?.focus()
       }
     };
     
@@ -56,6 +60,7 @@ const FlatListNotas= () => {
       </View>
       <View>
         <TextInput 
+        ref={(ref) => (textInputRefs.current[index] = ref!)}
         style={styles.itemNota}
         placeholder='Nota'
         inputMode='numeric'
@@ -126,18 +131,18 @@ const FlatListNotas= () => {
   },[idClasseSelec,dataSelec]);
 
 
-  const renderItem = ({item}: {item: ItemData}) => {
+  const renderItem= ({item}: {item: ItemData},index: number) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
     
-
     return (
       <Item
         item={item}
         onPress={() => null}
         backgroundColor={backgroundColor}
         textColor={color}
+        index={index}
       />
     );
   };
