@@ -1,4 +1,4 @@
-import React, { createRef, useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TextInput} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {Context} from "../data/Provider";
@@ -30,6 +30,7 @@ const FlatListNotas= () => {
     notaAluno.numero=item.numero
     notaAluno.nota=text
     notaAluno.idAluno=item.idAluno
+    salvarNota()
   }
 
   const salvarNota = () =>{
@@ -40,8 +41,6 @@ const FlatListNotas= () => {
       .doc(idClasseSelec).collection('Notas')
       .doc(dataSelec).collection('Alunos')
       .doc(idAluno).update({
-        numero:notaAluno.numero,
-        nome:notaAluno.nome,
         nota:notaAluno.nota
       });
     }
@@ -51,12 +50,12 @@ const FlatListNotas= () => {
       setListaNotas([{numero:'',nome:'',nota:'',idAluno:''}]);
       setRecarregarNotas('');
       setFlagLoadNotas('carregando');
-      const subscriber = firestore().collection(idUsuario)
+      firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
       .doc(idClasseSelec).collection('Notas')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
-      .onSnapshot(snapshot => {
+      .get().then(snapshot => {
         if(snapshot.empty){
           setFlagLoadNotas('vazio');
         }else{
@@ -71,15 +70,12 @@ const FlatListNotas= () => {
         }    
       });
       
-      return ()=> subscriber();
   },[idClasseSelec,dataSelec]);
-
 
   const renderItem= ({item}:{item:ItemData}) => {
     
     const scrollToItem = (itemId:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
-      console.log('index',index)
       if (index !== -1 && flatListRef.current) {
         flatListRef.current.scrollToIndex({ index, animated: true });
       }
@@ -89,9 +85,7 @@ const FlatListNotas= () => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
       setTimeout(()=>{
         if (index !== -1 && flatListRef.current) {
-          // flatListRef.current.scrollToIndex({ index:index+1, animated: true });
           textInputRefs.current[itemNumero + 1]?.focus()
-          setSelection({ start: item.nota.length, end: item.nota.length });
         }
       },300)
     };
@@ -108,7 +102,6 @@ const FlatListNotas= () => {
           placeholder='Nota'
           inputMode='numeric'
           onChangeText={(text)=>onChangeNota(item,text)}
-          onBlur={salvarNota}
           defaultValue={item.nota}
           onFocus={() => scrollToItem(item.idAluno)}
           onSubmitEditing={()=>[nextItem(item.idAluno,item.numero)]}
