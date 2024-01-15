@@ -11,14 +11,6 @@ type ItemData = {
   idAluno: string;
 };
 
-type ItemProps = {
-  item: ItemData;
-  onPress: () => void;
-  backgroundColor: string;
-  textColor: string;
-  index: number
-};
-
 const FlatListNotas= () => {
   const notaAluno = {
     nome:'',
@@ -69,9 +61,6 @@ const FlatListNotas= () => {
           setFlagLoadNotas('vazio');
         }else{
           let alunos:any[]=[]
-          let inputRefs:any[] = ([])
-          snapshot.docs.map(()=>inputRefs.push(createRef()))
-          console.log('inputRefs',inputRefs)
           snapshot.forEach((documentSnapshot,index) => {
           alunos.push(documentSnapshot.data());
           setListaNotas(alunos);
