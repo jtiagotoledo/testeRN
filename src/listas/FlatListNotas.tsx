@@ -30,6 +30,7 @@ const FlatListNotas= () => {
     notaAluno.numero=item.numero
     notaAluno.nota=text
     notaAluno.idAluno=item.idAluno
+    console.log('text',text)
     salvarNota()
   }
 
@@ -70,16 +71,17 @@ const FlatListNotas= () => {
         }    
       });
       
-  },[idClasseSelec,dataSelec]);
+  },[idClasseSelec,dataSelec,salvarNota()]);
 
   const renderItem= ({item}:{item:ItemData}) => {
     
-    const scrollToItem = (itemId:any) => {
+    const scrollToItem = (itemId:any,itemNumero:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
       if (index !== -1 && flatListRef.current) {
         flatListRef.current.scrollToIndex({ index, animated: true });
       }
     };
+
 
     const nextItem = (itemId:any,itemNumero:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
@@ -89,6 +91,15 @@ const FlatListNotas= () => {
         }
       },300)
     };
+
+    const onSelectionChange = (event:any) => {
+      const { nativeEvent } = event;
+      const {selection} = nativeEvent
+      setSelection(selection)
+      // salvarNota()
+    };
+
+    
 
     return (
       <View style={styles.containerItem}>
@@ -103,10 +114,10 @@ const FlatListNotas= () => {
           inputMode='numeric'
           onChangeText={(text)=>onChangeNota(item,text)}
           defaultValue={item.nota}
-          onFocus={() => scrollToItem(item.idAluno)}
+          onFocus={() => scrollToItem(item.idAluno,item.numero)}
           onSubmitEditing={()=>[nextItem(item.idAluno,item.numero)]}
           selection={selection}
-          onSelectionChange={({ nativeEvent }) => setSelection(nativeEvent.selection)}
+          onSelectionChange={(syntheticEvent)=>onSelectionChange(syntheticEvent)}
           >
           </TextInput>
         </View>
