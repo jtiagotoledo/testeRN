@@ -71,7 +71,7 @@ const FlatListNotas= () => {
         }    
       });
       
-  },[idClasseSelec,dataSelec,salvarNota()]);
+  },[idClasseSelec,dataSelec]);
 
   const renderItem= ({item}:{item:ItemData}) => {
     
@@ -79,15 +79,18 @@ const FlatListNotas= () => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
       if (index !== -1 && flatListRef.current) {
         flatListRef.current.scrollToIndex({ index, animated: true });
+        
       }
     };
 
 
-    const nextItem = (itemId:any,itemNumero:any) => {
+    const nextItem = (itemId:any,itemNumero:any,itemNota:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
       setTimeout(()=>{
         if (index !== -1 && flatListRef.current) {
           textInputRefs.current[itemNumero + 1]?.focus()
+          const sizeText = listaNotas[index+1].nota.length
+          setSelection({start:sizeText,end:sizeText})
         }
       },300)
     };
@@ -96,7 +99,6 @@ const FlatListNotas= () => {
       const { nativeEvent } = event;
       const {selection} = nativeEvent
       setSelection(selection)
-      // salvarNota()
     };
 
     
@@ -115,7 +117,7 @@ const FlatListNotas= () => {
           onChangeText={(text)=>onChangeNota(item,text)}
           defaultValue={item.nota}
           onFocus={() => scrollToItem(item.idAluno,item.numero)}
-          onSubmitEditing={()=>[nextItem(item.idAluno,item.numero)]}
+          onSubmitEditing={()=>[nextItem(item.idAluno,item.numero,item.nota)]}
           selection={selection}
           onSelectionChange={(syntheticEvent)=>onSelectionChange(syntheticEvent)}
           >
