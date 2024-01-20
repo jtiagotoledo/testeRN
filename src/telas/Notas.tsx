@@ -19,7 +19,7 @@ const Notas = () =>{
     const {dataSelec,setModalCalendarioNota,idClasseSelec,
         idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
         setIdClasseSelec,setValueAtividade,valueAtividade,
-        setFlagLongPressDataNotas,nomePeriodoSelec,abaSelec,flagLoadAbas} = useContext(Context);
+        setFlagLongPressDataNotas,nomePeriodoSelec,tecladoAtivo} = useContext(Context);
     
     let dataAno='',dataMes='',dataDia='',data=''
 
@@ -95,7 +95,9 @@ const Notas = () =>{
             <FlatListNotas></FlatListNotas>
             <ModalCalendarioNota></ModalCalendarioNota>
             <ModalDelDataNotas></ModalDelDataNotas>
-            <FabNotas></FabNotas>
+            <View style={{ display: tecladoAtivo }}>
+                <FabNotas></FabNotas>
+            </View>
         </View>
     )
 }

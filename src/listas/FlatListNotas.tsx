@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TextInput } from 'react-native'
+import { Keyboard, SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TextInput } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import { Context } from "../data/Provider";
 import Globais from '../data/Globais';
@@ -25,7 +25,8 @@ const FlatListNotas = () => {
   const [textNota, setTextNota] = useState('');
   const [idNota, setIdNota] = useState('');
   const { idPeriodoSelec, idClasseSelec, dataSelec, flagLoadNotas,
-    setFlagLoadNotas, setRecarregarNotas, listaNotas, setListaNotas, idUsuario } = useContext(Context)
+    setFlagLoadNotas, setRecarregarNotas, listaNotas, setListaNotas, 
+    idUsuario,setTecladoAtivo } = useContext(Context)
 
   const onChangeNota = (item: ItemData, text: string) => {
     notaAluno.nome = item.nome;
@@ -48,6 +49,24 @@ const FlatListNotas = () => {
         });
     }
   }
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setTecladoAtivo('none')
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setTecladoAtivo('flex')
+      })
+      return () => {
+        keyboardDidShowListener.remove();
+        keyboardDidHideListener.remove();
+      };
+  },[]);
 
   useEffect(() => {
     setListaNotas([{ numero: '', nome: '', nota: '', idAluno: '' }]);
@@ -113,7 +132,8 @@ const FlatListNotas = () => {
             inputMode='numeric'
             onChangeText={(text) => onChangeNota(item, text)}
             defaultValue={item.nota}
-            onFocus={() => scrollToItem(item.idAluno, item.numero)}
+            onFocus={() => [scrollToItem(item.idAluno, item.numero)]}
+            onBlur={()=>[salvarNota()]}
             onSubmitEditing={() => [nextItem(item.idAluno, item.numero, item.nota), salvarNota()]}
             selection={selection}
             onSelectionChange={(syntheticEvent) => onSelectionChange(syntheticEvent)}>
