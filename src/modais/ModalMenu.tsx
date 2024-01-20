@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Button, Modal, TouchableWithoutFeedback } from "react-native"
+import { Image, Text, View, StyleSheet, Button, Modal, TouchableWithoutFeedback } from "react-native"
 import React, { useContext } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -41,6 +41,12 @@ const ModalMenu = ({navigation}:any) =>{
                     <HeaderMenu title="Configurações"></HeaderMenu>
                   </View>
                   <View style={styles.modalComponentes}>
+                    <View style={styles.logoContainer}>
+                      <Image
+                        source={require('../assets/logo.png')} 
+                        style={styles.logo}
+                      />
+                    </View>
                     <DropDown ></DropDown>
                     <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
                     <Button title='SAIR' onPress={funcSair}></Button>
@@ -90,6 +96,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize:18
   },
+  logo: {
+    width: 150, 
+    height: 150, 
+    resizeMode: "contain", 
+    marginBottom:16,
+    borderWidth: 1, 
+    borderColor: 'black', 
+  },
+  logoContainer:{
+    flexDirection:"row",
+    justifyContent:"center"
+  }
 });
 
 export default ModalMenu
