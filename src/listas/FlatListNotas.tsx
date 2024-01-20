@@ -22,6 +22,8 @@ const FlatListNotas= () => {
   const flatListRef = useRef<FlatList>(null);
   const textInputRefs = useRef<TextInput[]>([]);
   const [selection, setSelection] = useState({ start: 0, end: 0 });
+  const [textNota, setTextNota] = useState('');
+  const [idNota, setIdNota] = useState('');
   const {idPeriodoSelec,idClasseSelec,dataSelec,flagLoadNotas,
     setFlagLoadNotas,setRecarregarNotas,listaNotas,setListaNotas,idUsuario} = useContext(Context)
 
@@ -30,24 +32,25 @@ const FlatListNotas= () => {
     notaAluno.numero=item.numero
     notaAluno.nota=text
     notaAluno.idAluno=item.idAluno
-    console.log('text',text)
-    salvarNota()
+    listaNotas[parseInt(item.numero)-1].nota=text
+    setTextNota(text)
+    setIdNota(item.idAluno)
   }
 
   const salvarNota = () =>{
-    if(notaAluno.nota!=''){
-      const idAluno = notaAluno.idAluno;
+    if(textNota!=''){
       firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
       .doc(idClasseSelec).collection('Notas')
       .doc(dataSelec).collection('Alunos')
-      .doc(idAluno).update({
-        nota:notaAluno.nota
+      .doc(idNota).update({
+        nota:textNota
       });
     }
   }
   
   useEffect(()=>{
+      console.log('recarregouNotas')
       setListaNotas([{numero:'',nome:'',nota:'',idAluno:''}]);
       setRecarregarNotas('');
       setFlagLoadNotas('carregando');
@@ -86,6 +89,7 @@ const FlatListNotas= () => {
 
     const nextItem = (itemId:any,itemNumero:any,itemNota:any) => {
       const index = listaNotas.findIndex((item:any) => item.idAluno === itemId);
+      // listaNotas[index].nota=textNota
       setTimeout(()=>{
         if (index !== -1 && flatListRef.current) {
           textInputRefs.current[itemNumero + 1]?.focus()
@@ -117,7 +121,7 @@ const FlatListNotas= () => {
           onChangeText={(text)=>onChangeNota(item,text)}
           defaultValue={item.nota}
           onFocus={() => scrollToItem(item.idAluno,item.numero)}
-          onSubmitEditing={()=>[nextItem(item.idAluno,item.numero,item.nota)]}
+          onSubmitEditing={()=>[nextItem(item.idAluno,item.numero,item.nota),salvarNota()]}
           selection={selection}
           onSelectionChange={(syntheticEvent)=>onSelectionChange(syntheticEvent)}
           >
