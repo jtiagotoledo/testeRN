@@ -86,10 +86,10 @@ const FlatListNotas = () => {
     const nextItem = (itemId: any, itemNumero: any, itemNota: any) => {
       const index = listaNotas.findIndex((item: any) => item.idAluno === itemId);
       setTimeout(() => {
-        if (index !== -1 && flatListRef.current) {
+        if (index !== -1 && flatListRef.current && listaNotas[index + 1]!=null) {
           textInputRefs.current[itemNumero + 1]?.focus()
           const sizeText = listaNotas[index + 1].nota.length
-          setSelection({ start: sizeText, end: sizeText })
+          setSelection({ start: sizeText||0, end: sizeText||0 })
         }
       }, 300)
     };
