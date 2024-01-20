@@ -1,6 +1,5 @@
 import { Image, Text, View, StyleSheet, Button, Modal, TouchableWithoutFeedback } from "react-native"
 import React, { useContext } from 'react';
-import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
@@ -111,7 +110,8 @@ const styles = StyleSheet.create({
   },
   authContainer:{
     marginBottom:16
-  }
+  },
+  
 });
 
 export default ModalMenu

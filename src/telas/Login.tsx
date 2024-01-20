@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData, Image, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
+import Globais from "../data/Globais";
 
 const Login = ({navigation}:any)=>{
     const {email,setEmail,senha,setSenha} = useContext(Context);
@@ -46,6 +47,12 @@ const Login = ({navigation}:any)=>{
     }
     return(
         <View style={styles.container}>
+            <View style={styles.logoContainer}>
+                <Image
+                source={require('../assets/logo.png')} 
+                style={styles.logo}
+                />
+            </View>
             <TextInput style={styles.textInput} 
             onChange={onChangeInputEmail}
             keyboardType='email-address'
@@ -58,7 +65,11 @@ const Login = ({navigation}:any)=>{
             secureTextEntry={true}
             autoCorrect={false}
             placeholder='Senha'></TextInput>
-            <Button title='Entrar' onPress={entrarConta}></Button>
+            <TouchableOpacity 
+                onPress={entrarConta}
+                style={styles.button}>
+                <Text style={styles.buttonText}>Entrar</Text>
+            </TouchableOpacity>
             <View style={styles.containerText}>
                 <Text style={styles.text} onPress={()=>navigation.reset({
                     index:0,
@@ -86,15 +97,37 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     textInput:{
-        backgroundColor:'#c0c0c0',
-        marginBottom:8
+        backgroundColor: Globais.corSecundaria,
+        marginBottom:8,
+        borderRadius:10
     },
 text:{
-    color:'blue',
+    color:Globais.corPrimaria,
     alignContent:'center',
     alignItems:'center',
     marginTop:16
-}
+},
+logo: {
+    width: 150, 
+    height: 150, 
+    resizeMode: "contain", 
+    marginBottom:16,
+    borderWidth: 1, 
+    borderColor: 'black', 
+},
+    logoContainer:{
+    flexDirection:"row",
+    justifyContent:"center"
+},
+button: {
+    backgroundColor: Globais.corPrimaria, 
+    padding: 10, 
+    borderRadius: 10,
+},
+    buttonText: {
+    color: 'white', 
+    textAlign: 'center', 
+},
 });
   
 export default Login;
