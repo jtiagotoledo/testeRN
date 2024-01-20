@@ -19,6 +19,24 @@ const Login = ({navigation}:any)=>{
             });
     }
 
+    const funcSenha = () =>{
+        //redefinir senha com link no email
+        if(email!=''){
+            auth().sendPasswordResetEmail(email)
+            .then(() => {
+                ToastAndroid.show('Enviamos para '+email+', instruções para alterar a senha.',ToastAndroid.LONG)
+            })
+            .catch(error => {
+                if (error.code === 'auth/invalid-email') {
+                    ToastAndroid.show('Email inválido',ToastAndroid.SHORT)
+                }
+            });
+        } else{
+            ToastAndroid.show('Digite o email no campo acima!',ToastAndroid.SHORT)
+        }
+        
+      }
+
     const onChangeInputEmail = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
         setEmail(event.nativeEvent.text);
     }
@@ -45,7 +63,13 @@ const Login = ({navigation}:any)=>{
                 <Text style={styles.text} onPress={()=>navigation.reset({
                     index:0,
                     routes:[{name:"NovaConta"}]
-                })}>Criar uma conta</Text>
+                    })}>Criar uma conta
+                </Text>
+            </View>
+            <View style={styles.containerText}>
+                <Text style={styles.text} 
+                    onPress={()=>funcSenha()}>Esqueci minha senha
+                </Text>
             </View>
         </View>
     )
@@ -66,10 +90,10 @@ const styles = StyleSheet.create({
         marginBottom:8
     },
 text:{
-color:'blue',
-alignContent:'center',
-alignItems:'center',
-marginTop:16
+    color:'blue',
+    alignContent:'center',
+    alignItems:'center',
+    marginTop:16
 }
 });
   

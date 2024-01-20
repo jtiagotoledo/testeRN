@@ -20,11 +20,6 @@ const ModalMenu = ({navigation}:any) =>{
         ])
     }
 
-    const funcSenha = () =>{
-      //redefinir senha com link no email
-      auth().sendPasswordResetEmail(idUsuario)
-    }
-
     return(
         <View style={styles.container}>
             <Modal
@@ -54,7 +49,6 @@ const ModalMenu = ({navigation}:any) =>{
                       <DropDown ></DropDown>
                     </View>
                     <Button color={Globais.corPrimaria} title='SAIR' onPress={funcSair}></Button>
-                    {/* <Button title='Senha' onPress={funcSenha}></Button> */}
                   </View>
                 </View>
             </Modal>
