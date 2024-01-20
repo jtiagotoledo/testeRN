@@ -47,10 +47,14 @@ const ModalMenu = ({navigation}:any) =>{
                         style={styles.logo}
                       />
                     </View>
-                    <DropDown ></DropDown>
-                    <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
-                    <Button title='SAIR' onPress={funcSair}></Button>
-                    <Button title='Senha' onPress={funcSenha}></Button>
+                    <View style={styles.authContainer}>
+                      <Text style={styles.textStyle}>{auth().currentUser?.email}</Text>
+                    </View>
+                    <View style={styles.dropDownContainer}>
+                      <DropDown ></DropDown>
+                    </View>
+                    <Button color={Globais.corPrimaria} title='SAIR' onPress={funcSair}></Button>
+                    {/* <Button title='Senha' onPress={funcSenha}></Button> */}
                   </View>
                 </View>
             </Modal>
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   textStyle: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -107,6 +111,12 @@ const styles = StyleSheet.create({
   logoContainer:{
     flexDirection:"row",
     justifyContent:"center"
+  },
+  dropDownContainer:{
+    marginBottom:16
+  },
+  authContainer:{
+    marginBottom:16
   }
 });
 

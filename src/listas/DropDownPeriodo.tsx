@@ -61,6 +61,13 @@ const DropDownPeriodo = () =>{
           </Text>
         );
       }
+      if (valuePSelec || !isFocus) {
+        return (
+          <Text style={[styles.label, isFocus && { color: Globais.corTextoEscuro }]}>
+            Período Selecionado:
+          </Text>
+        );
+      }
       return null;
     };
 
@@ -78,7 +85,6 @@ const DropDownPeriodo = () =>{
           maxHeight={300}
           labelField="label"
           valueField="value"
-          // renderLeftIcon={()=><Icon name="equalizer" color="white" size={20}/>}
           placeholder={!isFocus ? 'Selecione o período' : '...'}
           searchPlaceholder="Procurar..."
           onFocus={() => setIsFocus(true)}
@@ -89,7 +95,7 @@ const DropDownPeriodo = () =>{
                 <TouchableOpacity onPress={()=>setModalEditPeriodo(true)}>
                   <Icon
                     style={styles.icon}
-                    color={isFocus ? Globais.corPrimaria : 'white'}
+                    color={isFocus ? Globais.corPrimaria : 'black'}
                     name="pencil"
                     size={20}
                   />
@@ -97,7 +103,7 @@ const DropDownPeriodo = () =>{
                 <TouchableOpacity onPress={()=>setModalDelPeriodo(true)}>
                 <Icon
                   style={styles.icon}
-                  color={isFocus ? Globais.corPrimaria : 'white'}
+                  color={isFocus ? Globais.corPrimaria : 'black'}
                   name="bin"
                   size={20}
                 />
@@ -114,7 +120,7 @@ export default DropDownPeriodo;
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: Globais.corSecundaria,
+      backgroundColor: Globais.corTerciaria,
       padding: 8,
       width:'100%'
     },
@@ -122,7 +128,7 @@ const styles = StyleSheet.create({
       flexDirection:'row'
     },
     dropdown: {
-      height: 50,
+      height: 80,
       borderColor: Globais.corPrimaria,
       borderWidth: 0.5,
       borderRadius: 8,
@@ -133,7 +139,7 @@ const styles = StyleSheet.create({
     },
     label: {
       position: 'absolute',
-      backgroundColor: Globais.corSecundaria,
+      backgroundColor: Globais.corTerciaria,
       left: 22,
       top: 4,
       zIndex: 999,
