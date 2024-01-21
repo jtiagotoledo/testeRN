@@ -112,8 +112,6 @@ logo: {
     height: 150, 
     resizeMode: "contain", 
     marginBottom:16,
-    borderWidth: 1, 
-    borderColor: 'black', 
 },
     logoContainer:{
     flexDirection:"row",
