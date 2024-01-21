@@ -28,7 +28,6 @@ const ModalAddAluno = () => {
       .doc(idClasseSelec).collection('ListaAlunos')
       .where('numero', '==', parseInt(valueNumero))
       .get().then((snapshot) => {
-        console.log('snapshot.empty', snapshot.empty);
         snapshot.empty ? addAluno() :
           ToastAndroid.show(
             'O número informado já existe na classe',
