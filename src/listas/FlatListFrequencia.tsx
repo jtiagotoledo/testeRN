@@ -68,10 +68,7 @@ const FlatListFrequencia = () => {
   },[idClasseSelec,dataSelec]);
 
   const onPressItemFreq = (item:any) =>{
-    console.log('item.frequencia',item.frequencia);
     let statusFrequencia = item.frequencia=='P'?'A':'P'
-    console.log('statusFrequencia',statusFrequencia);
-    
     listaFrequencia[parseInt(item.numero) - 1].frequencia = statusFrequencia
     const idAluno = item.idAluno;
     setSelectedId(item.idAluno);
@@ -124,6 +121,7 @@ const FlatListFrequencia = () => {
                 data={listaFrequencia}
                 renderItem={renderItem}
                 keyExtractor={item => item.idAluno}
+                contentContainerStyle={{ paddingBottom: 120 }}
                 extraData={selectedId}
               />
             )
@@ -154,6 +152,7 @@ const FlatListFrequencia = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop:16
   },
   containerItem:{
     flexDirection:'row',

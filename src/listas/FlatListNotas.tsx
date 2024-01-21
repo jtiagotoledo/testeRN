@@ -197,7 +197,7 @@ const FlatListNotas = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    marginTop: 16
   },
   containerItem: {
     flexDirection: 'row',

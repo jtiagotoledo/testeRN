@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     },
     containerInput:{
         marginTop:16,
-        
         flexDirection:'row',
         justifyContent:'center',
     },
