@@ -24,6 +24,7 @@ const ModalEditAluno = () => {
   }
 
   const onPressEditAluno = async () => {
+    
     // consulta para verificar se o número do aluno já existe
     firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')
@@ -36,6 +37,7 @@ const ModalEditAluno = () => {
             ToastAndroid.SHORT)
       });
 
+    // edição do aluno no BD
     const editarAluno = () => {
       if (valueNomeAluno != '' && valueNumAluno != '') {
         firestore().collection(idUsuario)

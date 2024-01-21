@@ -30,8 +30,8 @@ const FlatListClasses = () => {
       setFlagLoadFrequencia,listaClasses,setListaClasses,
       setRecarregarClasses,idUsuario,setFlagLongPressClasse,
       setSelectedIdAluno,setNumAlunoSelec,setFlagLongPressAluno,
-      nomePeriodoSelec,abaSelec,setFlagLongPressDataFreq,
-      setFlagLongPressDataNotas} = useContext(Context)
+      nomePeriodoSelec,setFlagLongPressDataFreq,
+      setFlagLongPressDataNotas,setNomeClasseSelec} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -82,6 +82,7 @@ const FlatListClasses = () => {
 
   const onLongPressItem = (item:any) =>{
     setIdClasseSelec(item.idClasse)
+    setNomeClasseSelec(item.classe)
     setFlagLongPressClasse(true)
   }
 
