@@ -40,8 +40,6 @@ const FlatListFrequencia = () => {
 
   useEffect(()=>{
     const data = async ()=>{
-      console.log('recarregouFreq');
-      
       setListaFrequencia([{numero:'',nome:'',frequencia:'',idAluno:''}]);
       setRecarregarFrequencia('');
       setFlagLoadFrequencia('carregando');
