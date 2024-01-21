@@ -40,6 +40,8 @@ const FlatListFrequencia = () => {
 
   useEffect(()=>{
     const data = async ()=>{
+      console.log('recarregouFreq');
+      
       setListaFrequencia([{numero:'',nome:'',frequencia:'',idAluno:''}]);
       setRecarregarFrequencia('');
       setFlagLoadFrequencia('carregando');
@@ -48,7 +50,7 @@ const FlatListFrequencia = () => {
       .doc(idClasseSelec).collection('Frequencia')
       .doc(dataSelec).collection('Alunos')
       .orderBy('numero')
-      .onSnapshot(snapshot => {
+      .get().then(snapshot => {
         if(snapshot.empty){
           setFlagLoadFrequencia('vazio');
         }else{
@@ -63,10 +65,14 @@ const FlatListFrequencia = () => {
       setListaFrequencia(alunos)
     }
     data()        
-  },[idClasseSelec,recarregarFrequencia,dataSelec]);
+  },[idClasseSelec,dataSelec]);
 
   const onPressItemFreq = (item:any) =>{
+    console.log('item.frequencia',item.frequencia);
     let statusFrequencia = item.frequencia=='P'?'A':'P'
+    console.log('statusFrequencia',statusFrequencia);
+    
+    listaFrequencia[parseInt(item.numero) - 1].frequencia = statusFrequencia
     const idAluno = item.idAluno;
     setSelectedId(item.idAluno);
     setNumAlunoSelec(item.numero.toString());
