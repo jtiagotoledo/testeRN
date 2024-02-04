@@ -10,7 +10,7 @@ const ModalAddClasse = () => {
 
   const [valueClasse, setValueClasse] = useState<string>('')
   const { modalAddClasse, setModalAddClasse, idPeriodoSelec,
-    setRecarregarClasses, idUsuario, setIdClasseSelec, idClasseSelec,
+    setRecarregarClasses, idUsuario, setIdClasseSelec,
     nomePeriodoSelec, setNomeClasseSelec } = useContext(Context)
 
   const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -53,7 +53,7 @@ const ModalAddClasse = () => {
             data: '',
             aba: 'Classes'
           })
-          setValueClasse('')
+        setValueClasse('')
       } else {
         ToastAndroid.show(
           'Digite o nome da classe!',
