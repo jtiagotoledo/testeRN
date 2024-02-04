@@ -20,6 +20,7 @@ const DropDownPeriodo = () =>{
 
     useEffect(()=>{
         firestore().collection(idUsuario)
+        // .where(firestore.FieldPath.documentId(), "!=", "EstadosApp")
         .onSnapshot(querySnapshot => {
           querySnapshot.forEach(documentSnapshot => {
           let label = documentSnapshot.data().periodo

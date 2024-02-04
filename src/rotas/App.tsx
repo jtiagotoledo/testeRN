@@ -26,8 +26,8 @@ const App = ({navigation}:any) => {
       const usuario = auth().currentUser?.email
       firestore().collection(usuario+'')
       .doc('EstadosApp').onSnapshot(snapShot=>{
-        navigation.navigate(snapShot.data()?.aba)
-        setAbaSelec('App',{screen:snapShot.data()?.aba})
+        navigation.navigate('App',{screen:snapShot.data()?.aba})
+        setAbaSelec(snapShot.data()?.aba)
       })
     },[])
 
