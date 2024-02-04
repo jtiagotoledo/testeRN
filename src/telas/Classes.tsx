@@ -41,7 +41,7 @@ function Classes({navigation}:any) {
     <View style={styles.container}>
       <HeaderClasses title="Classes"></HeaderClasses>
       <ConexaoInternet></ConexaoInternet>
-      <Text style={styles.textLoad}>{nomePeriodoSelec!=undefined?'Período: '+nomePeriodoSelec:'Selecione um período'}</Text>
+      <Text style={styles.textLoad}>{nomePeriodoSelec!=''?'Período: '+nomePeriodoSelec:'Adicione um período'}</Text>
       <Divider style={styles.divider}></Divider>
       <FlatListClasses></FlatListClasses>
       <Divider style={styles.divider}></Divider>

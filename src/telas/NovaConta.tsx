@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
-import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData, Image, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {Context} from "../data/Provider";
 import firestore from '@react-native-firebase/firestore';
+import Globais from '../data/Globais';
 
 const NovaConta = ({navigation}:any)=>{
     const {email,setEmail,senha,setSenha,idUsuario,setIdUsuario} = useContext(Context);
@@ -48,6 +49,12 @@ const NovaConta = ({navigation}:any)=>{
 
     return(
         <View style={styles.container}>
+            <View style={styles.logoContainer}>
+                <Image
+                    source={require('../assets/logo.png')}
+                    style={styles.logo}
+                />
+            </View>
             <TextInput style={styles.textInput} 
             onChange={onChangeInputEmail}
             keyboardType='email-address'
@@ -60,7 +67,11 @@ const NovaConta = ({navigation}:any)=>{
             secureTextEntry={true}
             autoCorrect={false}
             placeholder='Crie uma senha'></TextInput>
-            <Button title='Cria conta' onPress={criarConta}></Button>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={criarConta}>
+                <Text style={styles.buttonText}>Criar Conta</Text>
+            </TouchableOpacity>
             <View style={styles.containerText}>
                 <Text style={styles.text} onPress={()=>navigation.reset({
                     index:0,
@@ -72,25 +83,45 @@ const NovaConta = ({navigation}:any)=>{
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-        marginLeft:24,
-        marginRight:24,
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        marginLeft: 24,
+        marginRight: 24,
     },
-    containerText:{
-        alignItems:'center'
+    containerText: {
+        alignItems: 'center'
     },
-    textInput:{
-        backgroundColor:'#c0c0c0',
-        marginBottom:8
+    textInput: {
+        backgroundColor: Globais.corSecundaria,
+        marginBottom: 8,
+        borderRadius: 10
     },
-    text:{
-        color:'blue',
-        alignContent:'center',
-        alignItems:'center',
-        marginTop:16
-    }
+    text: {
+        color: Globais.corPrimaria,
+        alignContent: 'center',
+        alignItems: 'center',
+        marginTop: 16
+    },
+    logo: {
+        width: 150,
+        height: 150,
+        resizeMode: "contain",
+        marginBottom: 16,
+    },
+    logoContainer: {
+        flexDirection: "row",
+        justifyContent: "center"
+    },
+    button: {
+        backgroundColor: Globais.corPrimaria,
+        padding: 10,
+        borderRadius: 10,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+    },
 });
   
 export default NovaConta;
