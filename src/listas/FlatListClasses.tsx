@@ -59,7 +59,8 @@ const FlatListClasses = () => {
   },[idPeriodoSelec,recarregarClasses]);
 
   const onPressItem = (item:any) =>{
-    setIdClasseSelec(item.idClasse),
+    setIdClasseSelec(item.idClasse)
+    setNomeClasseSelec(item.classe)
     setflagLoadAlunos('carregando')
     setFlagLoadFrequencia('carregando')
     setFlagLongPressClasse(false)
