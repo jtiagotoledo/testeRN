@@ -33,7 +33,6 @@ const ModalEditPeriodo = () =>{
 
       //atualizando o estado da classe
       firestore().collection(idUsuario).
-      doc('Dados').collection('Estados').
       doc('EstadosApp').update({
         periodo:valuePeriodo
       })

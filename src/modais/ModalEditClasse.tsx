@@ -46,7 +46,6 @@ const ModalEditClasse = () => {
 
         //atualizando o estado da classe
         firestore().collection(idUsuario).
-          doc('Dados').collection('Estados').
           doc('EstadosApp').set({
             classe: valueClasse
           })
