@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import { SafeAreaView, FlatList, View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
-import {Context} from "../data/Provider";
+import { Context } from "../data/Provider";
 import Globais from '../data/Globais';
 
 type ItemData = {
@@ -18,7 +18,7 @@ type ItemProps = {
   textColor: string;
 };
 
-const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
   <View style={styles.containerItem}>
     <View style={[styles.item, styles.nome]}>
       <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
@@ -28,61 +28,63 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
       <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
     </TouchableOpacity>
   </View>
-  
+
 );
 
 const FlatListFrequencia = () => {
-    const alunos:any[] = []
-    const [selectedId, setSelectedId] = useState<string>();
-    const {idPeriodoSelec,idClasseSelec,setNumAlunoSelec,recarregarFrequencia,
-      dataSelec,flagLoadFrequencia,setFlagLoadFrequencia,setRecarregarFrequencia,
-      listaFrequencia,setListaFrequencia,idUsuario} = useContext(Context)
+  const alunos: any[] = []
+  const [statusFreq, setStatusFreq] = useState('')
+  const [selectedId, setSelectedId] = useState<string>();
+  const { idPeriodoSelec, idClasseSelec, setNumAlunoSelec, recarregarFrequencia,
+    dataSelec, flagLoadFrequencia, setFlagLoadFrequencia, setRecarregarFrequencia,
+    listaFrequencia, setListaFrequencia, idUsuario } = useContext(Context)
 
-  useEffect(()=>{
-    const data = async ()=>{
-      setListaFrequencia([{numero:'',nome:'',frequencia:'',idAluno:''}]);
+  useEffect(() => {
+    const data = async () => {
+      setListaFrequencia([{ numero: '', nome: '', frequencia: '', idAluno: '' }]);
       setRecarregarFrequencia('');
       setFlagLoadFrequencia('carregando');
       firestore().collection(idUsuario)
-      .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('Frequencia')
-      .doc(dataSelec).collection('Alunos')
-      .orderBy('numero')
-      .get().then(snapshot => {
-        if(snapshot.empty){
-          setFlagLoadFrequencia('vazio');
-        }else{
-          snapshot.forEach((documentSnapshot,index) => {
-          alunos.push(documentSnapshot.data());
-            if(snapshot.size-index==1){
-              setFlagLoadFrequencia('carregado');
-            }
-          });
-        }    
-      });
+        .doc(idPeriodoSelec).collection('Classes')
+        .doc(idClasseSelec).collection('Frequencia')
+        .doc(dataSelec).collection('Alunos')
+        .orderBy('numero')
+        .get().then(snapshot => {
+          if (snapshot.empty) {
+            setFlagLoadFrequencia('vazio');
+          } else {
+            snapshot.forEach((documentSnapshot, index) => {
+              alunos.push(documentSnapshot.data());
+              if (snapshot.size - index == 1) {
+                setFlagLoadFrequencia('carregado');
+              }
+            });
+          }
+        });
       setListaFrequencia(alunos)
     }
-    data()        
-  },[idClasseSelec,dataSelec,recarregarFrequencia]);
+    data()
+  }, [idClasseSelec, dataSelec, recarregarFrequencia]);
 
-  const onPressItemFreq = (item:any) =>{
-    let statusFrequencia = item.frequencia=='P'?'A':'P'
+  const onPressItemFreq = (item: any) => {
+    let statusFrequencia = item.frequencia == 'P' ? 'A' : 'P'
+    setStatusFreq(item.frequencia)
     listaFrequencia[parseInt(item.numero) - 1].frequencia = statusFrequencia
     const idAluno = item.idAluno;
     setSelectedId(item.idAluno);
     setNumAlunoSelec(item.numero.toString());
     firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Frequencia')
-        .doc(dataSelec).collection('Alunos')
-        .doc(idAluno).update({
-          numero:item.numero,
-          nome:item.nome,
-          frequencia:statusFrequencia
-        });
+      .doc(idPeriodoSelec).collection('Classes')
+      .doc(idClasseSelec).collection('Frequencia')
+      .doc(dataSelec).collection('Alunos')
+      .doc(idAluno).update({
+        numero: item.numero,
+        nome: item.nome,
+        frequencia: statusFrequencia
+      });
   }
 
-  const renderItem = ({item}: {item: ItemData}) => {
+  const renderItem = ({ item }: { item: ItemData }) => {
     const backgroundColor = item.numero === selectedId ? Globais.corPrimaria : Globais.corTerciaria;
     const color = item.numero === selectedId ? Globais.corTextoClaro : Globais.corTextoEscuro;
 
@@ -96,24 +98,24 @@ const FlatListFrequencia = () => {
     );
   };
 
-  const renderCarregamento = () =>{
-    if(idClasseSelec!=''){
-      if(dataSelec!=''){
-        switch(flagLoadFrequencia){
+  const renderCarregamento = () => {
+    if (idClasseSelec != '') {
+      if (dataSelec != '') {
+        switch (flagLoadFrequencia) {
           case 'vazio':
-            return(
+            return (
               <View>
-                  <Text style={styles.textLoad}>Adicione os alunos...</Text>
+                <Text style={styles.textLoad}>Adicione os alunos...</Text>
               </View>
             )
           case 'carregando':
-            return(
+            return (
               <View>
-                  <Text style={styles.textLoad}>Carregando...</Text>
+                <Text style={styles.textLoad}>Carregando...</Text>
               </View>
-            )   
+            )
           case 'carregado':
-            return(
+            return (
               <FlatList
                 data={listaFrequencia}
                 renderItem={renderItem}
@@ -123,25 +125,25 @@ const FlatListFrequencia = () => {
               />
             )
         }
-      }else{
-        return(
+      } else {
+        return (
           <View>
-              <Text style={styles.textLoad}>Selecione uma data...</Text>
+            <Text style={styles.textLoad}>Selecione uma data...</Text>
           </View>
         )
       }
-    }else{
-      return(
+    } else {
+      return (
         <View>
-            <Text style={styles.textLoad}>Selecione uma Classe...</Text>
+          <Text style={styles.textLoad}>Selecione uma Classe...</Text>
         </View>
-      ) 
+      )
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-        {renderCarregamento()}
+      {renderCarregamento()}
     </SafeAreaView>
   );
 };
@@ -149,10 +151,10 @@ const FlatListFrequencia = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:16
+    marginTop: 16
   },
-  containerItem:{
-    flexDirection:'row',
+  containerItem: {
+    flexDirection: 'row',
   },
   item: {
     padding: 10,
@@ -163,19 +165,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
   },
-  titleFrequencia:{
+  titleFrequencia: {
     fontSize: 24,
     textAlign: 'center',
   },
-  nome:{
-    flex:3
+  nome: {
+    flex: 3
   },
-  frequencia:{
-    flex:1
+  frequencia: {
+    flex: 1
   },
-  textLoad:{
-    fontSize:24,
-    color:Globais.corTextoClaro,
+  textLoad: {
+    fontSize: 24,
+    color: Globais.corTextoClaro,
   }
 });
 
