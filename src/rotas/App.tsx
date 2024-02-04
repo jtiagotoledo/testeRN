@@ -27,7 +27,7 @@ const App = ({navigation}:any) => {
       firestore().collection(usuario+'')
       .doc('EstadosApp').onSnapshot(snapShot=>{
         navigation.navigate(snapShot.data()?.aba)
-        setAbaSelec(snapShot.data()?.aba)
+        setAbaSelec('App',{screen:snapShot.data()?.aba})
       })
     },[])
 
