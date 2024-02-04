@@ -26,7 +26,7 @@ const FlatListNotas = () => {
   const [idNota, setIdNota] = useState('');
   const { idPeriodoSelec, idClasseSelec, dataSelec, flagLoadNotas,
     setFlagLoadNotas, setRecarregarNotas, listaNotas, setListaNotas, 
-    idUsuario,setTecladoAtivo } = useContext(Context)
+    idUsuario,setTecladoAtivo, recarregarNotas} = useContext(Context)
 
   const onChangeNota = (item: ItemData, text: string) => {
     notaAluno.nome = item.nome;
@@ -91,7 +91,7 @@ const FlatListNotas = () => {
           });
         }
       });
-  }, [idClasseSelec, dataSelec]);
+  }, [idClasseSelec,dataSelec,recarregarNotas]);
 
   const renderItem = ({ item }: { item: ItemData }) => {
 

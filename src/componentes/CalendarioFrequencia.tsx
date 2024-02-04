@@ -84,9 +84,10 @@ const CalendarioFrequencia = () => {
           nome: nome,
           frequencia:'P',
           idAluno:idAluno,
-        }).then(setRecarregarFrequencia('recarregarFrequencia'))
+        })
       });
     });
+
     
     //atualizando o estado da data
     firestore().collection(idUsuario).
@@ -97,6 +98,9 @@ const CalendarioFrequencia = () => {
       classe:nomeClasseSelec,
       data:dataSelec
     })
+
+    
+    setRecarregarFrequencia('recarregar');
   }
 
   const renderCarregamento = () =>{
