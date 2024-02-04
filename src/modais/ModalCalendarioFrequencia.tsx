@@ -27,6 +27,7 @@ const ModalCalendarioFrequencia = () => {
       )
     }
   }
+  
   return (
     <View>
       <Modal

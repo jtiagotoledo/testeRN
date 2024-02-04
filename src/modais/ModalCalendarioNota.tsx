@@ -1,64 +1,99 @@
-import { View, StyleSheet, Modal, TouchableOpacity } from "react-native"
+import { View, StyleSheet, Modal, TouchableOpacity, Text } from "react-native"
 import React, { useContext } from 'react';
-import {Context} from "../data/Provider";
+import { Context } from "../data/Provider";
 import Globais from "../data/Globais";
 import CalendarioNota from "../componentes/CalendarioNota";
 import { Icon } from "../componentes/Icon";
 
-const ModalCalendarioNota = () =>{
+const ModalCalendarioNota = () => {
 
-    const {modalCalendarioNota,setModalCalendarioNota} = useContext(Context)
+  const { modalCalendarioNota, setModalCalendarioNota, dataSelec } = useContext(Context)
 
-    return(
-        <View>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalCalendarioNota}
-                onRequestClose={() => {
-                setModalCalendarioNota(!modalCalendarioNota);
-                }}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={styles.containerIcon}>
-                            <TouchableOpacity  onPress={()=>setModalCalendarioNota(!modalCalendarioNota)}>
-                                <Icon name="cancel-circle" color="white" size={20}></Icon>
-                            </TouchableOpacity>
-                        </View>
-                        <CalendarioNota></CalendarioNota>
-                    </View>
-                </View>
-            </Modal>
+  let dataAno = '', dataMes = '', dataDia = '', data = ''
+
+  if (dataSelec != '') {
+    dataAno = dataSelec.slice(0, 4);
+    dataMes = dataSelec.slice(5, 7);
+    dataDia = dataSelec.slice(8, 10);
+    data = dataDia + '/' + dataMes + '/' + dataAno
+  }
+
+  const renderData = () => {
+    if (data != '') {
+      return (
+        <TouchableOpacity>
+          <Text style={styles.text}>{data}</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
+
+  return (
+    <View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalCalendarioNota}
+        onRequestClose={() => {
+          setModalCalendarioNota(!modalCalendarioNota);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View style={styles.containerIcon}>
+              <TouchableOpacity onPress={() => setModalCalendarioNota(!modalCalendarioNota)}>
+                <Icon name="cancel-circle" color="white" size={20}></Icon>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.containerText}>
+              {renderData()}
+            </View>
+            <CalendarioNota></CalendarioNota>
+          </View>
         </View>
-    )
+      </Modal>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    centeredView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 22,
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  containerIcon: {
+    alignItems: 'flex-end',
+    marginBottom: 32,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: Globais.corTerciaria,
+    borderRadius: 20,
+    padding: 35,
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    containerIcon:{
-      alignItems:'flex-end',
-      marginBottom:32,
-    },
-    modalView: {
-      margin: 20,
-      backgroundColor: Globais.corTerciaria,
-      borderRadius: 20,
-      padding: 35,
-      // alignItems: 'center',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-    }
-  });
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  text: {
+    alignContent: 'center',
+    alignItems: 'center',
+    fontSize: 20,
+    padding: 5,
+    color: Globais.corTextoEscuro,
+  },
+  containerText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 16,
+    marginBottom: 16,
+  },
+});
 
 export default ModalCalendarioNota;
