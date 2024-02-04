@@ -27,7 +27,7 @@ const ModalCalendarioFrequencia = () => {
       )
     }
   }
-  
+
   return (
     <View>
       <Modal
@@ -41,7 +41,7 @@ const ModalCalendarioFrequencia = () => {
           <View style={styles.modalView}>
             <View style={styles.containerIcon}>
               <TouchableOpacity onPress={() => setModalCalendarioFreq(!modalCalendarioFreq)}>
-                <Icon name="cancel-circle" color="white" size={20}></Icon>
+                <Icon name="cancel-circle" color="black" size={20}></Icon>
               </TouchableOpacity>
             </View>
             <View style={styles.containerText}>
@@ -64,10 +64,9 @@ const styles = StyleSheet.create({
   },
   containerIcon: {
     alignItems: 'flex-end',
-    marginBottom: 32,
+    marginBottom: 16,
   },
   modalView: {
-
     margin: 20,
     backgroundColor: Globais.corTerciaria,
     borderRadius: 20,
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
   containerText: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 16,
     marginBottom: 16,
   },
 });
