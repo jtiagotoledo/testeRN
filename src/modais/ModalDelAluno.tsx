@@ -10,7 +10,7 @@ const ModalDelAluno = () => {
   const { idPeriodoSelec, idClasseSelec, modalDelAluno,
     setModalDelAluno, idUsuario, setRecarregarAlunos,
     setFlagLongPressAluno, setNumAlunoSelec, setSelectedIdAluno,
-    idAlunoSelec,setRecarregarFrequencia,setRecarregarNotas } = useContext(Context);
+    idAlunoSelec, setRecarregarFrequencia, setRecarregarNotas } = useContext(Context);
 
   const deletarAluno = () => {
     //deletar aluno da lista de alunos
@@ -26,36 +26,35 @@ const ModalDelAluno = () => {
 
     //deletar aluno da lista de frequencias
     firestore().collection(idUsuario)
-    .doc(idPeriodoSelec).collection('Classes')
-    .doc(idClasseSelec).collection('Frequencia')
-    .onSnapshot(snapshot=>{
-      snapshot.forEach(docSnapshot=>{
-        const data = docSnapshot.id
-        firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Frequencia')
-        .doc(data).collection('Alunos')
-        .doc(idAlunoSelec).delete()
+      .doc(idPeriodoSelec).collection('Classes')
+      .doc(idClasseSelec).collection('Frequencia')
+      .onSnapshot(snapshot => {
+        snapshot.forEach(docSnapshot => {
+          const data = docSnapshot.id
+          firestore().collection(idUsuario)
+            .doc(idPeriodoSelec).collection('Classes')
+            .doc(idClasseSelec).collection('Frequencia')
+            .doc(data).collection('Alunos')
+            .doc(idAlunoSelec).delete()
+        })
+        setRecarregarFrequencia('recarregar')
       })
-      setRecarregarFrequencia('recarregar')
-    })
 
     //deletar aluno da lista de notas
     firestore().collection(idUsuario)
-    .doc(idPeriodoSelec).collection('Classes')
-    .doc(idClasseSelec).collection('Notas')
-    .onSnapshot(snapshot=>{
-      snapshot.forEach(docSnapshot=>{
-        const data = docSnapshot.id
-        firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Notas')
-        .doc(data).collection('Alunos')
-        .doc(idAlunoSelec).delete()
+      .doc(idPeriodoSelec).collection('Classes')
+      .doc(idClasseSelec).collection('Notas')
+      .onSnapshot(snapshot => {
+        snapshot.forEach(docSnapshot => {
+          const data = docSnapshot.id
+          firestore().collection(idUsuario)
+            .doc(idPeriodoSelec).collection('Classes')
+            .doc(idClasseSelec).collection('Notas')
+            .doc(data).collection('Alunos')
+            .doc(idAlunoSelec).delete()
+        })
+        setRecarregarNotas('recarregar')
       })
-      setRecarregarNotas('recarregar')
-    })
-
   }
 
   return (

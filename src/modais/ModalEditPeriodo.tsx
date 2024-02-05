@@ -5,7 +5,6 @@ import {Context} from "../data/Provider";
 import Globais from "../data/Globais";
 import { Icon } from "../componentes/Icon";
 
-
 const ModalEditPeriodo = () =>{
 
     const [valuePeriodo,setValuePeriodo] = useState<string>('')
