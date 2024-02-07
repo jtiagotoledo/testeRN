@@ -27,6 +27,7 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
 
 const FlatListAlunos = () => {
   const alunos: any[] = []
+  let notas: any[] = []
   const { flagLoadAlunos, setflagLoadAlunos, idPeriodoSelec, idClasseSelec,
     setNumAlunoSelec, setRecarregarAlunos, recarregarAlunos, setFlagLongPressClasse,
     listaAlunos, setListaAlunos, idUsuario, setFlagLongPressAluno,
@@ -54,14 +55,22 @@ const FlatListAlunos = () => {
                 .doc(idPeriodoSelec).collection('Classes')
                 .doc(idClasseSelec).collection('Notas')
                 .onSnapshot((snapshot) => {
+                  let soma =0
                   snapshot.forEach((docSnapshot)=>{
                     docSnapshot.ref.collection('Alunos')
-                    .where('idAluno','==',id)
                     .onSnapshot((snapshot)=>{
-                      console.log('docSnapshot.data().nota',snapshot);
+                      snapshot.forEach((docSnapshot)=>{
+                        
+                        if(docSnapshot.id==id){
+                          soma+=parseInt(docSnapshot.data().nota)
+                          console.log("docSnapshot.data().numero",docSnapshot.data().numero);
+                        }
+                      })
                     })
                     
                   })
+                  // console.log('soma',soma);
+                  
                 })
 
               if (snapshot.size - index == 1) {
