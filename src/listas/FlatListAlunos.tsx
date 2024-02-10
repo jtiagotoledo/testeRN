@@ -48,31 +48,23 @@ const FlatListAlunos = () => {
           } else {
             snapshot.forEach((documentSnapshot, index) => {
               alunos.push(documentSnapshot.data());
-
+              
               // recuperação de notas para a média
               let id = documentSnapshot.data().idAluno
               firestore().collection(idUsuario)
-                .doc(idPeriodoSelec).collection('Classes')
-                .doc(idClasseSelec).collection('Notas')
-                .onSnapshot((snapshot) => {
-                  let soma =0
-                  snapshot.forEach((docSnapshot)=>{
-                    docSnapshot.ref.collection('Alunos')
-                    .onSnapshot((snapshot)=>{
-                      snapshot.forEach((docSnapshot)=>{
-                        
-                        if(docSnapshot.id==id){
-                          soma+=parseInt(docSnapshot.data().nota)
-                          console.log("docSnapshot.data().numero",docSnapshot.data().numero);
-                        }
-                      })
-                    })
-                    
+              .doc(idPeriodoSelec).collection('Classes')
+              .doc(idClasseSelec).collection('Notas')
+              .onSnapshot((snapshot) => {
+                let soma =0
+                snapshot.forEach((docSnapshot)=>{
+                  docSnapshot.ref.collection('Alunos')
+                  .doc(id)
+                  .onSnapshot((snapshot)=>{
+                    console.log(snapshot.data()?.nota);
+                    soma+=parseInt(docSnapshot.data().nota)
                   })
-                  // console.log('soma',soma);
-                  
                 })
-
+                })
               if (snapshot.size - index == 1) {
                 setflagLoadAlunos('carregado');
               }
