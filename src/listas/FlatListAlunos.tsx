@@ -27,7 +27,6 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
 
 const FlatListAlunos = () => {
   const alunos: any[] = []
-  let notas: any[] = []
   const { flagLoadAlunos, setflagLoadAlunos, idPeriodoSelec, idClasseSelec,
     setNumAlunoSelec, setRecarregarAlunos, recarregarAlunos, setFlagLongPressClasse,
     listaAlunos, setListaAlunos, idUsuario, setFlagLongPressAluno,
@@ -42,33 +41,45 @@ const FlatListAlunos = () => {
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('ListaAlunos')
         .orderBy('numero')
-        .onSnapshot((snapshot) => {
-          if (snapshot.empty && idClasseSelec != '') {
+        .onSnapshot((_snapshot) => {
+          if (_snapshot.empty && idClasseSelec != '') {
             setflagLoadAlunos('vazio');
           } else {
-            snapshot.forEach((documentSnapshot, index) => {
-              alunos.push(documentSnapshot.data());
+            _snapshot.forEach((_documentSnapshot, _index) => {
               
               // recuperação de notas para a média
-              let id = documentSnapshot.data().idAluno
+              let id = _documentSnapshot.data().idAluno
+              let notas: number[] = []
+              let mediaNotas = 0
+              let somaNotas = 0
               firestore().collection(idUsuario)
-              .doc(idPeriodoSelec).collection('Classes')
-              .doc(idClasseSelec).collection('Notas')
-              .onSnapshot((snapshot) => {
-                let soma =0
-                snapshot.forEach((docSnapshot)=>{
-                  docSnapshot.ref.collection('Alunos')
-                  .doc(id)
-                  .onSnapshot((snapshot)=>{
-                    console.log(snapshot.data()?.nota);
-                    soma+=parseInt(docSnapshot.data().nota)
+                .doc(idPeriodoSelec).collection('Classes')
+                .doc(idClasseSelec).collection('Notas')
+                .onSnapshot((snapshot) => {
+                  snapshot.forEach((docSnapshot, index) => {
+                    docSnapshot.ref.collection('Alunos')
+                      .doc(id)
+                      .onSnapshot((snapshot) => {
+                        notas.push(parseInt(snapshot.data()?.nota))
+                        somaNotas = notas.reduce((a, b) => a + b, 0)
+                        mediaNotas = somaNotas / notas.length
+                        fnMedia(mediaNotas)
+                      })
+                    const fnMedia = (mediaNotas: any) => {
+                      if (snapshot.size - index == 1) {
+                        alunos.push(_documentSnapshot.data());
+                        alunos[_index].media=mediaNotas=!NaN?mediaNotas:0
+                        console.log('alunos',alunos);
+                      }
+                    }
                   })
                 })
-                })
-              if (snapshot.size - index == 1) {
+
+              if (_snapshot.size - _index == 1) {
                 setflagLoadAlunos('carregado');
               }
             });
+
           }
         });
       setListaAlunos(alunos)
