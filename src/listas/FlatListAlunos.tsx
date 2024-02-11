@@ -41,14 +41,14 @@ const FlatListAlunos = () => {
         .doc(idPeriodoSelec).collection('Classes')
         .doc(idClasseSelec).collection('ListaAlunos')
         .orderBy('numero')
-        .onSnapshot((_snapshot) => {
-          if (_snapshot.empty && idClasseSelec != '') {
+        .onSnapshot((snapshot) => {
+          if (snapshot.empty && idClasseSelec != '') {
             setflagLoadAlunos('vazio');
           } else {
-            _snapshot.forEach((_documentSnapshot, _index) => {
-              
+            snapshot.forEach((documentSnapshot, index) => {
+
               // recuperação de notas para a média
-              let id = _documentSnapshot.data().idAluno
+              let id = documentSnapshot.data().idAluno
               let notas: number[] = []
               let mediaNotas = 0
               let somaNotas = 0
@@ -62,26 +62,28 @@ const FlatListAlunos = () => {
                       .onSnapshot((snapshot) => {
                         notas.push(parseInt(snapshot.data()?.nota))
                         somaNotas = notas.reduce((a, b) => a + b, 0)
-                        mediaNotas = somaNotas / notas.length
-                        fnMedia(mediaNotas)
+                        mediaNotas = (somaNotas / notas.length)
+                        let mediaFormat = mediaNotas.toFixed(2)
+                        fnMedia(mediaFormat)
                       })
                     const fnMedia = (mediaNotas: any) => {
                       if (snapshot.size - index == 1) {
-                        alunos.push(_documentSnapshot.data());
-                        alunos[_index].media=mediaNotas=!NaN?mediaNotas:0
-                        console.log('alunos',alunos);
+                        alunos.push(documentSnapshot.data());
+                        let objIndex = alunos.findIndex(obj => obj.idAluno === id)
+                        if (objIndex != -1) {
+                          alunos[objIndex].media = !isNaN(mediaNotas)? mediaNotas : 0
+                        }
+                        console.log(alunos);
                       }
                     }
                   })
                 })
-
-              if (_snapshot.size - _index == 1) {
-                setflagLoadAlunos('carregado');
-              }
-            });
-
-          }
-        });
+                if (snapshot.size - index == 1) {
+                  setflagLoadAlunos('carregado');
+                }
+              });
+            }
+          });
       setListaAlunos(alunos)
     }
     data()
