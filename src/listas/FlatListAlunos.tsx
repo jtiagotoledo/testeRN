@@ -64,6 +64,7 @@ const FlatListAlunos = () => {
                         somaNotas = notas.reduce((a, b) => a + b, 0)
                         mediaNotas = somaNotas / notas.length
                         fnMedia(mediaNotas)
+                        
                       })
                     const fnMedia = (mediaNotas: any) => {
                       if (snapshot.size - index == 1) {
