@@ -23,7 +23,7 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}      Média: {item.media || ' ...'}   %Freq:{item.porcentFreq || ' ...'}</Text>
+    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}  Média: {item.media || ' ...'}   %Freq: {item.porcentFreq || ' ...'}</Text>
   </TouchableOpacity>
 );
 
@@ -54,6 +54,8 @@ const FlatListAlunos = () => {
 
               // recuperação de notas para a média
               let id = documentSnapshot.data().idAluno
+              console.log('documentSnapshot.data().numero',documentSnapshot.data().numero);
+              
               let notas: number[] = []
               let mediaNotas = 0
               let somaNotas = 0
@@ -86,7 +88,7 @@ const FlatListAlunos = () => {
 
               // recuperação de notas para a frequencia
               let frequencias: string[] = []
-              let porcentFreq = 0
+              let porcentFreq = '0'
               let contFreq = 0
               firestore().collection(idUsuario)
                 .doc(idPeriodoSelec).collection('Classes')
@@ -100,8 +102,7 @@ const FlatListAlunos = () => {
                         let freq = snapshot.data()?.frequencia
                         freq == 'P' ? frequencias.push(freq) : null
                         contFreq = frequencias.length
-                        porcentFreq = (contFreq / tamArrDatas)
-                        console.log('porcentFreq', porcentFreq);
+                        porcentFreq = (contFreq*100 / tamArrDatas).toFixed(1)
                         fnFreq(porcentFreq)
                       })
                     const fnFreq = (porcentFreq: any) => {
