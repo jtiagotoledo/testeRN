@@ -22,7 +22,7 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome} {item.media}</Text>
+    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}      média: {item.media||'...'}</Text>
   </TouchableOpacity>
 );
 
@@ -47,23 +47,29 @@ const FlatListAlunos = () => {
             setflagLoadAlunos('vazio');
           } else {
             snapshot.forEach((documentSnapshot, index) => {
+
               if (snapshot.size - index == 1) {
                 setflagLoadAlunos('carregado');
               }
+              
               // recuperação de notas para a média
               let id = documentSnapshot.data().idAluno
               let notas: number[] = []
               let mediaNotas = 0
               let somaNotas = 0
               firestore().collection(idUsuario)
-                .doc(idPeriodoSelec).collection('Classes')
-                .doc(idClasseSelec).collection('Notas')
-                .onSnapshot((snapshot) => {
-                  snapshot.forEach((docSnapshot, index) => {
+              .doc(idPeriodoSelec).collection('Classes')
+              .doc(idClasseSelec).collection('Notas')
+              .onSnapshot((snapshot) => {
+                if(snapshot.empty){
+                  alunos.push(documentSnapshot.data());
+                }
+                snapshot.forEach((docSnapshot, index) => {
                     docSnapshot.ref.collection('Alunos')
                       .doc(id)
                       .onSnapshot((snapshot) => {
-                        notas.push(parseInt(snapshot.data()?.nota))
+                        let nota = snapshot.data()?.nota == ''? '0' : snapshot.data()?.nota
+                        notas.push(parseInt(nota))
                         somaNotas = notas.reduce((a, b) => a + b, 0)
                         mediaNotas = (somaNotas / notas.length)
                         let mediaFormat = mediaNotas.toFixed(2)
