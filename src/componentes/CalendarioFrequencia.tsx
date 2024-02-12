@@ -24,7 +24,7 @@ const CalendarioFrequencia = () => {
     flagLoadCalendarioFreq,setflagLoadCalendarioFreq,setFlagLoadFrequencia,
     listaDatasFreq,setListaDatasFreq,setRecarregarFrequencia,recarregarCalendarioFreq,
     setRecarregarCalendarioFreq,listaDatasMarcadasFreq,setListaDatasMarcadasFreq,
-    idUsuario,nomePeriodoSelec,nomeClasseSelec} = useContext(Context)
+    idUsuario,nomePeriodoSelec,nomeClasseSelec,setRecarregarAlunos} = useContext(Context)
 
   useEffect(()=>{
     const data = async ()=>{
@@ -101,6 +101,7 @@ const CalendarioFrequencia = () => {
 
     
     setRecarregarFrequencia('recarregar');
+    setRecarregarAlunos('recarregar')
   }
 
   const renderCarregamento = () =>{

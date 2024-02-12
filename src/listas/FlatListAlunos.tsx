@@ -70,7 +70,6 @@ const FlatListAlunos = () => {
                       .onSnapshot((snapshot) => {
                         let nota = snapshot.data()?.nota == '' ? '0' : snapshot.data()?.nota
                         notas.push(parseFloat(nota))
-                        console.log('nota', nota);
                         somaNotas = notas.reduce((a, b) => a + b, 0)
                         mediaNotas = (somaNotas / notas.length)
                         let mediaFormat = mediaNotas.toFixed(1)
@@ -83,9 +82,34 @@ const FlatListAlunos = () => {
                         if (objIndex != -1) {
                           alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
                         }
-                        console.log(alunos);
                       }
                     }
+                  })
+                })
+
+              // recuperação de notas para a frequencia
+              let frequencias: string[] = []
+              let porcentFreq = 0
+              let contFreq = 0
+              firestore().collection(idUsuario)
+                .doc(idPeriodoSelec).collection('Classes')
+                .doc(idClasseSelec).collection('Frequencia')
+                .onSnapshot((snapshot) => {
+                  /* if (snapshot.empty) {
+                    alunos.push(documentSnapshot.data());
+                  } */
+                  let tamArrDatas = snapshot.size
+                  snapshot.forEach((docSnapshot) => {
+                    docSnapshot.ref.collection('Alunos')
+                      .doc(id)
+                      .onSnapshot((snapshot) => {
+                        let freq = snapshot.data()?.frequencia
+                        freq == 'P' ? frequencias.push(freq) : null
+                        contFreq = frequencias.length
+                        porcentFreq = (contFreq/tamArrDatas)
+                        console.log('porcentFreq',porcentFreq);
+                      })
+
                   })
                 })
 

@@ -37,7 +37,7 @@ const FlatListFrequencia = () => {
   const [selectedId, setSelectedId] = useState<string>();
   const { idPeriodoSelec, idClasseSelec, setNumAlunoSelec, recarregarFrequencia,
     dataSelec, flagLoadFrequencia, setFlagLoadFrequencia, setRecarregarFrequencia,
-    listaFrequencia, setListaFrequencia, idUsuario } = useContext(Context)
+    listaFrequencia, setListaFrequencia, idUsuario, setRecarregarAlunos } = useContext(Context)
 
   useEffect(() => {
     const data = async () => {
@@ -82,6 +82,7 @@ const FlatListFrequencia = () => {
         nome: item.nome,
         frequencia: statusFrequencia
       });
+    setRecarregarAlunos('recarregar')
   }
 
   const renderItem = ({ item }: { item: ItemData }) => {
