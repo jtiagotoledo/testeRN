@@ -26,7 +26,7 @@ const FlatListNotas = () => {
   const [idNota, setIdNota] = useState('');
   const { idPeriodoSelec, idClasseSelec, dataSelec, flagLoadNotas,
     setFlagLoadNotas, setRecarregarNotas, listaNotas, setListaNotas, 
-    idUsuario,setTecladoAtivo, recarregarNotas} = useContext(Context)
+    idUsuario,setTecladoAtivo, recarregarNotas, setRecarregarAlunos} = useContext(Context)
 
   const onChangeNota = (item: ItemData, text: string) => {
     notaAluno.nome = item.nome;
@@ -47,6 +47,7 @@ const FlatListNotas = () => {
         .doc(idNota).update({
           nota: textNota
         });
+        setRecarregarAlunos('recarregar')
     }
   }
 

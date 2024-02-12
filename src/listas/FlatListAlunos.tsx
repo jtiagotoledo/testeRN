@@ -9,6 +9,7 @@ type ItemData = {
   numero: string;
   inativo: string;
   idAluno: string;
+  media: string
 };
 
 type ItemProps = {
@@ -21,7 +22,7 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}</Text>
+    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome} {item.media}</Text>
   </TouchableOpacity>
 );
 
@@ -46,7 +47,9 @@ const FlatListAlunos = () => {
             setflagLoadAlunos('vazio');
           } else {
             snapshot.forEach((documentSnapshot, index) => {
-
+              if (snapshot.size - index == 1) {
+                setflagLoadAlunos('carregado');
+              }
               // recuperação de notas para a média
               let id = documentSnapshot.data().idAluno
               let notas: number[] = []
@@ -71,19 +74,17 @@ const FlatListAlunos = () => {
                         alunos.push(documentSnapshot.data());
                         let objIndex = alunos.findIndex(obj => obj.idAluno === id)
                         if (objIndex != -1) {
-                          alunos[objIndex].media = !isNaN(mediaNotas)? mediaNotas : 0
+                          alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
                         }
                         console.log(alunos);
                       }
                     }
                   })
                 })
-                if (snapshot.size - index == 1) {
-                  setflagLoadAlunos('carregado');
-                }
-              });
-            }
-          });
+
+            });
+          }
+        });
       setListaAlunos(alunos)
     }
     data()
