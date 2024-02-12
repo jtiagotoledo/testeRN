@@ -9,7 +9,8 @@ type ItemData = {
   numero: string;
   inativo: string;
   idAluno: string;
-  media: string
+  media: string;
+  porcentFreq: string;
 };
 
 type ItemProps = {
@@ -22,7 +23,7 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}      média: {item.media || '...'}</Text>
+    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}      Média: {item.media || ' ...'}   %Freq:{item.porcentFreq || ' ...'}</Text>
   </TouchableOpacity>
 );
 
@@ -47,7 +48,6 @@ const FlatListAlunos = () => {
             setflagLoadAlunos('vazio');
           } else {
             snapshot.forEach((documentSnapshot, index) => {
-
               if (snapshot.size - index == 1) {
                 setflagLoadAlunos('carregado');
               }
@@ -61,9 +61,6 @@ const FlatListAlunos = () => {
                 .doc(idPeriodoSelec).collection('Classes')
                 .doc(idClasseSelec).collection('Notas')
                 .onSnapshot((snapshot) => {
-                  if (snapshot.empty) {
-                    alunos.push(documentSnapshot.data());
-                  }
                   snapshot.forEach((docSnapshot, index) => {
                     docSnapshot.ref.collection('Alunos')
                       .doc(id)
@@ -95,9 +92,6 @@ const FlatListAlunos = () => {
                 .doc(idPeriodoSelec).collection('Classes')
                 .doc(idClasseSelec).collection('Frequencia')
                 .onSnapshot((snapshot) => {
-                  /* if (snapshot.empty) {
-                    alunos.push(documentSnapshot.data());
-                  } */
                   let tamArrDatas = snapshot.size
                   snapshot.forEach((docSnapshot) => {
                     docSnapshot.ref.collection('Alunos')
@@ -106,17 +100,25 @@ const FlatListAlunos = () => {
                         let freq = snapshot.data()?.frequencia
                         freq == 'P' ? frequencias.push(freq) : null
                         contFreq = frequencias.length
-                        porcentFreq = (contFreq/tamArrDatas)
-                        console.log('porcentFreq',porcentFreq);
+                        porcentFreq = (contFreq / tamArrDatas)
+                        console.log('porcentFreq', porcentFreq);
+                        fnFreq(porcentFreq)
                       })
-
+                    const fnFreq = (porcentFreq: any) => {
+                      let objIndex = alunos.findIndex(obj => obj.idAluno === id)
+                        if (objIndex != -1) {
+                          alunos[objIndex].porcentFreq = porcentFreq
+                        }
+                    }
+                    
                   })
                 })
-
-            });
-          }
-        });
-      setListaAlunos(alunos)
+                
+              });
+            }
+          });
+          setListaAlunos(alunos)
+          console.log('alunos',listaAlunos);
     }
     data()
   }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]);
