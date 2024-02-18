@@ -24,13 +24,13 @@ type ItemProps = {
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
     
-        <View style={{flex:1}}>
+        <View style={{flex:3}}>
           <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
         </View>
-        <View style={{flex:5}}>
+        <View style={{flex:15}}>
           <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
         </View>
-        <View style={{flex:2}}>
+        <View style={{flex:5}}>
           <Text>Média: {item.media || ' ...'}</Text>
           <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
         </View>
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   item: {
-    padding: 10,
+    padding: 8,
     marginVertical: 2,
     marginHorizontal: 8,
     borderRadius: 5,
