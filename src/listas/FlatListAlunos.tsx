@@ -23,7 +23,18 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    <Text style={[styles.title, { color: textColor }]}>{item.numero} {item.nome}  Média: {item.media || ' ...'}   %Freq: {item.porcentFreq || ' ...'}</Text>
+    
+        <View style={{flex:1}}>
+          <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
+        </View>
+        <View style={{flex:5}}>
+          <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
+        </View>
+        <View style={{flex:2}}>
+          <Text>Média: {item.media || ' ...'}</Text>
+          <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
+        </View>
+    
   </TouchableOpacity>
 );
 
@@ -197,12 +208,14 @@ export default FlatListAlunos;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'row'
   },
   item: {
     padding: 10,
     marginVertical: 2,
     marginHorizontal: 8,
     borderRadius: 5,
+    flexDirection:'row'
   },
   title: {
     fontSize: 24,
