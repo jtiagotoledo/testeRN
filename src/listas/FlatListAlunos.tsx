@@ -54,8 +54,8 @@ const FlatListAlunos = () => {
 
               // recuperação de notas para a média
               let id = documentSnapshot.data().idAluno
-              console.log('documentSnapshot.data().numero',documentSnapshot.data().numero);
-              
+              console.log('documentSnapshot.data().numero', documentSnapshot.data().numero);
+
               let notas: number[] = []
               let mediaNotas = 0
               let somaNotas = 0
@@ -66,25 +66,23 @@ const FlatListAlunos = () => {
                   snapshot.forEach((docSnapshot, index) => {
                     docSnapshot.ref.collection('Alunos')
                       .doc(id)
-                      .onSnapshot((snapshot) => {
-                        let nota = snapshot.data()?.nota == '' ? '0' : snapshot.data()?.nota
+                      .onSnapshot((snapshot2) => {
+                        let nota = snapshot2.data()?.nota == '' ? '0' : snapshot2.data()?.nota
                         notas.push(parseFloat(nota))
                         somaNotas = notas.reduce((a, b) => a + b, 0)
                         mediaNotas = (somaNotas / notas.length)
                         let mediaFormat = mediaNotas.toFixed(1)
-                        fnMedia(mediaFormat)
+                        if(snapshot.size-index==1)  fnMedia(mediaFormat)
                       })
-                    const fnMedia = (mediaNotas: any) => {
-                      if (snapshot.size - index == 1) {
-                        alunos.push(documentSnapshot.data());
-                        let objIndex = alunos.findIndex(obj => obj.idAluno === id)
-                        if (objIndex != -1) {
-                          alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
-                        }
-                      }
-                    }
                   })
                 })
+              const fnMedia = (mediaNotas: any) => {
+                  alunos.push(documentSnapshot.data());
+                  let objIndex = alunos.findIndex(obj => obj.idAluno === id)
+                  if (objIndex != -1) {
+                    alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
+                  }
+              }
 
               // recuperação de notas para a frequencia
               let frequencias: string[] = []
@@ -95,31 +93,35 @@ const FlatListAlunos = () => {
                 .doc(idClasseSelec).collection('Frequencia')
                 .onSnapshot((snapshot) => {
                   let tamArrDatas = snapshot.size
-                  snapshot.forEach((docSnapshot) => {
+                  snapshot.forEach((docSnapshot, index) => {
                     docSnapshot.ref.collection('Alunos')
                       .doc(id)
-                      .onSnapshot((snapshot) => {
-                        let freq = snapshot.data()?.frequencia
+                      .onSnapshot((snapshot2) => {
+                        let freq = snapshot2.data()?.frequencia
                         freq == 'P' ? frequencias.push(freq) : null
                         contFreq = frequencias.length
-                        porcentFreq = (contFreq*100 / tamArrDatas).toFixed(1)
-                        fnFreq(porcentFreq)
+                        porcentFreq = (contFreq * 100 / tamArrDatas).toFixed(1)
+                        if(snapshot.size-index==1) fnFreq(porcentFreq)
                       })
-                    const fnFreq = (porcentFreq: any) => {
-                      let objIndex = alunos.findIndex(obj => obj.idAluno === id)
-                        if (objIndex != -1) {
-                          alunos[objIndex].porcentFreq = porcentFreq
-                        }
-                    }
-                    
                   })
                 })
+              const fnFreq = (porcentFreq: any) => {
                 
-              });
-            }
-          });
-          setListaAlunos(alunos)
-          console.log('alunos',listaAlunos);
+                  let objIndex = alunos.findIndex(obj => obj.idAluno === id)
+                  if (objIndex != -1) {
+                    alunos[objIndex].porcentFreq = porcentFreq
+                  }
+                
+              }
+
+
+
+            })
+          }
+        });
+
+      setListaAlunos(alunos)
+      console.log('alunos', listaAlunos);
     }
     data()
   }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]);
@@ -197,6 +199,8 @@ const FlatListAlunos = () => {
   );
 };
 
+export default FlatListAlunos;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -216,4 +220,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FlatListAlunos;
