@@ -54,8 +54,6 @@ const FlatListAlunos = () => {
 
               // recuperação de notas para a média
               let id = documentSnapshot.data().idAluno
-              console.log('documentSnapshot.data().numero', documentSnapshot.data().numero);
-
               let notas: number[] = []
               let mediaNotas = ''
               let somaNotas = 0
@@ -71,14 +69,11 @@ const FlatListAlunos = () => {
                         notas.push(parseFloat(nota))
                         somaNotas = notas.reduce((a, b) => a + b, 0)
                         mediaNotas = (somaNotas / notas.length).toFixed(1)
-                        // let mediaFormat = mediaNotas.toFixed(1)
-                        // if(snapshot.size-index==1)  fnMedia(mediaFormat)
                       })
                   })
                 })
-              
 
-              // recuperação de notas para a frequencia
+              // recuperação da frequencia para percentual de freq.
               let frequencias: string[] = []
               let porcentFreq = '0'
               let contFreq = 0
@@ -95,25 +90,31 @@ const FlatListAlunos = () => {
                         freq == 'P' ? frequencias.push(freq) : null
                         contFreq = frequencias.length
                         porcentFreq = (contFreq * 100 / tamArrDatas).toFixed(1)
-                        if(snapshot.size-index==1) fnMediaFreq(mediaNotas,porcentFreq)
+                        if (snapshot.size - index == 1) {
+                          setTimeout(() => {
+                            fnMediaFreq(mediaNotas, porcentFreq)
+                          }, 50)
+                        }
                       })
                   })
                 })
 
-              const fnMediaFreq = (mediaNotas: any, porcentFreq:any) => {
-                  alunos.push(documentSnapshot.data());
-                  let objIndex = alunos.findIndex(obj => obj.idAluno === id)
-                  if (objIndex != -1) {
-                    alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
-                    alunos[objIndex].porcentFreq = porcentFreq
-                  }
+              const fnMediaFreq = (mediaNotas: any, porcentFreq: any) => {
+                console.log('mediaNotas', mediaNotas);
+                console.log('porcentFreq', porcentFreq);
+                alunos.push(documentSnapshot.data());
+                let objIndex = alunos.findIndex(obj => obj.idAluno === id)
+                if (objIndex != -1) {
+                  alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
+                  alunos[objIndex].porcentFreq = porcentFreq
+                }
+                setListaAlunos(alunos)
               }
             })
           }
         });
 
-      setListaAlunos(alunos)
-      console.log('alunos', listaAlunos);
+
     }
     data()
   }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]);
@@ -199,8 +200,8 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 2,
+    marginHorizontal: 8,
     borderRadius: 5,
   },
   title: {
