@@ -23,18 +23,18 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    
-        <View style={{flex:3}}>
-          <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
-        </View>
-        <View style={{flex:15}}>
-          <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
-        </View>
-        <View style={{flex:5}}>
-          <Text>Média: {item.media || ' ...'}</Text>
-          <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
-        </View>
-    
+    <View style={{flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
+      </View>
+      <View style={{ flex: 15 }}>
+        <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
+      </View>
+    </View>
+    <View style={{flexDirection: 'row', justifyContent:'space-evenly' }}>
+      <Text>Média: {item.media || ' ...'}</Text>
+      <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
+    </View>
   </TouchableOpacity>
 );
 
@@ -208,14 +208,13 @@ export default FlatListAlunos;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row'
+    flexDirection: 'row'
   },
   item: {
     padding: 8,
     marginVertical: 2,
     marginHorizontal: 8,
     borderRadius: 5,
-    flexDirection:'row'
   },
   title: {
     fontSize: 24,
