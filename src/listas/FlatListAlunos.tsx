@@ -46,7 +46,7 @@ const FlatListAlunos = () => {
             setflagLoadAlunos('vazio');
           } else {
             _snapshot.forEach((_documentSnapshot, _index) => {
-              
+
               // recuperação de notas para a média
               let id = _documentSnapshot.data().idAluno
               let notas: number[] = []
@@ -64,13 +64,13 @@ const FlatListAlunos = () => {
                         somaNotas = notas.reduce((a, b) => a + b, 0)
                         mediaNotas = somaNotas / notas.length
                         fnMedia(mediaNotas)
-                        
+
                       })
                     const fnMedia = (mediaNotas: any) => {
                       if (snapshot.size - index == 1) {
                         alunos.push(_documentSnapshot.data());
-                        alunos[_index].media=mediaNotas=!NaN?mediaNotas:0
-                        console.log('alunos',alunos);
+                        alunos[_index].media = mediaNotas = !NaN ? mediaNotas : 0
+                        console.log('alunos', alunos);
                       }
                     }
                   })
