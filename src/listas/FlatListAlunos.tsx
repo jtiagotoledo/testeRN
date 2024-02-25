@@ -111,8 +111,6 @@ const FlatListAlunos = () => {
                 })
 
               const fnMediaFreq = (mediaNotas: any, porcentFreq: any) => {
-                console.log('mediaNotas', mediaNotas);
-                console.log('porcentFreq', porcentFreq);
                 alunos.push(documentSnapshot.data());
                 let objIndex = alunos.findIndex(obj => obj.idAluno === id)
                 if (objIndex != -1) {

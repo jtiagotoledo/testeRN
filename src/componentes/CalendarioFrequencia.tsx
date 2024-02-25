@@ -26,18 +26,24 @@ const CalendarioFrequencia = () => {
     setRecarregarCalendarioFreq, listaDatasMarcadasFreq, setListaDatasMarcadasFreq,
     idUsuario, nomePeriodoSelec, nomeClasseSelec, setRecarregarAlunos } = useContext(Context)
 
+  let listaAlunosRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('ListaAlunos')
+  
+  let listaFreqRef = firestore().collection(idUsuario)
+  .doc(idPeriodoSelec).collection('Classes')
+  .doc(idClasseSelec).collection('DatasFrequencias')
+
   useEffect(() => {
     const data = async () => {
-      /* essa consulta no BD retorna as datas ainda não 
-      incluídas na lista de datas. */
       setflagLoadCalendarioFreq('carregando');
       setListaDatasFreq('');
       setListaDatasMarcadasFreq({})
       setRecarregarCalendarioFreq('');
-      firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Frequencia')
-        .onSnapshot(snapshot => {
+
+      /* essa consulta no BD retorna as datas ainda não 
+      incluídas na lista de datas. */
+      listaFreqRef.get().then(snapshot => {
           if (snapshot.empty) {
             setflagLoadCalendarioFreq('carregado');
           }
@@ -56,35 +62,30 @@ const CalendarioFrequencia = () => {
   }, [idClasseSelec, recarregarCalendarioFreq]);
 
   const onPressAddData = async () => {
-
     setModalCalendarioFreq(!modalCalendarioFreq);
+    setflagLoadCalendarioFreq('inicio')
 
-    let listaAlunosRef = firestore().collection(idUsuario)
-      .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('ListaAlunos')
+    //adiciona data na lista de frequencias
+    listaFreqRef.doc(dataSelec).set({})
 
+    //adiciona frequencia na lista de alunos
     listaAlunosRef.get().then((snapshot) => {
       snapshot.forEach((docSnapshot) => {
         listaAlunosRef.doc(docSnapshot.data().idAluno).update({
           frequencias: firestore.FieldValue.arrayUnion({
-            [dataSelec]:{
-              freq:'P'
+            [dataSelec]: {
+              freq: 'P'
             }
           })
         })
-            
-          
-        })
       })
-    
+    })
 
-    /*  setflagLoadCalendarioFreq('inicio')
-     firestore().collection(idUsuario)
-     .doc(idPeriodoSelec).collection('Classes')
-     .doc(idClasseSelec).collection('Frequencia')
-     .doc(dataSelec).set({});
+
      
-     firestore().collection(idUsuario)
+     
+     
+     /* firestore().collection(idUsuario)
      .doc(idPeriodoSelec).collection('Classes')
      .doc(idClasseSelec).collection('ListaAlunos')
      .orderBy('numero')
