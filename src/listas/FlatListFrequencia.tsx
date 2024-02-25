@@ -9,6 +9,7 @@ type ItemData = {
   numero: string;
   frequencia: string;
   idAluno: string;
+  frequencias:[];
 };
 
 type ItemProps = {
@@ -25,7 +26,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
     </View>
     <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
     ]}>
-      <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
+      <Text style={[styles.titleFrequencia]}>{item.frequencias}</Text>
     </TouchableOpacity>
   </View>
 
@@ -39,22 +40,23 @@ const FlatListFrequencia = () => {
     dataSelec, flagLoadFrequencia, setFlagLoadFrequencia, setRecarregarFrequencia,
     listaFrequencia, setListaFrequencia, idUsuario, setRecarregarAlunos } = useContext(Context)
 
+  let listaAlunosRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('ListaAlunos')
+
   useEffect(() => {
     const data = async () => {
-      setListaFrequencia([{ numero: '', nome: '', frequencia: '', idAluno: '' }]);
       setRecarregarFrequencia('');
-      setFlagLoadFrequencia('carregando');
-      firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Frequencia')
-        .doc(dataSelec).collection('Alunos')
-        .orderBy('numero')
-        .get().then(snapshot => {
+
+      listaAlunosRef.orderBy('numero').get().then((snapshot) => {
           if (snapshot.empty) {
             setFlagLoadFrequencia('vazio');
           } else {
-            snapshot.forEach((documentSnapshot, index) => {
-              alunos.push(documentSnapshot.data());
+            snapshot.forEach((docSnapshot, index) => {
+              let nome = docSnapshot.data().nome
+              let numero = docSnapshot.data().numero
+              let frequencia = docSnapshot.data().frequencias
+              alunos.push({nome,numero,frequencia});
               if (snapshot.size - index == 1) {
                 setFlagLoadFrequencia('carregado');
               }
@@ -62,6 +64,8 @@ const FlatListFrequencia = () => {
           }
         });
       setListaFrequencia(alunos)
+      console.log('listaFrequencia',listaFrequencia);
+      
     }
     data()
   }, [idClasseSelec, dataSelec, recarregarFrequencia]);

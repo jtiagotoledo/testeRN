@@ -55,7 +55,7 @@ export default function Provider ({children}){
     const[listaPeriodos,setListaPeriodos] = useState([{label:'',value:'',periodo:'',idPeriodo:''}]);
     const[listaClasses,setListaClasses]=useState([{classe:'',idClasse:''}]);
     const[listaAlunos,setListaAlunos]=useState([{numero:'',nome:''}]);
-    const[listaFrequencia,setListaFrequencia]=useState([{numero:'',nome:'',frequencia:''}]);
+    const[listaFrequencia,setListaFrequencia]=useState('');
     const[listaNotas,setListaNotas]=useState([{numero:'',nome:'',nota:''}]);
     const[listaDatasFreq,setListaDatasFreq]=useState('');
     const[listaDatasNotas,setListaDatasNotas]=useState('');

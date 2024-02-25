@@ -30,7 +30,7 @@ const CalendarioFrequencia = () => {
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('ListaAlunos')
   
-  let listaFreqRef = firestore().collection(idUsuario)
+  let datasFrequenciasRef = firestore().collection(idUsuario)
   .doc(idPeriodoSelec).collection('Classes')
   .doc(idClasseSelec).collection('DatasFrequencias')
 
@@ -43,7 +43,7 @@ const CalendarioFrequencia = () => {
 
       /* essa consulta no BD retorna as datas ainda não 
       incluídas na lista de datas. */
-      listaFreqRef.get().then(snapshot => {
+      datasFrequenciasRef.get().then(snapshot => {
           if (snapshot.empty) {
             setflagLoadCalendarioFreq('carregado');
           }
@@ -62,11 +62,12 @@ const CalendarioFrequencia = () => {
   }, [idClasseSelec, recarregarCalendarioFreq]);
 
   const onPressAddData = async () => {
+    
     setModalCalendarioFreq(!modalCalendarioFreq);
     setflagLoadCalendarioFreq('inicio')
 
     //adiciona data na lista de frequencias
-    listaFreqRef.doc(dataSelec).set({})
+    datasFrequenciasRef.doc(dataSelec).set({})
 
     //adiciona frequencia na lista de alunos
     listaAlunosRef.get().then((snapshot) => {
