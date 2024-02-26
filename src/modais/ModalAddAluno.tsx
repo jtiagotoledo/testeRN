@@ -44,8 +44,8 @@ const ModalAddAluno = () => {
           nome: valueNome,
           inativo: alunoInativo,
           idAluno: idAluno,
-          frequencias:{},
-          notas:{},
+          frequencias:[],
+          notas:[],
         })
         setValueNome('')
         setValueNumero('')

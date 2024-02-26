@@ -9,7 +9,6 @@ type ItemData = {
   numero: string;
   frequencia: string;
   idAluno: string;
-  frequencias:[];
 };
 
 type ItemProps = {
@@ -26,7 +25,7 @@ const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
     </View>
     <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
     ]}>
-      <Text style={[styles.titleFrequencia]}>{item.frequencias}</Text>
+      <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
     </TouchableOpacity>
   </View>
 
@@ -55,7 +54,8 @@ const FlatListFrequencia = () => {
             snapshot.forEach((docSnapshot, index) => {
               let nome = docSnapshot.data().nome
               let numero = docSnapshot.data().numero
-              let frequencia = docSnapshot.data().frequencias
+              let frequencias = docSnapshot.data().frequencias
+              let frequencia = frequencias[frequencias.findIndex((item:any)=>item.data==dataSelec)].freq
               alunos.push({nome,numero,frequencia});
               if (snapshot.size - index == 1) {
                 setFlagLoadFrequencia('carregado');

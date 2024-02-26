@@ -29,10 +29,10 @@ const CalendarioFrequencia = () => {
   let listaAlunosRef = firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('ListaAlunos')
-  
+
   let datasFrequenciasRef = firestore().collection(idUsuario)
-  .doc(idPeriodoSelec).collection('Classes')
-  .doc(idClasseSelec).collection('DatasFrequencias')
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('DatasFrequencias')
 
   useEffect(() => {
     const data = async () => {
@@ -44,17 +44,17 @@ const CalendarioFrequencia = () => {
       /* essa consulta no BD retorna as datas ainda não 
       incluídas na lista de datas. */
       datasFrequenciasRef.get().then(snapshot => {
-          if (snapshot.empty) {
-            setflagLoadCalendarioFreq('carregado');
+        if (snapshot.empty) {
+          setflagLoadCalendarioFreq('carregado');
+        }
+        snapshot.forEach((documentSnapshot, index) => {
+          datas.push(documentSnapshot.id);
+          datasMarcadas[documentSnapshot.id] = { selected: true }
+          if (snapshot.size - index == 1) {
+            setflagLoadCalendarioFreq('carregado')
           }
-          snapshot.forEach((documentSnapshot, index) => {
-            datas.push(documentSnapshot.id);
-            datasMarcadas[documentSnapshot.id] = { selected: true }
-            if (snapshot.size - index == 1) {
-              setflagLoadCalendarioFreq('carregado')
-            }
-          });
         });
+      });
       setListaDatasFreq(datas);
       setListaDatasMarcadasFreq(datasMarcadas)
     }
@@ -62,7 +62,7 @@ const CalendarioFrequencia = () => {
   }, [idClasseSelec, recarregarCalendarioFreq]);
 
   const onPressAddData = async () => {
-    
+
     setModalCalendarioFreq(!modalCalendarioFreq);
     setflagLoadCalendarioFreq('inicio')
 
@@ -74,51 +74,50 @@ const CalendarioFrequencia = () => {
       snapshot.forEach((docSnapshot) => {
         listaAlunosRef.doc(docSnapshot.data().idAluno).update({
           frequencias: firestore.FieldValue.arrayUnion({
-            [dataSelec]: {
-              freq: 'P'
-            }
+            data: dataSelec,
+            freq: 'P'
           })
         })
       })
     })
 
 
-     
-     
-     
-     /* firestore().collection(idUsuario)
-     .doc(idPeriodoSelec).collection('Classes')
-     .doc(idClasseSelec).collection('ListaAlunos')
-     .orderBy('numero')
-     .onSnapshot(snapshot => {
-       snapshot.forEach(documentSnapshot => {
-         const numero = documentSnapshot.data().numero;
-         const nome = documentSnapshot.data().nome;
-         const idAluno = documentSnapshot.data().idAluno;
+
+
+
+    /* firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('ListaAlunos')
+    .orderBy('numero')
+    .onSnapshot(snapshot => {
+      snapshot.forEach(documentSnapshot => {
+        const numero = documentSnapshot.data().numero;
+        const nome = documentSnapshot.data().nome;
+        const idAluno = documentSnapshot.data().idAluno;
  
-         firestore().collection(idUsuario)
-         .doc(idPeriodoSelec).collection('Classes')
-         .doc(idClasseSelec).collection('Frequencia')
-         .doc(dataSelec).collection('Alunos')
-         .doc(idAluno).set({
-           numero: numero,
-           nome: nome,
-           frequencia:'P',
-           idAluno:idAluno,
-         })
-       });
-     });
+        firestore().collection(idUsuario)
+        .doc(idPeriodoSelec).collection('Classes')
+        .doc(idClasseSelec).collection('Frequencia')
+        .doc(dataSelec).collection('Alunos')
+        .doc(idAluno).set({
+          numero: numero,
+          nome: nome,
+          frequencia:'P',
+          idAluno:idAluno,
+        })
+      });
+    });
  
  
-     //atualizando o estado da data
-     firestore().collection(idUsuario).
-     doc('EstadosApp').update({
-       idPeriodo:idPeriodoSelec,
-       periodo:nomePeriodoSelec,
-       idClasse:idClasseSelec,
-       classe:nomeClasseSelec,
-       data:dataSelec
-     }) */
+    //atualizando o estado da data
+    firestore().collection(idUsuario).
+    doc('EstadosApp').update({
+      idPeriodo:idPeriodoSelec,
+      periodo:nomePeriodoSelec,
+      idClasse:idClasseSelec,
+      classe:nomeClasseSelec,
+      data:dataSelec
+    }) */
 
 
     setRecarregarFrequencia('recarregar');
