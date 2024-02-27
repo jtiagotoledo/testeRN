@@ -33,7 +33,6 @@ const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
 
 const FlatListFrequencia = () => {
   const alunos: any[] = []
-  const [statusFreq, setStatusFreq] = useState('')
   const [selectedId, setSelectedId] = useState<string>();
   const { idPeriodoSelec, idClasseSelec, setNumAlunoSelec, recarregarFrequencia,
     dataSelec, flagLoadFrequencia, setFlagLoadFrequencia, setRecarregarFrequencia,
@@ -51,12 +50,14 @@ const FlatListFrequencia = () => {
           if (snapshot.empty) {
             setFlagLoadFrequencia('vazio');
           } else {
+            //consulta ao BD retorna a lista de alunos com nome, num, freq e id
             snapshot.forEach((docSnapshot, index) => {
               let nome = docSnapshot.data().nome
               let numero = docSnapshot.data().numero
+              let idAluno = docSnapshot.data().idAluno
               let frequencias = docSnapshot.data().frequencias
               let frequencia = frequencias[frequencias.findIndex((item:any)=>item.data==dataSelec)].freq
-              alunos.push({nome,numero,frequencia});
+              alunos.push({nome,numero,idAluno,frequencia});
               if (snapshot.size - index == 1) {
                 setFlagLoadFrequencia('carregado');
               }
@@ -64,7 +65,6 @@ const FlatListFrequencia = () => {
           }
         });
       setListaFrequencia(alunos)
-      console.log('listaFrequencia',listaFrequencia);
       
     }
     data()
@@ -72,20 +72,25 @@ const FlatListFrequencia = () => {
 
   const onPressItemFreq = (item: any) => {
     let statusFrequencia = item.frequencia == 'P' ? 'A' : 'P'
-    setStatusFreq(item.frequencia)
     listaFrequencia[parseInt(item.numero) - 1].frequencia = statusFrequencia
     const idAluno = item.idAluno;
     setSelectedId(item.idAluno);
     setNumAlunoSelec(item.numero.toString());
-    firestore().collection(idUsuario)
-      .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('Frequencia')
-      .doc(dataSelec).collection('Alunos')
-      .doc(idAluno).update({
-        numero: item.numero,
-        nome: item.nome,
-        frequencia: statusFrequencia
-      });
+    
+    //consulta ao array de frequencias
+    listaAlunosRef.doc(idAluno).get().then((docSnapshot)=>{
+      let datas = docSnapshot.data()?.frequencias
+      //modificando o array
+      datas.map((item:any)=>{
+        if(item.data==dataSelec){
+          item.freq=statusFrequencia
+        }
+      })
+      //atulaizando o BD com o novo array
+      listaAlunosRef.doc(idAluno).update({
+        frequencias : datas
+      })
+    })
     setRecarregarAlunos('recarregar')
   }
 
