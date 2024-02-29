@@ -77,8 +77,7 @@ const FlatListAlunos = () => {
               }else{
                 porcentFreq = 0
               }
-
-              alunos.push(docSnapshot.data(),{porcentFreq})
+              alunos.push({...docSnapshot.data(),porcentFreq})
               console.log('alunos',alunos);
               
 
