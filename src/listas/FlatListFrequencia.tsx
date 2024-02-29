@@ -52,12 +52,10 @@ const FlatListFrequencia = () => {
           } else {
             //consulta ao BD retorna a lista de alunos com nome, num, freq e id
             snapshot.forEach((docSnapshot, index) => {
-              let nome = docSnapshot.data().nome
-              let numero = docSnapshot.data().numero
-              let idAluno = docSnapshot.data().idAluno
+              
               let frequencias = docSnapshot.data().frequencias
               let frequencia = frequencias[frequencias.findIndex((item:any)=>item.data==dataSelec)].freq
-              alunos.push({nome,numero,idAluno,frequencia});
+              alunos.push({...docSnapshot.data(),frequencia});
               if (snapshot.size - index == 1) {
                 setFlagLoadFrequencia('carregado');
               }
