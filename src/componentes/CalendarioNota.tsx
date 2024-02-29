@@ -26,7 +26,15 @@ const CalendarioNota = () => {
     setRecarregarCalendarioNotas, listaDatasMarcadasNotas, setListaDatasMarcadasNotas,
     idUsuario, nomePeriodoSelec, nomeClasseSelec, setRecarregarAlunos } = useContext(Context)
 
-  useEffect(() => {
+  let listaAlunosRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('ListaAlunos')
+
+  let datasNotasRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('DatasNotas')
+  
+    useEffect(() => {
     const data = async () => {
       /* essa consulta no BD retorna as datas ainda não 
       incluídas na lista de datas. */
