@@ -23,7 +23,7 @@ type ItemProps = {
 
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
-    <View style={{flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row' }}>
       <View style={{ flex: 1 }}>
         <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
       </View>
@@ -31,7 +31,7 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
         <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
       </View>
     </View>
-    <View style={{flexDirection: 'row', justifyContent:'space-evenly' }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
       <Text>Média: {item.media || ' ...'}</Text>
       <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
     </View>
@@ -45,26 +45,37 @@ const FlatListAlunos = () => {
     listaAlunos, setListaAlunos, idUsuario, setFlagLongPressAluno,
     selectedIdAluno, setSelectedIdAluno, setNomeAlunoSelec, setIdAlunoSelec, setAlunoInativo } = useContext(Context)
 
+  let listaAlunosRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('ListaAlunos')
+
   useEffect(() => {
     const data = async () => {
       setListaAlunos('');
       setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
-      firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('ListaAlunos')
-        .orderBy('numero')
+      listaAlunosRef.orderBy('numero')
         .onSnapshot((snapshot) => {
           if (snapshot.empty && idClasseSelec != '') {
             setflagLoadAlunos('vazio');
           } else {
-            snapshot.forEach((documentSnapshot, index) => {
+            snapshot.forEach((docSnapshot, index) => {
               if (snapshot.size - index == 1) {
                 setflagLoadAlunos('carregado');
               }
 
-              // recuperação de notas para a média
-              let id = documentSnapshot.data().idAluno
+              let contPresenca = 0
+              docSnapshot.data().frequencias.forEach((item:any)=>{
+                item.freq=='P' ? contPresenca+=1 : null
+              })
+              console.log('contPresenca',contPresenca);
+              
+              
+              
+              
+
+              /* // recuperação de notas para a média
+              let id = docSnapshot.data().idAluno
               let notas: number[] = []
               let mediaNotas = ''
               let somaNotas = 0
@@ -111,14 +122,15 @@ const FlatListAlunos = () => {
                 })
 
               const fnMediaFreq = (mediaNotas: any, porcentFreq: any) => {
-                alunos.push(documentSnapshot.data());
+                alunos.push(docSnapshot.data());
                 let objIndex = alunos.findIndex(obj => obj.idAluno === id)
                 if (objIndex != -1) {
                   alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
                   alunos[objIndex].porcentFreq = porcentFreq
                 }
                 setListaAlunos(alunos)
-              }
+              } */
+
             })
           }
         });
