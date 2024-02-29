@@ -64,11 +64,15 @@ const FlatListAlunos = () => {
                 setflagLoadAlunos('carregado');
               }
 
-              let contPresenca = 0
-              docSnapshot.data().frequencias.forEach((item:any)=>{
-                item.freq=='P' ? contPresenca+=1 : null
+              let contFreq = 0
+              let frequencias = docSnapshot.data().frequencias
+              let qntDatas = Object.keys(frequencias).length
+              frequencias.forEach((item:any)=>{
+                item.freq=='P' ? contFreq+=1 : null
               })
-              console.log('contPresenca',contPresenca);
+              let porcentFreq = ((contFreq*100)/qntDatas).toFixed(1)
+              console.log('porcentFreq',porcentFreq);
+              
               
               
               
