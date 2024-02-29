@@ -64,18 +64,22 @@ const FlatListAlunos = () => {
                 setflagLoadAlunos('carregado');
               }
 
+              //recuperação das datas de frequencia e cálculo da porcentagem de frequência
               let contFreq = 0
+              let porcentFreq
               let frequencias = docSnapshot.data().frequencias
-              let qntDatas = Object.keys(frequencias).length
-              frequencias.forEach((item:any)=>{
-                item.freq=='P' ? contFreq+=1 : null
-              })
-              let porcentFreq = ((contFreq*100)/qntDatas).toFixed(1)
-              console.log('porcentFreq',porcentFreq);
-              
-              
-              
-              
+              if(Object.keys(frequencias).length>0){
+                let qntDatas = Object.keys(frequencias).length
+                frequencias.forEach((item:any)=>{
+                  item.freq=='P' ? contFreq+=1 : null
+                })
+                porcentFreq = ((contFreq*100)/qntDatas).toFixed(1)
+              }else{
+                porcentFreq = 0
+              }
+
+              alunos.push(docSnapshot.data(),{porcentFreq})
+              console.log('alunos',alunos);
               
 
               /* // recuperação de notas para a média
@@ -136,6 +140,7 @@ const FlatListAlunos = () => {
               } */
 
             })
+            setListaAlunos(alunos)
           }
         });
 
