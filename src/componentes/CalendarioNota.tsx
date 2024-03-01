@@ -69,29 +69,20 @@ const CalendarioNota = () => {
     //adiciona data na lista de notas
     datasNotasRef.doc(dataSelec).set({});
 
-    firestore().collection(idUsuario)
-      .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('ListaAlunos')
-      .orderBy('numero')
-      .onSnapshot(snapshot => {
-        snapshot.forEach(documentSnapshot => {
-          const numero = documentSnapshot.data().numero;
-          const nome = documentSnapshot.data().nome;
-          const idAluno = documentSnapshot.data().idAluno;
+    //adiciona frequencia na lista de alunos
+    listaAlunosRef.get().then((snapshot) => {
+      snapshot.forEach((docSnapshot) => {
+        listaAlunosRef.doc(docSnapshot.data().idAluno).update({
+          notas: firestore.FieldValue.arrayUnion({
+            data: dataSelec,
+            nota: ''
+          })
+        })
+      })
+    })
+  setRecarregarNotas('recarregarNotas')
 
-          firestore().collection(idUsuario)
-            .doc(idPeriodoSelec).collection('Classes')
-            .doc(idClasseSelec).collection('Notas')
-            .doc(dataSelec).collection('Alunos')
-            .doc(idAluno).set({
-              numero: numero,
-              nome: nome,
-              nota: '',
-              idAluno: idAluno,
-            }).then(setRecarregarNotas('recarregarNotas'),
-              setRecarregarAlunos('recarregarALunos'))
-        });
-      });
+      
 
     //atualizando o estado da data
     firestore().collection(idUsuario).

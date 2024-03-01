@@ -72,7 +72,7 @@ const CalendarioFrequencia = () => {
     //adiciona frequencia na lista de alunos
     listaAlunosRef.get().then((snapshot) => {
       snapshot.forEach((docSnapshot) => {
-        listaAlunosRef.doc(docSnapshot.data().idAluno).set({
+        listaAlunosRef.doc(docSnapshot.data().idAluno).update({
           frequencias: firestore.FieldValue.arrayUnion({
             data: dataSelec,
             freq: 'P'
@@ -80,6 +80,8 @@ const CalendarioFrequencia = () => {
         })
       })
     })
+  setRecarregarFrequencia('recarregarFreq')
+
 
 
 
