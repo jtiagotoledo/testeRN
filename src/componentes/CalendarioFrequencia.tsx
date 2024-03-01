@@ -80,46 +80,16 @@ const CalendarioFrequencia = () => {
         })
       })
     })
-  setRecarregarFrequencia('recarregarFreq')
 
-
-
-
-
-
-    /* firestore().collection(idUsuario)
-    .doc(idPeriodoSelec).collection('Classes')
-    .doc(idClasseSelec).collection('ListaAlunos')
-    .orderBy('numero')
-    .onSnapshot(snapshot => {
-      snapshot.forEach(documentSnapshot => {
-        const numero = documentSnapshot.data().numero;
-        const nome = documentSnapshot.data().nome;
-        const idAluno = documentSnapshot.data().idAluno;
- 
-        firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Frequencia')
-        .doc(dataSelec).collection('Alunos')
-        .doc(idAluno).set({
-          numero: numero,
-          nome: nome,
-          frequencia:'P',
-          idAluno:idAluno,
-        })
-      });
-    });
- 
- 
     //atualizando o estado da data
     firestore().collection(idUsuario).
-    doc('EstadosApp').update({
-      idPeriodo:idPeriodoSelec,
-      periodo:nomePeriodoSelec,
-      idClasse:idClasseSelec,
-      classe:nomeClasseSelec,
-      data:dataSelec
-    }) */
+      doc('EstadosApp').update({
+        idPeriodo: idPeriodoSelec,
+        periodo: nomePeriodoSelec,
+        idClasse: idClasseSelec,
+        classe: nomeClasseSelec,
+        data: dataSelec
+      })
 
 
     setRecarregarFrequencia('recarregar');

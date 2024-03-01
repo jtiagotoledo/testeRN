@@ -47,22 +47,22 @@ const FlatListFrequencia = () => {
       setRecarregarFrequencia('');
 
       listaAlunosRef.orderBy('numero').get().then((snapshot) => {
-          if (snapshot.empty) {
-            setFlagLoadFrequencia('vazio');
-          } else {
-            //consulta ao BD retorna a lista de alunos com nome, num, freq e id
-            snapshot.forEach((docSnapshot, index) => {
-              let frequencias = docSnapshot.data().frequencias
-              let frequencia = frequencias[frequencias.findIndex((item:any)=>item.data==dataSelec)].freq
-              alunos.push({...docSnapshot.data(),frequencia});
-              if (snapshot.size - index == 1) {
-                setFlagLoadFrequencia('carregado');
-              }
-            });
-          }
-        });
+        if (snapshot.empty) {
+          setFlagLoadFrequencia('vazio');
+        } else {
+          //consulta ao BD retorna a lista de alunos com nome, num, freq e id
+          snapshot.forEach((docSnapshot, index) => {
+            let frequencias = docSnapshot.data().frequencias
+            let frequencia = frequencias[frequencias.findIndex((item: any) => item.data == dataSelec)].freq
+            alunos.push({ ...docSnapshot.data(), frequencia });
+            if (snapshot.size - index == 1) {
+              setFlagLoadFrequencia('carregado');
+            }
+          });
+        }
+      });
       setListaFrequencia(alunos)
-      
+
     }
     data()
   }, [idClasseSelec, dataSelec, recarregarFrequencia]);
@@ -73,19 +73,19 @@ const FlatListFrequencia = () => {
     const idAluno = item.idAluno;
     setSelectedId(item.idAluno);
     setNumAlunoSelec(item.numero.toString());
-    
+
     //consulta ao array de frequencias
-    listaAlunosRef.doc(idAluno).get().then((docSnapshot)=>{
+    listaAlunosRef.doc(idAluno).get().then((docSnapshot) => {
       let datas = docSnapshot.data()?.frequencias
       //modificando o array
-      datas.map((item:any)=>{
-        if(item.data==dataSelec){
-          item.freq=statusFrequencia
+      datas.map((item: any) => {
+        if (item.data == dataSelec) {
+          item.freq = statusFrequencia
         }
       })
       //atulaizando o BD com o novo array
       listaAlunosRef.doc(idAluno).update({
-        frequencias : datas
+        frequencias: datas
       })
     })
     setRecarregarAlunos('recarregar')

@@ -19,14 +19,19 @@ const FlatListNotas = () => {
     idAluno: ''
   }
 
+  const alunos: any[] = []
   const flatListRef = useRef<FlatList>(null);
   const textInputRefs = useRef<TextInput[]>([]);
   const [selection, setSelection] = useState({ start: 0, end: 0 });
   const [textNota, setTextNota] = useState('');
   const [idNota, setIdNota] = useState('');
   const { idPeriodoSelec, idClasseSelec, dataSelec, flagLoadNotas,
-    setFlagLoadNotas, setRecarregarNotas, listaNotas, setListaNotas, 
-    idUsuario,setTecladoAtivo, recarregarNotas, setRecarregarAlunos} = useContext(Context)
+    setFlagLoadNotas, setRecarregarNotas, listaNotas, setListaNotas,
+    idUsuario, setTecladoAtivo, recarregarNotas, setRecarregarAlunos } = useContext(Context)
+
+  let listaAlunosRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('ListaAlunos')
 
   const onChangeNota = (item: ItemData, text: string) => {
     notaAluno.nome = item.nome;
@@ -38,16 +43,26 @@ const FlatListNotas = () => {
     setIdNota(item.idAluno)
   }
 
-  const salvarNota = () => {
+  const salvarNota = (idAluno: string) => {
     if (textNota != '') {
-      firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Notas')
-        .doc(dataSelec).collection('Alunos')
-        .doc(idNota).update({
-          nota: textNota
-        });
-        setRecarregarAlunos('recarregar')
+      //consulta ao array de notas
+      console.log('notaAluno.idAluno',idAluno)
+      listaAlunosRef.doc(idAluno).get().then((docSnapshot) => {
+        let datas = docSnapshot.data()?.notas
+        console.log('datas', docSnapshot.data());
+
+        //modificando o array
+        datas.map((item: any) => {
+          if (item.data == dataSelec) {
+            item.nota = textNota
+          }
+        })
+        //atulaizando o BD com o novo array
+        listaAlunosRef.doc(idAluno).update({
+          notas: datas
+        })
+      })
+      setRecarregarAlunos('recarregar')
     }
   }
 
@@ -63,36 +78,34 @@ const FlatListNotas = () => {
       () => {
         setTecladoAtivo('flex')
       })
-      return () => {
-        keyboardDidShowListener.remove();
-        keyboardDidHideListener.remove();
-      };
-  },[]);
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   useEffect(() => {
     setListaNotas([{ numero: '', nome: '', nota: '', idAluno: '' }]);
     setRecarregarNotas('');
     setFlagLoadNotas('carregando');
-    firestore().collection(idUsuario)
-      .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('Notas')
-      .doc(dataSelec).collection('Alunos')
-      .orderBy('numero')
-      .get().then(snapshot => {
-        if (snapshot.empty) {
-          setFlagLoadNotas('vazio');
-        } else {
-          let alunos: any[] = []
-          snapshot.forEach((documentSnapshot, index) => {
-            alunos.push(documentSnapshot.data());
-            setListaNotas(alunos);
-            if (snapshot.size - index == 1) {
-              setFlagLoadNotas('carregado');
-            }
-          });
-        }
-      });
-  }, [idClasseSelec,dataSelec,recarregarNotas]);
+
+    listaAlunosRef.orderBy('numero').get().then(snapshot => {
+      if (snapshot.empty) {
+        setFlagLoadNotas('vazio');
+      } else {
+        snapshot.forEach((docSnapshot, index) => {
+          let notas = docSnapshot.data().notas
+          let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
+          alunos.push({ ...docSnapshot.data(), nota });
+
+          if (snapshot.size - index == 1) {
+            setFlagLoadNotas('carregado');
+          }
+        });
+      }
+    });
+    setListaNotas(alunos);
+  }, [idClasseSelec, dataSelec, recarregarNotas]);
 
   const renderItem = ({ item }: { item: ItemData }) => {
 
@@ -106,10 +119,10 @@ const FlatListNotas = () => {
     const nextItem = (itemId: any, itemNumero: any, itemNota: any) => {
       const index = listaNotas.findIndex((item: any) => item.idAluno === itemId);
       setTimeout(() => {
-        if (index !== -1 && flatListRef.current && listaNotas[index + 1]!=null) {
+        if (index !== -1 && flatListRef.current && listaNotas[index + 1] != null) {
           textInputRefs.current[itemNumero + 1]?.focus()
           const sizeText = listaNotas[index + 1].nota.length
-          setSelection({ start: sizeText||0, end: sizeText||0 })
+          setSelection({ start: sizeText || 0, end: sizeText || 0 })
         }
       }, 300)
     };
@@ -134,8 +147,8 @@ const FlatListNotas = () => {
             onChangeText={(text) => onChangeNota(item, text)}
             defaultValue={item.nota}
             onFocus={() => [scrollToItem(item.idAluno, item.numero)]}
-            onBlur={()=>[salvarNota()]}
-            onSubmitEditing={() => [nextItem(item.idAluno, item.numero, item.nota), salvarNota()]}
+            onBlur={() => [salvarNota(item.idAluno)]}
+            onSubmitEditing={() => [nextItem(item.idAluno, item.numero, item.nota), salvarNota(item.idAluno)]}
             selection={selection}
             onSelectionChange={(syntheticEvent) => onSelectionChange(syntheticEvent)}>
           </TextInput>

@@ -33,10 +33,10 @@ const CalendarioNota = () => {
   let datasNotasRef = firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('DatasNotas')
-  
-    useEffect(() => {
+
+  useEffect(() => {
     const data = async () => {
-      
+
       setflagLoadCalendarioNotas('carregando');
       setListaDatasNotas('');
       setListaDatasMarcadasNotas({})
@@ -44,18 +44,18 @@ const CalendarioNota = () => {
 
       /* essa consulta no BD retorna as datas ainda não 
       incluídas na lista de datas. */
-      listaAlunosRef.get().then(snapshot => {
-          if (snapshot.empty) {
-            setflagLoadCalendarioNotas('carregado');
+      datasNotasRef.get().then(snapshot => {
+        if (snapshot.empty) {
+          setflagLoadCalendarioNotas('carregado');
+        }
+        snapshot.forEach((documentSnapshot, index) => {
+          datas.push(documentSnapshot.id);
+          datasMarcadas[documentSnapshot.id] = { selected: true }
+          if (snapshot.size - index == 1) {
+            setflagLoadCalendarioNotas('carregado')
           }
-          snapshot.forEach((documentSnapshot, index) => {
-            datas.push(documentSnapshot.id);
-            datasMarcadas[documentSnapshot.id] = { selected: true }
-            if (snapshot.size - index == 1) {
-              setflagLoadCalendarioNotas('carregado')
-            }
-          });
         });
+      });
       setListaDatasNotas(datas);
       setListaDatasMarcadasNotas(datasMarcadas)
     }
@@ -80,9 +80,6 @@ const CalendarioNota = () => {
         })
       })
     })
-  setRecarregarNotas('recarregarNotas')
-
-      
 
     //atualizando o estado da data
     firestore().collection(idUsuario).
@@ -93,6 +90,9 @@ const CalendarioNota = () => {
         classe: nomeClasseSelec,
         data: dataSelec
       })
+
+    setRecarregarNotas('recarregarNotas')
+    setRecarregarAlunos('recarregar')
 
   }
 
