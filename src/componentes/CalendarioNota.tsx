@@ -36,16 +36,15 @@ const CalendarioNota = () => {
   
     useEffect(() => {
     const data = async () => {
-      /* essa consulta no BD retorna as datas ainda não 
-      incluídas na lista de datas. */
+      
       setflagLoadCalendarioNotas('carregando');
       setListaDatasNotas('');
       setListaDatasMarcadasNotas({})
       setRecarregarCalendarioNotas('');
-      firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Notas')
-        .onSnapshot(snapshot => {
+
+      /* essa consulta no BD retorna as datas ainda não 
+      incluídas na lista de datas. */
+      listaAlunosRef.get().then(snapshot => {
           if (snapshot.empty) {
             setflagLoadCalendarioNotas('carregado');
           }
@@ -67,11 +66,8 @@ const CalendarioNota = () => {
 
     setModalCalendarioNota(!modalCalendarioNota);
 
-    setflagLoadCalendarioNotas('inicio')
-    firestore().collection(idUsuario)
-      .doc(idPeriodoSelec).collection('Classes')
-      .doc(idClasseSelec).collection('Notas')
-      .doc(dataSelec).set({});
+    //adiciona data na lista de notas
+    datasNotasRef.doc(dataSelec).set({});
 
     firestore().collection(idUsuario)
       .doc(idPeriodoSelec).collection('Classes')

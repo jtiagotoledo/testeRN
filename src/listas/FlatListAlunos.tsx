@@ -78,7 +78,6 @@ const FlatListAlunos = () => {
                 porcentFreq = 0
               }
               alunos.push({...docSnapshot.data(),porcentFreq})
-              console.log('alunos',alunos);
               
 
               /* // recuperação de notas para a média
@@ -139,9 +138,9 @@ const FlatListAlunos = () => {
               } */
 
             })
-            setListaAlunos(alunos)
           }
         });
+        setListaAlunos(alunos)
 
 
     }
