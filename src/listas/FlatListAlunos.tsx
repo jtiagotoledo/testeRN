@@ -94,66 +94,6 @@ const FlatListAlunos = () => {
               }
 
               alunos.push({...docSnapshot.data(),porcentFreq,mediaNotas})
-              console.log('alunos',alunos);
-              
-
-              /* // recuperação de notas para a média
-              let id = docSnapshot.data().idAluno
-              let notas: number[] = []
-              let mediaNotas = ''
-              let somaNotas = 0
-              firestore().collection(idUsuario)
-                .doc(idPeriodoSelec).collection('Classes')
-                .doc(idClasseSelec).collection('Notas')
-                .onSnapshot((snapshot) => {
-                  snapshot.forEach((docSnapshot, index) => {
-                    docSnapshot.ref.collection('Alunos')
-                      .doc(id)
-                      .onSnapshot((snapshot2) => {
-                        let nota = snapshot2.data()?.nota == '' ? '0' : snapshot2.data()?.nota
-                        notas.push(parseFloat(nota))
-                        somaNotas = notas.reduce((a, b) => a + b, 0)
-                        mediaNotas = (somaNotas / notas.length).toFixed(1)
-                      })
-                  })
-                })
-
-              // recuperação da frequencia para percentual de freq.
-              let frequencias: string[] = []
-              let porcentFreq = '0'
-              let contFreq = 0
-              firestore().collection(idUsuario)
-                .doc(idPeriodoSelec).collection('Classes')
-                .doc(idClasseSelec).collection('Frequencia')
-                .onSnapshot((snapshot) => {
-                  let tamArrDatas = snapshot.size
-                  snapshot.forEach((docSnapshot, index) => {
-                    docSnapshot.ref.collection('Alunos')
-                      .doc(id)
-                      .onSnapshot((snapshot2) => {
-                        let freq = snapshot2.data()?.frequencia
-                        freq == 'P' ? frequencias.push(freq) : null
-                        contFreq = frequencias.length
-                        porcentFreq = (contFreq * 100 / tamArrDatas).toFixed(1)
-                        if (snapshot.size - index == 1) {
-                          setTimeout(() => {
-                            fnMediaFreq(mediaNotas, porcentFreq)
-                          }, 50)
-                        }
-                      })
-                  })
-                })
-
-              const fnMediaFreq = (mediaNotas: any, porcentFreq: any) => {
-                alunos.push(docSnapshot.data());
-                let objIndex = alunos.findIndex(obj => obj.idAluno === id)
-                if (objIndex != -1) {
-                  alunos[objIndex].media = !isNaN(mediaNotas) ? mediaNotas : 0
-                  alunos[objIndex].porcentFreq = porcentFreq
-                }
-                setListaAlunos(alunos)
-              } */
-
             })
           }
         });

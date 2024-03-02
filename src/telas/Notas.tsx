@@ -23,6 +23,10 @@ const Notas = () =>{
     
     let dataAno='',dataMes='',dataDia='',data=''
 
+    let datasNotasRef = firestore().collection(idUsuario)
+    .doc(idPeriodoSelec).collection('Classes')
+    .doc(idClasseSelec).collection('DatasNotas')
+
     if(dataSelec!=''){
         dataAno = dataSelec.slice(0,4);
         dataMes = dataSelec.slice(5,7);
@@ -31,10 +35,7 @@ const Notas = () =>{
     }
 
     const onChangeInputAtividades = (text:String) =>{
-        firestore().collection(idUsuario)
-        .doc(idPeriodoSelec).collection('Classes')
-        .doc(idClasseSelec).collection('Notas')
-        .doc(dataSelec).set({avaliacao:text})
+        datasNotasRef.doc(dataSelec).set({avaliacao:text})
         setValueAtividade({avaliacao:text})
     }
 
@@ -51,11 +52,10 @@ const Notas = () =>{
     useEffect(()=>{
         const data = async ()=>{
             //Recuperar o título das avaliações da data selecionada no BD.
-            const textoAvaliacao =  firestore().collection(idUsuario)
-            .doc(idPeriodoSelec).collection('Classes')
-            .doc(idClasseSelec).collection('Notas')
-            .doc(dataSelec).get().then()
-            setValueAtividade((await textoAvaliacao).data()||'')
+            datasNotasRef.doc(dataSelec).get().then((snapshot)=>{
+                snapshot.exists?
+                setValueAtividade(snapshot.data()) : setValueAtividade('')
+            })
         }
     data()        
     },[dataSelec]);
