@@ -1,6 +1,6 @@
-import React, {  useContext, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View , TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData} from "react-native"
-import {Context} from "../data/Provider";
+import React, { useContext, useEffect } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData } from "react-native"
+import { Context } from "../data/Provider";
 import { Divider } from "react-native-paper";
 
 import ModalCalendarioNota from "../modais/ModalCalendarioNota";
@@ -12,70 +12,70 @@ import HeaderNotas from "../componentes/HeaderNotas";
 import FlatListNotas from "../listas/FlatListNotas";
 import FabNotas from "../componentes/FabNotas";
 
-const Notas = () =>{
+const Notas = () => {
 
-    let datas: any[]=[];
+    let datas: any[] = [];
 
-    const {dataSelec,setModalCalendarioNota,idClasseSelec,
-        idPeriodoSelec,idUsuario,setIdPeriodoSelec,setDataSelec,
-        setIdClasseSelec,setValueAtividade,valueAtividade,
-        setFlagLongPressDataNotas,nomePeriodoSelec,tecladoAtivo} = useContext(Context);
-    
-    let dataAno='',dataMes='',dataDia='',data=''
+    const { dataSelec, setModalCalendarioNota, idClasseSelec,
+        idPeriodoSelec, idUsuario, setIdPeriodoSelec, setDataSelec,
+        setIdClasseSelec, setValueAtividade, valueAtividade,
+        setFlagLongPressDataNotas, nomePeriodoSelec, tecladoAtivo } = useContext(Context);
+
+    let dataAno = '', dataMes = '', dataDia = '', data = ''
 
     let datasNotasRef = firestore().collection(idUsuario)
-    .doc(idPeriodoSelec).collection('Classes')
-    .doc(idClasseSelec).collection('DatasNotas')
+        .doc(idPeriodoSelec).collection('Classes')
+        .doc(idClasseSelec).collection('DatasNotas')
 
-    if(dataSelec!=''){
-        dataAno = dataSelec.slice(0,4);
-        dataMes = dataSelec.slice(5,7);
-        dataDia = dataSelec.slice(8,10);
-        data = dataDia+'/'+dataMes+'/'+dataAno
+    if (dataSelec != '') {
+        dataAno = dataSelec.slice(0, 4);
+        dataMes = dataSelec.slice(5, 7);
+        dataDia = dataSelec.slice(8, 10);
+        data = dataDia + '/' + dataMes + '/' + dataAno
     }
 
-    const onChangeInputAtividades = (text:String) =>{
-        datasNotasRef.doc(dataSelec).set({avaliacao:text})
-        setValueAtividade({avaliacao:text})
+    const onChangeInputAtividades = (text: String) => {
+        datasNotasRef.doc(dataSelec).set({ avaliacao: text })
+        setValueAtividade({ avaliacao: text })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         //recuperar dados dos estados do app
         firestore().collection(idUsuario)
-        .doc('EstadosApp').onSnapshot(snapShot=>{
-            setIdPeriodoSelec(snapShot.data()?.idPeriodo)
-            setIdClasseSelec(snapShot.data()?.idClasse)
-            setDataSelec(snapShot.data()?.data)
-        })
-    },[])
+            .doc('EstadosApp').onSnapshot(snapShot => {
+                setIdPeriodoSelec(snapShot.data()?.idPeriodo)
+                setIdClasseSelec(snapShot.data()?.idClasse)
+                setDataSelec(snapShot.data()?.data)
+            })
+    }, [])
 
-    useEffect(()=>{
-        const data = async ()=>{
+    useEffect(() => {
+        const data = async () => {
             //Recuperar o título das avaliações da data selecionada no BD.
-            datasNotasRef.doc(dataSelec).get().then((snapshot)=>{
-                snapshot.exists?
-                setValueAtividade(snapshot.data()) : setValueAtividade('')
+            datasNotasRef.doc(dataSelec).get().then((snapshot) => {
+                snapshot.exists ?
+                    setValueAtividade(snapshot.data()) : setValueAtividade('')
             })
         }
-    data()        
-    },[dataSelec]);
+        data()
+    }, [dataSelec]);
 
-    const renderData = () =>{
-        if(data!=''){
-            return(
-                <TouchableOpacity 
-                onPress={()=>[setModalCalendarioNota(true),setFlagLongPressDataNotas(false)]}
-                onLongPress={()=>setFlagLongPressDataNotas(true)}>
+    const renderData = () => {
+        if (data != '') {
+            return (
+                <TouchableOpacity
+                    onPress={() => [setModalCalendarioNota(true), setFlagLongPressDataNotas(false)]}
+                    onLongPress={() => setFlagLongPressDataNotas(true)}>
                     <Text style={styles.text}>{data}</Text>
-                </TouchableOpacity>  
+                </TouchableOpacity>
             )
-            }
+        }
     }
-    
-    return(
+
+    return (
         <View style={styles.container}>
             <HeaderNotas title="Frequência"></HeaderNotas>
-            <Text style={styles.textLoad}>{nomePeriodoSelec!=undefined?'Período: '+nomePeriodoSelec:'Selecione um período'}</Text>
+            <Text style={styles.textLoad}>{nomePeriodoSelec != undefined ? 'Período: ' + nomePeriodoSelec : 'Selecione um período'}</Text>
             <Divider style={styles.divider}></Divider>
             <FlatListClasses></FlatListClasses>
             <Divider style={styles.divider}></Divider>
@@ -84,13 +84,13 @@ const Notas = () =>{
             </View>
             <Divider style={styles.divider}></Divider>
             <View style={styles.containerInput}>
-                {dataSelec!=''?
-                <TextInput 
-                multiline
-                placeholder="Título da avaliação..." 
-                onChangeText={onChangeInputAtividades}
-                value={valueAtividade.avaliacao}
-                style={styles.textInput}></TextInput>:null}
+                {dataSelec != '' ?
+                    <TextInput
+                        multiline
+                        placeholder="Título da avaliação..."
+                        onChangeText={onChangeInputAtividades}
+                        value={valueAtividade.avaliacao}
+                        style={styles.textInput}></TextInput> : null}
             </View>
             <FlatListNotas></FlatListNotas>
             <ModalCalendarioNota></ModalCalendarioNota>
@@ -103,38 +103,38 @@ const Notas = () =>{
 }
 
 const styles = StyleSheet.create({
-    container:{
-      backgroundColor: Globais.corSecundaria,
-      flex:1,
+    container: {
+        backgroundColor: Globais.corSecundaria,
+        flex: 1,
     },
-    containerText:{
-        flexDirection:'row',
-        justifyContent:'center',
-        marginTop:16,
-        marginBottom:16,
+    containerText: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 16,
+        marginBottom: 16,
     },
-    text:{
-        alignContent:'center',
-        alignItems:'center',
-        fontSize:20,
-        padding:5,
+    text: {
+        alignContent: 'center',
+        alignItems: 'center',
+        fontSize: 20,
+        padding: 5,
         color: Globais.corTextoEscuro,
-      },
-    divider:{
+    },
+    divider: {
         backgroundColor: Globais.corPrimaria,
     },
-    textInput:{
-        width:'90%',
-        backgroundColor:Globais.corTextoClaro
+    textInput: {
+        width: '90%',
+        backgroundColor: Globais.corTextoClaro
     },
-    containerInput:{
-        marginTop:16,
-        flexDirection:'row',
-        justifyContent:'center',
+    containerInput: {
+        marginTop: 16,
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
-    textLoad:{
-        fontSize:24,
-        color:Globais.corTextoClaro,
+    textLoad: {
+        fontSize: 24,
+        color: Globais.corTextoClaro,
     }
 });
 

@@ -14,14 +14,16 @@ import FabFrequencia from "../componentes/FabFrequencia";
 
 const Frequencia = () => {
 
-    let datas: any[] = [];
-
     const { dataSelec, setModalCalendarioFreq, idClasseSelec,
         idPeriodoSelec, valueAtividade, setValueAtividade,
         idUsuario, setIdPeriodoSelec, setDataSelec, setIdClasseSelec,
         setFlagLongPressDataFreq, nomePeriodoSelec, abaSelec, flagLoadAbas } = useContext(Context);
 
     let dataAno = '', dataMes = '', dataDia = '', data = ''
+
+    let datasFrequenciasRef = firestore().collection(idUsuario)
+        .doc(idPeriodoSelec).collection('Classes')
+        .doc(idClasseSelec).collection('DatasFrequencias')
 
     if (dataSelec != '') {
         dataAno = dataSelec.slice(0, 4);
@@ -31,10 +33,7 @@ const Frequencia = () => {
     }
 
     const onChangeInputAtividades = (text: String) => {
-        firestore().collection(idUsuario)
-            .doc(idPeriodoSelec).collection('Classes')
-            .doc(idClasseSelec).collection('Frequencia')
-            .doc(dataSelec).set({ atividade: text })
+        datasFrequenciasRef.doc(dataSelec).set({ atividade: text })
         setValueAtividade({ atividade: text })
     }
 
@@ -46,18 +45,15 @@ const Frequencia = () => {
                 setIdClasseSelec(snapShot.data()?.idClasse)
                 setDataSelec(snapShot.data()?.data)
             })
-
-
     }, [])
 
     useEffect(() => {
         const data = async () => {
             //Recuperar atividades da data selecionada no BD.
-            const textoAtividade = firestore().collection(idUsuario)
-                .doc(idPeriodoSelec).collection('Classes')
-                .doc(idClasseSelec).collection('Frequencia')
-                .doc(dataSelec).get().then()
-            setValueAtividade((await textoAtividade).data() || '')
+            datasFrequenciasRef.doc(dataSelec).get().then((snapshot) => {
+                snapshot.exists ?
+                    setValueAtividade(snapshot.data()) : setValueAtividade('')
+            })
         }
         data()
     }, [dataSelec]);
