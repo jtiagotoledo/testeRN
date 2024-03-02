@@ -9,7 +9,7 @@ type ItemData = {
   numero: string;
   inativo: string;
   idAluno: string;
-  media: string;
+  mediaNotas: string;
   porcentFreq: string;
 };
 
@@ -32,7 +32,7 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
       </View>
     </View>
     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-      <Text>Média: {item.media || ' ...'}</Text>
+      <Text>Média: {item.mediaNotas || ' ...'}</Text>
       <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
     </View>
   </TouchableOpacity>
@@ -65,9 +65,11 @@ const FlatListAlunos = () => {
               }
 
               //recuperação das datas de frequencia e cálculo da porcentagem de frequência
-              let contFreq = 0
-              let porcentFreq
+              let contFreq = 0, somaNotas = 0, porcentFreq, mediaNotas 
               let frequencias = docSnapshot.data().frequencias
+              let notas = docSnapshot.data().notas
+
+              //recuperar porcentagem de frequências
               if(Object.keys(frequencias).length>0){
                 let qntDatas = Object.keys(frequencias).length
                 frequencias.forEach((item:any)=>{
@@ -77,7 +79,22 @@ const FlatListAlunos = () => {
               }else{
                 porcentFreq = 0
               }
-              alunos.push({...docSnapshot.data(),porcentFreq})
+              
+              //recuperar média das notas
+              if(Object.keys(notas).length>0){
+                let qntDatas = Object.keys(frequencias).length
+                notas.forEach((item:any)=>{
+                  item.nota=='' ? null : somaNotas += item.nota
+                })
+                mediaNotas = ((somaNotas)/qntDatas).toFixed(1)
+                console.log('mediaNotas',mediaNotas);
+                
+              }else{
+                mediaNotas = 0
+              }
+
+              alunos.push({...docSnapshot.data(),porcentFreq,mediaNotas})
+              console.log('alunos',alunos);
               
 
               /* // recuperação de notas para a média
