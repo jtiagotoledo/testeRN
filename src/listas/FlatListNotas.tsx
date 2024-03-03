@@ -90,12 +90,13 @@ const FlatListNotas = () => {
       if (snapshot.empty) {
         setFlagLoadNotas('vazio');
       } else {
+        //consulta ao BD retorna a lista de alunos com nome, num, notas e id
         snapshot.forEach((docSnapshot, index) => {
           let notas = docSnapshot.data().notas
-          
-          let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
-          alunos.push({ ...docSnapshot.data(), nota });
-
+          if(dataSelec!=''){
+            let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
+            alunos.push({ ...docSnapshot.data(), nota });
+          }
           if (snapshot.size - index == 1) {
             setFlagLoadNotas('carregado');
           }

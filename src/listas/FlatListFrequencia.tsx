@@ -53,8 +53,10 @@ const FlatListFrequencia = () => {
           //consulta ao BD retorna a lista de alunos com nome, num, freq e id
           snapshot.forEach((docSnapshot, index) => {
             let frequencias = docSnapshot.data().frequencias
-            let frequencia = frequencias[frequencias.findIndex((item: any) => item.data == dataSelec)].freq
-            alunos.push({ ...docSnapshot.data(), frequencia });
+            if(dataSelec!=''){
+              let frequencia = frequencias[frequencias.findIndex((item: any) => item.data == dataSelec)].freq
+              alunos.push({ ...docSnapshot.data(), frequencia });
+            }
             if (snapshot.size - index == 1) {
               setFlagLoadFrequencia('carregado');
             }
@@ -83,7 +85,7 @@ const FlatListFrequencia = () => {
           item.freq = statusFrequencia
         }
       })
-      //atulaizando o BD com o novo array
+      //atualizando o BD com o novo array
       listaAlunosRef.doc(idAluno).update({
         frequencias: datas
       })
