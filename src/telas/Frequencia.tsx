@@ -53,6 +53,7 @@ const Frequencia = () => {
             datasFrequenciasRef.doc(dataSelec).get().then((snapshot) => {
                 snapshot.exists ?
                     setValueAtividade(snapshot.data()) : setValueAtividade('')
+                    
             })
         }
         data()

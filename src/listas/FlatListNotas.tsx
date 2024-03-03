@@ -80,7 +80,6 @@ const FlatListNotas = () => {
       })
     return () => {
       keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
     };
   }, []);
 
@@ -95,6 +94,8 @@ const FlatListNotas = () => {
       } else {
         snapshot.forEach((docSnapshot, index) => {
           let notas = docSnapshot.data().notas
+          console.log('dataSelec',dataSelec);
+          
           let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
           alunos.push({ ...docSnapshot.data(), nota });
 

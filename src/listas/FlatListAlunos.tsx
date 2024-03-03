@@ -68,6 +68,7 @@ const FlatListAlunos = () => {
               let contFreq = 0, somaNotas = 0, porcentFreq, mediaNotas 
               let frequencias = docSnapshot.data().frequencias
               let notas = docSnapshot.data().notas
+              console.log('notas',notas);
 
               //recuperar porcentagem de frequências
               if(Object.keys(frequencias).length>0){
@@ -82,13 +83,11 @@ const FlatListAlunos = () => {
               
               //recuperar média das notas
               if(Object.keys(notas).length>0){
-                let qntDatas = Object.keys(frequencias).length
+                let qntDatas = Object.keys(notas).length
                 notas.forEach((item:any)=>{
                   item.nota=='' ? null : somaNotas += item.nota
                 })
                 mediaNotas = ((somaNotas)/qntDatas).toFixed(1)
-                console.log('mediaNotas',mediaNotas);
-                
               }else{
                 mediaNotas = 0
               }
