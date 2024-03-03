@@ -46,10 +46,8 @@ const FlatListNotas = () => {
   const salvarNota = (idAluno: string) => {
     if (textNota != '') {
       //consulta ao array de notas
-      console.log('notaAluno.idAluno',idAluno)
       listaAlunosRef.doc(idAluno).get().then((docSnapshot) => {
         let datas = docSnapshot.data()?.notas
-        console.log('datas', docSnapshot.data());
 
         //modificando o array
         datas.map((item: any) => {
@@ -94,7 +92,6 @@ const FlatListNotas = () => {
       } else {
         snapshot.forEach((docSnapshot, index) => {
           let notas = docSnapshot.data().notas
-          console.log('dataSelec',dataSelec);
           
           let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
           alunos.push({ ...docSnapshot.data(), nota });

@@ -68,7 +68,6 @@ const FlatListAlunos = () => {
               let contFreq = 0, somaNotas = 0, porcentFreq, mediaNotas 
               let frequencias = docSnapshot.data().frequencias
               let notas = docSnapshot.data().notas
-              console.log('notas',notas);
 
               //recuperar porcentagem de frequências
               if(Object.keys(frequencias).length>0){
