@@ -39,7 +39,7 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
 );
 
 const FlatListAlunos = () => {
-  const alunos: any[] = []
+  let alunos: any[] = []
   const { flagLoadAlunos, setflagLoadAlunos, idPeriodoSelec, idClasseSelec,
     setNumAlunoSelec, setRecarregarAlunos, recarregarAlunos, setFlagLongPressClasse,
     listaAlunos, setListaAlunos, idUsuario, setFlagLongPressAluno,
@@ -55,7 +55,7 @@ const FlatListAlunos = () => {
       setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
       listaAlunosRef.orderBy('numero')
-        .onSnapshot((snapshot) => {
+        .get().then((snapshot) => {
           if (snapshot.empty && idClasseSelec != '') {
             setflagLoadAlunos('vazio');
           } else {
@@ -84,7 +84,7 @@ const FlatListAlunos = () => {
               if(Object.keys(notas).length>0){
                 let qntDatas = Object.keys(notas).length
                 notas.forEach((item:any)=>{
-                  item.nota=='' ? null : somaNotas += item.nota
+                  item.nota=='' ? null : somaNotas += parseFloat(item.nota)
                 })
                 mediaNotas = ((somaNotas)/qntDatas).toFixed(1)
               }else{
