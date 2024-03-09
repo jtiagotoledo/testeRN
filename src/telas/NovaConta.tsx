@@ -1,53 +1,52 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { TextInput, View, Button, Text, StyleSheet, ToastAndroid, NativeSyntheticEvent, TextInputChangeEventData, Image, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {Context} from "../data/Provider";
+import { Context } from "../data/Provider";
 import firestore from '@react-native-firebase/firestore';
 import Globais from '../data/Globais';
 
-const NovaConta = ({navigation}:any)=>{
-    const {email,setEmail,senha,setSenha,idUsuario,setIdUsuario} = useContext(Context);
+const NovaConta = ({ navigation }: any) => {
+    const { email, setEmail, senha, setSenha, idUsuario, setIdUsuario } = useContext(Context);
 
-    const criarCaminhoSalvarEstados = () =>{
+    const criarCaminhoSalvarEstados = () => {
         firestore().collection(email)
-        .doc('EstadosApp').set({
-            idPeriodo:'',
-            periodo:'',
-            idClasse:'',
-            classe:'',
-            data:'',
-            aba:'Classes'
-        })
+            .doc('EstadosApp').set({
+                idPeriodo: '',
+                periodo: '',
+                idClasse: '',
+                classe: '',
+                data: '',
+                aba: 'Classes'
+            })
     }
 
-    const criarConta = () =>{
+    const criarConta = () => {
         auth()
-            .createUserWithEmailAndPassword(email,senha)
+            .createUserWithEmailAndPassword(email, senha)
             .then(() => {
-                ToastAndroid.show('Conta criada com sucesso',ToastAndroid.SHORT)
-                navigation.reset({index:0,routes:[{name:"App"}]})
+                ToastAndroid.show('Conta criada com sucesso', ToastAndroid.SHORT)
+                navigation.reset({ index: 0, routes: [{ name: "App" }] })
                 setIdUsuario(email)
                 criarCaminhoSalvarEstados()
-            })
-            .catch(error => {
+            }).catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
-                    ToastAndroid.show('Este Email já está em uso',ToastAndroid.SHORT)
+                    ToastAndroid.show('Este Email já está em uso', ToastAndroid.SHORT)
                 }
                 if (error.code === 'auth/invalid-email') {
-                    ToastAndroid.show('Email inválido',ToastAndroid.SHORT)
+                    ToastAndroid.show('Email inválido', ToastAndroid.SHORT)
                 }
             });
     }
 
-    const onChangeInputEmail = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-            setEmail(event.nativeEvent.text);
-        }
+    const onChangeInputEmail = (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        setEmail(event.nativeEvent.text);
+    }
 
-    const onChangeInputSenha = (event: NativeSyntheticEvent<TextInputChangeEventData>)=>{
-            setSenha(event.nativeEvent.text);
-        }
+    const onChangeInputSenha = (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        setSenha(event.nativeEvent.text);
+    }
 
-    return(
+    return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
                 <Image
@@ -55,27 +54,27 @@ const NovaConta = ({navigation}:any)=>{
                     style={styles.logo}
                 />
             </View>
-            <TextInput style={styles.textInput} 
-            onChange={onChangeInputEmail}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoCorrect={false}
-            placeholder='Digite um Email válido'></TextInput>
             <TextInput style={styles.textInput}
-            onChange={onChangeInputSenha} 
-            autoCapitalize='none'
-            secureTextEntry={true}
-            autoCorrect={false}
-            placeholder='Crie uma senha'></TextInput>
+                onChange={onChangeInputEmail}
+                keyboardType='email-address'
+                autoCapitalize='none'
+                autoCorrect={false}
+                placeholder='Digite um Email válido'></TextInput>
+            <TextInput style={styles.textInput}
+                onChange={onChangeInputSenha}
+                autoCapitalize='none'
+                secureTextEntry={true}
+                autoCorrect={false}
+                placeholder='Crie uma senha'></TextInput>
             <TouchableOpacity
                 style={styles.button}
                 onPress={criarConta}>
                 <Text style={styles.buttonText}>Criar Conta</Text>
             </TouchableOpacity>
             <View style={styles.containerText}>
-                <Text style={styles.text} onPress={()=>navigation.reset({
-                    index:0,
-                    routes:[{name:"Login"}]
+                <Text style={styles.text} onPress={() => navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Login" }]
                 })}>Já possui uma conta?</Text>
             </View>
         </View>
@@ -123,5 +122,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
-  
+
 export default NovaConta;

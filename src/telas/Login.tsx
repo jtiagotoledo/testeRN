@@ -12,8 +12,7 @@ const Login = ({ navigation }: any) => {
             .signInWithEmailAndPassword(email, senha)
             .then(() => {
                 navigation.reset({ index: 0, routes: [{ name: "App" }] })
-            })
-            .catch(error => {
+            }).catch(error => {
                 if (error.code === 'auth/invalid-login') {
                     ToastAndroid.show('Este e-mail não está cadastrado ou senha incorreta', ToastAndroid.SHORT)
                 }
@@ -26,8 +25,7 @@ const Login = ({ navigation }: any) => {
             auth().sendPasswordResetEmail(email)
                 .then(() => {
                     ToastAndroid.show('Enviamos para ' + email + ', instruções para alterar a senha.', ToastAndroid.LONG)
-                })
-                .catch(error => {
+                }).catch(error => {
                     if (error.code === 'auth/invalid-email') {
                         ToastAndroid.show('Email inválido', ToastAndroid.SHORT)
                     }

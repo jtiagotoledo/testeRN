@@ -20,7 +20,7 @@ const App = ({ navigation }: any) => {
     setIdClasseSelec } = useContext(Context);
 
   const estadosAppRef = firestore().collection(idUsuario).doc('EstadosApp')
-  
+
   let datasFrequenciasRef = firestore().collection(idUsuario)
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('DatasFrequencias')
@@ -61,22 +61,26 @@ const App = ({ navigation }: any) => {
       let datasFreq: any[] = [];
 
       datasFrequenciasRef.get().then(snapshot => {
-          snapshot.forEach((documentSnapshot) => {
-            datasFreq.push(documentSnapshot.id);
-            console.log(datasFreq,datasFreq);
-            
-          });
-          if (datasFreq.includes(snapShot.data()?.data)) {
-            setDataSelec(snapShot.data()?.data)
-          } else {
-            setDataSelec('')
+        snapshot.forEach((documentSnapshot) => {
+          datasFreq.push(documentSnapshot.id);
+          console.log(datasFreq, datasFreq);
 
-            firestore().collection(idUsuario).
-              doc('EstadosApp').update({
-                data: ''
-              })
-          }
         });
+        if (datasFreq.includes(snapShot.data()?.data)) {
+          setDataSelec(snapShot.data()?.data)
+        } else {
+          setDataSelec('')
+
+          firestore().collection(idUsuario).
+            doc('EstadosApp').update({
+              data: ''
+            })
+        }
+      }).catch((erro) => {
+        console.error(erro);
+      })
+    }).catch((erro) => {
+      console.error(erro);
     })
   }
 
@@ -96,19 +100,23 @@ const App = ({ navigation }: any) => {
       //verificação se a data já existe no DB
       let datasNotas: any[] = [];
       datasNotasRef.get().then(snapshot => {
-          snapshot.forEach((documentSnapshot) => {
-            datasNotas.push(documentSnapshot.id);
-          });
-          if (datasNotas.includes(snapShot.data()?.data)) {
-            setDataSelec(snapShot.data()?.data)
-          } else {
-            setDataSelec('')
-            firestore().collection(idUsuario).
-              doc('EstadosApp').update({
-                data: ''
-              })
-          }
+        snapshot.forEach((documentSnapshot) => {
+          datasNotas.push(documentSnapshot.id);
         });
+        if (datasNotas.includes(snapShot.data()?.data)) {
+          setDataSelec(snapShot.data()?.data)
+        } else {
+          setDataSelec('')
+          firestore().collection(idUsuario).
+            doc('EstadosApp').update({
+              data: ''
+            })
+        }
+      }).catch((erro) => {
+        console.error(erro);
+      })
+    }).catch((erro) => {
+      console.error(erro);
     })
   }
 

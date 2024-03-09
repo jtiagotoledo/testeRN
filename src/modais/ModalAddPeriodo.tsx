@@ -24,7 +24,9 @@ const ModalAddPeriodo = () => {
           ToastAndroid.show(
             'O período informado já existe',
             ToastAndroid.SHORT)
-      });
+      }).catch((erro) => {
+        console.error(erro);
+      })
 
     const addPeriodo = async () => {
       if (valuePeriodo != '') {

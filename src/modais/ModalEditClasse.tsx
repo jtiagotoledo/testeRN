@@ -10,7 +10,7 @@ const ModalEditClasse = () => {
 
   const [valueClasse, setValueClasse] = useState<string>('')
   const { modalEditClasse, setModalEditClasse, idPeriodoSelec,
-    setRecarregarClasses, idUsuario, setIdClasseSelec, idClasseSelec, 
+    setRecarregarClasses, idUsuario, setIdClasseSelec, idClasseSelec,
     nomeClasseSelec, setFlagLongPressClasse } = useContext(Context)
 
   const onChangeInputClasse = (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -29,7 +29,9 @@ const ModalEditClasse = () => {
           ToastAndroid.show(
             'A classe informada já existe',
             ToastAndroid.SHORT)
-      });
+      }).catch((erro) => {
+        console.error(erro);
+      })
 
     // edição da classe no BD
     const editarAluno = () => {

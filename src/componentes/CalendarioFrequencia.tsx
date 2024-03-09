@@ -54,7 +54,9 @@ const CalendarioFrequencia = () => {
             setflagLoadCalendarioFreq('carregado')
           }
         });
-      });
+      }).catch((erro) => {
+        console.error(erro);
+      })
       setListaDatasFreq(datas);
       setListaDatasMarcadasFreq(datasMarcadas)
     }
@@ -79,6 +81,8 @@ const CalendarioFrequencia = () => {
           })
         })
       })
+    }).catch((erro)=>{
+      console.error(erro);
     })
 
     //atualizando o estado da data

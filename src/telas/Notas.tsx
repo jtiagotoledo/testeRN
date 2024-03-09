@@ -55,6 +55,8 @@ const Notas = () => {
             datasNotasRef.doc(dataSelec).get().then((snapshot) => {
                 snapshot.exists ?
                     setValueAtividade(snapshot.data()) : setValueAtividade('')
+            }).catch((erro) => {
+                console.error(erro);
             })
         }
         data()

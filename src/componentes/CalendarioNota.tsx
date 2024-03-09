@@ -55,7 +55,9 @@ const CalendarioNota = () => {
             setflagLoadCalendarioNotas('carregado')
           }
         });
-      });
+      }).catch((erro) => {
+        console.error(erro);
+      })
       setListaDatasNotas(datas);
       setListaDatasMarcadasNotas(datasMarcadas)
     }
@@ -79,6 +81,8 @@ const CalendarioNota = () => {
           })
         })
       })
+    }).catch((erro) => {
+      console.error(erro);
     })
 
     //atualizando o estado da data

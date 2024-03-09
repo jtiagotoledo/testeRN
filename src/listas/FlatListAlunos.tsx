@@ -65,37 +65,43 @@ const FlatListAlunos = () => {
               }
 
               //recuperação das datas de frequencia e cálculo da porcentagem de frequência
-              let contFreq = 0, somaNotas = 0, porcentFreq, mediaNotas 
+              let contFreq = 0, somaNotas = 0, porcentFreq, mediaNotas
               let frequencias = docSnapshot.data().frequencias
               let notas = docSnapshot.data().notas
 
               //recuperar porcentagem de frequências
-              if(Object.keys(frequencias).length>0){
+              if (Object.keys(frequencias).length > 0) {
                 let qntDatas = Object.keys(frequencias).length
-                frequencias.forEach((item:any)=>{
-                  item.freq=='P' ? contFreq+=1 : null
+                frequencias.forEach((item: any) => {
+                  if (item.freq !== undefined) {
+                    item.freq == 'P' ? contFreq += 1 : null
+                  }
                 })
-                porcentFreq = ((contFreq*100)/qntDatas).toFixed(1)
-              }else{
+                porcentFreq = ((contFreq * 100) / qntDatas).toFixed(1)
+              } else {
                 porcentFreq = 0
               }
-              
+
               //recuperar média das notas
-              if(Object.keys(notas).length>0){
+              if (Object.keys(notas).length > 0) {
                 let qntDatas = Object.keys(notas).length
-                notas.forEach((item:any)=>{
-                  item.nota=='' ? null : somaNotas += parseFloat(item.nota)
+                notas.forEach((item: any) => {
+                  if (item.nota !== undefined) {
+                    item.nota == '' ? null : somaNotas += parseFloat(item.nota)
+                  }
                 })
-                mediaNotas = ((somaNotas)/qntDatas).toFixed(1)
-              }else{
+                mediaNotas = ((somaNotas) / qntDatas).toFixed(1)
+              } else {
                 mediaNotas = 0
               }
 
-              alunos.push({...docSnapshot.data(),porcentFreq,mediaNotas})
+              alunos.push({ ...docSnapshot.data(), porcentFreq, mediaNotas })
             })
           }
-        });
-        setListaAlunos(alunos)
+        }).catch((erro) => {
+          console.error(erro);
+        })
+      setListaAlunos(alunos)
 
 
     }

@@ -59,6 +59,8 @@ const FlatListNotas = () => {
         listaAlunosRef.doc(idAluno).update({
           notas: datas
         })
+      }).catch((erro) => {
+        console.error(erro);
       })
       setRecarregarAlunos('recarregar')
     }
@@ -93,7 +95,7 @@ const FlatListNotas = () => {
         //consulta ao BD retorna a lista de alunos com nome, num, notas e id
         snapshot.forEach((docSnapshot, index) => {
           let notas = docSnapshot.data().notas
-          if(dataSelec!=''){
+          if (dataSelec != '') {
             let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
             alunos.push({ ...docSnapshot.data(), nota });
           }
@@ -102,7 +104,9 @@ const FlatListNotas = () => {
           }
         });
       }
-    });
+    }).catch((erro)=>{
+      console.error(erro);
+    })
     setListaNotas(alunos);
   }, [idClasseSelec, dataSelec, recarregarNotas]);
 
