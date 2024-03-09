@@ -96,15 +96,18 @@ const FlatListNotas = () => {
         snapshot.forEach((docSnapshot, index) => {
           let notas = docSnapshot.data().notas
           if (dataSelec != '') {
-            let nota = notas[notas.findIndex((item: any) => item.data == dataSelec)].nota
-            alunos.push({ ...docSnapshot.data(), nota });
+            let idx = notas.findIndex((item: any) => item.data == dataSelec)
+            if (idx != -1) {
+              let nota = notas[idx].nota
+              alunos.push({ ...docSnapshot.data(), nota });
+            }
           }
           if (snapshot.size - index == 1) {
             setFlagLoadNotas('carregado');
           }
         });
       }
-    }).catch((erro)=>{
+    }).catch((erro) => {
       console.error(erro);
     })
     setListaNotas(alunos);

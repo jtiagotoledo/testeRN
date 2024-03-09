@@ -54,8 +54,11 @@ const FlatListFrequencia = () => {
           snapshot.forEach((docSnapshot, index) => {
             let frequencias = docSnapshot.data().frequencias
             if (dataSelec != '') {
-              let frequencia = frequencias[frequencias.findIndex((item: any) => item.data == dataSelec)].freq
-              alunos.push({ ...docSnapshot.data(), frequencia });
+              let idx = frequencias.findIndex((item: any) => item.data == dataSelec)
+              if (idx != -1) {
+                let frequencia = frequencias[idx].freq
+                alunos.push({ ...docSnapshot.data(), frequencia });
+              }
             }
             if (snapshot.size - index == 1) {
               setFlagLoadFrequencia('carregado');
