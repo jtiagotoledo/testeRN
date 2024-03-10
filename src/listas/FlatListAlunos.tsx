@@ -24,7 +24,7 @@ type ItemProps = {
 const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemProps) => (
   <TouchableOpacity onPress={onPress} onLongPress={onLongPress} style={[styles.item, { backgroundColor }]}>
     <View style={{ flexDirection: 'row' }}>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1.8 }}>
         <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
       </View>
       <View style={{ flex: 15 }}>

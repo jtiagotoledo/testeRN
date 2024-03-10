@@ -20,13 +20,17 @@ type ItemProps = {
 
 const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
   <View style={styles.containerItem}>
-    <View style={[styles.item, styles.nome]}>
-      <Text style={[styles.title]}>{item.numero} {item.nome}</Text>
+    <View style={[styles.item, styles.nome, {flexDirection:'row'}]}>
+      <View style={{ flex: 1.8 }}>
+        <Text style={[styles.title, { color: textColor }]}>{item.numero}      </Text>
+      </View>
+      <View style={{ flex: 15 }}>
+        <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
+      </View>
+      <TouchableOpacity onPress={onPress} style={[styles.item]}>
+        <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
+      </TouchableOpacity>
     </View>
-    <TouchableOpacity onPress={onPress} style={[styles.item, styles.frequencia
-    ]}>
-      <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
-    </TouchableOpacity>
   </View>
 
 );
@@ -56,8 +60,8 @@ const FlatListFrequencia = () => {
             if (idx != -1) {
               let frequencia = frequencias[idx].freq
               alunos.push({ ...docSnapshot.data(), frequencia });
-              console.log('alunos',alunos);
-              
+              console.log('alunos', alunos);
+
             }
           }
           if (snapshot.size - index == 1) {
@@ -70,7 +74,7 @@ const FlatListFrequencia = () => {
     }).catch((erro) => {
       console.error(erro);
     })
-    
+
   }, [idClasseSelec, dataSelec, recarregarFrequencia]);
 
   const onPressItemFreq = (item: any) => {
@@ -176,8 +180,8 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 2,
+    marginHorizontal: 8,
     backgroundColor: Globais.corTerciaria,
   },
   title: {
