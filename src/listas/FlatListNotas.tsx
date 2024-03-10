@@ -84,10 +84,7 @@ const FlatListNotas = () => {
   }, []);
 
   useEffect(() => {
-    setListaNotas([{ numero: '', nome: '', nota: '', idAluno: '' }]);
-    setRecarregarNotas('');
     setFlagLoadNotas('carregando');
-
     listaAlunosRef.orderBy('numero').get().then(snapshot => {
       if (snapshot.empty) {
         setFlagLoadNotas('vazio');
@@ -106,11 +103,11 @@ const FlatListNotas = () => {
             setFlagLoadNotas('carregado');
           }
         });
+        setListaNotas(alunos);
       }
     }).catch((erro) => {
       console.error(erro);
     })
-    setListaNotas(alunos);
   }, [idClasseSelec, dataSelec, recarregarNotas]);
 
   const renderItem = ({ item }: { item: ItemData }) => {

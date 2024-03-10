@@ -43,35 +43,34 @@ const FlatListFrequencia = () => {
     .doc(idClasseSelec).collection('ListaAlunos')
 
   useEffect(() => {
-    const data = async () => {
-      setRecarregarFrequencia('');
-
-      listaAlunosRef.orderBy('numero').get().then((snapshot) => {
-        if (snapshot.empty) {
-          setFlagLoadFrequencia('vazio');
-        } else {
-          //consulta ao BD retorna a lista de alunos com nome, num, freq e id
-          snapshot.forEach((docSnapshot, index) => {
-            let frequencias = docSnapshot.data().frequencias
-            if (dataSelec != '') {
-              let idx = frequencias.findIndex((item: any) => item.data == dataSelec)
-              if (idx != -1) {
-                let frequencia = frequencias[idx].freq
-                alunos.push({ ...docSnapshot.data(), frequencia });
-              }
+    setFlagLoadFrequencia('carregando')
+    listaAlunosRef.orderBy('numero').get().then((snapshot) => {
+      if (snapshot.empty) {
+        setFlagLoadFrequencia('vazio');
+      } else {
+        //consulta ao BD retorna a lista de alunos com nome, num, freq e id
+        snapshot.forEach((docSnapshot, index) => {
+          let frequencias = docSnapshot.data().frequencias
+          if (dataSelec != '') {
+            let idx = frequencias.findIndex((item: any) => item.data == dataSelec)
+            if (idx != -1) {
+              let frequencia = frequencias[idx].freq
+              alunos.push({ ...docSnapshot.data(), frequencia });
+              console.log('alunos',alunos);
+              
             }
-            if (snapshot.size - index == 1) {
-              setFlagLoadFrequencia('carregado');
-            }
-          });
-        }
-      }).catch((erro) => {
-        console.error(erro);
-      })
-      setListaFrequencia(alunos)
-
-    }
-    data()
+          }
+          if (snapshot.size - index == 1) {
+            setFlagLoadFrequencia('carregado');
+            console.log('entrouaqui2');
+          }
+        });
+        setListaFrequencia(alunos)
+      }
+    }).catch((erro) => {
+      console.error(erro);
+    })
+    
   }, [idClasseSelec, dataSelec, recarregarFrequencia]);
 
   const onPressItemFreq = (item: any) => {
