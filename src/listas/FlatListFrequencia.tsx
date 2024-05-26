@@ -60,13 +60,10 @@ const FlatListFrequencia = () => {
             if (idx != -1) {
               let frequencia = frequencias[idx].freq
               alunos.push({ ...docSnapshot.data(), frequencia });
-              console.log('alunos', alunos);
-
             }
           }
           if (snapshot.size - index == 1) {
             setFlagLoadFrequencia('carregado');
-            console.log('entrouaqui2');
           }
         });
         setListaFrequencia(alunos)
@@ -90,8 +87,6 @@ const FlatListFrequencia = () => {
       //modificando o array
       datas.map((item: any) => {
         if (item.data == dataSelec) {
-          console.log('typeof(item.freq)', typeof (item.freq));
-
           item.freq = statusFrequencia
         }
       })

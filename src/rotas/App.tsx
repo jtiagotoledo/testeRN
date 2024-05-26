@@ -63,8 +63,6 @@ const App = ({ navigation }: any) => {
       datasFrequenciasRef.get().then(snapshot => {
         snapshot.forEach((documentSnapshot) => {
           datasFreq.push(documentSnapshot.id);
-          console.log(datasFreq, datasFreq);
-
         });
         if (datasFreq.includes(snapShot.data()?.data)) {
           setDataSelec(snapShot.data()?.data)

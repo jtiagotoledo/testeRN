@@ -48,11 +48,10 @@ const ModalAddAluno = () => {
           idAluno: idAluno,
           frequencias: [],
           notas: [],
-        })
+      }).then(setRecarregarAlunos('recarregar'))
         setValueNome('')
         setValueNumero('')
         setModalAddAluno(!modalAddAluno)
-        setRecarregarAlunos('recarregar')
         setAlunoInativo(false)
       } else {
         ToastAndroid.show(
