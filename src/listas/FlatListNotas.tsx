@@ -111,7 +111,6 @@ const FlatListNotas = () => {
   }, [idClasseSelec, dataSelec, recarregarNotas]);
 
   const renderItem = ({ item }: { item: ItemData }) => {
-
     const scrollToItem = (itemId: any, itemNumero: any) => {
       const index = listaNotas.findIndex((item: any) => item.idAluno === itemId);
       if (index !== -1 && flatListRef.current) {
@@ -121,9 +120,10 @@ const FlatListNotas = () => {
 
     const nextItem = (itemId: any, itemNumero: any, itemNota: any) => {
       const index = listaNotas.findIndex((item: any) => item.idAluno === itemId);
+      const numAluno = listaNotas[index].numero
       setTimeout(() => {
         if (index !== -1 && flatListRef.current && listaNotas[index + 1] != null) {
-          textInputRefs.current[itemNumero + 1]?.focus()
+          textInputRefs.current[numAluno+1]?.focus()
           const sizeText = listaNotas[index + 1].nota.length
           setSelection({ start: sizeText || 0, end: sizeText || 0 })
         }
