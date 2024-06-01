@@ -39,19 +39,19 @@ const ModalAddAluno = () => {
     // inclusão do aluno no BD
     const addAluno = async () => {
       if (valueNumero != '' && valueNome != '') {
+        setModalAddAluno(!modalAddAluno)
         const refDoc = firestore().collection(idUsuario).doc(idPeriodoSelec).collection('Classes').doc(idClasseSelec).collection('ListaAlunos')
         const idAluno = (await refDoc.add({})).id
-        refDoc.doc(idAluno).set({
+        await refDoc.doc(idAluno).set({
           numero: parseInt(valueNumero),
           nome: valueNome,
           inativo: alunoInativo,
           idAluno: idAluno,
           frequencias: [],
           notas: [],
-      }).then(setRecarregarAlunos('recarregar'))
+      }).then(setRecarregarAlunos(idAluno))
         setValueNome('')
         setValueNumero('')
-        setModalAddAluno(!modalAddAluno)
         setAlunoInativo(false)
       } else {
         ToastAndroid.show(
@@ -93,7 +93,7 @@ const ModalAddAluno = () => {
             </TouchableOpacity>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => [onPressAddAluno(), setRecarregarAlunos('recarregarAluno')]}>
+              onPress={() => onPressAddAluno()}>
               <Text style={styles.textStyle}>Criar</Text>
             </Pressable>
           </View>

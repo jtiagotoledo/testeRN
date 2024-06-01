@@ -51,13 +51,12 @@ const FlatListAlunos = () => {
 
   useEffect(() => {
     const data = async () => {
-      setListaAlunos('');
-      setRecarregarAlunos('');
       setflagLoadAlunos('carregando');
       listaAlunosRef.orderBy('numero')
         .get().then((snapshot) => {
           if (snapshot.empty && idClasseSelec != '') {
             setflagLoadAlunos('vazio');
+            
           } else {
             snapshot.forEach((docSnapshot, index) => {
               if (snapshot.size - index == 1) {
@@ -101,11 +100,10 @@ const FlatListAlunos = () => {
         }).catch((erro) => {
           console.error(erro);
         })
+        console.log('alunos');
+      }
+      data()
       setListaAlunos(alunos)
-
-
-    }
-    data()
   }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]);
 
   const onPressItem = (item: any) => {
