@@ -12,13 +12,6 @@ type ItemData = {
 };
 
 const FlatListNotas = () => {
-  const notaAluno = {
-    nome: '',
-    numero: '',
-    nota: '',
-    idAluno: ''
-  }
-
   const alunos: any[] = []
   const flatListRef = useRef<FlatList>(null);
   const textInputRefs = useRef<TextInput[]>([]);
@@ -34,11 +27,10 @@ const FlatListNotas = () => {
     .doc(idClasseSelec).collection('ListaAlunos')
 
   const onChangeNota = (item: ItemData, text: string) => {
-    notaAluno.nome = item.nome;
-    notaAluno.numero = item.numero
-    notaAluno.nota = text
-    notaAluno.idAluno = item.idAluno
-    listaNotas[parseInt(item.numero) - 1].nota = text
+    const index = listaNotas.findIndex((el: any) => el.idAluno === item.idAluno);
+    console.log(index);
+    
+    listaNotas[index].nota = text
     setTextNota(text)
     setIdNota(item.idAluno)
   }
@@ -120,11 +112,13 @@ const FlatListNotas = () => {
 
     const nextItem = (itemId: any, itemNumero: any, itemNota: any) => {
       const index = listaNotas.findIndex((item: any) => item.idAluno === itemId);
-      const numAluno = listaNotas[index].numero
+      const numProxAluno = listaNotas[index+1]?.numero
+      console.log('numAluno',  numProxAluno);
+      
       setTimeout(() => {
         if (index !== -1 && flatListRef.current && listaNotas[index + 1] != null) {
-          textInputRefs.current[numAluno+1]?.focus()
-          const sizeText = listaNotas[index + 1].nota.length
+          textInputRefs.current[numProxAluno]?.focus()
+          const sizeText = listaNotas[numProxAluno]?.nota.length||0
           setSelection({ start: sizeText || 0, end: sizeText || 0 })
         }
       }, 300)
