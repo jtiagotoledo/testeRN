@@ -66,18 +66,18 @@ const FlatListFrequencia = () => {
             setFlagLoadFrequencia('carregado');
           }
         });
-        setListaFrequencia(alunos)
       }
     }).catch((erro) => {
       console.error(erro);
     })
-
+    setListaFrequencia(alunos)
   }, [idClasseSelec, dataSelec, recarregarFrequencia]);
 
   const onPressItemFreq = (item: any) => {
-    let statusFrequencia = item.frequencia == 'P' ? 'A' : 'P'
-    listaFrequencia[parseInt(item.numero) - 1].frequencia = statusFrequencia
     const idAluno = item.idAluno;
+    const index = listaFrequencia.findIndex((el: any) => el.idAluno === idAluno);
+    let statusFrequencia = item.frequencia == 'P' ? 'A' : 'P'
+    listaFrequencia[index].frequencia = statusFrequencia
     setSelectedId(item.idAluno);
     setNumAlunoSelec(item.numero.toString());
 

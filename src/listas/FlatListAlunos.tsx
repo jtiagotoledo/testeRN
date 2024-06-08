@@ -51,6 +51,7 @@ const FlatListAlunos = () => {
 
   useEffect(() => {
     const data = async () => {
+      setRecarregarAlunos('')
       setflagLoadAlunos('carregando');
       listaAlunosRef.orderBy('numero')
         .get().then((snapshot) => {

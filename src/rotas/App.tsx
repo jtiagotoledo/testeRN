@@ -14,10 +14,8 @@ const Tab = createBottomTabNavigator();
 
 const App = ({ navigation }: any) => {
 
-  const { idUsuario, setAbaSelec, setFlagLoadAbas } = useContext(Context)
-
-  const { idClasseSelec, idPeriodoSelec, setIdPeriodoSelec, setDataSelec,
-    setIdClasseSelec } = useContext(Context);
+  const { idUsuario, setAbaSelec, setFlagLoadAbas,idClasseSelec, idPeriodoSelec, setIdPeriodoSelec, setDataSelec,
+    setIdClasseSelec, setRecarregarAlunos } = useContext(Context);
 
   const estadosAppRef = firestore().collection(idUsuario).doc('EstadosApp')
 
@@ -39,6 +37,7 @@ const App = ({ navigation }: any) => {
 
   const cliqueClasses = () => {
     //setar o nome da aba selecionada
+    setRecarregarAlunos('recarregar')
     setFlagLoadAbas('Classes')
     estadosAppRef.update({
       aba: 'Classes'
