@@ -21,11 +21,11 @@ type ItemProps = {
 const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
   <View style={styles.containerItem}>
     <View style={[styles.item, styles.nome, {flexDirection:'row'}]}>
-      <View style={{ flex: 1 , justifyContent:'center'}}>
-        <Text style={[styles.title]}>{item.numero}</Text>
+      <View style={{ flex: 1 , justifyContent:'center', alignItems:'center'}}>
+        <Text style={[styles.titleNum]}>{item.numero}</Text>
       </View>
       <View style={{ flex: 10, justifyContent:'center' }}>
-        <Text style={[styles.title]}>{item.nome}</Text>
+        <Text style={[styles.titleNome]}>{item.nome}</Text>
       </View>
       <TouchableOpacity onPress={onPress} style={[styles.item]}>
         <Text style={[styles.titleFrequencia]}>{item.frequencia}</Text>
@@ -174,16 +174,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   item: {
-    padding: 4,
+    padding: 2,
     marginVertical: 2,
     marginHorizontal: 8,
+    paddingLeft:16,
     backgroundColor: Globais.corTerciaria,
   },
-  title: {
+  titleNum: {
     fontSize: 20,
   },
-  titleFrequencia: {
+  titleNome: {
     fontSize: 20,
+    paddingLeft:16
+  },
+  titleFrequencia: {
+    padding:8,
+    fontSize: 20,
+    backgroundColor:Globais.corSecundaria,
+    color:Globais.corTextoClaro
   },
   nome: {
     flex: 3
