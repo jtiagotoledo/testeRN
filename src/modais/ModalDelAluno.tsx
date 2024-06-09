@@ -22,7 +22,7 @@ const ModalDelAluno = () => {
     setFlagLongPressAluno(false)
     setNumAlunoSelec('')
     setSelectedIdAluno('')
-    setRecarregarAlunos('recarregar')
+    setRecarregarAlunos(idUsuario)
 
     //deletar aluno da lista de frequencias
     firestore().collection(idUsuario)

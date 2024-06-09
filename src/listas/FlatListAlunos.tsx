@@ -31,9 +31,9 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
         <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
       </View>
     </View>
-    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-      <Text>Média: {item.mediaNotas || ' ...'}</Text>
-      <Text>%Freq: {item.porcentFreq || ' ...'}</Text>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',paddingTop:4 }}>
+      <Text style={{ fontSize: 12}}>Média: {item.mediaNotas || ' ...'}</Text>
+      <Text style={{ fontSize: 12}}>%Freq: {item.porcentFreq || ' ...'}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -50,8 +50,8 @@ const FlatListAlunos = () => {
     .doc(idClasseSelec).collection('ListaAlunos')
 
   useEffect(() => {
+    console.log('Entrou lista alunos');
     const data = async () => {
-      setRecarregarAlunos('')
       setflagLoadAlunos('carregando');
       listaAlunosRef.orderBy('numero')
         .get().then((snapshot) => {
@@ -101,14 +101,13 @@ const FlatListAlunos = () => {
         }).catch((erro) => {
           console.error(erro);
         })
-        console.log('alunos');
       }
       data()
       setListaAlunos(alunos)
   }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]);
 
   const onPressItem = (item: any) => {
-    setSelectedIdAluno(item.idAluno)
+    selectedIdAluno===''||selectedIdAluno!==item.idAluno?setSelectedIdAluno(item.idAluno):setSelectedIdAluno('')
     setIdAlunoSelec(item.idAluno)
     setNomeAlunoSelec(item.nome)
     setNumAlunoSelec(item.numero.toString())

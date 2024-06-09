@@ -52,7 +52,7 @@ const ModalEditAluno = () => {
           })
         setValueNomeAluno('')
         setValueNumAluno('')
-        setRecarregarAlunos('recarregar')
+        setRecarregarAlunos(idUsuario)
         setAlunoInativo(false)
         setModalEditAluno(!modalEditAluno)
       } else {
@@ -106,7 +106,7 @@ const ModalEditAluno = () => {
             </TouchableOpacity>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => [onPressEditAluno(), setRecarregarAlunos('recarregarAlunos'), setFlagLongPressAluno(false)]}>
+              onPress={() => [onPressEditAluno(), setFlagLongPressAluno(false)]}>
               <Text style={styles.textStyle}>Editar</Text>
             </Pressable>
           </View>

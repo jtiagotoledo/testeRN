@@ -37,7 +37,6 @@ const App = ({ navigation }: any) => {
 
   const cliqueClasses = () => {
     //setar o nome da aba selecionada
-    setRecarregarAlunos('recarregar')
     setFlagLoadAbas('Classes')
     estadosAppRef.update({
       aba: 'Classes'
