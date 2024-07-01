@@ -49,8 +49,22 @@ const FlatListAlunos = () => {
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('ListaAlunos')
 
-  useEffect(() => {
-    console.log('Entrou lista alunos');
+  useEffect(()=>{
+    console.log('entrouTeste');
+    listaAlunosRef.orderBy('numero').
+    onSnapshot(docSnapshot => {
+      const alunos:any = [];
+      docSnapshot.forEach(item=>{
+        alunos.push({...item.data()})
+        console.log('item encontrado:',item.data());
+      })
+    setListaAlunos(alunos)
+    }, err => {
+      console.log(`Encountered error: ${err}`);
+    });
+  },[idClasseSelec,idClasseSelec])
+
+  /* useEffect(() => {
     const data = async () => {
       setflagLoadAlunos('carregando');
       listaAlunosRef.orderBy('numero')
@@ -104,7 +118,7 @@ const FlatListAlunos = () => {
       }
       data()
       setListaAlunos(alunos)
-  }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]);
+  }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]); */
 
   const onPressItem = (item: any) => {
     selectedIdAluno===''||selectedIdAluno!==item.idAluno?setSelectedIdAluno(item.idAluno):setSelectedIdAluno('')
@@ -146,7 +160,7 @@ const FlatListAlunos = () => {
 
   const renderCarregamento = () => {
     if (idClasseSelec != '') {
-      switch (flagLoadAlunos) {
+      /* switch (flagLoadAlunos) {
         case 'vazio':
           return (
             <View>
@@ -159,7 +173,7 @@ const FlatListAlunos = () => {
               <Text style={styles.textLoad}>Carregando...</Text>
             </View>
           )
-        case 'carregado':
+        case 'carregado': */
           return (
             <FlatList
               data={listaAlunos}
@@ -168,7 +182,7 @@ const FlatListAlunos = () => {
               extraData={selectedIdAluno}
             />
           )
-      }
+      
     }
   }
 
