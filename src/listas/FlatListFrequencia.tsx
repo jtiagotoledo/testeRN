@@ -20,11 +20,11 @@ type ItemProps = {
 
 const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
   <View style={styles.containerItem}>
-    <View style={[styles.item, styles.nome, {flexDirection:'row'}]}>
-      <View style={{ flex: 1 , justifyContent:'center', alignItems:'center'}}>
+    <View style={[styles.item, styles.nome, { flexDirection: 'row' }]}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={[styles.titleNum]}>{item.numero}</Text>
       </View>
-      <View style={{ flex: 10, justifyContent:'center' }}>
+      <View style={{ flex: 10, justifyContent: 'center' }}>
         <Text style={[styles.titleNome]}>{item.nome}</Text>
       </View>
       <TouchableOpacity onPress={onPress} style={[styles.item]}>
@@ -36,7 +36,6 @@ const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
 );
 
 const FlatListFrequencia = () => {
-  const alunos: any[] = []
   const [selectedId, setSelectedId] = useState<string>();
   const { idPeriodoSelec, idClasseSelec, setNumAlunoSelec, recarregarFrequencia,
     dataSelec, flagLoadFrequencia, setFlagLoadFrequencia, setRecarregarFrequencia,
@@ -47,6 +46,26 @@ const FlatListFrequencia = () => {
     .doc(idClasseSelec).collection('ListaAlunos')
 
   useEffect(() => {
+    listaAlunosRef.orderBy('numero').
+      onSnapshot(docSnapshot => {
+        const alunos: any[] = []
+        docSnapshot.forEach((docSnapshot) => {
+          let frequencias = docSnapshot.data().frequencias
+          if (dataSelec != '') {
+            let idx = frequencias.findIndex((item: any) => item.data == dataSelec)
+            if (idx != -1) {
+              let frequencia = frequencias[idx].freq
+              alunos.push({ ...docSnapshot.data(), frequencia });
+            }
+          }
+        });
+        setListaFrequencia(alunos)
+      }, err => {
+        console.log(`Encountered error: ${err}`);
+      });
+  }, [idPeriodoSelec, idClasseSelec,dataSelec])
+
+  /* useEffect(() => {
     setFlagLoadFrequencia('carregando')
     listaAlunosRef.orderBy('numero').get().then((snapshot) => {
       if (snapshot.empty) {
@@ -72,7 +91,7 @@ const FlatListFrequencia = () => {
     })
     setListaFrequencia(alunos)
   }, [idClasseSelec, dataSelec, recarregarFrequencia]);
-
+ */
   const onPressItemFreq = (item: any) => {
     const idAluno = item.idAluno;
     const index = listaFrequencia.findIndex((el: any) => el.idAluno === idAluno);
@@ -177,7 +196,7 @@ const styles = StyleSheet.create({
     padding: 2,
     marginVertical: 2,
     marginHorizontal: 8,
-    paddingLeft:16,
+    paddingLeft: 16,
     backgroundColor: Globais.corTerciaria,
   },
   titleNum: {
@@ -185,13 +204,13 @@ const styles = StyleSheet.create({
   },
   titleNome: {
     fontSize: 20,
-    paddingLeft:16
+    paddingLeft: 16
   },
   titleFrequencia: {
-    padding:8,
+    padding: 8,
     fontSize: 20,
-    backgroundColor:Globais.corSecundaria,
-    color:Globais.corTextoClaro
+    backgroundColor: Globais.corSecundaria,
+    color: Globais.corTextoClaro
   },
   nome: {
     flex: 3

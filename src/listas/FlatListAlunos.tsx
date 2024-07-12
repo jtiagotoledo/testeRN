@@ -31,9 +31,9 @@ const Item = ({ item, onPress, onLongPress, backgroundColor, textColor }: ItemPr
         <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
       </View>
     </View>
-    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',paddingTop:4 }}>
-      <Text style={{ fontSize: 12}}>Média: {item.mediaNotas || ' ...'}</Text>
-      <Text style={{ fontSize: 12}}>%Freq: {item.porcentFreq || ' ...'}</Text>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingTop: 4 }}>
+      <Text style={{ fontSize: 12 }}>Média: {item.mediaNotas || ' ...'}</Text>
+      <Text style={{ fontSize: 12 }}>%Freq: {item.porcentFreq || ' ...'}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -49,20 +49,19 @@ const FlatListAlunos = () => {
     .doc(idPeriodoSelec).collection('Classes')
     .doc(idClasseSelec).collection('ListaAlunos')
 
-  useEffect(()=>{
-    console.log('entrouTeste');
+  useEffect(() => {
     listaAlunosRef.orderBy('numero').
-    onSnapshot(docSnapshot => {
-      const alunos:any = [];
-      docSnapshot.forEach(item=>{
-        alunos.push({...item.data()})
-        console.log('item encontrado:',item.data());
-      })
-    setListaAlunos(alunos)
-    }, err => {
-      console.log(`Encountered error: ${err}`);
-    });
-  },[idClasseSelec,idClasseSelec])
+      onSnapshot(docSnapshot => {
+        const alunos: any = [];
+        docSnapshot.forEach(item => {
+          alunos.push({ ...item.data() })
+          console.log('item encontrado:', item.data());
+        })
+        setListaAlunos(alunos)
+      }, err => {
+        console.log(`Encountered error: ${err}`);
+      });
+  }, [idPeriodoSelec, idClasseSelec])
 
   /* useEffect(() => {
     const data = async () => {
@@ -121,7 +120,7 @@ const FlatListAlunos = () => {
   }, [idPeriodoSelec, idClasseSelec, recarregarAlunos]); */
 
   const onPressItem = (item: any) => {
-    selectedIdAluno===''||selectedIdAluno!==item.idAluno?setSelectedIdAluno(item.idAluno):setSelectedIdAluno('')
+    selectedIdAluno === '' || selectedIdAluno !== item.idAluno ? setSelectedIdAluno(item.idAluno) : setSelectedIdAluno('')
     setIdAlunoSelec(item.idAluno)
     setNomeAlunoSelec(item.nome)
     setNumAlunoSelec(item.numero.toString())
@@ -174,15 +173,15 @@ const FlatListAlunos = () => {
             </View>
           )
         case 'carregado': */
-          return (
-            <FlatList
-              data={listaAlunos}
-              renderItem={renderItem}
-              keyExtractor={item => item.idAluno}
-              extraData={selectedIdAluno}
-            />
-          )
-      
+      return (
+        <FlatList
+          data={listaAlunos}
+          renderItem={renderItem}
+          keyExtractor={item => item.idAluno}
+          extraData={selectedIdAluno}
+        />
+      )
+
     }
   }
 
